@@ -746,6 +746,115 @@
       .gallery-grid { columns: 1; }
       .nav-cell.identity { display: none; }
     }
+
+    /* ===== PROJECT MODAL ===== */
+    .proj-overlay {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(10,10,10,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    .proj-overlay.open { opacity: 1; pointer-events: all; }
+
+    .proj-modal {
+      background: #fff;
+      width: min(780px, 94vw);
+      max-height: 90vh;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transform: translateY(24px);
+      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+    }
+    .proj-overlay.open .proj-modal { transform: translateY(0); }
+
+    .proj-modal-scroll { overflow-y: auto; flex: 1; }
+
+    /* cover */
+    .proj-cover {
+      height: 220px;
+      background: linear-gradient(145deg,#0f0f23 0%,#1a1a40 60%,#2d1b69 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .proj-close {
+      position: absolute; top: 14px; right: 14px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px; line-height: 1;
+      transition: background 0.18s;
+      z-index: 10;
+    }
+    .proj-close:hover { background: rgba(255,255,255,0.28); }
+
+    /* body */
+    .proj-body { padding: 32px 36px 48px; }
+
+    .proj-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #6B5CE7; margin-bottom: 10px;
+    }
+    .proj-title {
+      font-size: 22px; font-weight: 800; line-height: 1.3;
+      letter-spacing: -0.3px; color: #0a0a0a; margin-bottom: 18px;
+    }
+    .proj-oneliner {
+      font-size: 13px; line-height: 1.65; color: #444;
+      background: #f7f6ff; border-left: 3px solid #6B5CE7;
+      padding: 12px 16px; border-radius: 0 2px 2px 0; margin-bottom: 24px;
+    }
+
+    /* meta chips */
+    .proj-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .proj-chip {
+      display: flex; flex-direction: column; gap: 2px;
+      background: #f5f5f5; border-radius: 2px; padding: 7px 12px;
+    }
+    .proj-chip-label { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; }
+    .proj-chip-value { font-size: 12px; font-weight: 700; color: #1a1a1a; }
+
+    /* section */
+    .proj-section-title {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #999; margin-bottom: 12px; margin-top: 28px;
+    }
+    .proj-table { width: 100%; border-collapse: collapse; }
+    .proj-table tr { border-bottom: 1px solid #f0f0f0; }
+    .proj-table tr:last-child { border-bottom: none; }
+    .proj-table td { padding: 10px 0; font-size: 12.5px; line-height: 1.6; vertical-align: top; }
+    .proj-table td:first-child {
+      width: 110px; color: #999; font-weight: 600; padding-right: 16px; flex-shrink: 0;
+    }
+    .proj-table td:last-child { color: #1a1a1a; }
+
+    /* ability grid */
+    .proj-abilities { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .proj-ability-item {
+      background: #faf9ff; border-radius: 2px; padding: 12px 14px;
+      border-left: 3px solid #ede9fe;
+    }
+    .proj-ability-name { font-size: 11px; font-weight: 800; color: #6B5CE7; margin-bottom: 4px; }
+    .proj-ability-desc { font-size: 11.5px; color: #444; line-height: 1.55; }
+
+    /* quote */
+    .proj-quote {
+      margin-top: 28px; padding: 18px 20px;
+      background: #0a0a0a; border-radius: 2px; color: #fff;
+      font-size: 13px; line-height: 1.7;
+    }
+    .proj-quote-label { font-size: 9px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+
+    .proj-method {
+      margin-top: 20px; padding: 14px 16px;
+      background: #f5f5f5; border-radius: 2px;
+      font-size: 12px; line-height: 1.65; color: #444;
+    }
+    .proj-method strong { color: #1a1a1a; }
   </style>
 </head>
 <body>
@@ -994,7 +1103,7 @@
   </div>
 
   <!-- Card 4 — IP页滑动热区优化 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索">
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openProjectModal('ip-hotzone')" style="cursor:pointer">
     <!-- 封面：模拟 IP 页滑动手势场景 -->
     <div class="card-thumb" style="height:220px;background:linear-gradient(145deg,#0f0f23 0%,#1a1a40 60%,#2d1b69 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
       <!-- 背景光晕 -->
@@ -1104,6 +1213,99 @@
   <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">SaaS 数据看板 · 信息可视化设计</div><div class="list-desc">帮助运营团队实时监控核心指标，降低决策链路中的信息摩擦。</div><div class="list-tags"><span class="list-tag">0-1产品</span><span class="list-tag">UX</span></div></div></div>
   <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">品牌官网 · 创意交互体验</div><div class="list-desc">结合 GSAP 与 CSS 动画，打造沉浸式品牌叙事页面。</div><div class="list-tags"><span class="list-tag">网站</span><span class="list-tag">动效</span></div></div></div>
   <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">用户增长漏斗 · 留存数据拆解</div><div class="list-desc">结合埋点数据与用户访谈，定位关键流失节点并提出改进方案。</div><div class="list-tags"><span class="list-tag">分析</span></div></div></div>
+</div>
+
+<!-- ===== PROJECT MODAL: IP热区 ===== -->
+<div class="proj-overlay" id="projOverlay" onclick="handleOverlayClick(event)">
+  <div class="proj-modal" id="projModal">
+    <!-- Cover -->
+    <div class="proj-cover">
+      <div style="position:absolute;width:240px;height:240px;background:radial-gradient(circle,rgba(107,92,231,0.4) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div style="position:relative;display:flex;gap:10px;align-items:center;">
+        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(8px) rotate(-4deg);flex-shrink:0;"></div>
+        <div style="width:88px;height:118px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:12px;flex-shrink:0;position:relative;z-index:1;box-shadow:0 8px 32px rgba(107,92,231,0.4);">
+          <svg width="40" height="16" viewBox="0 0 40 16" fill="none" style="margin-bottom:6px">
+            <path d="M3 8 L17 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M14 5 L17 8 L14 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M37 8 L23 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M26 5 L23 8 L26 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div style="font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;">滑动切换 IP</div>
+        </div>
+        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(-8px) rotate(4deg);flex-shrink:0;"></div>
+      </div>
+      <div style="position:absolute;bottom:14px;left:16px;background:rgba(107,92,231,0.75);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
+      <button class="proj-close" onclick="closeProjectModal()">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div class="proj-modal-scroll">
+      <div class="proj-body">
+        <div class="proj-eyebrow">bilibili 实战经验 · 体验探索</div>
+        <div class="proj-title">IP页滑动热区重定义 · 手势引导设计</div>
+
+        <div class="proj-oneliner">
+          这个需求证明：我能基于业务目标调整交互优先级，而不是只按传统交互习惯做设计。
+        </div>
+
+        <!-- Meta -->
+        <div class="proj-meta">
+          <div class="proj-chip"><span class="proj-chip-label">归类</span><span class="proj-chip-value">策略类｜结构改版</span></div>
+          <div class="proj-chip"><span class="proj-chip-label">结论</span><span class="proj-chip-value">增长｜扩量</span></div>
+          <div class="proj-chip"><span class="proj-chip-label">状态</span><span class="proj-chip-value">✅ 已上线</span></div>
+          <div class="proj-chip"><span class="proj-chip-label">上线时间</span><span class="proj-chip-value">2026-02-26</span></div>
+          <div class="proj-chip"><span class="proj-chip-label">交互周期</span><span class="proj-chip-value">1d</span></div>
+        </div>
+
+        <!-- 项目信息 -->
+        <div class="proj-section-title">项目背景</div>
+        <table class="proj-table">
+          <tr><td>需求背景</td><td>之前发现左右滑动的 Tab 价值不高，决定将左右滑动改为切换 IP，核心是由业务价值驱动。</td></tr>
+          <tr><td>线上问题</td><td>左右滑动的 Tab 内容数量少、价值不高，虽然最符合交互惯性，但对业务曝光贡献有限。</td></tr>
+          <tr><td>设计目标</td><td>将左右滑动的热区重新定义为切换 IP 内容页，增加 IP 页的曝光机会。</td></tr>
+          <tr><td>设计策略</td><td>调整滑动热区范围，将触发行为从低价值 Tab 浏览替换为 IP 内容切换，并增加手势引导提升可发现性。</td></tr>
+          <tr><td>执行依据</td><td>业务诉求优先，后续以点击率、IP 页使用率验证方案是否有效。</td></tr>
+        </table>
+
+        <!-- 能力体现 -->
+        <div class="proj-section-title">能力体现</div>
+        <div class="proj-abilities">
+          <div class="proj-ability-item">
+            <div class="proj-ability-name">业务判断</div>
+            <div class="proj-ability-desc">判断原左右滑动 Tab 价值低，将滑动行为改为更有业务价值的 IP 切换。</div>
+          </div>
+          <div class="proj-ability-item">
+            <div class="proj-ability-name">体验优化</div>
+            <div class="proj-ability-desc">通过扩大 / 调整滑动热区，让用户更容易触发有效操作。</div>
+          </div>
+          <div class="proj-ability-item">
+            <div class="proj-ability-name">用户引导</div>
+            <div class="proj-ability-desc">增加滑动手势提示，降低用户理解成本，提升功能可发现性。</div>
+          </div>
+          <div class="proj-ability-item">
+            <div class="proj-ability-name">曝光增长</div>
+            <div class="proj-ability-desc">通过交互调整提升 IP 页曝光机会，以设计手段服务业务目标。</div>
+          </div>
+          <div class="proj-ability-item" style="grid-column: span 2;">
+            <div class="proj-ability-name">数据意识</div>
+            <div class="proj-ability-desc">后续可用点击率、使用率验证方案是否有效，形成设计→数据闭环。</div>
+          </div>
+        </div>
+
+        <!-- 作品集表达 -->
+        <div class="proj-section-title">作品集表达</div>
+        <div class="proj-quote">
+          <div class="proj-quote-label">Portfolio Summary</div>
+          针对 IP 页原左右滑动 Tab 使用价值较低的问题，我基于业务曝光目标重新定义滑动热区，将滑动行为从低价值 Tab 浏览转化为 IP 内容切换，并增加手势引导提升操作可发现性。该方案属于低成本体验优化，可通过点击率、使用率和 IP 曝光量验证效果。
+        </div>
+
+        <!-- 可沉淀方法 -->
+        <div class="proj-method">
+          <strong>💡 低价值交互热区再利用：</strong>当某个操作符合交互习惯但业务价值较低时，可以评估是否将其替换为更高价值行为，并通过轻量引导帮助用户理解。
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1277,6 +1479,29 @@
       document.querySelectorAll('.identity-tag').forEach(t => t.classList.remove('active'));
       tag.classList.add('active');
     });
+  });
+
+  // ===== PROJECT MODAL =====
+  function openProjectModal(id) {
+    const overlay = document.getElementById('projOverlay');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // scroll modal to top
+    const scroll = overlay.querySelector('.proj-modal-scroll');
+    if (scroll) scroll.scrollTop = 0;
+  }
+
+  function closeProjectModal() {
+    document.getElementById('projOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('projOverlay')) closeProjectModal();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeProjectModal();
   });
 </script>
 
