@@ -969,7 +969,62 @@
     </div>
   </div>
 
-  <!-- Card 4 -->
+  <!-- Card 4 — IP页滑动热区优化 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索">
+    <!-- 封面：模拟 IP 页滑动手势场景 -->
+    <div class="card-thumb" style="height:220px;background:linear-gradient(145deg,#0f0f23 0%,#1a1a40 60%,#2d1b69 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <!-- 背景光晕 -->
+      <div style="position:absolute;width:180px;height:180px;background:radial-gradient(circle,rgba(107,92,231,0.35) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <!-- IP 页卡片示意 -->
+      <div style="position:relative;display:flex;gap:10px;align-items:center;">
+        <!-- 左侧卡片（偏出） -->
+        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(8px) rotate(-4deg);flex-shrink:0;"></div>
+        <!-- 主卡片 -->
+        <div style="width:88px;height:118px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:12px;flex-shrink:0;position:relative;z-index:1;box-shadow:0 8px 32px rgba(107,92,231,0.4);">
+          <!-- 手势箭头 -->
+          <svg width="40" height="16" viewBox="0 0 40 16" fill="none" style="margin-bottom:6px">
+            <path d="M3 8 L17 8" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M14 5 L17 8 L14 11" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M37 8 L23 8" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M26 5 L23 8 L26 11" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div style="font-size:9px;color:rgba(255,255,255,0.45);letter-spacing:0.06em;">滑动切换 IP</div>
+        </div>
+        <!-- 右侧卡片（偏出） -->
+        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(-8px) rotate(4deg);flex-shrink:0;"></div>
+      </div>
+      <!-- 底部标签 -->
+      <div style="position:absolute;bottom:12px;left:14px;background:rgba(107,92,231,0.7);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
+    </div>
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="card-tag">交互策略</span>
+        <span class="card-tag">体验探索</span>
+        <span class="card-tag">已上线</span>
+      </div>
+      <div class="card-title">IP页滑动热区重定义 · 手势引导设计</div>
+      <div class="card-desc">识别左右滑动 Tab 的低价值使用，将热区重定义为切换 IP 内容页，以业务曝光目标驱动交互决策，并增加手势引导提升可发现性。</div>
+      <!-- 亮点数据行 -->
+      <div style="display:flex;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span style="font-size:11px;font-weight:800;color:#6B5CE7;">策略类</span>
+          <span style="font-size:9.5px;color:var(--text-light);">结构改版</span>
+        </div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span style="font-size:11px;font-weight:800;color:#1a1a1a;">增长｜扩量</span>
+          <span style="font-size:9.5px;color:var(--text-light);">结论方向</span>
+        </div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span style="font-size:11px;font-weight:800;color:#1a1a1a;">1d</span>
+          <span style="font-size:9.5px;color:var(--text-light);">交互周期</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4 (original) -->
   <div class="card" data-type="all bili" data-subtype="设计系统搭建">
     <div class="card-thumb ph" style="height:180px"></div>
     <div class="card-body">
