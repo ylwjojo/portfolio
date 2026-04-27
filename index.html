@@ -775,7 +775,7 @@
     .proj-topbar {
       height: 48px; flex-shrink: 0;
       display: flex; align-items: center;
-      padding: 0 16px 0 8px;
+      padding: 0 24px;
       border-bottom: 1px solid var(--border);
       background: #fff;
       z-index: 10;
@@ -790,69 +790,64 @@
       white-space: nowrap;
     }
     .proj-back-btn:hover { background: var(--tag-bg); color: var(--text); }
-    .proj-topbar-crumb {
-      flex: 1; text-align: center;
-      font-size: 11.5px; color: var(--text-light);
-      letter-spacing: 0.02em;
-    }
-    .proj-close-btn {
-      width: 32px; height: 32px; border-radius: 6px;
-      background: none; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted); font-size: 16px; line-height: 1;
-      transition: background 0.15s;
-      flex-shrink: 0;
-    }
-    .proj-close-btn:hover { background: var(--tag-bg); }
 
-    /* ── Cover hero ── */
+    /* ── Cover hero (inside center column) ── */
     .proj-cover-hero {
-      height: 240px; flex-shrink: 0;
+      width: 100%; height: 280px; flex-shrink: 0;
       background: linear-gradient(145deg,#0f0f23 0%,#1a1a40 60%,#2d1b69 100%);
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* ── Article wrap: sidebar + content ── */
+    /* ── 3-column article wrap ── */
     .proj-article-wrap {
-      flex: 1; display: flex; overflow: hidden; min-height: 0;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 140px 1fr 200px;
+      overflow: hidden;
+      min-height: 0;
     }
 
-    /* ── Left sidebar ── */
+    /* ── Left: TOC column ── */
     .proj-sidebar {
-      width: 210px; flex-shrink: 0;
       overflow-y: auto;
       border-right: 1px solid var(--border);
-      padding: 24px 14px 40px;
+      padding: 28px 14px 40px;
       background: #fafafa;
     }
-    .proj-sidebar-heading {
-      font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #bbb;
-      margin-bottom: 8px;
-    }
-    .proj-toc-nav { display: flex; flex-direction: column; gap: 1px; margin-bottom: 20px; }
+    .proj-toc-nav { display: flex; flex-direction: column; gap: 1px; }
     .proj-toc-link {
       display: block; padding: 6px 10px;
-      font-size: 12.5px; color: var(--text-muted);
+      font-size: 13px; color: var(--text-muted);
       text-decoration: none; border-radius: 4px;
       cursor: pointer; transition: background 0.15s, color 0.15s;
     }
     .proj-toc-link:hover { background: #f0eeff; color: #6B5CE7; }
-    .proj-toc-link.toc-active { background: #ede9fe; color: #6B5CE7; font-weight: 600; }
-    .proj-sidebar-sep { height: 1px; background: var(--border); margin: 16px 0; }
-    .proj-sidebar-meta { display: flex; flex-direction: column; gap: 12px; }
-    .proj-smeta-label {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #ccc; margin-bottom: 2px;
-    }
-    .proj-smeta-value { font-size: 12px; font-weight: 600; color: #444; }
+    .proj-toc-link.toc-active { color: var(--text); font-weight: 600; }
 
-    /* ── Right scrollable content ── */
-    .proj-article-content { flex: 1; overflow-y: auto; }
+    /* ── Center: scrollable content ── */
+    .proj-article-content { overflow-y: auto; }
 
     /* Article body padding */
-    .proj-body { padding: 32px 44px 60px; max-width: 740px; }
+    .proj-body { padding: 32px 40px 60px; }
+
+    /* ── Right: metadata column ── */
+    .proj-right-col {
+      overflow-y: auto;
+      border-left: 1px solid var(--border);
+      padding: 28px 20px 40px;
+      background: #fff;
+    }
+    .proj-right-meta-item { margin-bottom: 28px; }
+    .proj-right-meta-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #bbb;
+      margin-bottom: 6px;
+    }
+    .proj-right-meta-value {
+      font-size: 16px; font-weight: 700; color: #1a1a1a;
+      line-height: 1.45;
+    }
 
     .proj-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
@@ -922,7 +917,9 @@
     .proj-method strong { color: #1a1a1a; }
 
     @media (max-width: 768px) {
+      .proj-article-wrap { grid-template-columns: 1fr; }
       .proj-sidebar { display: none; }
+      .proj-right-col { display: none; }
       .proj-body { padding: 20px 20px 40px; }
       .proj-title { font-size: 20px; }
       .proj-abilities { grid-template-columns: 1fr; }
@@ -1291,77 +1288,48 @@
 <div class="proj-overlay" id="projOverlay">
   <div class="proj-modal" id="projModal">
 
-    <!-- Top bar -->
+    <!-- Top bar: back button only -->
     <div class="proj-topbar">
       <button class="proj-back-btn" onclick="closeProjectModal()">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         返回
       </button>
-      <div class="proj-topbar-crumb">bilibili 实战经验 · 体验探索</div>
-      <button class="proj-close-btn" onclick="closeProjectModal()">✕</button>
     </div>
 
-    <!-- Cover hero — full width -->
-    <div class="proj-cover-hero">
-      <div style="position:absolute;width:320px;height:320px;background:radial-gradient(circle,rgba(107,92,231,0.38) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-      <div style="position:relative;display:flex;gap:12px;align-items:center;">
-        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(8px) rotate(-4deg);flex-shrink:0;"></div>
-        <div style="width:92px;height:122px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14px;flex-shrink:0;position:relative;z-index:1;box-shadow:0 10px 40px rgba(107,92,231,0.45);">
-          <svg width="40" height="16" viewBox="0 0 40 16" fill="none" style="margin-bottom:7px">
-            <path d="M3 8 L17 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M14 5 L17 8 L14 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M37 8 L23 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M26 5 L23 8 L26 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div style="font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;">滑动切换 IP</div>
-        </div>
-        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(-8px) rotate(4deg);flex-shrink:0;"></div>
-      </div>
-      <div style="position:absolute;bottom:18px;left:20px;background:rgba(107,92,231,0.75);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
-    </div>
-
-    <!-- Article wrap: sidebar + main content -->
+    <!-- 3-column article wrap -->
     <div class="proj-article-wrap">
 
-      <!-- Left sidebar -->
+      <!-- Col 1: TOC -->
       <nav class="proj-sidebar">
-        <div class="proj-sidebar-heading">目录</div>
         <div class="proj-toc-nav" id="projTocNav">
           <a class="proj-toc-link toc-active" onclick="scrollToSection('proj-sec-header', this)">概览</a>
           <a class="proj-toc-link" onclick="scrollToSection('proj-sec-bg', this)">项目背景</a>
           <a class="proj-toc-link" onclick="scrollToSection('proj-sec-abilities', this)">能力体现</a>
           <a class="proj-toc-link" onclick="scrollToSection('proj-sec-summary', this)">作品集总结</a>
         </div>
-
-        <div class="proj-sidebar-sep"></div>
-
-        <div class="proj-sidebar-heading">项目信息</div>
-        <div class="proj-sidebar-meta">
-          <div>
-            <div class="proj-smeta-label">归类</div>
-            <div class="proj-smeta-value">策略类 · 结构改版</div>
-          </div>
-          <div>
-            <div class="proj-smeta-label">结论</div>
-            <div class="proj-smeta-value">增长 · 扩量</div>
-          </div>
-          <div>
-            <div class="proj-smeta-label">状态</div>
-            <div class="proj-smeta-value">✅ 已上线</div>
-          </div>
-          <div>
-            <div class="proj-smeta-label">上线时间</div>
-            <div class="proj-smeta-value">2026-02-26</div>
-          </div>
-          <div>
-            <div class="proj-smeta-label">交互周期</div>
-            <div class="proj-smeta-value">1d</div>
-          </div>
-        </div>
       </nav>
 
-      <!-- Right scrollable article content -->
+      <!-- Col 2: scrollable content -->
       <div class="proj-article-content" id="projArticleContent">
+
+        <!-- Cover hero inside center column -->
+        <div class="proj-cover-hero">
+          <div style="position:absolute;width:320px;height:320px;background:radial-gradient(circle,rgba(107,92,231,0.38) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+          <div style="position:relative;display:flex;gap:12px;align-items:center;">
+            <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(8px) rotate(-4deg);flex-shrink:0;"></div>
+            <div style="width:92px;height:122px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14px;flex-shrink:0;position:relative;z-index:1;box-shadow:0 10px 40px rgba(107,92,231,0.45);">
+              <svg width="40" height="16" viewBox="0 0 40 16" fill="none" style="margin-bottom:7px">
+                <path d="M3 8 L17 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M14 5 L17 8 L14 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M37 8 L23 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M26 5 L23 8 L26 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div style="font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;">滑动切换 IP</div>
+            </div>
+            <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(-8px) rotate(4deg);flex-shrink:0;"></div>
+          </div>
+          <div style="position:absolute;bottom:18px;left:20px;background:rgba(107,92,231,0.75);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
+        </div>
         <div class="proj-body">
 
           <!-- 概览 -->
@@ -1457,6 +1425,26 @@
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- Col 3: right metadata -->
+      <div class="proj-right-col">
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">需求类型</div>
+          <div class="proj-right-meta-value">有存量数据与用户<br>优化型</div>
+        </div>
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">项目周期</div>
+          <div class="proj-right-meta-value">1d</div>
+        </div>
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">结论</div>
+          <div class="proj-right-meta-value">增长 · 扩量</div>
+        </div>
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">状态</div>
+          <div class="proj-right-meta-value">✅ 已上线</div>
         </div>
       </div>
 
