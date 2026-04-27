@@ -510,16 +510,16 @@
       grid-template-columns: 72px 1fr 1fr 1fr;
       gap: 0;
     }
-    /* column header row */
+    /* column headers — 阶段维度 (X轴) — 蓝色系 */
     .sb-col-header {
-      background: #f8f7ff;
+      background: #eef2ff;
       border-bottom: 1px solid var(--border);
       border-right: 1px solid var(--border);
       padding: 10px 12px 8px;
       text-align: center;
       font-size: 10.5px;
       font-weight: 700;
-      color: #555;
+      color: #4338ca;
       line-height: 1.3;
       letter-spacing: 0.02em;
     }
@@ -530,74 +530,82 @@
       border-right: 1px solid var(--border);
     }
 
-    /* data rows */
+    /* row headers — 价值维度 (Y轴) — 橙色系 */
     .sb-row-header {
-      background: #f8f7ff;
+      background: #fff7ed;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      padding: 0 10px 0 6px;
-      text-align: right;
+      justify-content: center;
+      padding: 0 8px;
+      text-align: center;
       font-size: 10.5px;
       font-weight: 700;
-      color: #555;
+      color: #c2410c;
       line-height: 1.35;
       letter-spacing: 0.02em;
     }
-    .sb-row-header:last-of-type { border-bottom: none; }
+    .sb-last-row .sb-row-header { border-bottom: none; }
 
     .sb-cell {
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 14px 16px;
+      padding: 16px 12px;
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      transition: background 0.15s;
-      min-height: 72px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      transition: background 0.15s, outline 0.15s;
+      min-height: 80px;
+      cursor: default;
     }
     .sb-cell:last-child,
     .sb-row-end { border-right: none; }
-    .sb-last-row .sb-cell,
-    .sb-last-row .sb-row-header { border-bottom: none; }
+    .sb-last-row .sb-cell { border-bottom: none; }
 
-    .sb-cell.filled { background: #faf9ff; }
+    .sb-cell.filled { background: #faf9ff; cursor: pointer; }
     .sb-cell.empty  { background: #fafafa; }
-    .sb-cell.filled:hover { background: #f3f0ff; }
+    .sb-cell.filled:hover { background: #f0eeff; }
+    .sb-cell.active {
+      background: #ede9fe !important;
+      outline: 2px solid #6B5CE7;
+      outline-offset: -2px;
+      position: relative;
+      z-index: 1;
+    }
 
     .sb-cell-num {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 900;
       line-height: 1;
       letter-spacing: -1px;
-      flex-shrink: 0;
     }
     .filled .sb-cell-num { color: #6B5CE7; }
-    .empty  .sb-cell-num { color: #d0cfe8; font-size: 20px; padding-top: 4px; }
+    .empty  .sb-cell-num { color: #d8d5ee; font-size: 18px; }
 
-    .sb-cell-info { display: flex; flex-direction: column; gap: 3px; padding-top: 2px; }
+    .sb-cell-info { display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .sb-cell-name {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: #1a1a1a;
       line-height: 1.2;
     }
-    .empty .sb-cell-name { color: #bbb; }
+    .empty .sb-cell-name { color: #c0bdd8; }
     .sb-cell-tag {
       display: inline-block;
-      font-size: 9.5px;
+      font-size: 9px;
       padding: 2px 6px;
       border-radius: 3px;
       font-weight: 600;
       letter-spacing: 0.03em;
-      width: fit-content;
     }
     .tag-user    { background: #ede9fe; color: #6d28d9; }
     .tag-biz     { background: #fce7f3; color: #be185d; }
     .tag-eng     { background: #d1fae5; color: #065f46; }
-    .empty .sb-cell-tag { background: #f0f0f0; color: #bbb; }
+    .empty .sb-cell-tag { background: #f0f0f0; color: #c0bdd8; }
 
     /* ===== NOTION MATRIX CARD ===== */
     .matrix-card { padding: 0; overflow: hidden; }
@@ -846,14 +854,14 @@
 
       <!-- ── 行1：用户价值 ── -->
       <div class="sb-row-header">用户<br>价值</div>
-      <div class="sb-cell filled">
+      <div class="sb-cell filled" data-subtype="体验优化" onclick="setSubFilter(this,'体验优化')">
         <div class="sb-cell-num">14</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">体验优化</div>
           <span class="sb-cell-tag tag-user">用户价值</span>
         </div>
       </div>
-      <div class="sb-cell filled">
+      <div class="sb-cell filled" data-subtype="体验探索" onclick="setSubFilter(this,'体验探索')">
         <div class="sb-cell-num">5</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">体验探索</div>
@@ -870,7 +878,7 @@
 
       <!-- ── 行2：业务价值 ── -->
       <div class="sb-row-header">业务<br>价值</div>
-      <div class="sb-cell filled">
+      <div class="sb-cell filled" data-subtype="业务增长优化" onclick="setSubFilter(this,'业务增长优化')">
         <div class="sb-cell-num">5</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">业务增长优化</div>
@@ -884,7 +892,7 @@
           <span class="sb-cell-tag">业务价值</span>
         </div>
       </div>
-      <div class="sb-cell filled sb-row-end">
+      <div class="sb-cell filled sb-row-end" data-subtype="全新业务搭建" onclick="setSubFilter(this,'全新业务搭建')">
         <div class="sb-cell-num">3</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">全新业务搭建</div>
@@ -894,14 +902,14 @@
 
       <!-- ── 行3：工程效率 ── -->
       <div class="sb-row-header sb-last-row">工程<br>效率</div>
-      <div class="sb-cell filled sb-last-row">
+      <div class="sb-cell filled sb-last-row" data-subtype="产品基础架构" onclick="setSubFilter(this,'产品基础架构')">
         <div class="sb-cell-num">4</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">产品基础架构</div>
           <span class="sb-cell-tag tag-eng">工程效率</span>
         </div>
       </div>
-      <div class="sb-cell filled sb-last-row">
+      <div class="sb-cell filled sb-last-row" data-subtype="设计系统搭建" onclick="setSubFilter(this,'设计系统搭建')">
         <div class="sb-cell-num">2</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">设计系统搭建</div>
@@ -952,7 +960,7 @@
   </div>
 
   <!-- Card 3 -->
-  <div class="card" data-type="all bili">
+  <div class="card" data-type="all bili" data-subtype="体验优化">
     <div class="card-thumb ph" style="height:200px"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">0-1产品</span></div>
@@ -962,7 +970,7 @@
   </div>
 
   <!-- Card 4 -->
-  <div class="card" data-type="all bili">
+  <div class="card" data-type="all bili" data-subtype="设计系统搭建">
     <div class="card-thumb ph" style="height:180px"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">动效</span></div>
@@ -1062,7 +1070,7 @@
   </div>
 
   <!-- Card 7 -->
-  <div class="card" data-type="all bili">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化">
     <div class="card-thumb ph" style="height:240px"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">0-1产品</span><span class="card-tag">UX</span></div>
@@ -1215,14 +1223,47 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
 
   // ===== PORTFOLIO LOGIC =====
+  // ── 当前筛选状态 ──
+  let _mainFilter = 'all';
+  let _subFilter  = null;   // 矩阵格子子筛选
+
+  function applyFilters() {
+    document.querySelectorAll('#galleryView .card').forEach(c => {
+      const types   = c.dataset.type    || '';
+      const subtype = c.dataset.subtype || '';
+      const hasSubtype = c.hasAttribute('data-subtype');
+
+      // 主类型筛选
+      const passMain = _mainFilter === 'all' || types.includes(_mainFilter);
+
+      // 子类型筛选：无 data-subtype 的卡片（矩阵/看板）始终显示
+      const passSub  = !_subFilter || !hasSubtype || subtype === _subFilter;
+
+      c.style.display = (passMain && passSub) ? '' : 'none';
+    });
+  }
+
   function setFilter(el, type) {
+    _mainFilter = type;
+    _subFilter  = null;
+    // 清除矩阵格高亮
+    document.querySelectorAll('.sb-cell.active').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(c => {
-      const types = c.dataset.type || '';
-      c.style.display = (type === 'all' || types.includes(type)) ? '' : 'none';
-    });
+    applyFilters();
+  }
+
+  function setSubFilter(el, subtype) {
+    if (_subFilter === subtype) {
+      // 再次点击同一格 → 取消子筛选
+      _subFilter = null;
+      el.classList.remove('active');
+    } else {
+      _subFilter = subtype;
+      document.querySelectorAll('.sb-cell.active').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+    applyFilters();
   }
 
   function setView(view, btn) {
