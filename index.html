@@ -779,19 +779,19 @@
     }
 
     .proj-modal-inner {
-      display: flex; flex-direction: row;
+      display: flex; flex-direction: column;
       flex: 1; overflow: hidden;
     }
 
-    /* left: cover */
+    /* top: cover */
     .proj-cover {
-      width: 340px; flex-shrink: 0;
+      height: 260px; flex-shrink: 0;
       background: linear-gradient(145deg,#0f0f23 0%,#1a1a40 60%,#2d1b69 100%);
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* right: scroll */
+    /* bottom: scroll */
     .proj-modal-scroll { overflow-y: auto; flex: 1; }
 
     /* cover */
