@@ -750,10 +750,10 @@
     /* ===== PROJECT MODAL ===== */
     .proj-overlay {
       position: fixed; inset: 0; z-index: 9000;
-      background: rgba(10,10,10,0.55);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
+      background: rgba(10,10,10,0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex; align-items: stretch; justify-content: flex-end;
       opacity: 0; pointer-events: none;
       transition: opacity 0.28s ease;
     }
@@ -761,16 +761,17 @@
 
     .proj-modal {
       background: #fff;
-      width: min(780px, 94vw);
-      max-height: 90vh;
-      border-radius: 4px;
+      width: 50vw;
+      min-width: 480px;
+      height: 100vh;
+      border-radius: 0;
       overflow: hidden;
       display: flex; flex-direction: column;
-      transform: translateY(24px);
-      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94);
-      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+      transform: translateX(60px);
+      transition: transform 0.36s cubic-bezier(0.25,0.46,0.45,0.94);
+      box-shadow: -20px 0 60px rgba(0,0,0,0.18);
     }
-    .proj-overlay.open .proj-modal { transform: translateY(0); }
+    .proj-overlay.open .proj-modal { transform: translateX(0); }
 
     .proj-modal-scroll { overflow-y: auto; flex: 1; }
 
