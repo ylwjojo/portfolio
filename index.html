@@ -753,7 +753,7 @@
       background: rgba(10,10,10,0.45);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      display: flex; align-items: stretch; justify-content: flex-end;
+      display: flex; align-items: flex-end; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity 0.28s ease;
     }
@@ -761,18 +761,37 @@
 
     .proj-modal {
       background: #fff;
-      width: 50vw;
-      min-width: 480px;
-      height: 100vh;
-      border-radius: 0;
+      width: 100%;
+      height: 85vh;
+      border-radius: 12px 12px 0 0;
       overflow: hidden;
       display: flex; flex-direction: column;
-      transform: translateX(60px);
-      transition: transform 0.36s cubic-bezier(0.25,0.46,0.45,0.94);
-      box-shadow: -20px 0 60px rgba(0,0,0,0.18);
+      transform: translateY(100%);
+      transition: transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94);
+      box-shadow: 0 -12px 60px rgba(0,0,0,0.18);
     }
-    .proj-overlay.open .proj-modal { transform: translateX(0); }
+    .proj-overlay.open .proj-modal { transform: translateY(0); }
 
+    /* drag handle */
+    .proj-handle {
+      width: 36px; height: 4px; background: #e0e0e0; border-radius: 2px;
+      margin: 10px auto 0; flex-shrink: 0;
+    }
+
+    .proj-modal-inner {
+      display: flex; flex-direction: row;
+      flex: 1; overflow: hidden;
+    }
+
+    /* left: cover */
+    .proj-cover {
+      width: 340px; flex-shrink: 0;
+      background: linear-gradient(145deg,#0f0f23 0%,#1a1a40 60%,#2d1b69 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* right: scroll */
     .proj-modal-scroll { overflow-y: auto; flex: 1; }
 
     /* cover */
@@ -1219,93 +1238,101 @@
 <!-- ===== PROJECT MODAL: IP热区 ===== -->
 <div class="proj-overlay" id="projOverlay" onclick="handleOverlayClick(event)">
   <div class="proj-modal" id="projModal">
-    <!-- Cover -->
-    <div class="proj-cover">
-      <div style="position:absolute;width:240px;height:240px;background:radial-gradient(circle,rgba(107,92,231,0.4) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-      <div style="position:relative;display:flex;gap:10px;align-items:center;">
-        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(8px) rotate(-4deg);flex-shrink:0;"></div>
-        <div style="width:88px;height:118px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:12px;flex-shrink:0;position:relative;z-index:1;box-shadow:0 8px 32px rgba(107,92,231,0.4);">
-          <svg width="40" height="16" viewBox="0 0 40 16" fill="none" style="margin-bottom:6px">
-            <path d="M3 8 L17 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M14 5 L17 8 L14 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M37 8 L23 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M26 5 L23 8 L26 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div style="font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;">滑动切换 IP</div>
+    <!-- Drag handle -->
+    <div class="proj-handle"></div>
+
+    <!-- Inner: cover left + content right -->
+    <div class="proj-modal-inner">
+
+      <!-- Left: cover visual -->
+      <div class="proj-cover">
+        <div style="position:absolute;width:280px;height:280px;background:radial-gradient(circle,rgba(107,92,231,0.4) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+        <div style="position:relative;display:flex;gap:10px;align-items:center;">
+          <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(8px) rotate(-4deg);flex-shrink:0;"></div>
+          <div style="width:88px;height:118px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:12px;flex-shrink:0;position:relative;z-index:1;box-shadow:0 8px 32px rgba(107,92,231,0.4);">
+            <svg width="40" height="16" viewBox="0 0 40 16" fill="none" style="margin-bottom:6px">
+              <path d="M3 8 L17 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 5 L17 8 L14 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M37 8 L23 8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M26 5 L23 8 L26 11" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div style="font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;">滑动切换 IP</div>
+          </div>
+          <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(-8px) rotate(4deg);flex-shrink:0;"></div>
         </div>
-        <div style="width:72px;height:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;transform:translateX(-8px) rotate(4deg);flex-shrink:0;"></div>
+        <div style="position:absolute;bottom:20px;left:20px;background:rgba(107,92,231,0.75);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
+        <button class="proj-close" onclick="closeProjectModal()">✕</button>
       </div>
-      <div style="position:absolute;bottom:14px;left:16px;background:rgba(107,92,231,0.75);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
-      <button class="proj-close" onclick="closeProjectModal()">✕</button>
-    </div>
 
-    <!-- Body -->
-    <div class="proj-modal-scroll">
-      <div class="proj-body">
-        <div class="proj-eyebrow">bilibili 实战经验 · 体验探索</div>
-        <div class="proj-title">IP页滑动热区重定义 · 手势引导设计</div>
+      <!-- Right: scrollable content -->
+      <div class="proj-modal-scroll">
+        <div class="proj-body">
+          <div class="proj-eyebrow">bilibili 实战经验 · 体验探索</div>
+          <div class="proj-title">IP页滑动热区重定义 · 手势引导设计</div>
 
-        <div class="proj-oneliner">
-          这个需求证明：我能基于业务目标调整交互优先级，而不是只按传统交互习惯做设计。
-        </div>
-
-        <!-- Meta -->
-        <div class="proj-meta">
-          <div class="proj-chip"><span class="proj-chip-label">归类</span><span class="proj-chip-value">策略类｜结构改版</span></div>
-          <div class="proj-chip"><span class="proj-chip-label">结论</span><span class="proj-chip-value">增长｜扩量</span></div>
-          <div class="proj-chip"><span class="proj-chip-label">状态</span><span class="proj-chip-value">✅ 已上线</span></div>
-          <div class="proj-chip"><span class="proj-chip-label">上线时间</span><span class="proj-chip-value">2026-02-26</span></div>
-          <div class="proj-chip"><span class="proj-chip-label">交互周期</span><span class="proj-chip-value">1d</span></div>
-        </div>
-
-        <!-- 项目信息 -->
-        <div class="proj-section-title">项目背景</div>
-        <table class="proj-table">
-          <tr><td>需求背景</td><td>之前发现左右滑动的 Tab 价值不高，决定将左右滑动改为切换 IP，核心是由业务价值驱动。</td></tr>
-          <tr><td>线上问题</td><td>左右滑动的 Tab 内容数量少、价值不高，虽然最符合交互惯性，但对业务曝光贡献有限。</td></tr>
-          <tr><td>设计目标</td><td>将左右滑动的热区重新定义为切换 IP 内容页，增加 IP 页的曝光机会。</td></tr>
-          <tr><td>设计策略</td><td>调整滑动热区范围，将触发行为从低价值 Tab 浏览替换为 IP 内容切换，并增加手势引导提升可发现性。</td></tr>
-          <tr><td>执行依据</td><td>业务诉求优先，后续以点击率、IP 页使用率验证方案是否有效。</td></tr>
-        </table>
-
-        <!-- 能力体现 -->
-        <div class="proj-section-title">能力体现</div>
-        <div class="proj-abilities">
-          <div class="proj-ability-item">
-            <div class="proj-ability-name">业务判断</div>
-            <div class="proj-ability-desc">判断原左右滑动 Tab 价值低，将滑动行为改为更有业务价值的 IP 切换。</div>
+          <div class="proj-oneliner">
+            这个需求证明：我能基于业务目标调整交互优先级，而不是只按传统交互习惯做设计。
           </div>
-          <div class="proj-ability-item">
-            <div class="proj-ability-name">体验优化</div>
-            <div class="proj-ability-desc">通过扩大 / 调整滑动热区，让用户更容易触发有效操作。</div>
-          </div>
-          <div class="proj-ability-item">
-            <div class="proj-ability-name">用户引导</div>
-            <div class="proj-ability-desc">增加滑动手势提示，降低用户理解成本，提升功能可发现性。</div>
-          </div>
-          <div class="proj-ability-item">
-            <div class="proj-ability-name">曝光增长</div>
-            <div class="proj-ability-desc">通过交互调整提升 IP 页曝光机会，以设计手段服务业务目标。</div>
-          </div>
-          <div class="proj-ability-item" style="grid-column: span 2;">
-            <div class="proj-ability-name">数据意识</div>
-            <div class="proj-ability-desc">后续可用点击率、使用率验证方案是否有效，形成设计→数据闭环。</div>
-          </div>
-        </div>
 
-        <!-- 作品集表达 -->
-        <div class="proj-section-title">作品集表达</div>
-        <div class="proj-quote">
-          <div class="proj-quote-label">Portfolio Summary</div>
-          针对 IP 页原左右滑动 Tab 使用价值较低的问题，我基于业务曝光目标重新定义滑动热区，将滑动行为从低价值 Tab 浏览转化为 IP 内容切换，并增加手势引导提升操作可发现性。该方案属于低成本体验优化，可通过点击率、使用率和 IP 曝光量验证效果。
-        </div>
+          <!-- Meta -->
+          <div class="proj-meta">
+            <div class="proj-chip"><span class="proj-chip-label">归类</span><span class="proj-chip-value">策略类｜结构改版</span></div>
+            <div class="proj-chip"><span class="proj-chip-label">结论</span><span class="proj-chip-value">增长｜扩量</span></div>
+            <div class="proj-chip"><span class="proj-chip-label">状态</span><span class="proj-chip-value">✅ 已上线</span></div>
+            <div class="proj-chip"><span class="proj-chip-label">上线时间</span><span class="proj-chip-value">2026-02-26</span></div>
+            <div class="proj-chip"><span class="proj-chip-label">交互周期</span><span class="proj-chip-value">1d</span></div>
+          </div>
 
-        <!-- 可沉淀方法 -->
-        <div class="proj-method">
-          <strong>💡 低价值交互热区再利用：</strong>当某个操作符合交互习惯但业务价值较低时，可以评估是否将其替换为更高价值行为，并通过轻量引导帮助用户理解。
+          <!-- 项目背景 -->
+          <div class="proj-section-title">项目背景</div>
+          <table class="proj-table">
+            <tr><td>需求背景</td><td>之前发现左右滑动的 Tab 价值不高，决定将左右滑动改为切换 IP，核心是由业务价值驱动。</td></tr>
+            <tr><td>线上问题</td><td>左右滑动的 Tab 内容数量少、价值不高，虽然最符合交互惯性，但对业务曝光贡献有限。</td></tr>
+            <tr><td>设计目标</td><td>将左右滑动的热区重新定义为切换 IP 内容页，增加 IP 页的曝光机会。</td></tr>
+            <tr><td>设计策略</td><td>调整滑动热区范围，将触发行为从低价值 Tab 浏览替换为 IP 内容切换，并增加手势引导提升可发现性。</td></tr>
+            <tr><td>执行依据</td><td>业务诉求优先，后续以点击率、IP 页使用率验证方案是否有效。</td></tr>
+          </table>
+
+          <!-- 能力体现 -->
+          <div class="proj-section-title">能力体现</div>
+          <div class="proj-abilities">
+            <div class="proj-ability-item">
+              <div class="proj-ability-name">业务判断</div>
+              <div class="proj-ability-desc">判断原左右滑动 Tab 价值低，将滑动行为改为更有业务价值的 IP 切换。</div>
+            </div>
+            <div class="proj-ability-item">
+              <div class="proj-ability-name">体验优化</div>
+              <div class="proj-ability-desc">通过扩大 / 调整滑动热区，让用户更容易触发有效操作。</div>
+            </div>
+            <div class="proj-ability-item">
+              <div class="proj-ability-name">用户引导</div>
+              <div class="proj-ability-desc">增加滑动手势提示，降低用户理解成本，提升功能可发现性。</div>
+            </div>
+            <div class="proj-ability-item">
+              <div class="proj-ability-name">曝光增长</div>
+              <div class="proj-ability-desc">通过交互调整提升 IP 页曝光机会，以设计手段服务业务目标。</div>
+            </div>
+            <div class="proj-ability-item" style="grid-column:span 2">
+              <div class="proj-ability-name">数据意识</div>
+              <div class="proj-ability-desc">后续可用点击率、使用率验证方案是否有效，形成设计→数据闭环。</div>
+            </div>
+          </div>
+
+          <!-- 作品集表达 -->
+          <div class="proj-section-title">作品集表达</div>
+          <div class="proj-quote">
+            <div class="proj-quote-label">Portfolio Summary</div>
+            针对 IP 页原左右滑动 Tab 使用价值较低的问题，我基于业务曝光目标重新定义滑动热区，将滑动行为从低价值 Tab 浏览转化为 IP 内容切换，并增加手势引导提升操作可发现性。该方案属于低成本体验优化，可通过点击率、使用率和 IP 曝光量验证效果。
+          </div>
+
+          <!-- 可沉淀方法 -->
+          <div class="proj-method">
+            <strong>💡 低价值交互热区再利用：</strong>当某个操作符合交互习惯但业务价值较低时，可以评估是否将其替换为更高价值行为，并通过轻量引导帮助用户理解。
+          </div>
         </div>
       </div>
-    </div>
+
+    </div><!-- /.proj-modal-inner -->
   </div>
 </div>
 
