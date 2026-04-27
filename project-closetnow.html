@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClosetNow · 品牌识别系统 — Yanlin.W</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #0d0d0d;
+      --white:  #ffffff;
+      --off:    #f5f4f1;
+      --muted:  #888;
+      --border: #e4e4e4;
+      --serif:  'DM Serif Display', Georgia, serif;
+      --sans:   'DM Sans', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 56px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      color: var(--black);
+    }
+    .nav-back {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    /* ─── HERO COVER ─── */
+    .hero {
+      margin-top: 56px;
+      height: calc(100vh - 56px);
+      background: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* If real image is placed at closetnow-cover.jpg it will show */
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.92;
+    }
+    /* SVG fallback logo mark (shown when no real img) */
+    .hero-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-wordmark {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 52px);
+      color: var(--white);
+      letter-spacing: 0.01em;
+      font-style: italic;
+    }
+    /* ── hero bottom caption ── */
+    .hero-caption {
+      position: absolute;
+      bottom: 40px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 48px;
+      z-index: 3;
+    }
+    .hero-caption span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ─── CONTENT WRAPPER ─── */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      margin-top: 40px;
+    }
+    h3:first-child { margin-top: 0; }
+    p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: #333;
+      margin-bottom: 16px;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ─── PROJECT INFO PILLS ─── */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 56px;
+    }
+    .meta-cell {
+      background: var(--white);
+      padding: 24px 20px;
+    }
+    .meta-cell .meta-key {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .meta-cell .meta-val {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* ─── TWO-COL ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ─── QUOTE PULL ─── */
+    .pull-quote {
+      border-left: 3px solid var(--black);
+      padding: 16px 0 16px 28px;
+      margin: 40px 0;
+    }
+    .pull-quote p {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--black);
+      margin: 0;
+    }
+
+    /* ─── INSIGHT CARDS ─── */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .insight-card {
+      background: var(--off);
+      border-radius: 10px;
+      padding: 24px 20px;
+    }
+    .insight-num {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .insight-card p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #555;
+      margin: 0;
+    }
+
+    /* ─── PROCESS STEPS ─── */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .process-step {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .process-step:last-child { border-bottom: none; }
+    .step-num {
+      width: 64px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 0 24px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      border-right: 1px solid var(--border);
+    }
+    .step-body {
+      padding: 24px 28px;
+      flex: 1;
+    }
+    .step-body h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .step-body p { font-size: 14px; margin: 0; color: #555; }
+
+    /* ─── IMAGE BLOCKS ─── */
+    .img-block {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--off);
+      margin: 40px 0;
+    }
+    .img-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* SVG logo display block */
+    .img-block.logo-dark {
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      gap: 60px;
+    }
+    .img-block.logo-light {
+      background: var(--off);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      gap: 60px;
+    }
+    .img-block-caption {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: -28px;
+      margin-bottom: 40px;
+      letter-spacing: 0.06em;
+    }
+
+    /* color swatches */
+    .color-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .swatch {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .swatch-color {
+      height: 80px;
+    }
+    .swatch-info {
+      padding: 12px 14px;
+      background: var(--white);
+    }
+    .swatch-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .swatch-hex  { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+
+    /* type specimen */
+    .type-row {
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .type-item {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .type-item:last-child { border-bottom: none; }
+    .type-label {
+      font-size: 11px;
+      color: var(--muted);
+      width: 100px;
+      flex-shrink: 0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .type-sample { line-height: 1.2; }
+
+    /* results */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .result-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .result-num {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* next project */
+    .next-project {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .next-project .label { color: rgba(255,255,255,0.35); }
+    .next-project h2 { color: var(--white); margin-bottom: 32px; }
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 3;
+    }
+    .scroll-hint span { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.2em; text-transform: uppercase; }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3));
+      animation: extLine 1.8s ease infinite;
+    }
+    @keyframes extLine {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ─── TOC (floating left) ─── */
+    .toc {
+      position: fixed;
+      left: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 5px 0;
+      color: #ccc;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      transition: color 0.25s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .toc-item:hover { color: #555; }
+    .toc-item.active { color: var(--black); }
+
+    .toc-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+    .toc-line {
+      width: 16px;
+      height: 1px;
+      background: #ddd;
+      transition: width 0.25s, background 0.25s;
+    }
+    .toc-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #ddd;
+      flex-shrink: 0;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .toc-item.active .toc-line { width: 20px; background: var(--black); }
+    .toc-item.active .toc-dot  { background: var(--black); transform: scale(1.4); }
+
+    .toc-label {
+      font-size: 10px;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+    }
+    .toc:hover .toc-label,
+    .toc-item.active .toc-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ─── PROJECT SWITCHER (fixed bottom) ─── */
+    .proj-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 90;
+      height: 52px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 0;
+    }
+    .proj-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #aaa;
+      font-size: 12px;
+      transition: color 0.2s;
+      flex: 1;
+      min-width: 0;
+    }
+    .proj-nav:hover { color: var(--black); }
+    .proj-nav.prev { justify-content: flex-start; }
+    .proj-nav.next { justify-content: flex-end; }
+    .proj-nav-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 180px;
+    }
+    .proj-nav svg { flex-shrink: 0; }
+
+    .proj-center-btn {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      margin: 0 16px;
+    }
+    .proj-center-btn:hover { background: var(--off); border-color: #bbb; }
+
+    /* ─── PROJECT GRID OVERLAY ─── */
+    .proj-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .proj-overlay.open { opacity: 1; pointer-events: all; }
+
+    .proj-overlay-bg {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+    }
+    .proj-overlay-panel {
+      position: relative;
+      margin-top: auto;
+      background: var(--white);
+      border-radius: 20px 20px 0 0;
+      padding: 28px 24px 72px;
+      transform: translateY(40px);
+      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .proj-overlay.open .proj-overlay-panel { transform: translateY(0); }
+
+    .proj-overlay-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .proj-overlay-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .proj-overlay-close {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--off);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: #666;
+      transition: background 0.2s;
+    }
+    .proj-overlay-close:hover { background: #e0e0e0; }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .proj-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--black);
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: block;
+    }
+    .proj-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+    .proj-card.current-proj { border-color: var(--black); border-width: 2px; }
+    .proj-thumb {
+      height: 72px;
+      background: #eee;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .proj-card-info { padding: 10px 10px 12px; }
+    .proj-card-name { font-size: 11px; font-weight: 600; line-height: 1.4; margin-bottom: 2px; }
+    .proj-card-type { font-size: 10px; color: var(--muted); }
+
+    /* body offset for bottom bar */
+    body { padding-bottom: 52px; }
+
+    @media (max-width: 1100px) { .toc { display: none; } }
+    @media (max-width: 720px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .two-col { grid-template-columns: 1fr; gap: 24px; }
+      .insight-grid { grid-template-columns: 1fr; }
+      .result-grid { grid-template-columns: 1fr 1fr; }
+      .img-block.logo-dark, .img-block.logo-light { flex-direction: column; gap: 32px; padding: 40px; }
+      .nav { padding: 0 20px; }
+      .content { padding: 0 20px; }
+      .proj-grid { grid-template-columns: repeat(2, 1fr); }
+      .proj-nav-label { max-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Yanlin.W</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    所有项目
+  </a>
+</nav>
+
+<!-- ─── TOC ─── -->
+<nav class="toc" id="toc">
+  <a class="toc-item" href="#s-overview">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">01 · 项目概览</span>
+  </a>
+  <a class="toc-item" href="#s-problem">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">02 · 问题定义</span>
+  </a>
+  <a class="toc-item" href="#s-research">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">03 · 洞察研究</span>
+  </a>
+  <a class="toc-item" href="#s-process">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">04 · 设计过程</span>
+  </a>
+  <a class="toc-item" href="#s-solution">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">05 · 设计成果</span>
+  </a>
+  <a class="toc-item" href="#s-results">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">06 · 项目结果</span>
+  </a>
+  <a class="toc-item" href="#s-reflection">
+    <div class="toc-indicator"><div class="toc-line"></div><div class="toc-dot"></div></div>
+    <span class="toc-label">07 · 反思收获</span>
+  </a>
+</nav>
+
+<!-- ─── PROJECT SWITCHER BAR ─── -->
+<div class="proj-bar">
+  <a class="proj-nav prev" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <span class="proj-nav-label">智能客服系统</span>
+  </a>
+
+  <button class="proj-center-btn" id="projToggleBtn" onclick="toggleProjOverlay()">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor"/>
+      <rect x="8" y="1" width="5" height="5" rx="1" fill="currentColor"/>
+      <rect x="1" y="8" width="5" height="5" rx="1" fill="currentColor"/>
+      <rect x="8" y="8" width="5" height="5" rx="1" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <a class="proj-nav next" href="index.html">
+    <span class="proj-nav-label">SaaS 数据看板</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </a>
+</div>
+
+<!-- ─── PROJECT GRID OVERLAY ─── -->
+<div class="proj-overlay" id="projOverlay">
+  <div class="proj-overlay-bg" onclick="toggleProjOverlay()"></div>
+  <div class="proj-overlay-panel">
+    <div class="proj-overlay-header">
+      <span class="proj-overlay-title">所有项目</span>
+      <button class="proj-overlay-close" onclick="toggleProjOverlay()">×</button>
+    </div>
+    <div class="proj-grid">
+
+      <a class="proj-card current-proj" href="project-closetnow.html">
+        <div class="proj-thumb" style="background:#111">
+          <svg width="32" height="32" viewBox="0 0 140 140" fill="none">
+            <rect x="26" y="20" width="22" height="22" fill="white"/><rect x="59" y="15" width="22" height="22" transform="rotate(45 70 26)" fill="white"/><rect x="92" y="20" width="22" height="22" fill="white"/>
+            <rect x="15" y="52" width="22" height="22" transform="rotate(45 26 63)" fill="white"/><rect x="59" y="52" width="22" height="22" fill="white"/><rect x="103" y="52" width="22" height="22" transform="rotate(45 114 63)" fill="white"/>
+            <rect x="26" y="86" width="22" height="22" fill="white"/><rect x="59" y="81" width="22" height="22" transform="rotate(45 70 92)" fill="white"/><rect x="92" y="86" width="22" height="22" fill="white"/>
+          </svg>
+        </div>
+        <div class="proj-card-info">
+          <div class="proj-card-name">ClosetNow</div>
+          <div class="proj-card-type">品牌识别</div>
+        </div>
+      </a>
+
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#e8e8e8"></div><div class="proj-card-info"><div class="proj-card-name">智能客服系统</div><div class="proj-card-type">UX · 0-1产品</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#eaeaea"></div><div class="proj-card-info"><div class="proj-card-name">SaaS 数据看板</div><div class="proj-card-type">信息可视化</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#e5e5e5"></div><div class="proj-card-info"><div class="proj-card-name">内容创作工具</div><div class="proj-card-type">0-1产品</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#ececec"></div><div class="proj-card-info"><div class="proj-card-name">交互动效系统</div><div class="proj-card-type">动效</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#e7e7e7"></div><div class="proj-card-info"><div class="proj-card-name">品牌官网</div><div class="proj-card-type">网站 · 动效</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#ebebeb"></div><div class="proj-card-info"><div class="proj-card-name">电商体验分析</div><div class="proj-card-type">分析</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#e9e9e9"></div><div class="proj-card-info"><div class="proj-card-name">格式塔设计理论</div><div class="proj-card-type">设计理论</div></div></a>
+      <a class="proj-card" href="index.html"><div class="proj-thumb" style="background:#e6e6e6"></div><div class="proj-card-info"><div class="proj-card-name">用户增长漏斗</div><div class="proj-card-type">分析</div></div></a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <!-- 将封面图放在同目录下命名为 closetnow-cover.jpg 即可自动显示 -->
+  <img class="hero-img" src="closetnow-cover.jpg" alt="ClosetNow 品牌" onerror="this.style.display='none'">
+
+  <!-- SVG fallback：与原图 1:1 还原的黑底 Logo 牌匾 -->
+  <div class="hero-fallback">
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- 3×3 checkerboard: axis-aligned squares + 45° diamonds -->
+      <!-- Row 1 -->
+      <rect x="26" y="20" width="22" height="22" fill="white"/>
+      <rect x="59" y="15" width="22" height="22" transform="rotate(45 70 26)" fill="white"/>
+      <rect x="92" y="20" width="22" height="22" fill="white"/>
+      <!-- Row 2 -->
+      <rect x="15" y="52" width="22" height="22" transform="rotate(45 26 63)" fill="white"/>
+      <rect x="59" y="52" width="22" height="22" fill="white"/>
+      <rect x="103" y="52" width="22" height="22" transform="rotate(45 114 63)" fill="white"/>
+      <!-- Row 3 -->
+      <rect x="26" y="86" width="22" height="22" fill="white"/>
+      <rect x="59" y="81" width="22" height="22" transform="rotate(45 70 92)" fill="white"/>
+      <rect x="92" y="86" width="22" height="22" fill="white"/>
+    </svg>
+    <span class="hero-wordmark">ClosetNow</span>
+  </div>
+
+  <div class="hero-caption">
+    <span>品牌识别系统</span>
+    <span>2024</span>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── MAIN CONTENT ─── -->
+<div class="content">
+
+  <!-- 01 OVERVIEW -->
+  <section id="s-overview">
+    <div class="label">01 · 项目概览</div>
+    <h2>为新生代整理服务品牌<br>建立完整的视觉语言</h2>
+
+    <div class="meta-grid">
+      <div class="meta-cell">
+        <div class="meta-key">我的角色</div>
+        <div class="meta-val">品牌设计师<br>UX 研究员</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-key">项目周期</div>
+        <div class="meta-val">8 周<br>2024 Q3</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-key">使用工具</div>
+        <div class="meta-val">Figma<br>Illustrator</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-key">项目类型</div>
+        <div class="meta-val">品牌识别<br>视觉系统</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3>项目背景</h3>
+        <p>ClosetNow 是一家面向都市精英人群的衣橱整理与收纳订阅服务，提供「到家整理 + 数字衣橱管理」一体化方案。品牌成立之初缺乏统一的视觉系统，无法在高端服务市场中建立差异化认知。</p>
+        <p>创始团队希望通过全新的品牌识别，向目标用户传递「专业、克制、值得信赖」的品牌调性，同时兼顾数字端与线下触点的一致性。</p>
+      </div>
+      <div>
+        <h3>我负责的范围</h3>
+        <p>从用户研究、竞品分析出发，完成 Logo 系统、色彩体系、字体规范、图形语言、核心应用场景的全套设计交付，并输出可供工程师直接使用的品牌规范手册（Brand Guideline）。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PROBLEM -->
+  <section id="s-problem">
+    <div class="label">02 · 问题定义</div>
+    <h2>混乱的视觉传递，<br>稀释了真实的服务价值</h2>
+
+    <p>在接手项目之前，ClosetNow 的对外物料——小红书主页、线下传单、App 界面——使用了至少 3 套字体、5 种主色，缺乏系统性的图形语言，导致用户无法形成稳定的品牌认知。</p>
+
+    <div class="pull-quote">
+      <p>"我知道他们服务很好，但看上去不像一个我会信任的品牌。"<br>
+      <span style="font-size:14px;font-style:normal;color:#888;">— 目标用户访谈，女性，31岁，上海</span></p>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3>核心矛盾</h3>
+        <p>服务本身足够专业，但视觉信号在传递「不专业」。在高端整理服务市场，视觉可信度直接影响转化率——用户在看到品牌的前 3 秒内就会决定是否继续了解。</p>
+      </div>
+      <div>
+        <h3>设计目标</h3>
+        <p>建立一套「高级但不冷漠、专业但不刻板」的品牌视觉系统，覆盖数字端与线下触点，能在不同尺寸和介质中保持识别度与一致性。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 RESEARCH -->
+  <section id="s-research">
+    <div class="label">03 · 洞察与研究</div>
+    <h2>从用户心智与竞品空白中<br>找到品牌的落脚点</h2>
+
+    <p>通过 12 场用户深访、竞品视觉拆解（Marie Kondo、Neat Method、The Container Store 等）和市场情绪板分析，提炼出三个关键洞察：</p>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-num">01</div>
+        <p><strong>秩序感即信任感</strong><br>目标用户将「整洁的视觉」直接与「靠谱的服务」画等号。繁复装饰会降低可信度。</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">02</div>
+        <p><strong>竞品普遍冷色调</strong><br>市场中 80% 的同类品牌使用蓝白灰，品类视觉高度同质化，留有暖调差异化空间。</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">03</div>
+        <p><strong>模块感触发联想</strong><br>用户在描述「理想中的整理状态」时，高频出现「格子」「收纳格」「分类」等词汇。</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px;">从洞察到设计原则</h3>
+    <p>三条洞察直接对应三条品牌设计原则：<strong>减法优先</strong>（去除装饰噪音）、<strong>温暖专业</strong>（暖调 + 克制）、<strong>模块系统</strong>（Logo 图形语言提取自收纳格意象）。</p>
+  </section>
+
+  <!-- 04 PROCESS -->
+  <section id="s-process">
+    <div class="label">04 · 设计过程</div>
+    <h2>从抽象原则到<br>可落地的视觉系统</h2>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h4>Logo 概念探索（3 轮迭代）</h4>
+          <p>初期产出 16 个方向，聚焦「衣架」「衣橱」「折叠」3 类意象。用户测试后，「模块矩阵」方向获得最高识别度评分——9 个几何单元（正方形 + 旋转 45° 的菱形）组成的点阵，既有收纳格的联想，也具备独立的抽象美感。</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h4>字体系统确立</h4>
+          <p>标志字体选用 Cormorant Garamond（衬线，传递专业与历史感），配合 DM Sans 作为正文字体（现代感，高可读性）。中文字体选用汉仪旗黑，笔画特征与 DM Sans 几何气质呼应。</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h4>色彩体系建立</h4>
+          <p>主色 Obsidian（近黑，#111111）传递专业与高级感；辅色 Linen（#F5EEE4）作为温暖底色，避免全黑白的冷漠感；点缀色 Sage（#A8B5A0）对应「自然秩序」的品牌精神。</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h4>应用场景验证</h4>
+          <p>将系统应用于门店招牌、App 启动图、包装贴纸、名片、小红书封面模板共 5 类场景，验证在不同尺寸（从 16px favicon 到 2m 门头招牌）下的识别稳定性。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 SOLUTION -->
+  <section id="s-solution">
+    <div class="label">05 · 设计成果</div>
+    <h2>一套可生长的<br>品牌视觉系统</h2>
+
+    <!-- Logo versions -->
+    <h3>Logo 系统</h3>
+    <p>Logo 由图形标（Logomark）+ 文字标（Wordmark）构成，支持横排、竖排、纯图形三种变体，适配所有主要使用场景。</p>
+
+    <div class="img-block logo-dark">
+      <!-- Dark version -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+        <svg width="72" height="72" viewBox="0 0 140 140" fill="none">
+          <rect x="26" y="20" width="22" height="22" fill="white"/>
+          <rect x="59" y="15" width="22" height="22" transform="rotate(45 70 26)" fill="white"/>
+          <rect x="92" y="20" width="22" height="22" fill="white"/>
+          <rect x="15" y="52" width="22" height="22" transform="rotate(45 26 63)" fill="white"/>
+          <rect x="59" y="52" width="22" height="22" fill="white"/>
+          <rect x="103" y="52" width="22" height="22" transform="rotate(45 114 63)" fill="white"/>
+          <rect x="26" y="86" width="22" height="22" fill="white"/>
+          <rect x="59" y="81" width="22" height="22" transform="rotate(45 70 92)" fill="white"/>
+          <rect x="92" y="86" width="22" height="22" fill="white"/>
+        </svg>
+        <span style="font-family:'DM Serif Display',serif;font-size:22px;color:white;font-style:italic;letter-spacing:0.02em">ClosetNow</span>
+        <span style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase">深色版本</span>
+      </div>
+      <!-- Light version -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:20px;background:#f5eee4;border-radius:10px;padding:32px 40px">
+        <svg width="72" height="72" viewBox="0 0 140 140" fill="none">
+          <rect x="26" y="20" width="22" height="22" fill="#111"/>
+          <rect x="59" y="15" width="22" height="22" transform="rotate(45 70 26)" fill="#111"/>
+          <rect x="92" y="20" width="22" height="22" fill="#111"/>
+          <rect x="15" y="52" width="22" height="22" transform="rotate(45 26 63)" fill="#111"/>
+          <rect x="59" y="52" width="22" height="22" fill="#111"/>
+          <rect x="103" y="52" width="22" height="22" transform="rotate(45 114 63)" fill="#111"/>
+          <rect x="26" y="86" width="22" height="22" fill="#111"/>
+          <rect x="59" y="81" width="22" height="22" transform="rotate(45 70 92)" fill="#111"/>
+          <rect x="92" y="86" width="22" height="22" fill="#111"/>
+        </svg>
+        <span style="font-family:'DM Serif Display',serif;font-size:22px;color:#111;font-style:italic;letter-spacing:0.02em">ClosetNow</span>
+        <span style="font-size:11px;color:#aaa;letter-spacing:0.15em;text-transform:uppercase">浅色版本</span>
+      </div>
+    </div>
+    <div class="img-block-caption">Logo 深色版本 · 浅色版本</div>
+
+    <!-- Color System -->
+    <h3>色彩系统</h3>
+    <div class="color-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#111111"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Obsidian</div>
+          <div class="swatch-hex">#111111 · 主色</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F5EEE4"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Linen</div>
+          <div class="swatch-hex">#F5EEE4 · 辅助</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#A8B5A0"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Sage</div>
+          <div class="swatch-hex">#A8B5A0 · 点缀</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFFFFF;border-top:1px solid #e4e4e4"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">White</div>
+          <div class="swatch-hex">#FFFFFF · 留白</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type System -->
+    <h3 style="margin-top:48px">字体系统</h3>
+    <div class="type-row">
+      <div class="type-item">
+        <span class="type-label">品牌标志字</span>
+        <span class="type-sample" style="font-family:'DM Serif Display',serif;font-size:28px;font-style:italic">ClosetNow</span>
+      </div>
+      <div class="type-item">
+        <span class="type-label">标题</span>
+        <span class="type-sample" style="font-family:'DM Serif Display',serif;font-size:22px">你的衣橱，我的专业</span>
+      </div>
+      <div class="type-item">
+        <span class="type-label">正文</span>
+        <span class="type-sample" style="font-size:15px;line-height:1.7;color:#444">专业整理师上门服务，数字衣橱实时管理。订阅即享全年无限次整理。</span>
+      </div>
+      <div class="type-item">
+        <span class="type-label">标签 / 注释</span>
+        <span class="type-sample" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#888">BRAND IDENTITY · 2024</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 RESULTS -->
+  <section id="s-results">
+    <div class="label">06 · 项目结果</div>
+    <h2>数据印证了视觉升级<br>对商业目标的直接贡献</h2>
+
+    <p>品牌系统上线 6 周后，客户方统计了以下关键指标变化（对照品牌升级前 6 周同期数据）：</p>
+
+    <div class="result-grid">
+      <div class="result-item">
+        <div class="result-num">+38%</div>
+        <div class="result-desc">小红书主页访问用户<br>转化为咨询的比率</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">4.8</div>
+        <div class="result-desc">新用户对品牌专业度<br>的满意度评分（满分 5）</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">2×</div>
+        <div class="result-desc">门店招牌更换后<br>自然到访询问量翻倍</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 REFLECTION -->
+  <section id="s-reflection">
+    <div class="label">07 · 反思与收获</div>
+    <h2>设计决策需要<br>业务数据来校准</h2>
+
+    <div class="two-col">
+      <div>
+        <h3>做对了什么</h3>
+        <p>将用户访谈中的语言直接映射为设计原则，避免了凭感觉做审美判断。「模块矩阵」Logo 的灵感来自用户描述整理状态的原话，而不是设计师自己的风格偏好。</p>
+        <p>早期引入 A/B 测试对比两版色彩方案，数据支持了「暖调」而不是直觉上更高级的「冷白调」。</p>
+      </div>
+      <div>
+        <h3>可以做得更好</h3>
+        <p>动态 Logo（Logo motion）在这次交付中是缺席的。在小红书、微信视频号等短视频场景中，静态 Logo 的传播效率远低于带动效的版本，这是下一阶段的优化方向。</p>
+        <p>字体授权成本在项目后期才被纳入讨论，导致中文字体方案被迫调整，建议在提案阶段就锁定字体预算。</p>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /content -->
+
+<!-- NEXT PROJECT -->
+<div class="next-project">
+  <div class="label">下一个项目</div>
+  <h2>智能客服系统<br>全链路体验设计</h2>
+  <a href="index.html" class="btn">查看所有项目 →</a>
+</div>
+
+<script>
+  // ── TOC: highlight active section on scroll ──
+  const tocItems = document.querySelectorAll('.toc-item');
+  const sectionIds = ['s-overview','s-problem','s-research','s-process','s-solution','s-results','s-reflection'];
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Activate first item by default
+  if (tocItems.length) tocItems[0].classList.add('active');
+
+  // ── Project overlay toggle ──
+  function toggleProjOverlay() {
+    const overlay = document.getElementById('projOverlay');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  }
+
+  // Close overlay on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.getElementById('projOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+</body>
+</html>

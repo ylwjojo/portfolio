@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yanlin.W — 产品·体验·全栈设计师</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Roboto Flex: variable font with wght + wdth + slnt axes -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght,slnt@8..144,75..151,100..900,-10..0&display=swap" rel="stylesheet">
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      width: 100%;
+      padding: 0 4vw;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .hero-letter {
+      display: inline-block;
+      font-family: 'Roboto Flex', sans-serif;
+      font-size: 13vw;          /* overridden by fitText */
+      color: #ffffff;
+      will-change: font-variation-settings;
+      transition: font-variation-settings 0.08s ease-out;
+      /* start: thin + narrow + upright */
+      font-variation-settings: 'wght' 100, 'wdth' 75, 'slnt' 0;
+      flex-shrink: 0;
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 11px;
+      letter-spacing: 0.36em;
+      color: #3a3a3a;
+      text-transform: uppercase;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #333;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      animation: fadeUp 1s 1.5s both;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, #444);
+      animation: extendLine 1.8s ease infinite;
+    }
+    @keyframes extendLine {
+      0%   { transform: scaleY(0); transform-origin: top;    opacity: 0; }
+      50%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
+      100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* grain */
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.04;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+  </style>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f2f2f2;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --text-light: #999;
+      --accent: #1a1a1a;
+      --tag-bg: #efefef;
+      --nav-h: 52px;
+      --sub-h: 44px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== CARD NAV ===== */
+    .card-nav-container {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 200;
+    }
+
+    .card-nav {
+      display: block;
+      height: var(--nav-h);
+      background-color: #fff;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      will-change: height;
+      transition: height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-nav.open {
+      height: calc(var(--nav-h) + 260px);
+    }
+
+    .card-nav-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 0 20px;
+      z-index: 2;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .card-nav.open .card-nav-top {
+      border-color: var(--border);
+    }
+
+    .hamburger-menu {
+      height: 36px;
+      width: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      gap: 5px;
+      border-radius: 8px;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .hamburger-menu:hover { background: rgba(0,0,0,0.05); }
+    .hamburger-line {
+      width: 18px;
+      height: 1.5px;
+      background-color: var(--text);
+      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s;
+      transform-origin: 50% 50%;
+    }
+    .hamburger-menu.open .hamburger-line:first-child {
+      transform: translateY(3.25px) rotate(45deg);
+    }
+    .hamburger-menu.open .hamburger-line:last-child {
+      transform: translateY(-3.25px) rotate(-45deg);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-decoration: none;
+      color: inherit;
+    }
+    .logo-name {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .card-nav-cta-button {
+      background-color: #111;
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 0 18px;
+      height: 34px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .card-nav-cta-button:hover { background: #333; }
+
+    .card-nav-content {
+      position: absolute;
+      left: 0; right: 0;
+      top: var(--nav-h);
+      bottom: 0;
+      padding: 12px 12px 12px;
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      visibility: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s ease 0.06s, visibility 0s linear 0.25s;
+    }
+    .card-nav.open .card-nav-content {
+      visibility: visible;
+      pointer-events: auto;
+      opacity: 1;
+      transition: opacity 0.22s ease 0.14s, visibility 0s;
+    }
+
+    .nav-card {
+      height: 100%;
+      flex: 1 1 0;
+      min-width: 0;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 18px 14px;
+      gap: 6px;
+      user-select: none;
+    }
+
+    .nav-card-label {
+      font-weight: 400;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .nav-card-links {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav-card-link {
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 0;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-card-link:hover { opacity: 0.6; }
+    .nav-card-link .link-arrow { font-size: 11px; opacity: 0.45; }
+
+    @media (max-width: 768px) {
+      .card-nav.open { height: calc(var(--nav-h) + 480px); }
+      .card-nav-content { flex-direction: column; }
+      .nav-card { flex: 0 0 auto; min-height: 100px; }
+      .logo-container { position: static; transform: none; }
+      .card-nav-top { justify-content: space-between; }
+      .card-nav-cta-button { display: none; }
+    }
+
+    /* ===== SUB NAV / FILTERS ===== */
+    .subnav {
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 150;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      height: var(--sub-h);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 4px;
+      transition: top 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .subnav.nav-open {
+      top: calc(var(--nav-h) + 260px);
+    }
+    @media (max-width: 768px) {
+      .subnav.nav-open { top: calc(var(--nav-h) + 480px); }
+    }
+
+    .filter-tag {
+      font-size: 13px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .filter-tag:hover { color: var(--text); background: var(--tag-bg); }
+    .filter-tag.active {
+      color: var(--text);
+      font-weight: 600;
+      background: transparent;
+    }
+    .filter-tag .cnt {
+      font-size: 10px;
+      opacity: 0.6;
+      margin-left: 1px;
+    }
+
+    .subnav-spacer { flex: 1; }
+
+    .view-toggle {
+      display: flex;
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .view-btn {
+      font-size: 13px;
+      padding: 5px 14px;
+      cursor: pointer;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      transition: all 0.15s;
+    }
+    .view-btn.active {
+      background: var(--text);
+      color: var(--white);
+    }
+    .view-btn:hover:not(.active) { background: var(--tag-bg); }
+
+    /* ===== GRID ===== */
+    .gallery-grid {
+      padding: 20px;
+      columns: 3;
+      column-gap: 16px;
+    }
+
+    .card {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    }
+
+    .card-thumb {
+      width: 100%;
+      background: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-thumb.ph {
+      background: linear-gradient(135deg, #ececec 0%, #e0e0e0 100%);
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .card-tag {
+      font-size: 11px;
+      color: var(--text-light);
+      background: var(--tag-bg);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ===== LIST VIEW ===== */
+    .gallery-list {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .list-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    .list-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .list-thumb {
+      width: 80px;
+      height: 56px;
+      border-radius: 6px;
+      background: #e0e0e0;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .list-thumb img { width:100%; height:100%; object-fit:cover; }
+    .list-info { flex: 1; }
+    .list-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .list-desc { font-size: 12px; color: var(--text-muted); }
+    .list-tags { display:flex; gap:6px; margin-top:6px; }
+    .list-tag {
+      font-size: 11px; color: var(--text-light);
+      background: var(--tag-bg); border-radius: 4px; padding: 2px 8px;
+    }
+
+    /* hidden */
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .gallery-grid { columns: 2; }
+      .nav-cell.tagline { display: none; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { columns: 1; }
+      .nav-cell.identity { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-text" id="heroText"></div>
+  <div class="hero-sub">产品 · 体验 · 全栈设计师</div>
+  <div class="hero-scroll" onclick="document.getElementById('mainContent').scrollIntoView({behavior:'smooth'})">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== CARD NAV ===== -->
+<div id="mainContent">
+
+<!-- Floating card nav -->
+<div class="card-nav-container">
+  <div class="card-nav" id="cardNav">
+
+    <!-- Top bar -->
+    <div class="card-nav-top">
+      <div class="hamburger-menu" id="hamburger" onclick="toggleNav()">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+
+      <a class="logo-container" href="#">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <path d="M14 4 C11 4 8 6 7 9 C6 8 4 8 3 9 C5 9.5 6.5 11 7.5 12.5 C8 14 8.5 16 10 18 C9 19 8 21 8.5 23 C10 21.5 12 21 14 21 C16 21 18 21.5 19.5 23 C20 21 19 19 18 18 C19.5 16 20 14 20.5 12.5 C21.5 11 23 9.5 25 9 C24 8 22 8 21 9 C20 6 17 4 14 4Z" fill="#1a1a1a"/>
+          <circle cx="14" cy="8.5" r="2" fill="#1a1a1a"/>
+        </svg>
+        <span class="logo-name">Yanlin.W 彦霖 吴</span>
+      </a>
+
+      <button class="card-nav-cta-button">简历 ↗</button>
+    </div>
+
+    <!-- Expanded cards -->
+    <div class="card-nav-content">
+
+      <!-- 项目 -->
+      <div class="nav-card" style="background:#1B1722; color:#fff">
+        <div class="nav-card-label">项目</div>
+        <div class="nav-card-links">
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('all')">UX 设计 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('01')">0-1 产品 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('motion')">动效 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('web')">网站 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('theory')">设计理论 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('analysis')">分析 <span class="link-arrow">↗</span></button>
+        </div>
+      </div>
+
+      <!-- 思考 -->
+      <div class="nav-card" style="background:#2F293A; color:#fff">
+        <div class="nav-card-label">思考</div>
+        <div class="nav-card-links">
+          <a class="nav-card-link" style="color:#fff">设计洞察 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">方法论 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">工具评测 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">行业观察 <span class="link-arrow">↗</span></a>
+        </div>
+      </div>
+
+      <!-- 关于我 -->
+      <div class="nav-card" style="background:#1B1722; color:#fff">
+        <div class="nav-card-label">关于我</div>
+        <div class="nav-card-links">
+          <a class="nav-card-link" style="color:#fff">工作经历 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">设计理念 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">使用工具 <span class="link-arrow">↗</span></a>
+        </div>
+      </div>
+
+      <!-- 联系我 -->
+      <div class="nav-card" style="background:#2F293A; color:#fff">
+        <div class="nav-card-label">联系我</div>
+        <div class="nav-card-links">
+          <a class="nav-card-link" style="color:#fff">小红书 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">微信 <span class="link-arrow">↗</span></a>
+          <a class="nav-card-link" style="color:#fff">邮箱 <span class="link-arrow">↗</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== FILTER BAR ===== -->
+<div class="subnav">
+  <button class="filter-tag active" onclick="setFilter(this,'all')">UX<span class="cnt">12</span></button>
+  <button class="filter-tag" onclick="setFilter(this,'01')">0-1产品<span class="cnt">8</span></button>
+  <button class="filter-tag" onclick="setFilter(this,'motion')">动效</button>
+  <button class="filter-tag" onclick="setFilter(this,'web')">网站</button>
+  <button class="filter-tag" onclick="setFilter(this,'theory')">设计理论</button>
+  <button class="filter-tag" onclick="setFilter(this,'analysis')">分析</button>
+  <div class="subnav-spacer"></div>
+  <div class="view-toggle">
+    <button class="view-btn" onclick="setView('list',this)">列表</button>
+    <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
+  </div>
+</div>
+
+<!-- ===== GALLERY VIEW ===== -->
+<div class="gallery-grid" id="galleryView">
+
+  <!-- Card 1 — ClosetNow -->
+  <a class="card" data-type="all 01" href="project-closetnow.html" style="text-decoration:none;color:inherit">
+    <div class="card-thumb ph" style="height:220px;background:#111;display:flex;align-items:center;justify-content:center">
+      <svg width="56" height="56" viewBox="0 0 140 140" fill="none">
+        <rect x="26" y="20" width="22" height="22" fill="white"/>
+        <rect x="59" y="15" width="22" height="22" transform="rotate(45 70 26)" fill="white"/>
+        <rect x="92" y="20" width="22" height="22" fill="white"/>
+        <rect x="15" y="52" width="22" height="22" transform="rotate(45 26 63)" fill="white"/>
+        <rect x="59" y="52" width="22" height="22" fill="white"/>
+        <rect x="103" y="52" width="22" height="22" transform="rotate(45 114 63)" fill="white"/>
+        <rect x="26" y="86" width="22" height="22" fill="white"/>
+        <rect x="59" y="81" width="22" height="22" transform="rotate(45 70 92)" fill="white"/>
+        <rect x="92" y="86" width="22" height="22" fill="white"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">品牌识别</span><span class="card-tag">视觉系统</span></div>
+      <div class="card-title">ClosetNow · 品牌识别系统设计</div>
+      <div class="card-desc">从用户研究出发，为整理服务品牌建立完整视觉语言，覆盖 Logo、色彩、字体及应用场景。</div>
+    </div>
+  </a>
+
+  <!-- Card 2 tall -->
+  <div class="card" data-type="all web">
+    <div class="card-thumb ph" style="height:300px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">网站</span><span class="card-tag">UX</span></div>
+      <div class="card-title">个人作品集网站 · 设计&开发</div>
+      <div class="card-desc">你现在看到的这个网站。从信息架构到前端实现，独立完成全流程。</div>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card" data-type="all 01">
+    <div class="card-thumb ph" style="height:200px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">0-1产品</span></div>
+      <div class="card-title">内容创作工具 · MVP 产品设计</div>
+      <div class="card-desc">面向 B 端创作者的内容生产工具，核心功能验证与快速迭代。</div>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card" data-type="all motion">
+    <div class="card-thumb ph" style="height:180px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">动效</span></div>
+      <div class="card-title">交互动效系统 · Design Token 实践</div>
+      <div class="card-desc">制定动效规范，统一产品内 Motion 语言，提升交互一致性。</div>
+    </div>
+  </div>
+
+  <!-- Card 5 tall -->
+  <div class="card" data-type="all analysis">
+    <div class="card-thumb ph" style="height:260px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">分析</span><span class="card-tag">UX</span></div>
+      <div class="card-title">电商购物流程 · 竞品体验分析</div>
+      <div class="card-desc">对主流电商 App 核心路径进行拆解，提炼可复用的设计模式。</div>
+    </div>
+  </div>
+
+  <!-- Card 6 -->
+  <div class="card" data-type="all theory">
+    <div class="card-thumb ph" style="height:200px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">设计理论</span></div>
+      <div class="card-title">格式塔与视觉层级 · 设计原则梳理</div>
+      <div class="card-desc">系统整理认知心理学与视觉设计的底层逻辑，输出可落地指引。</div>
+    </div>
+  </div>
+
+  <!-- Card 7 -->
+  <div class="card" data-type="all 01">
+    <div class="card-thumb ph" style="height:240px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">0-1产品</span><span class="card-tag">UX</span></div>
+      <div class="card-title">SaaS 数据看板 · 信息可视化设计</div>
+      <div class="card-desc">帮助运营团队实时监控核心指标，降低决策链路中的信息摩擦。</div>
+    </div>
+  </div>
+
+  <!-- Card 8 -->
+  <div class="card" data-type="all web motion">
+    <div class="card-thumb ph" style="height:190px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">网站</span><span class="card-tag">动效</span></div>
+      <div class="card-title">品牌官网 · 创意交互体验</div>
+      <div class="card-desc">结合 GSAP 与 CSS 动画，打造沉浸式品牌叙事页面。</div>
+    </div>
+  </div>
+
+  <!-- Card 9 -->
+  <div class="card" data-type="all analysis">
+    <div class="card-thumb ph" style="height:210px"></div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">分析</span></div>
+      <div class="card-title">用户增长漏斗 · 留存数据拆解</div>
+      <div class="card-desc">结合埋点数据与用户访谈，定位关键流失节点并提出改进方案。</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== LIST VIEW (hidden by default) ===== -->
+<div class="gallery-list hidden" id="listView">
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">智能客服系统 · 全链路体验设计</div><div class="list-desc">从 0 搭建企业级 IM 客服平台，覆盖坐席工作台、机器人配置与数据看板。</div><div class="list-tags"><span class="list-tag">UX</span><span class="list-tag">0-1产品</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">个人作品集网站 · 设计&开发</div><div class="list-desc">你现在看到的这个网站。从信息架构到前端实现，独立完成全流程。</div><div class="list-tags"><span class="list-tag">网站</span><span class="list-tag">UX</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">内容创作工具 · MVP 产品设计</div><div class="list-desc">面向 B 端创作者的内容生产工具，核心功能验证与快速迭代。</div><div class="list-tags"><span class="list-tag">0-1产品</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">交互动效系统 · Design Token 实践</div><div class="list-desc">制定动效规范，统一产品内 Motion 语言，提升交互一致性。</div><div class="list-tags"><span class="list-tag">动效</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">电商购物流程 · 竞品体验分析</div><div class="list-desc">对主流电商 App 核心路径进行拆解，提炼可复用的设计模式。</div><div class="list-tags"><span class="list-tag">分析</span><span class="list-tag">UX</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">格式塔与视觉层级 · 设计原则梳理</div><div class="list-desc">系统整理认知心理学与视觉设计的底层逻辑，输出可落地指引。</div><div class="list-tags"><span class="list-tag">设计理论</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">SaaS 数据看板 · 信息可视化设计</div><div class="list-desc">帮助运营团队实时监控核心指标，降低决策链路中的信息摩擦。</div><div class="list-tags"><span class="list-tag">0-1产品</span><span class="list-tag">UX</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">品牌官网 · 创意交互体验</div><div class="list-desc">结合 GSAP 与 CSS 动画，打造沉浸式品牌叙事页面。</div><div class="list-tags"><span class="list-tag">网站</span><span class="list-tag">动效</span></div></div></div>
+  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">用户增长漏斗 · 留存数据拆解</div><div class="list-desc">结合埋点数据与用户访谈，定位关键流失节点并提出改进方案。</div><div class="list-tags"><span class="list-tag">分析</span></div></div></div>
+</div>
+
+<script>
+  // ===== HERO — TEXT PRESSURE (variable font) =====
+  (function () {
+    const WORD = 'YANLINWU-JO';
+    const container = document.getElementById('heroText');
+    const letters   = [];
+
+    // font-variation axis ranges
+    const WGHT_MIN = 100,  WGHT_MAX = 900;
+    const WDTH_MIN = 75,   WDTH_MAX = 151;
+    const SLNT_MIN = 0,    SLNT_MAX = -12;   // negative = italic in Roboto Flex
+    const INFLUENCE = 350; // px radius of full effect
+
+    WORD.split('').forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'hero-letter';
+      span.textContent = ch === '-' ? '\u2013' : ch;  // en-dash looks better
+      container.appendChild(span);
+      letters.push({ el: span, cur: { w: WGHT_MIN, d: WDTH_MIN, s: SLNT_MIN } });
+    });
+
+    // --- fit font size so text fills 92% viewport width ---
+    function measureTotalWidth(size) {
+      letters.forEach(l => l.el.style.fontSize = size + 'px');
+      return letters.reduce((sum, l) => sum + l.el.offsetWidth, 0);
+    }
+    function fitText() {
+      let lo = 10, hi = 400;
+      for (let i = 0; i < 60; i++) {
+        const mid = (lo + hi) / 2;
+        measureTotalWidth(mid) <= window.innerWidth * 0.92 ? lo = mid : hi = mid;
+      }
+      letters.forEach(l => l.el.style.fontSize = lo + 'px');
+    }
+    document.fonts.ready.then(fitText);
+    window.addEventListener('resize', fitText);
+
+    // --- mouse tracking ---
+    let mx = -9999, my = -9999;
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.getElementById('hero').addEventListener('mouseleave',
+      () => { mx = -9999; my = -9999; });
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      letters.forEach(({ el, cur }) => {
+        const r    = el.getBoundingClientRect();
+        const cx   = r.left + r.width  / 2;
+        const cy   = r.top  + r.height / 2;
+        const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
+
+        // proximity: 1 = cursor on letter, 0 = outside influence radius
+        const prox = Math.max(0, 1 - dist / INFLUENCE);
+
+        const targetW = lerp(WGHT_MIN, WGHT_MAX, prox);
+        const targetD = lerp(WDTH_MIN, WDTH_MAX, prox);
+        const targetS = lerp(SLNT_MIN, SLNT_MAX, prox);
+
+        // smooth chase (ease toward target each frame)
+        const k = 0.18;
+        cur.w += (targetW - cur.w) * k;
+        cur.d += (targetD - cur.d) * k;
+        cur.s += (targetS - cur.s) * k;
+
+        el.style.fontVariationSettings =
+          `'wght' ${cur.w.toFixed(1)}, 'wdth' ${cur.d.toFixed(1)}, 'slnt' ${cur.s.toFixed(2)}`;
+      });
+      requestAnimationFrame(tick);
+    }
+    tick();
+  })();
+
+  // ===== CARD NAV LOGIC =====
+  function toggleNav() {
+    const nav = document.getElementById('cardNav');
+    const hbg = document.getElementById('hamburger');
+    const subnav = document.querySelector('.subnav');
+    const isOpen = nav.classList.contains('open');
+    nav.classList.toggle('open', !isOpen);
+    hbg.classList.toggle('open', !isOpen);
+    subnav.classList.toggle('nav-open', !isOpen);
+  }
+
+  function closeNav() {
+    document.getElementById('cardNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.querySelector('.subnav').classList.remove('nav-open');
+  }
+
+  function filterAndClose(type) {
+    const tags = document.querySelectorAll('.filter-tag');
+    const typeMap = { all:0, '01':1, motion:2, web:3, theory:4, analysis:5 };
+    const idx = typeMap[type] ?? 0;
+    setFilter(tags[idx], type);
+    closeNav();
+    document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    const container = document.querySelector('.card-nav-container');
+    if (container && !container.contains(e.target)) closeNav();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+  // ===== PORTFOLIO LOGIC =====
+  function setFilter(el, type) {
+    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(c => {
+      const types = c.dataset.type || '';
+      c.style.display = (type === 'all' || types.includes(type)) ? '' : 'none';
+    });
+  }
+
+  function setView(view, btn) {
+    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (view === 'list') {
+      document.getElementById('galleryView').classList.add('hidden');
+      document.getElementById('listView').classList.remove('hidden');
+    } else {
+      document.getElementById('listView').classList.add('hidden');
+      document.getElementById('galleryView').classList.remove('hidden');
+    }
+  }
+
+
+  // Identity tag toggle
+  document.querySelectorAll('.identity-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      document.querySelectorAll('.identity-tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
