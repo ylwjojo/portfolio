@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>简历 — 吴彦霖 Yanlin WU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #6B5CE7;
+      --purple-dark: #1a1040;
+      --purple-mid: #3d2b8e;
+      --bg: #f0eff8;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --muted: #6b6b8a;
+      --border: #e4e2f0;
+      --tag-bg: #ede9fb;
+      --tag-text: #5a4fcf;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== TOP BAR ===== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(240, 239, 248, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .back-btn:hover { background: var(--tag-bg); color: var(--purple); }
+    .topbar-title {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ===== HERO HEADER ===== */
+    .resume-header {
+      background: linear-gradient(135deg, #0d0820 0%, #1e1060 40%, #2d1b8e 70%, #1a0d4a 100%);
+      padding: 40px 24px 32px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 140px;
+    }
+    .resume-header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(107,92,231,0.4) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .resume-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 20%;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(180,120,255,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-text { position: relative; z-index: 1; }
+    .header-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    .header-name span {
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      font-size: 22px;
+      display: block;
+      margin-top: 2px;
+    }
+    .header-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .header-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    /* ===== CONTACT BAR ===== */
+    .contact-bar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .contact-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--purple);
+    }
+    .contact-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .contact-group .icon { font-size: 14px; opacity: 0.6; }
+    .contact-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+    }
+    .contact-spacer { flex: 1; }
+    .contact-cta {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--purple);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .resume-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .card:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ===== EXPERIENCE CARD ===== */
+    .exp-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .exp-company {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .exp-logo {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .exp-date {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .exp-position-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .exp-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .exp-tasks-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      opacity: 0.6;
+    }
+    .exp-tasks {
+      list-style: none;
+      margin-bottom: 14px;
+    }
+    .exp-tasks li {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+    .exp-tasks li::before {
+      content: counter(li);
+      counter-increment: li;
+      position: absolute;
+      left: 0;
+      color: var(--purple);
+      font-size: 11px;
+      font-weight: 600;
+      top: 2px;
+    }
+    .exp-tasks { counter-reset: li; }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .exp-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      white-space: nowrap;
+    }
+
+    /* ===== RIGHT COLUMN ===== */
+    .right-col { position: sticky; top: 68px; }
+
+    /* Education */
+    .edu-level {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--purple);
+      margin-bottom: 2px;
+      margin-top: 14px;
+    }
+    .edu-level:first-child { margin-top: 0; }
+    .edu-school {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .edu-major {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .edu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 14px 0;
+    }
+    .awards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 12px;
+    }
+    .award-item {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .award-item strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .skill-icon {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    /* Tool icon colors */
+    .tool-figma   { background: #1e1e1e; color: #fff; }
+    .tool-sketch  { background: #ffd700; color: #333; }
+    .tool-ps      { background: #001e36; color: #31a8ff; }
+    .tool-ai      { background: #300; color: #ff9a00; }
+    .tool-ae      { background: #00005b; color: #9999ff; }
+    .tool-framer  { background: #0a0a0a; color: #fff; }
+    .tool-blender { background: #ea7600; color: #fff; }
+    .tool-xd      { background: #ff2bc2; color: #fff; }
+    .tool-pr      { background: #00005b; color: #e77bff; }
+    .tool-chat    { background: #10a37f; color: #fff; }
+
+    /* Projects */
+    .project-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .project-item:first-child { padding-top: 0; }
+    .project-org {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .project-org .separator { color: var(--purple); margin: 0 4px; }
+    .project-name {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    @media (max-width: 720px) {
+      .resume-body { grid-template-columns: 1fr; }
+      .right-col { position: static; }
+      .header-name { font-size: 22px; }
+      .header-name span { font-size: 17px; }
+      .contact-bar { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="back-btn" href="index.html">← 返回作品集</a>
+  <span class="topbar-title">简历 · Resume</span>
+</div>
+
+<!-- HEADER -->
+<div class="resume-header">
+  <div class="header-text">
+    <div class="header-name">
+      吴彦霖
+      <span>Yanlin WU</span>
+    </div>
+  </div>
+  <div class="header-avatar">🎨</div>
+</div>
+
+<!-- CONTACT BAR -->
+<div class="contact-bar">
+  <span class="contact-label">联系我</span>
+  <div class="contact-group">
+    <span class="icon">📱</span>
+    19542760510 &nbsp; 15148244510
+  </div>
+  <div class="contact-divider"></div>
+  <div class="contact-group">
+    <span class="icon">✉️</span>
+    ylwtj510@gmail.com &nbsp; 1532228760@qq.com
+  </div>
+  <div class="contact-spacer"></div>
+  <span class="contact-cta">CONTACTS →</span>
+</div>
+
+<!-- BODY -->
+<div class="resume-body">
+
+  <!-- LEFT: EXPERIENCE -->
+  <div class="left-col">
+
+    <!-- 无限光年 -->
+    <div class="card">
+      <div class="section-title">📋 实习经历</div>
+      <div class="exp-header">
+        <div class="exp-company">
+          <span class="exp-logo" style="background:#e8f4ff;color:#1a73e8;">∞INF</span>
+          上海无限光年科技公司
+        </div>
+        <div class="exp-date">🕐 2024.04–07</div>
+      </div>
+      <div class="exp-position-label">公司定位 &nbsp; 金融垂直领域、AIGC 应用大模型</div>
+      <div class="exp-desc">关键职责 &nbsp; 参与产品概念设计，通过用户与市场分析，为产品功能规划提供见解，了解产品上线、开发流程，参与产品用户测试。</div>
+      <div class="exp-tasks-label">任务内容</div>
+      <ol class="exp-tasks">
+        <li>利用 Figma 创建高保真原型，并进行用户测试验证设计解决方案。</li>
+        <li>与产品组、开发组协作，确保设计实现可行性和商业目标的一致性。</li>
+        <li>根据用户反馈与产品经理协作进行设计迭代，优化用户界面和交互流程。</li>
+        <li>遵循设计原则，维护设计系统和标准，确保产品视觉和功能的一致性。</li>
+      </ol>
+      <div class="exp-tags">
+        <span class="exp-tag">金融产品设计 UED</span>
+        <span class="exp-tag">UI 交互设计（偏动效视觉）</span>
+      </div>
+    </div>
+
+    <!-- COSIGN -->
+    <div class="card">
+      <div class="exp-header">
+        <div class="exp-company">
+          <span class="exp-logo" style="background:#f0f0f0;color:#333;">COSIGN</span>
+          上海 COSIGN DESIGN
+        </div>
+        <div class="exp-date">🕐 2023.11–2024.01</div>
+      </div>
+      <div class="exp-position-label">公司定位 &nbsp; 数字品牌建设设计服务</div>
+      <div class="exp-desc">关键职责 &nbsp; 根据合作要求，协助设计师共同推进设计流程。</div>
+      <div class="exp-tasks-label">任务内容</div>
+      <ol class="exp-tasks">
+        <li>相关 UI/UX 设计，如 App 界面、仪表盘、UI 规范理论框架搭建。</li>
+        <li>负责 Web 端相关设计，根据需求搭建网站。</li>
+      </ol>
+      <div class="exp-tags">
+        <span class="exp-tag">品牌 VI 视觉设计</span>
+        <span class="exp-tag">UI/Web 交互设计</span>
+      </div>
+    </div>
+
+    <!-- Tesla -->
+    <div class="card">
+      <div class="exp-header">
+        <div class="exp-company">
+          <span class="exp-logo" style="background:#cc0000;color:#fff;">T</span>
+          上海特斯拉超级工厂
+        </div>
+        <div class="exp-date">🕐 2023.07–11</div>
+      </div>
+      <div class="exp-position-label">公司定位 &nbsp; 新能源汽车、科技</div>
+      <div class="exp-desc">关键职责 &nbsp; 遵循特斯拉中国整体视觉调性和风格，负责视觉延展。</div>
+      <div class="exp-tasks-label">任务内容</div>
+      <ol class="exp-tasks">
+        <li>线上及线下品牌活动视觉设计，制作相关创意性设计物料。</li>
+        <li>负责车载中控屏幕的 UI 设计规范，完成 UI 组件的排布与设计。</li>
+      </ol>
+      <div class="exp-tags">
+        <span class="exp-tag">车载 HMI 体验设计</span>
+        <span class="exp-tag">视觉创意设计</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: EDU + SKILLS + PROJECTS -->
+  <div class="right-col">
+
+    <!-- Education -->
+    <div class="card">
+      <div class="section-title">🎓 科研学习经历</div>
+
+      <div class="edu-level">硕士</div>
+      <div class="edu-school">同济大学设计创意学院</div>
+      <div class="edu-major">交互设计</div>
+
+      <div class="edu-level">本科</div>
+      <div class="edu-school">南京理工大学</div>
+      <div class="edu-major">工业设计、英语双学位</div>
+
+      <div class="edu-divider"></div>
+
+      <div class="section-title">🏆 获奖经历</div>
+      <div class="awards-grid">
+        <div>
+          <div class="award-item"><strong>全国大学生工程训练大赛省级特等奖</strong></div>
+          <div class="award-item"><strong>移动应用互联网大赛省级二等奖</strong></div>
+          <div class="award-item"><strong>HCII 发表全英论文一篇</strong></div>
+          <div class="award-item"><strong>外观设计专利</strong></div>
+          <div class="award-item"><strong>实用新型专利</strong></div>
+        </div>
+        <div>
+          <div class="award-item">国家励志奖学金 ×2</div>
+          <div class="award-item">校级二等奖学金 ×3</div>
+          <div class="award-item">三等奖学金 ×2</div>
+          <div class="award-item">团支书</div>
+          <div class="award-item">校级三好学生</div>
+          <div class="award-item">省级优秀团干</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="card">
+      <div class="section-title">🛠 技能</div>
+      <div class="skills-grid">
+        <div class="skill-icon tool-figma">Fi</div>
+        <div class="skill-icon tool-sketch">Sk</div>
+        <div class="skill-icon tool-ps">Ps</div>
+        <div class="skill-icon tool-ai">Ai</div>
+        <div class="skill-icon tool-ae">Ae</div>
+        <div class="skill-icon tool-framer">Fr</div>
+        <div class="skill-icon tool-blender">3D</div>
+        <div class="skill-icon tool-xd">Xd</div>
+        <div class="skill-icon tool-pr">Pr</div>
+        <div class="skill-icon tool-chat">AI</div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="card">
+      <div class="section-title">📋 参与设计项目</div>
+      <div class="project-item">
+        <div class="project-org">飞亚达<span class="separator">|</span><span style="font-weight:400">虚拟与物质设计工作坊</span></div>
+      </div>
+      <div class="project-item">
+        <div class="project-org">宝马集团 · XAI Lab</div>
+        <div class="project-name">「Z 世代与汽车可持续发展机会」研究</div>
+      </div>
+      <div class="project-item">
+        <div class="project-org">唐硕设计咨询<span class="separator">|</span><span style="font-weight:400">用户体验设计工作坊</span></div>
+      </div>
+      <div class="project-item">
+        <div class="project-org">阿里云设计中心<span class="separator">|</span><span style="font-weight:400">数字孪生智慧矿山</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
