@@ -882,13 +882,16 @@
     }
 
     /* Section block */
-    .proj-section { margin-bottom: 44px; scroll-margin-top: 20px; }
+    .proj-section { margin-bottom: 48px; scroll-margin-top: 20px; }
     .proj-section-heading {
-      font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
-      text-transform: uppercase; color: #1a1a1a;
+      font-size: 16px; font-weight: 700; color: #0a0a0a;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+    }
+    .proj-sub-heading {
+      font-size: 14px; font-weight: 700; color: #1a1a1a;
+      margin-top: 24px; margin-bottom: 8px;
     }
 
     /* Moonvy-style content card */
@@ -935,8 +938,8 @@
     .proj-method strong { color: #1a1a1a; }
 
     .proj-prose {
-      font-size: 15px; line-height: 1.85; color: #333;
-      margin-bottom: 18px;
+      font-size: 14px; font-weight: 400; line-height: 1.9; color: #444;
+      margin-bottom: 16px;
     }
     .proj-prose strong { color: #0a0a0a; font-weight: 600; }
 
@@ -1365,25 +1368,47 @@
             </div>
           </div>
 
-          <!-- 项目背景 -->
+          <!-- 问题发现 -->
           <div class="proj-section" id="proj-sec-bg">
-            <div class="proj-section-heading">背景</div>
-            <p class="proj-prose">bilibili IP 页原本的左右滑动，触发的是 Tab 切换。这个设计完全正确——符合手势惯性，用户不会困惑，没有任何体验投诉。但 Tab 内容极少，使用数据也很低。大量用户的滑动行为，每天都落在一个几乎没有价值的操作上。</p>
-            <p class="proj-prose">需求方希望把左右滑动改为切换 IP 内容页，提升 IP 页的曝光量。</p>
+            <div class="proj-section-heading">问题是如何发现的</div>
+            <div class="proj-sub-heading">数据信号</div>
+            <p class="proj-prose">需求方在复盘 IP 页数据时注意到两件事并列出现：左右滑动的 Tab 使用率持续走低，而 IP 详情页的曝光量一直上不去。两条数据本来是独立的，但放在一起看，指向同一个问题：用户每天产生大量左右滑动行为，这些手势全部消耗在了 Tab 上，而 IP 详情页几乎没有一个顺手的入口。</p>
+            <div class="proj-sub-heading">核心观察</div>
+            <p class="proj-prose">IP 页的左右滑动热区，本质上是一块"被占用但没有被好好使用"的资源。Tab 设计本身没有体验问题，这也是它一直没被质疑的原因——没有投诉，没有负向反馈，但也没有在创造什么价值。</p>
           </div>
 
-          <!-- 核心价值 -->
+          <!-- 卡点难点 -->
+          <div class="proj-section" id="proj-sec-problems">
+            <div class="proj-section-heading">卡点与难点</div>
+            <div class="proj-sub-heading">打破已有手势预期的风险</div>
+            <p class="proj-prose">用户对"左右滑 = 切 Tab"已经形成了稳定预期。把同一个手势重新映射到完全不同的行为，短期内一定会产生迷失感——用户滑了一下，发现页面变了，不知道怎么回去，也不确定自己是不是误触了。这个认知断层如果处理不好，比不改更糟。</p>
+            <div class="proj-sub-heading">引导的尺度边界</div>
+            <p class="proj-prose">解决认知断层的方式是引导，但引导本身也有成本。做得太重，每次进入都弹提示，用户会觉得被打扰；做得太轻，用户根本没注意到，功能发现率依然很低。难点在于：这个引导只有一次机会，必须在第一次触发时就让用户真正理解。</p>
+          </div>
+
+          <!-- 根本原因 -->
+          <div class="proj-section" id="proj-sec-reason">
+            <div class="proj-section-heading">为什么会出现这个问题</div>
+            <p class="proj-prose">Tab 在产品早期是有价值的——当内容模块多、切换频繁时，左右滑是合理的导航方式。但随着 IP 页内容结构调整，Tab 数量缩减，内容密度下降，这个设计的前提已经不成立了，但交互层没有随之迭代。</p>
+            <p class="proj-prose">更深层的原因是：<strong>设计评审不容易质疑"没有问题"的东西。</strong> 有 bug 会被修，有投诉会被改，但一个"用起来还行、只是没什么用"的设计，很容易在每一轮评审中都被放过。这个需求是少数几个主动去挖这类问题的案例。</p>
+          </div>
+
+          <!-- 决策过程 -->
           <div class="proj-section" id="proj-sec-abilities">
-            <div class="proj-section-heading">这个项目对我最大的价值</div>
-            <p class="proj-prose">在此之前，我衡量一个方案好不好，主要看"用户会不会觉得奇怪"。这个需求打破了这个标准——因为原方案完全不奇怪，但它在浪费用户每一次操作。</p>
-            <p class="proj-prose">它让我开始用另一个问题审视已有设计：<strong>这个交互行为，有没有在真正创造价值？</strong> 无摩擦不等于有价值。一个"没有问题"的方案，可能长期占用着一个本可以更高效的入口。</p>
-            <p class="proj-prose">改掉它的代价是认知摩擦——用户已经习惯了原来的手势。所以我同步设计了手势引导：出现一次，随手势完成后消失，不再重复。前提是：用户只要划对一次，新的心智模型就建立了。</p>
+            <div class="proj-section-heading">决策过程与原因</div>
+            <div class="proj-sub-heading">先评估原方案的实际价值</div>
+            <p class="proj-prose">在决定改之前，先确认 Tab 本身是否值得保留。结论是：Tab 内容少、使用率低，去掉不会造成功能损失，用户也不会因为少了 Tab 而困惑——他们本来就没在用它。这给了改动足够的底气。</p>
+            <div class="proj-sub-heading">方案对比</div>
+            <p class="proj-prose">备选方案 A 是保留 Tab 滑动不变，另在页面其他位置增加 IP 入口。风险低，但需要占用新的布局空间，且新入口的发现率很难保证。</p>
+            <p class="proj-prose">方案 B 是直接将左右滑重新定义为切换 IP 页，复用现有手势习惯，不需要教用户新手势，只需要更新他们对"滑动触发什么"的认知。代价是短期的认知摩擦，但可以通过引导设计来承接。</p>
+            <div class="proj-sub-heading">最终选择方案 B 的原因</div>
+            <p class="proj-prose">方案 B 的入口效率更高——直接复用用户的高频手势，不新增学习成本。而认知摩擦的问题，只要引导设计做对，只需要一次。我的判断是：<strong>用户只要完成一次正确的手势，心智模型就更新了，之后不再需要提示。</strong> 所以引导的策略是：进入页面时出现一次动效暗示，随用户完成手势后消失，不重复出现。</p>
           </div>
 
           <!-- 总结 -->
           <div class="proj-section" id="proj-sec-summary">
             <div class="proj-quote">
-              这个项目之后，我做方案会多问一步：它有没有在创造价值，还是只是在"不犯错"？
+              这个项目改变了我的一个习惯：做完方案之后，会多问一次——它现在没有体验问题，但它有没有在真正创造价值？
             </div>
           </div>
 
