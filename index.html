@@ -934,6 +934,12 @@
     }
     .proj-method strong { color: #1a1a1a; }
 
+    .proj-prose {
+      font-size: 15px; line-height: 1.85; color: #333;
+      margin-bottom: 18px;
+    }
+    .proj-prose strong { color: #0a0a0a; font-weight: 600; }
+
     @media (max-width: 768px) {
       .proj-article-wrap { grid-template-columns: 1fr; }
       .proj-sidebar { display: none; }
@@ -1355,71 +1361,29 @@
             <div class="proj-eyebrow">BILIBILI 实战经验 · 体验探索</div>
             <h1 class="proj-title">IP页滑动热区重定义 · 手势引导设计</h1>
             <div class="proj-oneliner">
-              符合交互惯性的方案，不一定是正确的方案。这个项目的核心决策，是主动打破一个"看起来没问题"的交互习惯。
+              这个需求让我第一次意识到：没有问题的方案，可能才是最大的问题。
             </div>
           </div>
 
           <!-- 项目背景 -->
           <div class="proj-section" id="proj-sec-bg">
-            <div class="proj-section-heading">项目背景</div>
-
-            <div class="proj-card">
-              <div class="proj-card-accent" style="background:#f59e0b"></div>
-              <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#f59e0b">线上现状</div>
-                <div class="proj-card-text">bilibili IP 页在左右滑动时，触发的是 Tab 切换——这是最符合手势惯性的设计，用户不会困惑，但使用率和页面停留数据都很低。Tab 内容少、信息密度不够，用户划一下，几乎没有获得什么。</div>
-              </div>
-            </div>
-
-            <div class="proj-card">
-              <div class="proj-card-accent" style="background:#6B5CE7"></div>
-              <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#6B5CE7">真正的问题</div>
-                <div class="proj-card-text">这不是一个"体验不好"的问题，而是一个"资源浪费"的问题。用户每天产生大量的左右滑动行为，这些手势全部落在了价值极低的 Tab 上。与此同时，IP 详情页——平台真正希望用户深度消费的内容——却几乎没有入口。</div>
-              </div>
-            </div>
-
-            <div class="proj-card">
-              <div class="proj-card-accent" style="background:#3b82f6"></div>
-              <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#3b82f6">设计决策</div>
-                <div class="proj-card-text">将左右滑动的语义从"切换 Tab"重新定义为"切换 IP 内容页"。这是一个主动打破已有交互惯性的决定，风险在于用户短期会有认知成本，因此必须同步设计手势引导来承接这个变化——让用户第一次划的时候就知道自己在做什么。</div>
-              </div>
-            </div>
+            <div class="proj-section-heading">背景</div>
+            <p class="proj-prose">bilibili IP 页原本的左右滑动，触发的是 Tab 切换。这个设计完全正确——符合手势惯性，用户不会困惑，没有任何体验投诉。但 Tab 内容极少，使用数据也很低。大量用户的滑动行为，每天都落在一个几乎没有价值的操作上。</p>
+            <p class="proj-prose">需求方希望把左右滑动改为切换 IP 内容页，提升 IP 页的曝光量。</p>
           </div>
 
-          <!-- 设计过程 -->
+          <!-- 核心价值 -->
           <div class="proj-section" id="proj-sec-abilities">
-            <div class="proj-section-heading">我是怎么想的</div>
-            <div class="proj-abilities">
-              <div class="proj-ability-item">
-                <div class="proj-ability-name">先质疑"对的"方案</div>
-                <div class="proj-ability-desc">Tab 滑动没有体验问题，这恰恰是最容易被放过的隐患。我的判断是：符合惯性但低价值的交互，长期来看是一种机会成本。</div>
-              </div>
-              <div class="proj-ability-item">
-                <div class="proj-ability-name">权衡改动的代价</div>
-                <div class="proj-ability-desc">打破手势预期会产生认知摩擦。我没有回避这个风险，而是把它作为设计子问题拆解出来：如何让用户第一次使用就建立新的心智模型？答案是手势引导动效。</div>
-              </div>
-              <div class="proj-ability-item">
-                <div class="proj-ability-name">引导的尺度控制</div>
-                <div class="proj-ability-desc">引导不能过度——提示出现一次、随手势完成消失，之后不再打扰。这个节奏的设计前提是：用户只要完成一次正确手势，心智模型就已经更新了。</div>
-              </div>
-              <div class="proj-ability-item">
-                <div class="proj-ability-name">定义验证方式</div>
-                <div class="proj-ability-desc">方案上线后，用 IP 页曝光量、页面停留时长、手势引导完成率三个指标验证。如果引导完成率低，说明引导本身有问题；如果曝光量没变，说明热区调整没有带来增量。</div>
-              </div>
-            </div>
+            <div class="proj-section-heading">这个项目对我最大的价值</div>
+            <p class="proj-prose">在此之前，我衡量一个方案好不好，主要看"用户会不会觉得奇怪"。这个需求打破了这个标准——因为原方案完全不奇怪，但它在浪费用户每一次操作。</p>
+            <p class="proj-prose">它让我开始用另一个问题审视已有设计：<strong>这个交互行为，有没有在真正创造价值？</strong> 无摩擦不等于有价值。一个"没有问题"的方案，可能长期占用着一个本可以更高效的入口。</p>
+            <p class="proj-prose">改掉它的代价是认知摩擦——用户已经习惯了原来的手势。所以我同步设计了手势引导：出现一次，随手势完成后消失，不再重复。前提是：用户只要划对一次，新的心智模型就建立了。</p>
           </div>
 
-          <!-- 作品集总结 -->
+          <!-- 总结 -->
           <div class="proj-section" id="proj-sec-summary">
-            <div class="proj-section-heading">作品集总结</div>
             <div class="proj-quote">
-              <div class="proj-quote-label">我想用这个项目说明的事</div>
-              交互设计师最容易犯的错误，是把"用户不会觉得奇怪"当成设计目标。这个项目让我意识到：无摩擦不等于有价值，真正的设计判断力在于识别出"没有问题"的方案里隐藏的机会成本，并敢于推动改变。
-            </div>
-            <div class="proj-method">
-              <strong>可迁移的方法论：</strong>每当一个交互行为"没有体验问题"时，值得反问一次——它是否也在为用户和业务创造价值？如果答案是否，那这个热区可能正在浪费用户的每一次操作。
+              这个项目之后，我做方案会多问一步：它有没有在创造价值，还是只是在"不犯错"？
             </div>
           </div>
 
