@@ -837,7 +837,21 @@
       border-left: 1px solid var(--border);
       padding: 28px 20px 40px;
       background: #fff;
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+      transition: scrollbar-color 0.2s;
     }
+    .proj-right-col:hover {
+      scrollbar-color: rgba(0,0,0,0.2) transparent;
+    }
+    .proj-right-col::-webkit-scrollbar { width: 4px; }
+    .proj-right-col::-webkit-scrollbar-track { background: transparent; }
+    .proj-right-col::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .proj-right-col:hover::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); }
     .proj-right-meta-item { margin-bottom: 28px; }
     .proj-right-meta-label {
       font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
