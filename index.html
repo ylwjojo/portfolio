@@ -826,7 +826,11 @@
     .proj-toc-link.toc-active { color: var(--text); font-weight: 600; }
 
     /* ── Center: scrollable content ── */
-    .proj-article-content { overflow-y: auto; }
+    .proj-article-content {
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .proj-article-content::-webkit-scrollbar { display: none; }
 
     /* Article body padding */
     .proj-body { padding: 32px 40px 60px; }
