@@ -1352,10 +1352,10 @@
 
           <!-- 概览 -->
           <div class="proj-section" id="proj-sec-header">
-            <div class="proj-eyebrow">bilibili 实战经验 · 体验探索</div>
+            <div class="proj-eyebrow">BILIBILI 实战经验 · 体验探索</div>
             <h1 class="proj-title">IP页滑动热区重定义 · 手势引导设计</h1>
             <div class="proj-oneliner">
-              这个需求证明：我能基于业务目标调整交互优先级，而不是只按传统交互习惯做设计。
+              符合交互惯性的方案，不一定是正确的方案。这个项目的核心决策，是主动打破一个"看起来没问题"的交互习惯。
             </div>
           </div>
 
@@ -1364,69 +1364,49 @@
             <div class="proj-section-heading">项目背景</div>
 
             <div class="proj-card">
-              <div class="proj-card-accent" style="background:#9ca3af"></div>
-              <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#9ca3af">需求背景</div>
-                <div class="proj-card-text">之前发现左右滑动的 Tab 价值不高，决定将左右滑动改为切换 IP，核心是由业务价值驱动。</div>
-              </div>
-            </div>
-
-            <div class="proj-card">
               <div class="proj-card-accent" style="background:#f59e0b"></div>
               <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#f59e0b">线上问题</div>
-                <div class="proj-card-text">左右滑动的 Tab 内容数量少、价值不高，虽然最符合交互惯性，但对业务曝光贡献有限。</div>
+                <div class="proj-card-label" style="color:#f59e0b">线上现状</div>
+                <div class="proj-card-text">bilibili IP 页在左右滑动时，触发的是 Tab 切换——这是最符合手势惯性的设计，用户不会困惑，但使用率和页面停留数据都很低。Tab 内容少、信息密度不够，用户划一下，几乎没有获得什么。</div>
               </div>
             </div>
 
             <div class="proj-card">
               <div class="proj-card-accent" style="background:#6B5CE7"></div>
               <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#6B5CE7">设计目标</div>
-                <div class="proj-card-text">将左右滑动的热区重新定义为切换 IP 内容页，增加 IP 页的曝光机会。</div>
+                <div class="proj-card-label" style="color:#6B5CE7">真正的问题</div>
+                <div class="proj-card-text">这不是一个"体验不好"的问题，而是一个"资源浪费"的问题。用户每天产生大量的左右滑动行为，这些手势全部落在了价值极低的 Tab 上。与此同时，IP 详情页——平台真正希望用户深度消费的内容——却几乎没有入口。</div>
               </div>
             </div>
 
             <div class="proj-card">
               <div class="proj-card-accent" style="background:#3b82f6"></div>
               <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#3b82f6">设计策略</div>
-                <div class="proj-card-text">调整滑动热区范围，将触发行为从低价值 Tab 浏览替换为 IP 内容切换，并增加手势引导提升可发现性。</div>
-              </div>
-            </div>
-
-            <div class="proj-card">
-              <div class="proj-card-accent" style="background:#10b981"></div>
-              <div class="proj-card-body">
-                <div class="proj-card-label" style="color:#10b981">执行依据</div>
-                <div class="proj-card-text">业务诉求优先，后续以点击率、IP 页使用率验证方案是否有效。</div>
+                <div class="proj-card-label" style="color:#3b82f6">设计决策</div>
+                <div class="proj-card-text">将左右滑动的语义从"切换 Tab"重新定义为"切换 IP 内容页"。这是一个主动打破已有交互惯性的决定，风险在于用户短期会有认知成本，因此必须同步设计手势引导来承接这个变化——让用户第一次划的时候就知道自己在做什么。</div>
               </div>
             </div>
           </div>
 
-          <!-- 能力体现 -->
+          <!-- 设计过程 -->
           <div class="proj-section" id="proj-sec-abilities">
-            <div class="proj-section-heading">能力体现</div>
+            <div class="proj-section-heading">我是怎么想的</div>
             <div class="proj-abilities">
               <div class="proj-ability-item">
-                <div class="proj-ability-name">业务判断</div>
-                <div class="proj-ability-desc">判断原左右滑动 Tab 价值低，将滑动行为改为更有业务价值的 IP 切换。</div>
+                <div class="proj-ability-name">先质疑"对的"方案</div>
+                <div class="proj-ability-desc">Tab 滑动没有体验问题，这恰恰是最容易被放过的隐患。我的判断是：符合惯性但低价值的交互，长期来看是一种机会成本。</div>
               </div>
               <div class="proj-ability-item">
-                <div class="proj-ability-name">体验优化</div>
-                <div class="proj-ability-desc">通过扩大 / 调整滑动热区，让用户更容易触发有效操作。</div>
+                <div class="proj-ability-name">权衡改动的代价</div>
+                <div class="proj-ability-desc">打破手势预期会产生认知摩擦。我没有回避这个风险，而是把它作为设计子问题拆解出来：如何让用户第一次使用就建立新的心智模型？答案是手势引导动效。</div>
               </div>
               <div class="proj-ability-item">
-                <div class="proj-ability-name">用户引导</div>
-                <div class="proj-ability-desc">增加滑动手势提示，降低用户理解成本，提升功能可发现性。</div>
+                <div class="proj-ability-name">引导的尺度控制</div>
+                <div class="proj-ability-desc">引导不能过度——提示出现一次、随手势完成消失，之后不再打扰。这个节奏的设计前提是：用户只要完成一次正确手势，心智模型就已经更新了。</div>
               </div>
               <div class="proj-ability-item">
-                <div class="proj-ability-name">曝光增长</div>
-                <div class="proj-ability-desc">通过交互调整提升 IP 页曝光机会，以设计手段服务业务目标。</div>
-              </div>
-              <div class="proj-ability-item" style="grid-column:span 2">
-                <div class="proj-ability-name">数据意识</div>
-                <div class="proj-ability-desc">后续可用点击率、使用率验证方案是否有效，形成设计→数据闭环。</div>
+                <div class="proj-ability-name">定义验证方式</div>
+                <div class="proj-ability-desc">方案上线后，用 IP 页曝光量、页面停留时长、手势引导完成率三个指标验证。如果引导完成率低，说明引导本身有问题；如果曝光量没变，说明热区调整没有带来增量。</div>
               </div>
             </div>
           </div>
@@ -1435,11 +1415,11 @@
           <div class="proj-section" id="proj-sec-summary">
             <div class="proj-section-heading">作品集总结</div>
             <div class="proj-quote">
-              <div class="proj-quote-label">Portfolio Summary</div>
-              针对 IP 页原左右滑动 Tab 使用价值较低的问题，我基于业务曝光目标重新定义滑动热区，将滑动行为从低价值 Tab 浏览转化为 IP 内容切换，并增加手势引导提升操作可发现性。该方案属于低成本体验优化，可通过点击率、使用率和 IP 曝光量验证效果。
+              <div class="proj-quote-label">我想用这个项目说明的事</div>
+              交互设计师最容易犯的错误，是把"用户不会觉得奇怪"当成设计目标。这个项目让我意识到：无摩擦不等于有价值，真正的设计判断力在于识别出"没有问题"的方案里隐藏的机会成本，并敢于推动改变。
             </div>
             <div class="proj-method">
-              <strong>💡 低价值交互热区再利用：</strong>当某个操作符合交互习惯但业务价值较低时，可以评估是否将其替换为更高价值行为，并通过轻量引导帮助用户理解。
+              <strong>可迁移的方法论：</strong>每当一个交互行为"没有体验问题"时，值得反问一次——它是否也在为用户和业务创造价值？如果答案是否，那这个热区可能正在浪费用户的每一次操作。
             </div>
           </div>
 
