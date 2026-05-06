@@ -139,6 +139,64 @@
     }
     .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
+    /* ===== AI FRAMEWORK ===== */
+    .ai-philosophy {
+      font-size: 12.5px; color: var(--muted); line-height: 1.7;
+      border-left: 3px solid var(--purple);
+      padding-left: 12px; margin-bottom: 18px;
+    }
+    .ai-philosophy strong { color: var(--text); font-weight: 600; }
+
+    .ai-flow {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .ai-flow-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      align-items: stretch;
+    }
+    .ai-flow-row:last-child { border-bottom: none; }
+    .ai-flow-row.header-row .af-phase,
+    .ai-flow-row.header-row .af-human,
+    .ai-flow-row.header-row .af-ai {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 6px 10px; background: transparent;
+    }
+    .af-phase {
+      font-size: 11.5px; font-weight: 600; color: var(--text);
+      padding: 10px 10px 10px 0;
+      display: flex; align-items: center;
+      border-right: 1px solid var(--border);
+    }
+    .af-human {
+      font-size: 11.5px; color: #5a4fcf; line-height: 1.55;
+      padding: 10px 10px; background: #f8f6ff;
+      border-right: 1px solid var(--border);
+    }
+    .af-ai {
+      font-size: 11.5px; color: #065f46; line-height: 1.55;
+      padding: 10px 10px; background: #f0fdf9;
+    }
+    .af-human small, .af-ai small {
+      display: block; font-size: 10.5px; color: var(--muted);
+      margin-top: 2px; font-style: italic;
+    }
+
+    .ai-principle {
+      margin-top: 16px;
+      background: linear-gradient(135deg, #1e1060 0%, #2d1b8e 100%);
+      border-radius: 10px; padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .ai-principle-icon { font-size: 20px; flex-shrink: 0; }
+    .ai-principle-text {
+      font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.6;
+    }
+    .ai-principle-text strong { color: #c4bfff; font-weight: 600; }
+
     /* ===== POSITIONING ===== */
     .position-list { display: flex; flex-direction: column; gap: 10px; }
     .position-item {
@@ -293,37 +351,71 @@
 <div class="resume-body">
   <div class="left-col">
 
-    <!-- 核心竞争力 -->
+    <!-- AI 协作判断框架 -->
     <div class="card">
-      <div class="section-title">⚡ AI 时代核心竞争力</div>
-      <div class="position-list">
-        <div class="position-item">
-          <div class="position-icon ai">🤖</div>
-          <div class="position-text">
-            <div class="position-title">AI 全链路交付</div>
-            <div class="position-desc">用 Claude Code 独立完成本套作品集的设计、开发与 GitHub Pages 部署，从 0 到上线无需工程师协作</div>
+      <div class="section-title">🧠 我怎么判断 AI 介入的节点</div>
+
+      <p class="ai-philosophy">
+        我不把 AI 当工具箱——我把它当<strong>执行层</strong>。<br>
+        在我的工作流里，AI 处理"有明确输入输出结构"的部分，我负责所有需要<strong>价值判断与决策</strong>的节点：什么问题值得做，哪个方案更接近用户真实需求，数据说明了什么、又隐瞒了什么。
+      </p>
+
+      <div class="ai-flow">
+        <div class="ai-flow-row header-row">
+          <div class="af-phase">设计节点</div>
+          <div class="af-human">👤 我来判断</div>
+          <div class="af-ai">🤖 AI 来执行</div>
+        </div>
+
+        <div class="ai-flow-row">
+          <div class="af-phase">问题定义</div>
+          <div class="af-human">
+            这个需求值不值得做？<br>真正的体验问题在哪？
+            <small>bilibili IP 页：我判断原有手势无价值，而非直接执行需求</small>
+          </div>
+          <div class="af-ai">
+            快速整理竞品信息<br>汇总同类产品手势设计规律
           </div>
         </div>
-        <div class="position-item">
-          <div class="position-icon biz">📊</div>
-          <div class="position-text">
-            <div class="position-title">业务驱动，而非交互惯性</div>
-            <div class="position-desc">识别"没有体验问题"的低价值交互，主动推动改变——以 bilibili IP 页手势热区重定义为例，用业务曝光目标驱动设计决策</div>
+
+        <div class="ai-flow-row">
+          <div class="af-phase">方案探索</div>
+          <div class="af-human">
+            定义约束条件<br>评估哪个方向更贴合业务目标
+          </div>
+          <div class="af-ai">
+            快速生成多种方案变体<br>检查交互逻辑自洽性
+            <small>我给方向，AI 生成选项，我再筛选</small>
           </div>
         </div>
-        <div class="position-item">
-          <div class="position-icon data">🔢</div>
-          <div class="position-text">
-            <div class="position-title">数据意识与验证闭环</div>
-            <div class="position-desc">方案上线前定义验证指标（点击率、曝光量、引导完成率），用数据而非直觉评估设计有效性</div>
+
+        <div class="ai-flow-row">
+          <div class="af-phase">研究整合</div>
+          <div class="af-human">
+            判断用户未说出口的需求<br>识别数据里的反常信号
+          </div>
+          <div class="af-ai">
+            访谈记录结构化整理<br>跨文献信息归纳
           </div>
         </div>
-        <div class="position-item">
-          <div class="position-icon code">⌨️</div>
-          <div class="position-text">
-            <div class="position-title">设计×研究×前端，一人完成</div>
-            <div class="position-desc">横跨用户研究、交互策略、视觉设计、HTML/CSS/JS 开发；AI 加持下的交付速度比传统设计→开发流程快 3–5 倍</div>
+
+        <div class="ai-flow-row">
+          <div class="af-phase">开发交付</div>
+          <div class="af-human">
+            验证还原度<br>调整细节至符合设计意图
           </div>
+          <div class="af-ai">
+            完整 HTML / CSS / JS 生成<br>响应式、动效、暗色模式实现
+            <small>本作品集即 Claude Code 全程交付</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-principle">
+        <div class="ai-principle-icon">⚡</div>
+        <div class="ai-principle-text">
+          我的判断准则：<strong>任务有没有一个对错答案？</strong><br>
+          有 → 交给 AI 执行。没有 → 这是设计师的工作，AI 只能辅助。
         </div>
       </div>
     </div>
