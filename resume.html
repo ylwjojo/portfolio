@@ -139,81 +139,25 @@
     }
     .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* ===== AI FRAMEWORK ===== */
-    .ai-philosophy {
-      font-size: 12.5px; color: var(--muted); line-height: 1.7;
-      border-left: 3px solid var(--purple);
-      padding-left: 12px; margin-bottom: 18px;
+    /* ===== POSITIONING CARD ===== */
+    .positioning-statement {
+      font-size: 13px; line-height: 1.75; color: var(--muted);
+      margin-bottom: 16px;
     }
-    .ai-philosophy strong { color: var(--text); font-weight: 600; }
+    .positioning-statement strong { color: var(--text); font-weight: 600; }
 
-    .ai-flow {
-      display: flex; flex-direction: column; gap: 0;
+    .differentiator-list { display: flex; flex-direction: column; gap: 8px; }
+    .diff-item {
+      display: flex; align-items: baseline; gap: 10px;
+      font-size: 12.5px; line-height: 1.55;
     }
-    .ai-flow-row {
-      display: grid;
-      grid-template-columns: 90px 1fr 1fr;
-      gap: 0;
-      border-bottom: 1px solid var(--border);
-      align-items: stretch;
+    .diff-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--purple); white-space: nowrap; min-width: 52px;
+      padding-top: 1px;
     }
-    .ai-flow-row:last-child { border-bottom: none; }
-    .ai-flow-row.header-row .af-phase,
-    .ai-flow-row.header-row .af-human,
-    .ai-flow-row.header-row .af-ai {
-      font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      padding: 6px 10px; background: transparent;
-    }
-    .af-phase {
-      font-size: 11.5px; font-weight: 600; color: var(--text);
-      padding: 10px 10px 10px 0;
-      display: flex; align-items: center;
-      border-right: 1px solid var(--border);
-    }
-    .af-human {
-      font-size: 11.5px; color: #5a4fcf; line-height: 1.55;
-      padding: 10px 10px; background: #f8f6ff;
-      border-right: 1px solid var(--border);
-    }
-    .af-ai {
-      font-size: 11.5px; color: #065f46; line-height: 1.55;
-      padding: 10px 10px; background: #f0fdf9;
-    }
-    .af-human small, .af-ai small {
-      display: block; font-size: 10.5px; color: var(--muted);
-      margin-top: 2px; font-style: italic;
-    }
-
-    .ai-principle {
-      margin-top: 16px;
-      background: linear-gradient(135deg, #1e1060 0%, #2d1b8e 100%);
-      border-radius: 10px; padding: 12px 16px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .ai-principle-icon { font-size: 20px; flex-shrink: 0; }
-    .ai-principle-text {
-      font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.6;
-    }
-    .ai-principle-text strong { color: #c4bfff; font-weight: 600; }
-
-    /* ===== POSITIONING ===== */
-    .position-list { display: flex; flex-direction: column; gap: 10px; }
-    .position-item {
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .position-icon {
-      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-    }
-    .position-icon.ai   { background: #ede9fb; }
-    .position-icon.biz  { background: #fef3c7; }
-    .position-icon.code { background: #d1fae5; }
-    .position-icon.data { background: #dbeafe; }
-    .position-text { flex: 1; }
-    .position-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .position-desc  { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .diff-desc { color: var(--muted); }
+    .diff-desc strong { color: var(--text); font-weight: 600; }
 
     /* ===== EXPERIENCE ===== */
     .exp-header {
@@ -251,6 +195,22 @@
     }
     .exp-tag.ai { background: #ede9fb; color: #5a4fcf; }
     .exp-divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+    /* ===== OTHER EXP (compact) ===== */
+    .other-exp-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .other-exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .other-exp-item:first-child { padding-top: 0; }
+    .oei-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .oei-company { font-size: 13px; font-weight: 600; color: var(--text); }
+    .oei-date { font-size: 11px; color: var(--muted); }
+    .oei-role { font-size: 11px; color: var(--purple); font-weight: 600; margin-bottom: 3px; }
+    .oei-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
     /* ===== RIGHT ===== */
     .right-col { position: sticky; top: 68px; }
@@ -351,78 +311,33 @@
 <div class="resume-body">
   <div class="left-col">
 
-    <!-- AI 协作判断框架 -->
+    <!-- 定位 -->
     <div class="card">
-      <div class="section-title">🧠 我怎么判断 AI 介入的节点</div>
-
-      <p class="ai-philosophy">
-        我不把 AI 当工具箱——我把它当<strong>执行层</strong>。<br>
-        在我的工作流里，AI 处理"有明确输入输出结构"的部分，我负责所有需要<strong>价值判断与决策</strong>的节点：什么问题值得做，哪个方案更接近用户真实需求，数据说明了什么、又隐瞒了什么。
+      <div class="section-title">定位</div>
+      <p class="positioning-statement">
+        我把 AI 当<strong>执行层</strong>，而不是工具箱。<br>
+        判断"值不值得做"、"哪个方案对用户更真实"、"数据在说什么"——这些由我来做。<br>
+        信息整理、方案变体生成、代码交付——这些交给 AI。
       </p>
-
-      <div class="ai-flow">
-        <div class="ai-flow-row header-row">
-          <div class="af-phase">设计节点</div>
-          <div class="af-human">👤 我来判断</div>
-          <div class="af-ai">🤖 AI 来执行</div>
+      <div class="differentiator-list">
+        <div class="diff-item">
+          <span class="diff-label">业务判断</span>
+          <span class="diff-desc">识别<strong>没有体验问题的低价值交互</strong>，主动重定义需求而非执行——bilibili IP 页手势热区即为典型案例</span>
         </div>
-
-        <div class="ai-flow-row">
-          <div class="af-phase">问题定义</div>
-          <div class="af-human">
-            这个需求值不值得做？<br>真正的体验问题在哪？
-            <small>bilibili IP 页：我判断原有手势无价值，而非直接执行需求</small>
-          </div>
-          <div class="af-ai">
-            快速整理竞品信息<br>汇总同类产品手势设计规律
-          </div>
+        <div class="diff-item">
+          <span class="diff-label">数据闭环</span>
+          <span class="diff-desc">上线前前置定义验证指标，用点击率、曝光量等数据回收判断设计是否有效</span>
         </div>
-
-        <div class="ai-flow-row">
-          <div class="af-phase">方案探索</div>
-          <div class="af-human">
-            定义约束条件<br>评估哪个方向更贴合业务目标
-          </div>
-          <div class="af-ai">
-            快速生成多种方案变体<br>检查交互逻辑自洽性
-            <small>我给方向，AI 生成选项，我再筛选</small>
-          </div>
-        </div>
-
-        <div class="ai-flow-row">
-          <div class="af-phase">研究整合</div>
-          <div class="af-human">
-            判断用户未说出口的需求<br>识别数据里的反常信号
-          </div>
-          <div class="af-ai">
-            访谈记录结构化整理<br>跨文献信息归纳
-          </div>
-        </div>
-
-        <div class="ai-flow-row">
-          <div class="af-phase">开发交付</div>
-          <div class="af-human">
-            验证还原度<br>调整细节至符合设计意图
-          </div>
-          <div class="af-ai">
-            完整 HTML / CSS / JS 生成<br>响应式、动效、暗色模式实现
-            <small>本作品集即 Claude Code 全程交付</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="ai-principle">
-        <div class="ai-principle-icon">⚡</div>
-        <div class="ai-principle-text">
-          我的判断准则：<strong>任务有没有一个对错答案？</strong><br>
-          有 → 交给 AI 执行。没有 → 这是设计师的工作，AI 只能辅助。
+        <div class="diff-item">
+          <span class="diff-label">全链路交付</span>
+          <span class="diff-desc">设计→研究→前端<strong>一人完成</strong>；本作品集由 Claude Code 全程开发并部署至 GitHub Pages</span>
         </div>
       </div>
     </div>
 
     <!-- bilibili -->
     <div class="card">
-      <div class="section-title">💼 工作经历</div>
+      <div class="section-title">工作经历</div>
       <div class="exp-header">
         <div class="exp-company">
           <span class="exp-logo" style="background:#00aeec;color:#fff;">bili</span>
@@ -432,57 +347,30 @@
       </div>
       <div class="exp-role">交互设计师 · 用户体验部</div>
       <ol class="exp-tasks">
-        <li>负责 IP 页核心交互策略设计，识别原有左右滑 Tab 的低价值使用，重定义手势热区语义，将滑动行为映射至 IP 内容切换，提升 IP 页曝光效率；设计一次性手势引导方案，已上线验证。</li>
-        <li>横向参与33项需求的设计评审与方案输出，覆盖用户价值（体验优化/探索）、业务增长、工程效率三条价值轴，建立需求分类框架辅助设计优先级判断。</li>
-        <li>推动"从数据发现问题"的工作方式：结合使用率、停留时长等埋点数据识别体验瓶颈，前置定义方案上线后的验证指标，形成设计→数据闭环。</li>
-        <li>输出交互规范与组件文档，减少设计-研发对齐成本，提升设计还原一致性。</li>
+        <li>重定义 IP 页手势热区语义——识别原有左右滑 Tab 的低价值使用，将滑动行为映射至内容切换，提升曝光效率；引导方案已上线验证。</li>
+        <li>横向参与 33 项需求评审，覆盖用户体验、业务增长、工程效率三条价值轴，建立分类框架辅助设计优先级判断。</li>
+        <li>结合埋点数据（使用率、停留时长）识别体验瓶颈，前置定义验证指标，形成设计→数据闭环。</li>
+        <li>输出交互规范与组件文档，降低设计-研发对齐成本。</li>
       </ol>
-      <div class="exp-tags">
-        <span class="exp-tag">交互策略</span>
-        <span class="exp-tag">体验优化</span>
-        <span class="exp-tag">数据驱动决策</span>
-        <span class="exp-tag ai">AI 辅助设计</span>
-      </div>
     </div>
 
-    <!-- 无限光年 -->
+    <!-- 其他经历 -->
     <div class="card">
-      <div class="exp-header">
-        <div class="exp-company">
-          <span class="exp-logo" style="background:#e8f4ff;color:#1a73e8;">∞</span>
-          上海无限光年科技
+      <div class="other-exp-item">
+        <div class="oei-header">
+          <span class="oei-company">上海无限光年科技</span>
+          <span class="oei-date">2024.04 – 07</span>
         </div>
-        <div class="exp-date">2024.04 – 07</div>
+        <div class="oei-role">UX 设计实习 · 金融 AIGC 方向</div>
+        <div class="oei-desc">参与 AIGC 金融产品概念设计，完成用户访谈、原型输出与可用性测试；探索 AI 生成内容在研究流程中的介入路径。</div>
       </div>
-      <div class="exp-role">UX 设计实习 · 金融 AIGC 应用方向</div>
-      <ol class="exp-tasks">
-        <li>参与 AIGC 金融产品概念设计，结合用户访谈与竞品分析，提炼核心功能优先级，输出高保真原型并完成可用性测试。</li>
-        <li>深度参与产品需求评审与开发对接，理解 AI 功能在产品侧的落地逻辑与体验边界。</li>
-        <li>探索将 AI 生成内容引入设计研究流程，缩短桌面研究周期，提升输出效率。</li>
-      </ol>
-      <div class="exp-tags">
-        <span class="exp-tag">AI 产品设计</span>
-        <span class="exp-tag">金融 UED</span>
-        <span class="exp-tag">用户测试</span>
-      </div>
-
-      <div class="exp-divider"></div>
-
-      <div class="exp-header">
-        <div class="exp-company">
-          <span class="exp-logo" style="background:#cc0000;color:#fff;">T</span>
-          上海特斯拉超级工厂
+      <div class="other-exp-item">
+        <div class="oei-header">
+          <span class="oei-company">上海特斯拉超级工厂</span>
+          <span class="oei-date">2023.07 – 11</span>
         </div>
-        <div class="exp-date">2023.07 – 11</div>
-      </div>
-      <div class="exp-role">设计实习 · HMI & 品牌视觉</div>
-      <ol class="exp-tasks">
-        <li>参与车载中控 HMI UI 规范制定，完成组件设计与界面排布，保证品牌视觉一致性。</li>
-        <li>负责线上线下品牌活动的视觉创意设计，独立输出多套物料。</li>
-      </ol>
-      <div class="exp-tags">
-        <span class="exp-tag">车载 HMI</span>
-        <span class="exp-tag">品牌视觉</span>
+        <div class="oei-role">设计实习 · HMI & 品牌视觉</div>
+        <div class="oei-desc">参与车载中控 HMI UI 规范制定与组件设计；负责线上线下品牌活动视觉创意，独立输出多套物料。</div>
       </div>
     </div>
 
@@ -490,9 +378,9 @@
 
   <div class="right-col">
 
-    <!-- Education -->
+    <!-- 教育 + 荣誉 -->
     <div class="card">
-      <div class="section-title">🎓 教育经历</div>
+      <div class="section-title">教育</div>
 
       <div class="edu-level">硕士</div>
       <div class="edu-school">同济大学设计创意学院</div>
@@ -504,10 +392,10 @@
 
       <div class="edu-divider"></div>
 
-      <div class="section-title">🏆 荣誉与成果</div>
+      <div class="section-title">荣誉</div>
       <div class="award-row">
-        <span class="award-name">HCII 国际会议论文发表</span>
-        <span class="award-level">全英 · 第一作者</span>
+        <span class="award-name">HCII 国际会议论文</span>
+        <span class="award-level">第一作者</span>
       </div>
       <div class="award-row">
         <span class="award-name">全国工程训练大赛</span>
@@ -518,21 +406,17 @@
         <span class="award-level">省级二等奖</span>
       </div>
       <div class="award-row">
-        <span class="award-name">外观设计专利 · 实用新型专利</span>
-        <span class="award-level">× 2</span>
-      </div>
-      <div class="award-row">
-        <span class="award-name">国家励志奖学金</span>
+        <span class="award-name">设计专利 · 实用新型专利</span>
         <span class="award-level">× 2</span>
       </div>
     </div>
 
-    <!-- Skills -->
+    <!-- 工具 -->
     <div class="card">
-      <div class="section-title">🛠 工具与技能</div>
+      <div class="section-title">工具</div>
 
       <div class="tool-group">
-        <div class="tool-group-label">AI 设计与研究</div>
+        <div class="tool-group-label">AI — 设计 &amp; 研究</div>
         <div class="tool-chips">
           <span class="tool-chip ai-tool">Claude</span>
           <span class="tool-chip ai-tool">ChatGPT</span>
@@ -541,52 +425,22 @@
       </div>
 
       <div class="tool-group">
-        <div class="tool-group-label">AI 开发交付</div>
+        <div class="tool-group-label">AI — 开发交付</div>
         <div class="tool-chips">
           <span class="tool-chip code-tool">Claude Code</span>
           <span class="tool-chip code-tool">Cursor</span>
-          <span class="tool-chip code-tool">HTML / CSS / JS</span>
-        </div>
-      </div>
-
-      <div class="tool-group">
-        <div class="tool-group-label">设计工具</div>
-        <div class="tool-chips">
-          <span class="tool-chip">Figma</span>
-          <span class="tool-chip">Framer</span>
-          <span class="tool-chip">Blender</span>
-          <span class="tool-chip">PS</span>
-          <span class="tool-chip">Ae</span>
+          <span class="tool-chip code-tool">HTML/CSS/JS</span>
         </div>
       </div>
 
       <div class="tool-group" style="margin-bottom:0">
-        <div class="tool-group-label">研究方法</div>
+        <div class="tool-group-label">设计 &amp; 研究</div>
         <div class="tool-chips">
+          <span class="tool-chip">Figma</span>
+          <span class="tool-chip">Framer</span>
           <span class="tool-chip">用户访谈</span>
-          <span class="tool-chip">可用性测试</span>
-          <span class="tool-chip">竞品分析</span>
           <span class="tool-chip">数据分析</span>
         </div>
-      </div>
-    </div>
-
-    <!-- Projects -->
-    <div class="card">
-      <div class="section-title">🔬 参与研究项目</div>
-      <div class="project-item">
-        <div class="project-org">宝马集团 · XAI Lab</div>
-        <div class="project-name">Z 世代与汽车可持续发展机会研究</div>
-      </div>
-      <div class="project-item">
-        <div class="project-org">阿里云设计中心</div>
-        <div class="project-name">数字孪生智慧矿山体验设计</div>
-      </div>
-      <div class="project-item">
-        <div class="project-org">唐硕设计咨询<span class="sep">|</span><span style="font-weight:400">UX 工作坊</span></div>
-      </div>
-      <div class="project-item">
-        <div class="project-org">飞亚达<span class="sep">|</span><span style="font-weight:400">虚拟与物质设计工作坊</span></div>
       </div>
     </div>
 
