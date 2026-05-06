@@ -141,23 +141,53 @@
 
     /* ===== POSITIONING CARD ===== */
     .positioning-statement {
-      font-size: 13px; line-height: 1.75; color: var(--muted);
-      margin-bottom: 16px;
+      font-size: 12.5px; line-height: 1.75; color: var(--muted);
+      margin-bottom: 18px;
     }
     .positioning-statement strong { color: var(--text); font-weight: 600; }
 
-    .differentiator-list { display: flex; flex-direction: column; gap: 8px; }
-    .diff-item {
-      display: flex; align-items: baseline; gap: 10px;
-      font-size: 12.5px; line-height: 1.55;
+    /* ===== AI SPLIT TABLE ===== */
+    .ai-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 12px;
     }
-    .diff-label {
-      font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
-      color: var(--purple); white-space: nowrap; min-width: 52px;
-      padding-top: 1px;
+    .ai-table thead tr {
+      border-bottom: 2px solid var(--border);
     }
-    .diff-desc { color: var(--muted); }
-    .diff-desc strong { color: var(--text); font-weight: 600; }
+    .ai-table thead th {
+      padding: 0 10px 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: left;
+    }
+    .ai-table thead th.col-phase { padding-left: 0; width: 88px; }
+    .ai-table thead th.col-human { color: #5a4fcf; }
+    .ai-table thead th.col-ai    { color: #047857; }
+
+    .ai-table tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .ai-table tbody tr:last-child { border-bottom: none; }
+    .ai-table tbody td {
+      padding: 9px 10px; vertical-align: top; line-height: 1.55;
+    }
+    .ai-table tbody td.col-phase {
+      padding-left: 0;
+      font-size: 11.5px; font-weight: 600; color: var(--text);
+      white-space: nowrap;
+    }
+    .ai-table tbody td.col-human {
+      color: #5a4fcf; background: #f8f6ff;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+    .ai-table tbody td.col-ai {
+      color: #065f46; background: #f0fdf9;
+    }
+    .ai-table td small {
+      display: block; font-size: 10.5px;
+      margin-top: 2px; opacity: 0.65; font-style: italic;
+    }
 
     /* ===== EXPERIENCE ===== */
     .exp-header {
@@ -313,26 +343,41 @@
 
     <!-- 定位 -->
     <div class="card">
-      <div class="section-title">定位</div>
+      <div class="section-title">我与 AI 的分工</div>
       <p class="positioning-statement">
-        我把 AI 当<strong>执行层</strong>，而不是工具箱。<br>
-        判断"值不值得做"、"哪个方案对用户更真实"、"数据在说什么"——这些由我来做。<br>
-        信息整理、方案变体生成、代码交付——这些交给 AI。
+        我把 AI 当<strong>执行层</strong>。判断"值不值得做"、"数据在说什么"、"哪个方案更贴近用户"——这些由我做。有明确输入输出结构的工作，交给 AI。
       </p>
-      <div class="differentiator-list">
-        <div class="diff-item">
-          <span class="diff-label">业务判断</span>
-          <span class="diff-desc">识别<strong>没有体验问题的低价值交互</strong>，主动重定义需求而非执行——bilibili IP 页手势热区即为典型案例</span>
-        </div>
-        <div class="diff-item">
-          <span class="diff-label">数据闭环</span>
-          <span class="diff-desc">上线前前置定义验证指标，用点击率、曝光量等数据回收判断设计是否有效</span>
-        </div>
-        <div class="diff-item">
-          <span class="diff-label">全链路交付</span>
-          <span class="diff-desc">设计→研究→前端<strong>一人完成</strong>；本作品集由 Claude Code 全程开发并部署至 GitHub Pages</span>
-        </div>
-      </div>
+      <table class="ai-table">
+        <thead>
+          <tr>
+            <th class="col-phase">设计节点</th>
+            <th class="col-human">👤 我来判断</th>
+            <th class="col-ai">🤖 AI 来执行</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-phase">问题定义</td>
+            <td class="col-human">这个需求值不值得做？<small>bilibili IP 页：发现原有手势无价值，主动重定义</small></td>
+            <td class="col-ai">竞品信息整理<br>同类手势规律汇总</td>
+          </tr>
+          <tr>
+            <td class="col-phase">方案探索</td>
+            <td class="col-human">定义约束<br>评估哪个方向更贴合目标</td>
+            <td class="col-ai">快速生成多方向变体<br>检查逻辑自洽性</td>
+          </tr>
+          <tr>
+            <td class="col-phase">研究整合</td>
+            <td class="col-human">识别用户未说出口的需求<br>判断数据里的反常信号</td>
+            <td class="col-ai">访谈记录结构化整理<br>跨文献信息归纳</td>
+          </tr>
+          <tr>
+            <td class="col-phase">开发交付</td>
+            <td class="col-human">验证还原度<br>调整至符合设计意图</td>
+            <td class="col-ai">完整 HTML/CSS/JS 生成<small>本作品集即 Claude Code 全程交付</small></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- bilibili -->
