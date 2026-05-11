@@ -1336,9 +1336,11 @@
       position: sticky; bottom: 0; z-index: 10;
       background: var(--surface);
       border-top: 1px solid var(--border);
-      padding: 12px 40px;
+      padding: 10px 40px;
       gap: 10px; align-items: center;
       display: none;
+      /* Ensure it's always above content, not clipped */
+      margin-top: auto;
     }
     [data-admin] .proj-edit-bar { display: flex; }
     .proj-edit-bar-label {
@@ -1882,6 +1884,15 @@
           </div>
 
         </div>
+
+        <!-- Admin edit toolbar — sticky at bottom of scrollable center column -->
+        <div class="proj-edit-bar" id="staticEditBar">
+          <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="discardStaticEdits()">放弃</button>
+            <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveStaticProjectEdits()">保存更改</button>
+          </div>
+        </div>
       </div>
 
       <!-- Col 3: right metadata -->
@@ -1917,15 +1928,6 @@
       </div>
 
     </div><!-- /.proj-article-wrap -->
-
-    <!-- Admin edit toolbar (static project) -->
-    <div class="proj-edit-bar" id="staticEditBar">
-      <span class="proj-edit-bar-label">🔓 管理模式 · 点击任意文字可直接编辑</span>
-      <div style="margin-left:auto;display:flex;gap:8px;">
-        <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="discardStaticEdits()">放弃</button>
-        <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveStaticProjectEdits()">保存更改</button>
-      </div>
-    </div>
 
   </div>
 </div>
@@ -2639,9 +2641,8 @@
 
     const editBar = isAdmin ? `
       <div class="proj-edit-bar">
-        <span class="proj-edit-bar-label">🔓 管理模式 · 点击任意文字可直接编辑</span>
+        <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
         <div style="margin-left:auto;display:flex;gap:8px;">
-          <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="closeDynProject()">关闭</button>
           <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveDynProjectEdits('${p.id}')">保存更改</button>
         </div>
       </div>` : '';
@@ -2734,8 +2735,21 @@
       if (card) card.src = stored[idx].cover;
     }
 
-    localStorage.setItem('portfolio_projects', JSON.stringify(stored));
-    showToast('项目已更新 ✓');
+    try {
+      localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+      showToast('项目已更新 ✓');
+    } catch (e) {
+      // Cover too large — save without cover
+      stored[idx].cover = null;
+      stored[idx]._bodyHTML    = body     ? body.innerHTML     : stored[idx]._bodyHTML;
+      stored[idx]._rightColHTML = rightCol ? rightCol.innerHTML : stored[idx]._rightColHTML;
+      try {
+        localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+        showToast('封面图过大已跳过，其余内容已保存', '⚠️');
+      } catch (e2) {
+        showToast('存储空间不足，保存失败', '✕');
+      }
+    }
   }
 
   function closeDynProject() {
