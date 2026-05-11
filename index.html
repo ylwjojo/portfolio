@@ -1063,6 +1063,38 @@
     }
     .toast-icon { font-size: 15px; }
 
+    /* ===== MINI MATRIX SELECTOR ===== */
+    .ms-grid {
+      display: grid;
+      grid-template-columns: 52px 1fr 1fr 1fr;
+      gap: 4px;
+    }
+    .ms-corner { }
+    .ms-col-head {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--text-muted); text-align: center;
+      padding: 4px 6px; background: var(--surface-2);
+      border-radius: 4px; line-height: 1.4;
+    }
+    .ms-row-head {
+      font-size: 9.5px; font-weight: 700;
+      color: var(--text-muted); text-align: right;
+      padding: 6px 8px 6px 0; display: flex;
+      align-items: center; justify-content: flex-end;
+      line-height: 1.4;
+    }
+    .ms-cell {
+      font-size: 10.5px; font-weight: 500; color: var(--text-muted);
+      background: var(--surface-3); border: 1.5px solid var(--border);
+      border-radius: 5px; padding: 8px 6px; text-align: center;
+      cursor: pointer; transition: all 0.12s; line-height: 1.35;
+    }
+    .ms-cell:hover { border-color: #6B5CE7; color: #6B5CE7; background: #f0eeff; }
+    .ms-cell.selected {
+      background: #6B5CE7; color: #fff;
+      border-color: #6B5CE7; font-weight: 700;
+    }
+
     /* ===== CREATE PROJECT BUTTON ===== */
     .create-proj-btn {
       display: flex; align-items: center; gap: 5px;
@@ -1406,7 +1438,7 @@
         <span class="sb-head-sub">bilibili 实战经验 · 价值维度 × 阶段维度</span>
       </div>
       <div class="sb-head-total">
-        <span class="sb-head-total-num">33</span>
+        <span class="sb-head-total-num" id="matrixTotal">33</span>
         <span class="sb-head-total-label">项需求</span>
       </div>
     </div>
@@ -1422,45 +1454,45 @@
 
       <!-- ── 行1：用户价值 ── -->
       <div class="sb-row-header">用户<br>价值</div>
-      <div class="sb-cell filled" data-subtype="体验优化" onclick="setSubFilter(this,'体验优化')">
+      <div class="sb-cell filled" data-matrix-key="user_optimize" data-base-count="14" data-subtype="体验优化" onclick="setSubFilter(this,'体验优化')">
         <div class="sb-cell-num">14</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">体验优化</div>
           <span class="sb-cell-tag tag-user">用户价值</span>
         </div>
       </div>
-      <div class="sb-cell filled" data-subtype="体验探索" onclick="setSubFilter(this,'体验探索')">
+      <div class="sb-cell filled" data-matrix-key="user_explore" data-base-count="5" data-subtype="体验探索" onclick="setSubFilter(this,'体验探索')">
         <div class="sb-cell-num">5</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">体验探索</div>
           <span class="sb-cell-tag tag-user">用户价值</span>
         </div>
       </div>
-      <div class="sb-cell empty sb-row-end">
+      <div class="sb-cell empty sb-row-end" data-matrix-key="user_create" data-base-count="0" data-subtype="新用户搭建">
         <div class="sb-cell-num">—</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">新用户搭建</div>
-          <span class="sb-cell-tag">用户价值</span>
+          <span class="sb-cell-tag tag-user">用户价值</span>
         </div>
       </div>
 
       <!-- ── 行2：业务价值 ── -->
       <div class="sb-row-header">业务<br>价值</div>
-      <div class="sb-cell filled" data-subtype="业务增长优化" onclick="setSubFilter(this,'业务增长优化')">
+      <div class="sb-cell filled" data-matrix-key="biz_optimize" data-base-count="5" data-subtype="业务增长优化" onclick="setSubFilter(this,'业务增长优化')">
         <div class="sb-cell-num">5</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">业务增长优化</div>
           <span class="sb-cell-tag tag-biz">业务价值</span>
         </div>
       </div>
-      <div class="sb-cell empty">
+      <div class="sb-cell empty" data-matrix-key="biz_explore" data-base-count="0" data-subtype="业务创新探索">
         <div class="sb-cell-num">—</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">业务创新探索</div>
-          <span class="sb-cell-tag">业务价值</span>
+          <span class="sb-cell-tag tag-biz">业务价值</span>
         </div>
       </div>
-      <div class="sb-cell filled sb-row-end" data-subtype="全新业务搭建" onclick="setSubFilter(this,'全新业务搭建')">
+      <div class="sb-cell filled sb-row-end" data-matrix-key="biz_create" data-base-count="3" data-subtype="全新业务搭建" onclick="setSubFilter(this,'全新业务搭建')">
         <div class="sb-cell-num">3</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">全新业务搭建</div>
@@ -1470,25 +1502,25 @@
 
       <!-- ── 行3：工程效率 ── -->
       <div class="sb-row-header sb-last-row">工程<br>效率</div>
-      <div class="sb-cell filled sb-last-row" data-subtype="产品基础架构" onclick="setSubFilter(this,'产品基础架构')">
+      <div class="sb-cell filled sb-last-row" data-matrix-key="eng_optimize" data-base-count="4" data-subtype="产品基础架构" onclick="setSubFilter(this,'产品基础架构')">
         <div class="sb-cell-num">4</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">产品基础架构</div>
           <span class="sb-cell-tag tag-eng">工程效率</span>
         </div>
       </div>
-      <div class="sb-cell filled sb-last-row" data-subtype="设计系统搭建" onclick="setSubFilter(this,'设计系统搭建')">
+      <div class="sb-cell filled sb-last-row" data-matrix-key="eng_explore" data-base-count="2" data-subtype="设计系统搭建" onclick="setSubFilter(this,'设计系统搭建')">
         <div class="sb-cell-num">2</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">设计系统搭建</div>
           <span class="sb-cell-tag tag-eng">工程效率</span>
         </div>
       </div>
-      <div class="sb-cell empty sb-row-end sb-last-row">
+      <div class="sb-cell empty sb-row-end sb-last-row" data-matrix-key="eng_create" data-base-count="0" data-subtype="全新工程体系">
         <div class="sb-cell-num">—</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">全新工程体系</div>
-          <span class="sb-cell-tag">工程效率</span>
+          <span class="sb-cell-tag tag-eng">工程效率</span>
         </div>
       </div>
 
@@ -1853,6 +1885,33 @@
         </div>
       </div>
 
+      <!-- 需求分类矩阵 -->
+      <div class="create-section">
+        <div class="create-section-label">需求分类矩阵 <span style="font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted)">（选填，点击格子归类）</span></div>
+        <input type="hidden" id="cf-matrix-key" value="">
+        <div class="ms-grid">
+          <div class="ms-corner"></div>
+          <div class="ms-col-head">优化型<br>有存量数据</div>
+          <div class="ms-col-head">探索型<br>无数据基线</div>
+          <div class="ms-col-head">0–1创建型<br>无存量用户</div>
+
+          <div class="ms-row-head">用户<br>价值</div>
+          <div class="ms-cell" data-key="user_optimize" onclick="selectMatrixCell(this)">体验优化</div>
+          <div class="ms-cell" data-key="user_explore" onclick="selectMatrixCell(this)">体验探索</div>
+          <div class="ms-cell" data-key="user_create" onclick="selectMatrixCell(this)">新用户搭建</div>
+
+          <div class="ms-row-head">业务<br>价值</div>
+          <div class="ms-cell" data-key="biz_optimize" onclick="selectMatrixCell(this)">业务增长优化</div>
+          <div class="ms-cell" data-key="biz_explore" onclick="selectMatrixCell(this)">业务创新探索</div>
+          <div class="ms-cell" data-key="biz_create" onclick="selectMatrixCell(this)">全新业务搭建</div>
+
+          <div class="ms-row-head">工程<br>效率</div>
+          <div class="ms-cell" data-key="eng_optimize" onclick="selectMatrixCell(this)">产品基础架构</div>
+          <div class="ms-cell" data-key="eng_explore" onclick="selectMatrixCell(this)">设计系统搭建</div>
+          <div class="ms-cell" data-key="eng_create" onclick="selectMatrixCell(this)">全新工程体系</div>
+        </div>
+      </div>
+
       <!-- 元数据 -->
       <div class="create-section">
         <div class="create-section-label">侧边栏元数据</div>
@@ -2178,6 +2237,75 @@
     _toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
   }
 
+  // ===== MATRIX SELECTOR =====
+  function selectMatrixCell(el) {
+    document.querySelectorAll('.ms-cell').forEach(c => c.classList.remove('selected'));
+    const key = el.dataset.key;
+    const current = document.getElementById('cf-matrix-key').value;
+    if (current === key) {
+      // deselect on second click
+      document.getElementById('cf-matrix-key').value = '';
+    } else {
+      el.classList.add('selected');
+      document.getElementById('cf-matrix-key').value = key;
+    }
+  }
+
+  // ===== MATRIX UPDATE =====
+  const MATRIX_BASE = {
+    user_optimize: 14, user_explore: 5,  user_create: 0,
+    biz_optimize:  5,  biz_explore:  0,  biz_create:  3,
+    eng_optimize:  4,  eng_explore:  2,  eng_create:  0,
+  };
+  const MATRIX_TAG_CLASS = {
+    user_optimize: 'tag-user', user_explore: 'tag-user', user_create: 'tag-user',
+    biz_optimize:  'tag-biz',  biz_explore:  'tag-biz',  biz_create:  'tag-biz',
+    eng_optimize:  'tag-eng',  eng_explore:  'tag-eng',  eng_create:  'tag-eng',
+  };
+
+  function updateMatrix() {
+    const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    const delta = {};
+    stored.forEach(p => {
+      if (p.matrixKey) delta[p.matrixKey] = (delta[p.matrixKey] || 0) + 1;
+    });
+
+    let total = 33; // hardcoded base total
+    document.querySelectorAll('[data-matrix-key]').forEach(cell => {
+      const key = cell.dataset.matrixKey;
+      const base = parseInt(cell.dataset.baseCount) || 0;
+      const extra = delta[key] || 0;
+      const count = base + extra;
+      const numEl = cell.querySelector('.sb-cell-num');
+      if (!numEl) return;
+
+      if (count > 0) {
+        numEl.textContent = count;
+        cell.classList.remove('empty');
+        cell.classList.add('filled');
+        if (!cell.dataset.subtype) cell.dataset.subtype = cell.querySelector('.sb-cell-name')?.textContent || '';
+        if (!cell.getAttribute('onclick')) {
+          const sub = cell.dataset.subtype;
+          cell.setAttribute('onclick', `setSubFilter(this,'${sub}')`);
+          // re-apply tag class
+          const tagEl = cell.querySelector('.sb-cell-tag');
+          if (tagEl) tagEl.className = 'sb-cell-tag ' + (MATRIX_TAG_CLASS[key] || '');
+        }
+      } else {
+        numEl.textContent = '—';
+        cell.classList.add('empty');
+        cell.classList.remove('filled');
+        cell.removeAttribute('onclick');
+      }
+      total += extra;
+    });
+
+    // Update total (base 33 + all extras)
+    const totalDelta = Object.values(delta).reduce((a, b) => a + b, 0);
+    const totalEl = document.getElementById('matrixTotal');
+    if (totalEl) totalEl.textContent = 33 + totalDelta;
+  }
+
   // ===== CREATE PROJECT =====
   let _coverData = null;
 
@@ -2223,6 +2351,7 @@
       desc:      document.getElementById('cf-desc').value.trim(),
       oneliner:  document.getElementById('cf-oneliner').value.trim(),
       tags:      document.getElementById('cf-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+      matrixKey: document.getElementById('cf-matrix-key').value || null,
       cover:     _coverData,
       meta: {
         '需求类型': document.getElementById('cf-meta-type').value.trim(),
@@ -2246,6 +2375,7 @@
     localStorage.setItem('portfolio_projects', JSON.stringify(stored));
 
     renderDynCard(project);
+    updateMatrix();
     closeCreateModal();
     resetCreateForm();
     showToast('项目已保存');
@@ -2257,6 +2387,8 @@
      'cf-bg','cf-problems','cf-reason','cf-decision','cf-summary','cf-result-text'
     ].forEach(id => { document.getElementById(id).value = ''; });
     document.getElementById('cf-type').value = 'bili';
+    document.getElementById('cf-matrix-key').value = '';
+    document.querySelectorAll('.ms-cell').forEach(c => c.classList.remove('selected'));
     document.querySelectorAll('.cf-metric-label, .cf-metric-value').forEach(i => i.value = '');
     _coverData = null;
     const preview = document.getElementById('coverPreview');
@@ -2306,6 +2438,7 @@
     stored = stored.filter(p => p.id !== id);
     localStorage.setItem('portfolio_projects', JSON.stringify(stored));
     btn.closest('.card').remove();
+    updateMatrix();
     showToast('项目已删除', '✕');
   }
 
@@ -2389,6 +2522,7 @@
   (function loadStoredProjects() {
     const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
     stored.forEach(renderDynCard);
+    updateMatrix();
   })();
 
 </script>
