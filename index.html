@@ -1045,6 +1045,168 @@
     }
     .proj-result-note strong { color: var(--text); font-weight: 600; }
 
+    /* ===== CREATE PROJECT BUTTON ===== */
+    .create-proj-btn {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12.5px; font-weight: 600;
+      background: var(--text); color: var(--white);
+      border: none; border-radius: 2px;
+      padding: 6px 14px; cursor: pointer;
+      transition: opacity 0.15s; white-space: nowrap;
+      font-family: inherit;
+    }
+    .create-proj-btn:hover { opacity: 0.75; }
+
+    /* ===== CREATE OVERLAY ===== */
+    .create-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .create-overlay.open { opacity: 1; pointer-events: all; }
+
+    .create-modal {
+      background: var(--surface); border-radius: 12px;
+      border: 1px solid var(--border);
+      width: 100%; max-width: 660px; max-height: 90vh;
+      display: flex; flex-direction: column;
+      transform: translateY(16px); opacity: 0;
+      transition: transform 0.22s, opacity 0.22s;
+    }
+    .create-overlay.open .create-modal { transform: translateY(0); opacity: 1; }
+
+    .create-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .create-header-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .create-close-btn {
+      width: 28px; height: 28px; border-radius: 6px;
+      border: none; background: transparent; cursor: pointer;
+      color: var(--text-muted); font-size: 16px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .create-close-btn:hover { background: var(--surface-3); }
+
+    .create-body { flex: 1; overflow-y: auto; padding: 0 24px 8px; }
+    .create-body::-webkit-scrollbar { width: 4px; }
+    .create-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .create-section { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .create-section:last-child { border-bottom: none; }
+    .create-section-label {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .create-field { margin-bottom: 12px; }
+    .create-field:last-child { margin-bottom: 0; }
+    .create-field label {
+      font-size: 11.5px; font-weight: 600; color: var(--text-2);
+      display: block; margin-bottom: 5px;
+    }
+    .create-field label span {
+      font-weight: 400; color: var(--text-muted); font-size: 10.5px;
+    }
+    .create-field input, .create-field textarea, .create-field select {
+      width: 100%; font-size: 13px; color: var(--text);
+      background: var(--surface-3); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 11px;
+      font-family: inherit; outline: none;
+      transition: border-color 0.15s;
+    }
+    .create-field input:focus, .create-field textarea:focus,
+    .create-field select:focus { border-color: #6B5CE7; }
+    .create-field textarea { resize: vertical; line-height: 1.65; }
+
+    .create-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* Cover upload */
+    .cover-upload-zone {
+      border: 2px dashed var(--border); border-radius: 8px;
+      aspect-ratio: 16/9; cursor: pointer; overflow: hidden;
+      position: relative; background: var(--surface-3);
+      transition: border-color 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cover-upload-zone:hover { border-color: #6B5CE7; }
+    .cover-upload-hint {
+      text-align: center; color: var(--text-muted); pointer-events: none;
+    }
+    .cover-upload-hint svg { display: block; margin: 0 auto 8px; opacity: 0.4; }
+    .cover-upload-hint p { font-size: 12px; }
+    .cover-upload-hint small { font-size: 10.5px; opacity: 0.7; }
+    .cover-upload-preview {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: none;
+    }
+
+    /* Metrics inputs */
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .metric-input-pair { display: flex; gap: 6px; }
+    .metric-input-pair input:first-child { flex: 1; }
+    .metric-input-pair input:last-child { width: 90px; font-weight: 700; }
+
+    /* Tags input */
+    .tags-hint { font-size: 10.5px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Footer */
+    .create-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 8px; justify-content: flex-end;
+      flex-shrink: 0;
+    }
+    .btn-cancel {
+      font-size: 13px; font-weight: 500; padding: 7px 16px;
+      border-radius: 6px; border: 1px solid var(--border);
+      background: var(--surface-3); color: var(--text-muted);
+      cursor: pointer; font-family: inherit;
+    }
+    .btn-cancel:hover { border-color: var(--text-muted); }
+    .btn-save-proj {
+      font-size: 13px; font-weight: 600; padding: 7px 20px;
+      border-radius: 6px; border: none;
+      background: #6B5CE7; color: #fff;
+      cursor: pointer; font-family: inherit;
+      transition: opacity 0.15s;
+    }
+    .btn-save-proj:hover { opacity: 0.85; }
+
+    /* ===== DYNAMIC PROJECT OVERLAY ===== */
+    .dyn-proj-overlay {
+      position: fixed; inset: 0; z-index: 250;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+      overflow-y: auto;
+    }
+    .dyn-proj-overlay.open { opacity: 1; pointer-events: all; }
+    .dyn-proj-modal {
+      background: var(--surface); min-height: 100vh;
+      max-width: 960px; margin: 0 auto;
+      transform: translateY(20px); opacity: 0;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .dyn-proj-overlay.open .dyn-proj-modal { transform: translateY(0); opacity: 1; }
+
+    /* dynamic card delete btn */
+    .card-delete-btn {
+      position: absolute; top: 8px; right: 8px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: rgba(0,0,0,0.5); color: #fff;
+      border: none; cursor: pointer; font-size: 12px;
+      display: none; align-items: center; justify-content: center;
+      z-index: 2;
+    }
+    .card:hover .card-delete-btn { display: flex; }
+
     @media (max-width: 768px) {
       .proj-article-wrap { grid-template-columns: 1fr; }
       .proj-sidebar { display: none; }
@@ -1206,6 +1368,7 @@
   <button class="filter-tag" onclick="setFilter(this,'project')">个人项目</button>
   <button class="filter-tag" onclick="setFilter(this,'thinking')">思考</button>
   <div class="subnav-spacer"></div>
+  <button class="create-proj-btn" onclick="openCreateModal()">＋ 新建项目</button>
   <div class="view-toggle">
     <button class="view-btn" onclick="setView('list',this)">列表</button>
     <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
@@ -1607,6 +1770,158 @@
   </div>
 </div>
 
+<!-- ===== CREATE PROJECT MODAL ===== -->
+<div class="create-overlay" id="createOverlay">
+  <div class="create-modal">
+    <div class="create-header">
+      <span class="create-header-title">新建项目</span>
+      <button class="create-close-btn" onclick="closeCreateModal()">✕</button>
+    </div>
+
+    <div class="create-body">
+
+      <!-- 封面图 -->
+      <div class="create-section">
+        <div class="create-section-label">封面图</div>
+        <div class="cover-upload-zone" onclick="document.getElementById('coverFileInput').click()">
+          <img class="cover-upload-preview" id="coverPreview" alt="">
+          <div class="cover-upload-hint" id="coverHint">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>点击上传封面图</p>
+            <small>建议 16:9 · JPG / PNG</small>
+          </div>
+        </div>
+        <input type="file" id="coverFileInput" accept="image/*" style="display:none" onchange="handleCoverUpload(this)">
+      </div>
+
+      <!-- 基本信息 -->
+      <div class="create-section">
+        <div class="create-section-label">基本信息</div>
+        <div class="create-field">
+          <label>项目标题</label>
+          <input type="text" id="cf-title" placeholder="例：IP页滑动热区重定义 · 手势引导设计">
+        </div>
+        <div class="create-field">
+          <label>眉题 <span>显示在标题上方，例：BILIBILI 实战经验 · 体验探索</span></label>
+          <input type="text" id="cf-eyebrow" placeholder="BILIBILI 实战经验 · 体验探索">
+        </div>
+        <div class="create-field">
+          <label>卡片摘要 <span>显示在卡片下方</span></label>
+          <input type="text" id="cf-desc" placeholder="简短描述这个项目做了什么">
+        </div>
+        <div class="create-field">
+          <label>核心洞察 <span>显示在正文开头的引言</span></label>
+          <input type="text" id="cf-oneliner" placeholder="这个需求让我意识到……">
+        </div>
+        <div class="create-field-row">
+          <div class="create-field">
+            <label>内容分类</label>
+            <select id="cf-type">
+              <option value="bili">bilibili 实战经验</option>
+              <option value="project">个人项目</option>
+              <option value="thinking">思考</option>
+            </select>
+          </div>
+          <div class="create-field">
+            <label>卡片标签 <span>逗号分隔</span></label>
+            <input type="text" id="cf-tags" placeholder="交互策略, 已上线">
+          </div>
+        </div>
+      </div>
+
+      <!-- 元数据 -->
+      <div class="create-section">
+        <div class="create-section-label">侧边栏元数据</div>
+        <div class="create-field-row">
+          <div class="create-field">
+            <label>需求类型</label>
+            <input type="text" id="cf-meta-type" placeholder="优化型 / 探索型">
+          </div>
+          <div class="create-field">
+            <label>项目周期</label>
+            <input type="text" id="cf-meta-duration" placeholder="1d / 1w">
+          </div>
+        </div>
+        <div class="create-field-row">
+          <div class="create-field">
+            <label>结论</label>
+            <input type="text" id="cf-meta-conclusion" placeholder="增长 · 扩量">
+          </div>
+          <div class="create-field">
+            <label>状态</label>
+            <input type="text" id="cf-meta-status" placeholder="✅ 已上线">
+          </div>
+        </div>
+      </div>
+
+      <!-- 项目内容 -->
+      <div class="create-section">
+        <div class="create-section-label">项目内容</div>
+        <div class="create-field">
+          <label>问题是如何发现的</label>
+          <textarea id="cf-bg" rows="4" placeholder="数据信号是什么？核心观察是什么？"></textarea>
+        </div>
+        <div class="create-field">
+          <label>卡点与难点</label>
+          <textarea id="cf-problems" rows="4" placeholder="遇到了哪些阻力？边界在哪里？"></textarea>
+        </div>
+        <div class="create-field">
+          <label>为什么会出现这个问题</label>
+          <textarea id="cf-reason" rows="3" placeholder="深层原因是什么？"></textarea>
+        </div>
+        <div class="create-field">
+          <label>决策过程与原因</label>
+          <textarea id="cf-decision" rows="4" placeholder="方案对比、最终选择及理由"></textarea>
+        </div>
+        <div class="create-field">
+          <label>总结语句 <span>显示为深色引用块</span></label>
+          <textarea id="cf-summary" rows="2" placeholder="这个项目改变了我……"></textarea>
+        </div>
+      </div>
+
+      <!-- 上线数据 -->
+      <div class="create-section">
+        <div class="create-section-label">上线验证数据 <span style="font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted)">（选填）</span></div>
+        <div class="metrics-grid">
+          <div class="metric-input-pair">
+            <input type="text" class="cf-metric-label" placeholder="指标名，如 曝光PV">
+            <input type="text" class="cf-metric-value" placeholder="+4.27%">
+          </div>
+          <div class="metric-input-pair">
+            <input type="text" class="cf-metric-label" placeholder="指标名，如 订单数">
+            <input type="text" class="cf-metric-value" placeholder="+1.79%">
+          </div>
+          <div class="metric-input-pair">
+            <input type="text" class="cf-metric-label" placeholder="指标名">
+            <input type="text" class="cf-metric-value" placeholder="数值">
+          </div>
+          <div class="metric-input-pair">
+            <input type="text" class="cf-metric-label" placeholder="指标名">
+            <input type="text" class="cf-metric-value" placeholder="数值">
+          </div>
+        </div>
+        <div class="create-field" style="margin-top:10px;">
+          <label>数据说明</label>
+          <textarea id="cf-result-text" rows="2" placeholder="数据解读，预计全量收益等"></textarea>
+        </div>
+      </div>
+
+    </div><!-- /.create-body -->
+
+    <div class="create-footer">
+      <button class="btn-cancel" onclick="closeCreateModal()">取消</button>
+      <button class="btn-save-proj" onclick="saveProject()">保存项目</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DYNAMIC PROJECT VIEW OVERLAY ===== -->
+<div class="dyn-proj-overlay" id="dynProjOverlay">
+  <div class="dyn-proj-modal" id="dynProjModal">
+    <!-- populated by JS -->
+  </div>
+</div>
+
 <script>
   // ===== THEME TOGGLE =====
   (function () {
@@ -1821,8 +2136,224 @@
   }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeProjectModal();
+    if (e.key === 'Escape') {
+      closeProjectModal();
+      closeCreateModal();
+      closeDynProject();
+    }
   });
+
+  // ===== CREATE PROJECT =====
+  let _coverData = null;
+
+  function openCreateModal() {
+    document.getElementById('createOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCreateModal() {
+    document.getElementById('createOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleCoverUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      _coverData = e.target.result;
+      const preview = document.getElementById('coverPreview');
+      preview.src = _coverData;
+      preview.style.display = 'block';
+      document.getElementById('coverHint').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function saveProject() {
+    const title = document.getElementById('cf-title').value.trim();
+    if (!title) { alert('请填写项目标题'); return; }
+
+    // collect metrics
+    const metricLabels = [...document.querySelectorAll('.cf-metric-label')].map(i => i.value.trim());
+    const metricValues = [...document.querySelectorAll('.cf-metric-value')].map(i => i.value.trim());
+    const metrics = metricLabels.map((l, i) => ({ label: l, value: metricValues[i] }))
+                                .filter(m => m.label && m.value);
+
+    const project = {
+      id: 'dyn_' + Date.now(),
+      type: document.getElementById('cf-type').value,
+      title,
+      eyebrow:   document.getElementById('cf-eyebrow').value.trim(),
+      desc:      document.getElementById('cf-desc').value.trim(),
+      oneliner:  document.getElementById('cf-oneliner').value.trim(),
+      tags:      document.getElementById('cf-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+      cover:     _coverData,
+      meta: {
+        '需求类型': document.getElementById('cf-meta-type').value.trim(),
+        '项目周期': document.getElementById('cf-meta-duration').value.trim(),
+        '结论':     document.getElementById('cf-meta-conclusion').value.trim(),
+        '状态':     document.getElementById('cf-meta-status').value.trim(),
+      },
+      sections: {
+        bg:         document.getElementById('cf-bg').value.trim(),
+        problems:   document.getElementById('cf-problems').value.trim(),
+        reason:     document.getElementById('cf-reason').value.trim(),
+        decision:   document.getElementById('cf-decision').value.trim(),
+        summary:    document.getElementById('cf-summary').value.trim(),
+        metrics,
+        resultText: document.getElementById('cf-result-text').value.trim(),
+      }
+    };
+
+    const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    stored.push(project);
+    localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+
+    renderDynCard(project);
+    closeCreateModal();
+    resetCreateForm();
+  }
+
+  function resetCreateForm() {
+    ['cf-title','cf-eyebrow','cf-desc','cf-oneliner','cf-tags',
+     'cf-meta-type','cf-meta-duration','cf-meta-conclusion','cf-meta-status',
+     'cf-bg','cf-problems','cf-reason','cf-decision','cf-summary','cf-result-text'
+    ].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('cf-type').value = 'bili';
+    document.querySelectorAll('.cf-metric-label, .cf-metric-value').forEach(i => i.value = '');
+    _coverData = null;
+    const preview = document.getElementById('coverPreview');
+    preview.src = ''; preview.style.display = 'none';
+    document.getElementById('coverHint').style.display = 'block';
+    document.getElementById('coverFileInput').value = '';
+  }
+
+  function renderDynCard(p) {
+    const typeLabel = { bili: 'bilibili 实战经验', project: '个人项目', thinking: '思考' };
+    const dataType = 'all ' + p.type;
+    const thumbHtml = p.cover
+      ? `<img src="${p.cover}" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      : `<div style="width:100%;height:100%;background:var(--placeholder-bg);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;">暂无封面</div>`;
+    const tagsHtml = p.tags.map(t => `<span class="card-tag">${t}</span>`).join('');
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.type = dataType;
+    card.dataset.dynId = p.id;
+    card.innerHTML = `
+      <div class="card-thumb" style="position:relative;overflow:hidden;">
+        ${thumbHtml}
+        <button class="card-delete-btn" title="删除项目" onclick="event.stopPropagation();deleteProject('${p.id}',this)">✕</button>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">${tagsHtml}</div>
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc">${p.desc || p.oneliner || ''}</div>
+      </div>`;
+    card.addEventListener('click', () => openDynProject(p.id));
+
+    const gallery = document.getElementById('galleryView');
+    gallery.appendChild(card);
+
+    // respect current filter
+    const activeFilter = document.querySelector('.filter-tag.active');
+    if (activeFilter) {
+      const f = activeFilter.dataset.filter || 'all';
+      if (f !== 'all' && !dataType.includes(f)) card.style.display = 'none';
+    }
+  }
+
+  function deleteProject(id, btn) {
+    if (!confirm('确定删除这个项目？')) return;
+    let stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    stored = stored.filter(p => p.id !== id);
+    localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+    btn.closest('.card').remove();
+  }
+
+  function openDynProject(id) {
+    const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    const p = stored.find(x => x.id === id);
+    if (!p) return;
+
+    const s = p.sections;
+    const coverHtml = p.cover
+      ? `<img src="${p.cover}" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      : '';
+    const metaHtml = Object.entries(p.meta).filter(([,v]) => v)
+      .map(([k,v]) => `<div class="proj-right-meta-item"><div class="proj-right-meta-label">${k}</div><div class="proj-right-meta-value">${v}</div></div>`).join('');
+
+    const metricsHtml = s.metrics && s.metrics.length
+      ? `<div class="proj-metrics">${s.metrics.map(m => `<div class="proj-metric"><div class="proj-metric-num">${m.value}</div><div class="proj-metric-label">${m.label}</div></div>`).join('')}</div>` : '';
+    const resultNoteHtml = s.resultText ? `<div class="proj-result-note">${s.resultText}</div>` : '';
+    const resultSection = (metricsHtml || resultNoteHtml)
+      ? `<div class="proj-section"><div class="proj-section-heading">上线验证结果</div>${metricsHtml}${resultNoteHtml}</div>` : '';
+
+    const tocLinks = [
+      ['proj-sec-header','概览'],
+      s.bg       ? ['proj-sec-bg','问题发现']       : null,
+      s.problems ? ['proj-sec-problems','卡点难点'] : null,
+      s.reason   ? ['proj-sec-reason','根本原因']   : null,
+      s.decision ? ['proj-sec-decision','决策过程'] : null,
+      (s.metrics && s.metrics.length) ? ['proj-sec-result','上线结果'] : null,
+      s.summary  ? ['proj-sec-summary','总结']      : null,
+    ].filter(Boolean);
+
+    const tocHtml = tocLinks.map((l,i) =>
+      `<a class="proj-toc-link${i===0?' toc-active':''}" onclick="dynScrollTo('${l[0]}',this)">${l[1]}</a>`
+    ).join('');
+
+    document.getElementById('dynProjModal').innerHTML = `
+      <div class="proj-topbar">
+        <button class="proj-back-btn" onclick="closeDynProject()">← 返回</button>
+      </div>
+      <div class="proj-cover-hero">${coverHtml}</div>
+      <div class="proj-article-wrap">
+        <div class="proj-sidebar">
+          <nav class="proj-toc-nav" id="dynTocNav">${tocHtml}</nav>
+        </div>
+        <div class="proj-article-content" id="dynArticleContent">
+          <div class="proj-body">
+            <div class="proj-section" id="proj-sec-header">
+              ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
+              <h1 class="proj-title">${p.title}</h1>
+              ${p.oneliner ? `<div class="proj-oneliner">${p.oneliner}</div>` : ''}
+            </div>
+            ${s.bg ? `<div class="proj-section" id="proj-sec-bg"><div class="proj-section-heading">问题是如何发现的</div>${s.bg.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.problems ? `<div class="proj-section" id="proj-sec-problems"><div class="proj-section-heading">卡点与难点</div>${s.problems.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.reason ? `<div class="proj-section" id="proj-sec-reason"><div class="proj-section-heading">为什么会出现这个问题</div>${s.reason.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">决策过程与原因</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${resultSection ? `<div id="proj-sec-result">${resultSection}</div>` : ''}
+            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-quote">${s.summary}</div></div>` : ''}
+          </div>
+        </div>
+        <div class="proj-right-col">${metaHtml}</div>
+      </div>`;
+
+    document.getElementById('dynProjOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDynProject() {
+    document.getElementById('dynProjOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function dynScrollTo(id, linkEl) {
+    const section = document.getElementById(id);
+    const content = document.getElementById('dynArticleContent');
+    if (section && content) content.scrollTo({ top: section.offsetTop - 16, behavior: 'smooth' });
+    document.querySelectorAll('#dynTocNav .proj-toc-link').forEach(l => l.classList.remove('toc-active'));
+    if (linkEl) linkEl.classList.add('toc-active');
+  }
+
+  // Load stored projects on page init
+  (function loadStoredProjects() {
+    const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    stored.forEach(renderDynCard);
+  })();
+
 </script>
 
 </body>
