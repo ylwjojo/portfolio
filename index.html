@@ -1045,6 +1045,24 @@
     }
     .proj-result-note strong { color: var(--text); font-weight: 600; }
 
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; z-index: 999;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--text); color: var(--white);
+      font-size: 13px; font-weight: 500;
+      padding: 10px 18px; border-radius: 8px;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+    .toast-icon { font-size: 15px; }
+
     /* ===== CREATE PROJECT BUTTON ===== */
     .create-proj-btn {
       display: flex; align-items: center; gap: 5px;
@@ -1770,6 +1788,12 @@
   </div>
 </div>
 
+<!-- ===== TOAST ===== -->
+<div class="toast" id="globalToast">
+  <span class="toast-icon" id="toastIcon">✓</span>
+  <span id="toastMsg"></span>
+</div>
+
 <!-- ===== CREATE PROJECT MODAL ===== -->
 <div class="create-overlay" id="createOverlay">
   <div class="create-modal">
@@ -2143,6 +2167,17 @@
     }
   });
 
+  // ===== TOAST =====
+  let _toastTimer = null;
+  function showToast(msg, icon = '✓') {
+    const el = document.getElementById('globalToast');
+    document.getElementById('toastMsg').textContent = msg;
+    document.getElementById('toastIcon').textContent = icon;
+    el.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
+
   // ===== CREATE PROJECT =====
   let _coverData = null;
 
@@ -2213,6 +2248,7 @@
     renderDynCard(project);
     closeCreateModal();
     resetCreateForm();
+    showToast('项目已保存');
   }
 
   function resetCreateForm() {
@@ -2270,6 +2306,7 @@
     stored = stored.filter(p => p.id !== id);
     localStorage.setItem('portfolio_projects', JSON.stringify(stored));
     btn.closest('.card').remove();
+    showToast('项目已删除', '✕');
   }
 
   function openDynProject(id) {
