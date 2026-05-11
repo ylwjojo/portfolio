@@ -1260,7 +1260,7 @@
       display: none; align-items: center; justify-content: center;
       z-index: 2;
     }
-    .card:hover .card-delete-btn { display: flex; }
+    [data-admin] .card:hover .card-delete-btn { display: flex; }
 
     @media (max-width: 768px) {
       .proj-article-wrap { grid-template-columns: 1fr; }
@@ -1298,6 +1298,90 @@
     :root .icon-sun { display: block; }
     [data-theme="dark"] .icon-sun { display: none; }
     [data-theme="dark"] .icon-moon { display: block; }
+
+    /* ===== ADMIN MODE ===== */
+    .admin-only { display: none !important; }
+    [data-admin] .admin-only { display: flex !important; }
+    [data-admin] .admin-only-block { display: block !important; }
+
+    .admin-toggle-btn {
+      width: 34px; height: 34px; border-radius: 8px; border: none;
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+    .admin-toggle-btn:hover { background: var(--tag-bg); color: var(--text); }
+    [data-admin] .admin-toggle-btn {
+      background: #6B5CE7; color: #fff;
+    }
+    [data-admin] .admin-toggle-btn:hover { background: #5a4dd6; }
+    .admin-toggle-btn svg { width: 16px; height: 16px; }
+
+    /* Editable elements in admin mode */
+    [data-admin] [data-editable]:hover,
+    [data-admin] [contenteditable="true"]:hover {
+      outline: 1.5px dashed rgba(107,92,231,0.45);
+      border-radius: 3px; cursor: text;
+    }
+    [data-admin] [data-editable]:focus,
+    [data-admin] [contenteditable="true"]:focus {
+      outline: 2px solid #6B5CE7;
+      border-radius: 3px;
+      background: rgba(107,92,231,0.04);
+    }
+
+    /* Project edit toolbar (admin-only) */
+    .proj-edit-bar {
+      position: sticky; bottom: 0; z-index: 10;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 12px 40px;
+      gap: 10px; align-items: center;
+      display: none;
+    }
+    [data-admin] .proj-edit-bar { display: flex; }
+    .proj-edit-bar-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--purple);
+      flex: 1;
+    }
+    .btn-edit-action {
+      font-size: 12.5px; font-weight: 500; padding: 6px 14px;
+      border-radius: 6px; border: 1px solid var(--border);
+      background: var(--surface-3); color: var(--text-muted);
+      cursor: pointer; font-family: inherit; transition: all 0.12s;
+    }
+    .btn-edit-action:hover { border-color: var(--text-muted); color: var(--text); }
+    .btn-edit-save {
+      font-size: 12.5px; font-weight: 600; padding: 6px 18px;
+      border-radius: 6px; border: none;
+      background: #6B5CE7; color: #fff;
+      cursor: pointer; font-family: inherit; transition: opacity 0.12s;
+    }
+    .btn-edit-save:hover { opacity: 0.85; }
+
+    /* Cover edit overlay */
+    .cover-edit-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0); cursor: default;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    [data-admin] .cover-edit-overlay {
+      cursor: pointer;
+    }
+    [data-admin] .cover-edit-overlay:hover {
+      background: rgba(0,0,0,0.4);
+    }
+    .cover-edit-btn {
+      font-size: 12px; font-weight: 600;
+      background: rgba(255,255,255,0.95); color: #1a1a1a;
+      padding: 8px 16px; border-radius: 6px;
+      opacity: 0; transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    [data-admin] .cover-edit-overlay:hover .cover-edit-btn { opacity: 1; }
 
     /* Smooth theme transition */
     *, *::before, *::after {
@@ -1353,6 +1437,12 @@
         </svg>
       </a>
 
+      <button class="admin-toggle-btn" id="adminToggleBtn" onclick="toggleAdmin()" title="管理模式">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </button>
       <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -1423,7 +1513,7 @@
   <button class="filter-tag" onclick="setFilter(this,'project')">个人项目</button>
   <button class="filter-tag" onclick="setFilter(this,'thinking')">思考</button>
   <div class="subnav-spacer"></div>
-  <button class="create-proj-btn" onclick="openCreateModal()">＋ 新建项目</button>
+  <button class="create-proj-btn admin-only" onclick="openCreateModal()">＋ 新建项目</button>
   <div class="view-toggle">
     <button class="view-btn" onclick="setView('list',this)">列表</button>
     <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
@@ -1699,11 +1789,16 @@
       <div class="proj-article-content" id="projArticleContent">
 
         <!-- Cover hero inside center column -->
-        <div class="proj-cover-hero">
-          <img src="images/ip-hotzone-cover.png" alt="IP页滑动热区重定义" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        <div class="proj-cover-hero" id="staticProjCover">
+          <img id="staticCoverImg" src="images/ip-hotzone-cover.png" alt="IP页滑动热区重定义" style="width:100%;height:100%;object-fit:cover;object-position:center;">
           <div style="position:absolute;bottom:18px;left:20px;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:3px;letter-spacing:0.06em;">已上线 · bilibili IP页</div>
+          <div class="cover-edit-overlay" onclick="triggerStaticCoverReplace()">
+            <div class="cover-edit-btn">更换封面图</div>
+          </div>
         </div>
-        <div class="proj-body">
+        <input type="file" id="staticCoverInput" accept="image/*" style="display:none" onchange="applyStaticCoverReplace(this)">
+
+        <div class="proj-body" id="staticProjBody">
 
           <!-- 概览 -->
           <div class="proj-section" id="proj-sec-header">
@@ -1822,6 +1917,16 @@
       </div>
 
     </div><!-- /.proj-article-wrap -->
+
+    <!-- Admin edit toolbar (static project) -->
+    <div class="proj-edit-bar" id="staticEditBar">
+      <span class="proj-edit-bar-label">🔓 管理模式 · 点击任意文字可直接编辑</span>
+      <div style="margin-left:auto;display:flex;gap:8px;">
+        <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="discardStaticEdits()">放弃</button>
+        <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveStaticProjectEdits()">保存更改</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -2206,9 +2311,14 @@
     const content = document.getElementById('projArticleContent');
     if (content) content.scrollTop = 0;
     document.querySelectorAll('.proj-toc-link').forEach((l, i) => l.classList.toggle('toc-active', i === 0));
+    // Admin mode: enable inline editing
+    if (document.documentElement.hasAttribute('data-admin')) {
+      _setStaticProjEditable(true);
+    }
   }
 
   function closeProjectModal() {
+    _setStaticProjEditable(false);
     document.getElementById('projOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
@@ -2479,10 +2589,11 @@
     if (!p) return;
 
     const s = p.sections;
+    const isAdmin = document.documentElement.hasAttribute('data-admin');
     const coverHtml = p.cover
-      ? `<img src="${p.cover}" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      ? `<img src="${p.cover}" style="width:100%;height:100%;object-fit:cover;display:block;" id="dynCoverImg">`
       : '';
-    const metaHtml = Object.entries(p.meta).filter(([,v]) => v)
+    const metaHtml = p._rightColHTML || Object.entries(p.meta).filter(([,v]) => v)
       .map(([k,v]) => `<div class="proj-right-meta-item"><div class="proj-right-meta-label">${k}</div><div class="proj-right-meta-value">${v}</div></div>`).join('');
 
     const metricsHtml = s.metrics && s.metrics.length
@@ -2505,17 +2616,34 @@
       `<a class="proj-toc-link${i===0?' toc-active':''}" onclick="dynScrollTo('${l[0]}',this)">${l[1]}</a>`
     ).join('');
 
+    const dynCoverWrap = p.cover
+      ? `<div class="proj-cover-hero" style="position:relative;">
+          ${coverHtml}
+          ${isAdmin ? `<div class="cover-edit-overlay" onclick="triggerDynCoverReplace('${p.id}')"><div class="cover-edit-btn">更换封面图</div></div><input type="file" id="dynCoverInput" accept="image/*" style="display:none" onchange="applyDynCoverReplace('${p.id}',this)">` : ''}
+        </div>`
+      : (isAdmin ? `<div style="height:80px;background:var(--surface-3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--text-muted);" onclick="triggerDynCoverReplace('${p.id}')">+ 上传封面图<input type="file" id="dynCoverInput" accept="image/*" style="display:none" onchange="applyDynCoverReplace('${p.id}',this)"></div>` : '');
+
+    const editBar = isAdmin ? `
+      <div class="proj-edit-bar">
+        <span class="proj-edit-bar-label">🔓 管理模式 · 点击任意文字可直接编辑</span>
+        <div style="margin-left:auto;display:flex;gap:8px;">
+          <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="closeDynProject()">关闭</button>
+          <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveDynProjectEdits('${p.id}')">保存更改</button>
+        </div>
+      </div>` : '';
+
     document.getElementById('dynProjModal').innerHTML = `
       <div class="proj-topbar">
         <button class="proj-back-btn" onclick="closeDynProject()">← 返回</button>
       </div>
-      <div class="proj-cover-hero">${coverHtml}</div>
+      ${dynCoverWrap}
       <div class="proj-article-wrap">
         <div class="proj-sidebar">
           <nav class="proj-toc-nav" id="dynTocNav">${tocHtml}</nav>
         </div>
         <div class="proj-article-content" id="dynArticleContent">
-          <div class="proj-body">
+          <div class="proj-body" id="dynProjBody" ${isAdmin ? 'contenteditable="true"' : ''}>
+            ${p._bodyHTML || `
             <div class="proj-section" id="proj-sec-header">
               ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
               <h1 class="proj-title">${p.title}</h1>
@@ -2527,18 +2655,79 @@
             ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">决策过程与原因</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             ${resultSection ? `<div id="proj-sec-result">${resultSection}</div>` : ''}
             ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-quote">${s.summary}</div></div>` : ''}
+            `}
           </div>
         </div>
-        <div class="proj-right-col">${metaHtml}</div>
-      </div>`;
+        <div class="proj-right-col" id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
+      </div>
+      ${editBar}`;
 
     document.getElementById('dynProjOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
+  // Dynamic project cover editing
+  function triggerDynCoverReplace(id) {
+    const inp = document.getElementById('dynCoverInput');
+    if (inp) inp.click();
+  }
+
+  function applyDynCoverReplace(id, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // Update displayed cover
+      const img = document.getElementById('dynCoverImg');
+      if (img) { img.src = e.target.result; }
+      else {
+        // No existing cover img — create one inside the cover wrap
+        const wrap = document.querySelector('#dynProjModal .proj-cover-hero');
+        if (wrap) {
+          const i = document.createElement('img');
+          i.id = 'dynCoverImg';
+          i.src = e.target.result;
+          i.style = 'width:100%;height:100%;object-fit:cover;display:block;';
+          wrap.prepend(i);
+        }
+      }
+      // Store as pending cover so saveDynProjectEdits() can persist it
+      window._dynPendingCover = { id, src: e.target.result };
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  function saveDynProjectEdits(id) {
+    let stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    const idx = stored.findIndex(p => p.id === id);
+    if (idx === -1) { showToast('保存失败', '✕'); return; }
+
+    // Collect text edits from editable body
+    const body = document.getElementById('dynProjBody');
+    const rightCol = document.getElementById('dynProjRightCol');
+
+    // Store html overrides directly in the project object
+    stored[idx]._bodyHTML    = body     ? body.innerHTML     : stored[idx]._bodyHTML;
+    stored[idx]._rightColHTML = rightCol ? rightCol.innerHTML : stored[idx]._rightColHTML;
+
+    // Apply pending cover change
+    if (window._dynPendingCover && window._dynPendingCover.id === id) {
+      stored[idx].cover = window._dynPendingCover.src;
+      window._dynPendingCover = null;
+      // Update card thumbnail
+      const card = document.querySelector(`[data-dyn-id="${id}"] .card-thumb img`);
+      if (card) card.src = stored[idx].cover;
+    }
+
+    localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+    showToast('项目已更新 ✓');
+  }
+
   function closeDynProject() {
     document.getElementById('dynProjOverlay').classList.remove('open');
     document.body.style.overflow = '';
+    window._dynPendingCover = null;
   }
 
   function dynScrollTo(id, linkEl) {
@@ -2554,7 +2743,110 @@
     const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
     stored.forEach(renderDynCard);
     updateMatrix();
+    applyStaticOverrides();
   })();
+
+  // ===== ADMIN MODE =====
+  // Restore admin state across page refreshes
+  (function initAdmin() {
+    if (sessionStorage.getItem('adminMode') === '1') {
+      document.documentElement.setAttribute('data-admin', '');
+      _setAdminBtnIcon(true);
+    }
+  })();
+
+  function toggleAdmin() {
+    const root = document.documentElement;
+    const isAdmin = root.hasAttribute('data-admin');
+    if (isAdmin) {
+      root.removeAttribute('data-admin');
+      sessionStorage.removeItem('adminMode');
+      _setAdminBtnIcon(false);
+      // Remove contenteditable from static project if open
+      _setStaticProjEditable(false);
+    } else {
+      root.setAttribute('data-admin', '');
+      sessionStorage.setItem('adminMode', '1');
+      _setAdminBtnIcon(true);
+      // Enable editing if static modal is already open
+      if (document.getElementById('projOverlay').classList.contains('open')) {
+        _setStaticProjEditable(true);
+      }
+    }
+  }
+
+  function _setAdminBtnIcon(isAdmin) {
+    const btn = document.getElementById('adminToggleBtn');
+    if (!btn) return;
+    // Closed lock = admin ON (you are the admin), Open lock = browse mode
+    btn.innerHTML = isAdmin
+      ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+      : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`;
+  }
+
+  // ===== STATIC PROJECT EDITING =====
+  function _setStaticProjEditable(on) {
+    const body = document.getElementById('staticProjBody');
+    const rightCol = document.querySelector('#projOverlay .proj-right-col');
+    if (body)     body.contentEditable     = on ? 'true' : 'false';
+    if (rightCol) rightCol.contentEditable = on ? 'true' : 'false';
+  }
+
+  function triggerStaticCoverReplace() {
+    if (!document.documentElement.hasAttribute('data-admin')) return;
+    document.getElementById('staticCoverInput').click();
+  }
+
+  function applyStaticCoverReplace(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById('staticCoverImg').src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  function saveStaticProjectEdits() {
+    const body = document.getElementById('staticProjBody');
+    const rightCol = document.querySelector('#projOverlay .proj-right-col');
+    const cover = document.getElementById('staticCoverImg');
+    const override = {
+      cover:       cover    ? cover.src           : null,
+      bodyHTML:    body     ? body.innerHTML       : null,
+      rightColHTML: rightCol ? rightCol.innerHTML  : null,
+    };
+    localStorage.setItem('proj_override_ip-hotzone', JSON.stringify(override));
+    showToast('内容已保存 ✓');
+  }
+
+  function discardStaticEdits() {
+    // Re-apply saved overrides (or original) by reloading section content
+    const override = JSON.parse(localStorage.getItem('proj_override_ip-hotzone') || 'null');
+    if (override) {
+      if (override.cover)       document.getElementById('staticCoverImg').src = override.cover;
+      if (override.bodyHTML)    document.getElementById('staticProjBody').innerHTML = override.bodyHTML;
+      if (override.rightColHTML) {
+        const rc = document.querySelector('#projOverlay .proj-right-col');
+        if (rc) rc.innerHTML = override.rightColHTML;
+      }
+    }
+    showToast('已放弃更改', '↩');
+  }
+
+  function applyStaticOverrides() {
+    const override = JSON.parse(localStorage.getItem('proj_override_ip-hotzone') || 'null');
+    if (!override) return;
+    if (override.cover)
+      document.getElementById('staticCoverImg').src = override.cover;
+    if (override.bodyHTML)
+      document.getElementById('staticProjBody').innerHTML = override.bodyHTML;
+    if (override.rightColHTML) {
+      const rc = document.querySelector('#projOverlay .proj-right-col');
+      if (rc) rc.innerHTML = override.rightColHTML;
+    }
+  }
 
 </script>
 
