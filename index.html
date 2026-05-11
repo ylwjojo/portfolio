@@ -2476,7 +2476,7 @@
 
   function saveProject() {
     const title = document.getElementById('cf-title').value.trim();
-    if (!title) { alert('请填写项目标题'); return; }
+    if (!title) { showToast('请先填写项目标题', '⚠️'); return; }
 
     // collect metrics
     const metricLabels = [...document.querySelectorAll('.cf-metric-label')].map(i => i.value.trim());
@@ -2511,15 +2511,29 @@
       }
     };
 
-    const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+    // 如果封面图太大导致 localStorage 溢出，自动降级：不保存封面
+    let stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
     stored.push(project);
-    localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+    try {
+      localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+    } catch (e) {
+      // QuotaExceededError — 去掉封面再试一次
+      project.cover = null;
+      stored[stored.length - 1] = project;
+      try {
+        localStorage.setItem('portfolio_projects', JSON.stringify(stored));
+        showToast('封面图过大已跳过，项目已保存', '⚠️');
+      } catch (e2) {
+        showToast('存储空间不足，保存失败', '✕');
+        return;
+      }
+    }
 
     renderDynCard(project);
     updateMatrix();
     closeCreateModal();
     resetCreateForm();
-    showToast('项目已保存');
+    showToast('项目已保存 ✓');
   }
 
   function resetCreateForm() {
@@ -2813,12 +2827,23 @@
     const rightCol = document.querySelector('#projOverlay .proj-right-col');
     const cover = document.getElementById('staticCoverImg');
     const override = {
-      cover:       cover    ? cover.src           : null,
-      bodyHTML:    body     ? body.innerHTML       : null,
-      rightColHTML: rightCol ? rightCol.innerHTML  : null,
+      cover:        cover     ? cover.src          : null,
+      bodyHTML:     body      ? body.innerHTML      : null,
+      rightColHTML: rightCol  ? rightCol.innerHTML  : null,
     };
-    localStorage.setItem('proj_override_ip-hotzone', JSON.stringify(override));
-    showToast('内容已保存 ✓');
+    try {
+      localStorage.setItem('proj_override_ip-hotzone', JSON.stringify(override));
+      showToast('内容已保存 ✓');
+    } catch (e) {
+      // 封面图太大，去掉 cover 重试
+      override.cover = null;
+      try {
+        localStorage.setItem('proj_override_ip-hotzone', JSON.stringify(override));
+        showToast('封面图过大已跳过，其余内容已保存', '⚠️');
+      } catch (e2) {
+        showToast('存储空间不足，保存失败', '✕');
+      }
+    }
   }
 
   function discardStaticEdits() {
