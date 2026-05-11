@@ -1237,17 +1237,19 @@
     /* ===== DYNAMIC PROJECT OVERLAY ===== */
     .dyn-proj-overlay {
       position: fixed; inset: 0; z-index: 250;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       opacity: 0; pointer-events: none;
-      transition: opacity 0.2s;
-      overflow-y: auto;
+      transition: opacity 0.3s ease;
     }
     .dyn-proj-overlay.open { opacity: 1; pointer-events: all; }
     .dyn-proj-modal {
-      background: var(--surface); min-height: 100vh;
-      max-width: 960px; margin: 0 auto;
-      transform: translateY(20px); opacity: 0;
-      transition: transform 0.25s, opacity 0.25s;
+      position: absolute; inset: 0;
+      background: var(--surface);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      transform: translateY(28px); opacity: 0;
+      transition: transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.32s ease;
     }
     .dyn-proj-overlay.open .dyn-proj-modal { transform: translateY(0); opacity: 1; }
 
@@ -2632,13 +2634,15 @@
       `<a class="proj-toc-link${i===0?' toc-active':''}" onclick="dynScrollTo('${l[0]}',this)">${l[1]}</a>`
     ).join('');
 
-    const dynCoverWrap = p.cover
-      ? `<div class="proj-cover-hero" style="position:relative;">
+    // Cover hero (same position as static: inside the scrollable center column)
+    const coverHero = p.cover
+      ? `<div class="proj-cover-hero">
           ${coverHtml}
           ${isAdmin ? `<div class="cover-edit-overlay" onclick="triggerDynCoverReplace('${p.id}')"><div class="cover-edit-btn">更换封面图</div></div><input type="file" id="dynCoverInput" accept="image/*" style="display:none" onchange="applyDynCoverReplace('${p.id}',this)">` : ''}
         </div>`
-      : (isAdmin ? `<div style="height:80px;background:var(--surface-3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--text-muted);" onclick="triggerDynCoverReplace('${p.id}')">+ 上传封面图<input type="file" id="dynCoverInput" accept="image/*" style="display:none" onchange="applyDynCoverReplace('${p.id}',this)"></div>` : '');
+      : (isAdmin ? `<div class="proj-cover-hero" style="cursor:pointer;background:var(--surface-3);justify-content:center;align-items:center;display:flex;font-size:13px;color:var(--text-muted);" onclick="triggerDynCoverReplace('${p.id}')">＋ 上传封面图<input type="file" id="dynCoverInput" accept="image/*" style="display:none" onchange="applyDynCoverReplace('${p.id}',this)"></div>` : '');
 
+    // Edit bar (same position as static: sticky bottom of scrollable center column)
     const editBar = isAdmin ? `
       <div class="proj-edit-bar">
         <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
@@ -2647,16 +2651,23 @@
         </div>
       </div>` : '';
 
+    // Structure mirrors static modal exactly:
+    // proj-topbar (sticky) → proj-article-wrap (flex:1, 3-col grid)
+    //   └─ proj-article-content (overflow-y:auto)
+    //       └─ cover hero → proj-body → edit-bar (sticky bottom)
     document.getElementById('dynProjModal').innerHTML = `
       <div class="proj-topbar">
-        <button class="proj-back-btn" onclick="closeDynProject()">← 返回</button>
+        <button class="proj-back-btn" onclick="closeDynProject()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          返回
+        </button>
       </div>
-      ${dynCoverWrap}
       <div class="proj-article-wrap">
         <div class="proj-sidebar">
           <nav class="proj-toc-nav" id="dynTocNav">${tocHtml}</nav>
         </div>
         <div class="proj-article-content" id="dynArticleContent">
+          ${coverHero}
           <div class="proj-body" id="dynProjBody" ${isAdmin ? 'contenteditable="true"' : ''}>
             ${p._bodyHTML || `
             <div class="proj-section" id="proj-sec-header">
@@ -2672,10 +2683,10 @@
             ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-quote">${s.summary}</div></div>` : ''}
             `}
           </div>
+          ${editBar}
         </div>
         <div class="proj-right-col" id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
-      </div>
-      ${editBar}`;
+      </div>`;
 
     document.getElementById('dynProjOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
