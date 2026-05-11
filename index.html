@@ -1021,6 +1021,30 @@
     }
     .proj-prose strong { color: var(--text); font-weight: 600; }
 
+    /* Result metrics */
+    .proj-metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 16px;
+    }
+    .proj-metric {
+      background: var(--surface-3); border: 1px solid var(--border);
+      border-radius: 6px; padding: 14px 12px; text-align: center;
+    }
+    .proj-metric-num {
+      font-size: 22px; font-weight: 700; color: #22a06b;
+      letter-spacing: -0.5px; line-height: 1.2;
+    }
+    .proj-metric-label {
+      font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.4;
+    }
+    .proj-result-note {
+      font-size: 12.5px; color: var(--text-muted); line-height: 1.7;
+      padding: 12px 16px; background: var(--surface-3);
+      border-radius: 6px; border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .proj-result-note strong { color: var(--text); font-weight: 600; }
+
     @media (max-width: 768px) {
       .proj-article-wrap { grid-template-columns: 1fr; }
       .proj-sidebar { display: none; }
@@ -1464,9 +1488,12 @@
       <nav class="proj-sidebar">
         <div class="proj-toc-nav" id="projTocNav">
           <a class="proj-toc-link toc-active" onclick="scrollToSection('proj-sec-header', this)">概览</a>
-          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-bg', this)">项目背景</a>
-          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-abilities', this)">能力体现</a>
-          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-summary', this)">作品集总结</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-bg', this)">问题发现</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-problems', this)">卡点难点</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-reason', this)">根本原因</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-abilities', this)">决策过程</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-result', this)">上线结果</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-summary', this)">总结</a>
         </div>
       </nav>
 
@@ -1539,6 +1566,34 @@
             <p class="proj-prose">方案 B 的入口效率更高——直接复用用户的高频手势，不新增学习成本。而认知摩擦的问题，只要引导设计做对，只需要一次。我的判断是：<strong>用户只要完成一次正确的手势，心智模型就更新了，之后不再需要提示。</strong> 所以引导的策略是：进入页面时出现一次动效暗示，随用户完成手势后消失，不重复出现。</p>
           </div>
 
+          <!-- 上线结果 -->
+          <div class="proj-section" id="proj-sec-result">
+            <div class="proj-section-heading">上线验证结果</div>
+            <div class="proj-sub-heading">60% 流量实验组 · 累计 1 个月（2.16–3.15）</div>
+            <div class="proj-metrics">
+              <div class="proj-metric">
+                <div class="proj-metric-num">+4.27%</div>
+                <div class="proj-metric-label">曝光 PV</div>
+              </div>
+              <div class="proj-metric">
+                <div class="proj-metric-num">+1.85%</div>
+                <div class="proj-metric-label">商详 PV</div>
+              </div>
+              <div class="proj-metric">
+                <div class="proj-metric-num">+1.79%</div>
+                <div class="proj-metric-label">订单数<br><span style="font-size:10px;font-weight:400;color:var(--text-muted)">66434 vs 65266</span></div>
+              </div>
+              <div class="proj-metric">
+                <div class="proj-metric-num">+0.91%</div>
+                <div class="proj-metric-label">GMV</div>
+              </div>
+            </div>
+            <div class="proj-result-note">
+              📈 <strong>预计全量推送（60% → 100%）后：</strong>全周期订单数 +1947 单，GMV +12.9 万；日均订单数 +65 单 / 天，GMV +4314 元 / 天。
+            </div>
+            <p class="proj-prose">四项指标全部正向。曝光 PV 的涨幅（+4.27%）验证了核心假设——将左右滑映射到 IP 内容切换后，用户确实更多地进入了 IP 详情页。商详 PV 和订单数的联动上升，说明路径优化带来的不只是浏览行为，而是真实转化。引导方案的一次性策略也被数据证明有效：没有出现因手势认知断层导致的负向反馈。</p>
+          </div>
+
           <!-- 总结 -->
           <div class="proj-section" id="proj-sec-summary">
             <div class="proj-quote">
@@ -1565,7 +1620,19 @@
         </div>
         <div class="proj-right-meta-item">
           <div class="proj-right-meta-label">状态</div>
-          <div class="proj-right-meta-value">✅ 已上线</div>
+          <div class="proj-right-meta-value">✅ 已上线验证</div>
+        </div>
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">曝光 PV</div>
+          <div class="proj-right-meta-value" style="color:#22a06b;font-weight:700;">+4.27%</div>
+        </div>
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">订单数</div>
+          <div class="proj-right-meta-value" style="color:#22a06b;font-weight:700;">+1.79%</div>
+        </div>
+        <div class="proj-right-meta-item">
+          <div class="proj-right-meta-label">预计 GMV 增量</div>
+          <div class="proj-right-meta-value" style="color:#22a06b;font-weight:700;">+12.9 万 / 周期</div>
         </div>
       </div>
 
