@@ -714,15 +714,15 @@
     .sb-row-end { border-right: none; }
     .sb-last-row .sb-cell { border-bottom: none; }
 
-    /* Row-based backgrounds */
-    [data-matrix-key^="user_"] { background: #edf7ea; }
-    [data-matrix-key^="biz_"]  { background: #fef9ee; }
-    [data-matrix-key^="eng_"]  { background: #eef4fd; }
+    /* Column-based backgrounds — 越右越深，表示创新价值越高 */
+    [data-matrix-key$="_optimize"] { background: #f4f3fd; }
+    [data-matrix-key$="_explore"]  { background: #e8e4f9; }
+    [data-matrix-key$="_create"]   { background: #d9d2f5; }
 
     .sb-cell.filled { cursor: pointer; }
-    [data-matrix-key^="user_"].filled:hover { background: #d5efcc; }
-    [data-matrix-key^="biz_"].filled:hover  { background: #fdefd2; }
-    [data-matrix-key^="eng_"].filled:hover  { background: #d6e9fa; }
+    [data-matrix-key$="_optimize"].filled:hover { background: #eae8fb; }
+    [data-matrix-key$="_explore"].filled:hover  { background: #dbd5f7; }
+    [data-matrix-key$="_create"].filled:hover   { background: #ccc3f1; }
     .sb-cell.active {
       outline: 2px solid #6B5CE7;
       outline-offset: -2px;
@@ -730,10 +730,10 @@
       z-index: 1;
     }
 
-    /* Empty cells — same row color but desaturated */
-    [data-matrix-key^="user_"].empty { background: #f3fbf1; }
-    [data-matrix-key^="biz_"].empty  { background: #fdfaf3; }
-    [data-matrix-key^="eng_"].empty  { background: #f3f8fe; }
+    /* Empty cells — same column tint but lighter */
+    [data-matrix-key$="_optimize"].empty { background: #f9f8fe; }
+    [data-matrix-key$="_explore"].empty  { background: #f0eefb; }
+    [data-matrix-key$="_create"].empty   { background: #e9e5f8; }
 
     .sb-cell-num {
       font-size: 36px;
@@ -741,9 +741,9 @@
       line-height: 1;
       letter-spacing: -1.5px;
     }
-    [data-matrix-key^="user_"] .sb-cell-num { color: #16a34a; }
-    [data-matrix-key^="biz_"]  .sb-cell-num { color: #d97706; }
-    [data-matrix-key^="eng_"]  .sb-cell-num { color: #2563eb; }
+    [data-matrix-key$="_optimize"] .sb-cell-num { color: #6B5CE7; }
+    [data-matrix-key$="_explore"]  .sb-cell-num { color: #5b4cd6; }
+    [data-matrix-key$="_create"]   .sb-cell-num { color: #4a3cc5; }
     .empty .sb-cell-num { opacity: 0.25; font-size: 24px; }
 
     .sb-cell-info { display: flex; flex-direction: column; align-items: center; gap: 4px; }
