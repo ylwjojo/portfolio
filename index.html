@@ -1896,7 +1896,7 @@
           <a class="proj-toc-link" onclick="scrollToSection('proj-sec-reason', this)">根本原因</a>
           <a class="proj-toc-link" onclick="scrollToSection('proj-sec-abilities', this)">决策过程</a>
           <a class="proj-toc-link" onclick="scrollToSection('proj-sec-result', this)">上线结果</a>
-          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-summary', this)">总结</a>
+          <a class="proj-toc-link" onclick="scrollToSection('proj-sec-summary', this)">复盘</a>
         </div>
       </nav>
 
@@ -1989,11 +1989,18 @@
             <p class="proj-prose">四项指标全部正向。曝光 PV 的涨幅（+4.27%）验证了核心假设——将左右滑映射到 IP 内容切换后，用户确实更多地进入了 IP 详情页。商详 PV 和订单数的联动上升，说明路径优化带来的不只是浏览行为，而是真实转化。引导方案的一次性策略也被数据证明有效：没有出现因手势认知断层导致的负向反馈。</p>
           </div>
 
-          <!-- 总结 -->
+          <!-- 如果重来 -->
+          <div class="proj-section" id="proj-sec-retro">
+            <div class="proj-section-heading">如果重来一次，我会优化哪些方面</div>
+            <p class="proj-prose">引导方案在第一次触发的时机上，我会再做一次定量测试——究竟是进页面立刻触发，还是在用户产生第一次左滑行为时才介入，这两种时机对用户理解程度的影响值得用数据验证，而不只是依赖设计直觉。</p>
+            <p class="proj-prose">此外，我会在上线前更积极地推动 A/B 实验覆盖更大的用户比例，而不只是灰度 5%。这个功能对行为路径的影响偏长周期，更大的样本才能更早看到稳定的结论。</p>
+          </div>
+
+          <!-- 复盘 -->
           <div class="proj-section" id="proj-sec-summary">
-            <div class="proj-quote">
-              这个项目改变了我的一个习惯：做完方案之后，会多问一次——它现在没有体验问题，但它有没有在真正创造价值？
-            </div>
+            <div class="proj-section-heading">复盘</div>
+            <p class="proj-prose">这个项目改变了我的一个习惯：做完方案之后，会多问一次——它现在没有体验问题，但它有没有在真正创造价值？</p>
+            <p class="proj-prose">一个"用起来还行"的设计，有时候比一个明显有问题的设计更难被发现和改掉。这次项目让我意识到，主动去质疑那些"没有问题"的方案，也是设计能力的一部分。</p>
           </div>
 
         </div>
@@ -2181,10 +2188,6 @@
           <label>决策过程与原因</label>
           <textarea id="cf-decision" rows="4" placeholder="方案对比、最终选择及理由"></textarea>
         </div>
-        <div class="create-field">
-          <label>总结语句 <span>显示为深色引用块</span></label>
-          <textarea id="cf-summary" rows="2" placeholder="这个项目改变了我……"></textarea>
-        </div>
       </div>
 
       <!-- 上线数据 -->
@@ -2211,6 +2214,19 @@
         <div class="create-field" style="margin-top:10px;">
           <label>数据说明</label>
           <textarea id="cf-result-text" rows="2" placeholder="数据解读，预计全量收益等"></textarea>
+        </div>
+      </div>
+
+      <!-- 复盘 -->
+      <div class="create-section">
+        <div class="create-section-label">复盘反思</div>
+        <div class="create-field">
+          <label>如果重来一次，我会优化哪些方面</label>
+          <textarea id="cf-retrospective" rows="4" placeholder="哪些决策可以更好？哪些环节值得改进？"></textarea>
+        </div>
+        <div class="create-field">
+          <label>复盘</label>
+          <textarea id="cf-summary" rows="3" placeholder="这个项目让我意识到……"></textarea>
         </div>
       </div>
 
@@ -2616,11 +2632,12 @@
         '状态':     document.getElementById('cf-meta-status').value.trim(),
       },
       sections: {
-        bg:         document.getElementById('cf-bg').value.trim(),
-        problems:   document.getElementById('cf-problems').value.trim(),
-        reason:     document.getElementById('cf-reason').value.trim(),
-        decision:   document.getElementById('cf-decision').value.trim(),
-        summary:    document.getElementById('cf-summary').value.trim(),
+        bg:            document.getElementById('cf-bg').value.trim(),
+        problems:      document.getElementById('cf-problems').value.trim(),
+        reason:        document.getElementById('cf-reason').value.trim(),
+        decision:      document.getElementById('cf-decision').value.trim(),
+        retrospective: document.getElementById('cf-retrospective').value.trim(),
+        summary:       document.getElementById('cf-summary').value.trim(),
         metrics,
         resultText: document.getElementById('cf-result-text').value.trim(),
       }
@@ -2654,7 +2671,7 @@
   function resetCreateForm() {
     ['cf-title','cf-eyebrow','cf-desc','cf-oneliner','cf-tags',
      'cf-meta-type','cf-meta-duration','cf-meta-conclusion','cf-meta-status',
-     'cf-bg','cf-problems','cf-reason','cf-decision','cf-summary','cf-result-text'
+     'cf-bg','cf-problems','cf-reason','cf-decision','cf-retrospective','cf-summary','cf-result-text'
     ].forEach(id => { document.getElementById(id).value = ''; });
     document.getElementById('cf-type').value = 'bili';
     document.getElementById('cf-matrix-key').value = '';
@@ -2733,12 +2750,13 @@
 
     const tocLinks = [
       ['proj-sec-header','概览'],
-      s.bg       ? ['proj-sec-bg','问题发现']       : null,
-      s.problems ? ['proj-sec-problems','卡点难点'] : null,
-      s.reason   ? ['proj-sec-reason','根本原因']   : null,
-      s.decision ? ['proj-sec-decision','决策过程'] : null,
+      s.bg            ? ['proj-sec-bg','问题发现']       : null,
+      s.problems      ? ['proj-sec-problems','卡点难点'] : null,
+      s.reason        ? ['proj-sec-reason','根本原因']   : null,
+      s.decision      ? ['proj-sec-decision','决策过程'] : null,
       (s.metrics && s.metrics.length) ? ['proj-sec-result','上线结果'] : null,
-      s.summary  ? ['proj-sec-summary','总结']      : null,
+      s.retrospective ? ['proj-sec-retro','如果重来']    : null,
+      s.summary       ? ['proj-sec-summary','复盘']      : null,
     ].filter(Boolean);
 
     const tocHtml = tocLinks.map((l,i) =>
@@ -2791,7 +2809,8 @@
             ${s.reason ? `<div class="proj-section" id="proj-sec-reason"><div class="proj-section-heading">为什么会出现这个问题</div>${s.reason.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">决策过程与原因</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             ${resultSection ? `<div id="proj-sec-result">${resultSection}</div>` : ''}
-            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-quote">${s.summary}</div></div>` : ''}
+            ${s.retrospective ? `<div class="proj-section" id="proj-sec-retro"><div class="proj-section-heading">如果重来一次，我会优化哪些方面</div>${s.retrospective.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-section-heading">复盘</div>${s.summary.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             `}
           </div>
           ${editBar}
@@ -2902,7 +2921,8 @@
         problems: '品牌需要同时服务两类用户——预约整理的 C 端用户（期待被照顾、被尊重的感受）和执行整理的整理师（需要专业感和归属感）。两类受众对视觉的期待并不完全一致，但品牌只有一套视觉语言。\n\n另一个难点是：「整理」品类在中国仍属新兴，品牌需要兼顾品类教育和品牌认知，不能太小众，也不能丢失个性。',
         reason: '市面上同类品牌走两个极端：要么过于生活系（温暖但不专业），要么过于工具系（高效但冷漠）。ClosetNow 的差异化机会恰好在两者之间——有质感的专业感，有温度的秩序感。',
         decision: '视觉核心选择「格子」作为最小设计单元——既呼应整理与分类的产品属性，格子的模块化特性也天然支持系统延伸。\n\n主色选择近白暖灰与沉稳深绿，避免了红橙系（过于消费化）和纯蓝系（过于科技感），在同类中具备识别差异。\n\n字体选用无衬线中英文组合，强调可读性与现代感，与整理品类「清晰有序」的价值高度匹配。',
-        summary: '品牌设计最难的地方不是画 Logo，是在动笔之前先想清楚：这个品牌到底要让人感受到什么。',
+        retrospective: '如果重来，我会在视觉语言确定之前，先花更多时间做竞品情绪板对比，让客户真正"看到"方向差异，而不只是口头描述。视觉决策需要眼睛来做，文字说服的效率远不如图片。',
+        summary: '品牌设计最难的地方不是画 Logo，是在动笔之前先想清楚：这个品牌到底要让人感受到什么。一旦想清楚了，后面的每一个视觉决策都会变得有依据。',
         metrics: [], resultText: ''
       }
     },
@@ -2918,7 +2938,8 @@
         problems: '作品集的核心矛盾是：内容越丰富越好，但注意力越稀缺。怎么在「展示足够多」和「不让人感到疲惫」之间找到平衡，是真正的设计挑战。\n\n技术选型上，为了最大化可控性和加载性能，选择纯 HTML / CSS / JS 实现，没有使用任何框架——所有动效和交互逻辑均手写。',
         reason: '大多数设计师的作品集长得差不多：大图、描述、交付物截图。这种格式能传递「我做了什么」，但很难传递「我是怎么想的」。我想要的是一个能体现设计决策过程的作品集，而不只是结果展示台。',
         decision: '架构上选择「需求分类矩阵」作为核心导航层——这不只是筛选方式，也是对自己工作方式的梳理和表达。\n\n英雄区用可变字体做字重压力交互，是一个刻意设计的"签名式"细节：来访者会注意到，然后想看下去。\n\n整体风格以内容为主，去掉所有装饰性元素，让文字和结构说话。',
-        summary: '这个网站是一个持续迭代的产品，每次更新都是一次自我整理的机会。',
+        retrospective: '如果重来，我会更早建立内容更新机制，而不是把作品集当成"发布即完成"的项目。持续迭代的作品集才能真正反映成长轨迹。',
+        summary: '这个网站是一个持续迭代的产品，每次更新都是一次自我整理。设计和写代码都不难，难的是把自己想清楚——知道自己是谁，想传递什么。',
         metrics: [], resultText: ''
       }
     },
@@ -2934,7 +2955,8 @@
         problems: 'MVP 的核心难点不是功能少，而是「少到哪里」的判断。团队内部对最小集合存在分歧：产品希望保留更多功能覆盖更多场景，研发希望缩减以控制排期，设计需要在两者之间找到用户真正需要的部分。\n\n另一个问题是：面向创作者的工具，难以通过常规用户测试验证——创作本身是需要反复磨合的过程，单次测试很难复现真实场景。',
         reason: '中小创作者在内容生产上的核心瓶颈不是技术能力，而是「不知道从哪里开始」。原有流程把策划、拍摄、剪辑、发布全部混在一起，对新手来说找不到入口。',
         decision: '把整个流程拆成三个独立「工作站」：策划站（结构化输出创作方向）、优化站（标题/封面 A/B 建议）、发布站（一键同步多平台）。\n\n每个工作站有明确的输入-输出定义，创作者可以在任意节点进入，不必从头走完整个流程。\n\nMVP 对标目标：让一个从未发过视频的 UP 主，在第一次使用时感受到「我知道下一步该做什么」。',
-        summary: 'MVP 不是功能的最小集合，是价值的最小闭环。',
+        retrospective: '如果重来，我会在 MVP 立项时就约定好「验证成功的标准是什么」，而不是上线后再回头定义成功指标。目标模糊会导致迭代方向飘移，尤其在跨职能团队中更明显。',
+        summary: 'MVP 不是功能的最小集合，是价值的最小闭环。知道砍掉什么，比知道加什么更难，也更重要。',
         metrics: [], resultText: ''
       }
     },
@@ -2950,7 +2972,8 @@
         problems: '动效规范的难点不在于制定，而在于落地。以往的规范文档停留在 Figma 里，研发很少参考：一是动效参数的描述方式对研发不友好，二是没有直接可用的代码对应。\n\nDesign Token 的引入也有阻力：需要协调设计系统、各业务线设计师、研发平台三方对齐，任何一方不配合都会让 Token 体系沦为形式。',
         reason: '核心问题是：设计语言和工程实现之间缺少"翻译层"。设计师在 Figma 里定义了 ease-in-out 300ms，但研发不知道这对应什么场景、是否可以复用、边界情况怎么处理。',
         decision: '从最高频的 3 类动效开始（进场、退场、状态变化），提取参数规律，用 Token 命名系统固化（如 `motion-enter-standard`、`motion-exit-quick`）。\n\n同时输出配套研发组件库，直接封装动效参数，研发调用时只需引用 Token 名称，无需手动输入数值。\n\n验证方式：找 2 个业务线研发工程师试用，记录理解成本和调用误差率，两轮迭代后落地。',
-        summary: '规范能不能落地，取决于它对研发来说是不是比「自己写」更省事。',
+        retrospective: '如果重来，我会在规范制定阶段就把研发工程师拉进来参与定义，而不是设计完成后再"翻译"给研发。规范的消费者参与制定，落地阻力会小很多。',
+        summary: '规范能不能落地，取决于它对研发来说是不是比「自己写」更省事。设计规范的价值，最终要在协作效率上体现，而不只是在文档里。',
         metrics: [], resultText: ''
       }
     },
@@ -2966,7 +2989,8 @@
         problems: '竞品分析最容易陷入「截图式分析」——只记录界面长什么样，而不追问「为什么这样设计」。\n\n这次分析的挑战在于：不同平台的核心用户群体、商业模型和消费动机差异很大，不能简单地用同一套标准去评价谁好谁坏，需要先理解各自的设计前提。',
         reason: '想回答的核心问题是：在同样的「商品详情页→加购→结算」路径上，不同平台做了哪些关键取舍？这些取舍背后的逻辑是什么？',
         decision: '分析框架选择「路径节点 × 决策成本」二维视角：横轴是用户在购买路径上的每个节点，纵轴是用户在该节点的认知负荷、操作步骤和信息密度。\n\n最终提炼出 6 个跨平台可复用模式，包括：「社会证明前置」「价格锚点设置」「结算流程压缩」等。这些模式在后续设计中直接作为决策参考。',
-        summary: '好的竞品分析，结论应该是一套设计语言，而不是一份功能对比表。',
+        retrospective: '如果重来，我会在竞品分析结束后，增加一个「设计前提拆解」环节，明确说明每个平台的设计决策背后是什么商业逻辑在驱动，这样输出的结论会更有说服力，也更能指导后续设计方向。',
+        summary: '好的竞品分析，结论应该是一套设计语言，而不是一份功能对比表。分析竞品不是为了抄，而是为了搞清楚「为什么它这样做」。',
         metrics: [], resultText: ''
       }
     },
@@ -2982,7 +3006,8 @@
         problems: '设计理论在工作中的主要问题是「懂但用不上」——知道接近性原则，但落到具体决策时仍然靠直觉。\n\n整理的难点在于：如何把抽象的认知心理学原理，转化为在设计评审中可以直接使用的判断标准。',
         reason: '视觉设计的大多数争议，本质上是「用户看到这里时，他的视线会去哪里」这个问题的不同判断。没有共同的认知框架，这类讨论很难有效推进。',
         decision: '整理框架分三层：感知层（能不能看到）→ 理解层（能不能看懂）→ 判断层（能不能做决定）。\n\n每一层对应不同的设计工具：感知层 → 格式塔原则（接近性、相似性、连续性）；理解层 → 信息层级（对比、重复、对齐、亲密性）；判断层 → 行动引导（视觉重心、焦点设计、CTA 设计）。',
-        summary: '设计原则不是规则，是描述「为什么用户会有这个感受」的工具。',
+        retrospective: '如果重来，我会在文章结构上增加更多实际案例的对照——纯理论的梳理对有经验的设计师有价值，但配合具体的设计决策案例，会让原则更有说服力和可操作性。',
+        summary: '设计原则不是规则，是描述「为什么用户会有这个感受」的工具。理解了原则背后的心理机制，才能在新场景中灵活运用，而不是死套公式。',
         metrics: [], resultText: ''
       }
     },
@@ -2998,7 +3023,8 @@
         problems: '数据看板设计最难的不是视觉美化，而是「选什么、不选什么」。运营团队提供了 50+ 个他们认为重要的指标，但如果全部展示，看板就会失去意义。\n\n另一个难点是：不同角色（运营、内容、商业化）对「重要」的定义不同。看板需要同时服务三类用户，但三者的关注焦点几乎不重叠。',
         reason: '原有数据系统是「数据库视角」——把所有数据给你，由你自己找答案。运营团队实际需要的是「决策视角」——告诉我今天有什么异常、需要我做什么判断。',
         decision: '核心设计决策：将看板分为「今日快照」和「趋势追踪」两个层次。快照层只展示 5 个当日最关键指标，并用颜色标注是否异常；趋势层支持下钻到 30 天维度的详细数据。\n\n角色差异化通过视图切换解决，不同角色进入后默认看到各自关注的指标集合，避免「一个看板服务所有人」的信息过载。',
-        summary: '数据看板的价值不在于信息量，而在于「看完之后你知道该做什么」。',
+        retrospective: '如果重来，我会在设计评审之前先做一轮「决策模拟」——把看板给目标用户看，问他们「看完之后你打算做什么决策」，这比问「信息够不够清晰」更能发现真正的设计问题。',
+        summary: '数据看板的价值不在于信息量，而在于「看完之后你知道该做什么」。帮用户减少认知负担，才是信息可视化的核心目标。',
         metrics: [{ label: '决策链路缩短', value: '40%' }, { label: '日均使用时长', value: '−34min' }],
         resultText: '上线后运营团队从每日 1 小时数据梳理缩短至约 26 分钟，关键异常的发现时效从次日提前到实时。'
       }
@@ -3015,7 +3041,8 @@
         problems: '创意类官网的难点是在「酷」和「可用」之间找平衡。太克制，就和普通公司网站没有区别；太激进，访客可能看不懂在干什么，甚至找不到联系方式。\n\n技术上的挑战：大量动效在移动端的性能问题。GSAP 动画在桌面端流畅，但在低端安卓机上会出现掉帧，需要针对设备能力做降级处理。',
         reason: '工作室的核心资产是「叙事能力」——擅长创造沉浸式空间体验。官网应该是这个能力的数字延伸，而不是一本作品集翻页。',
         decision: '选择基于滚动进度的动态叙事方式：页面不是静止的，而是随着用户滚动「生长」出来。文字、图形和颜色的变化跟随滚动位置触发，形成一种「被带入」的感受。\n\nGSAP + CSS 变量实现主要动效；性能降级策略：检测到低性能设备时，自动切换为简单淡入代替复杂动画，保证核心内容可读。',
-        summary: '最好的创意官网，是让访客在离开之前忘记了自己在「看」官网。',
+        retrospective: '如果重来，我会在动效设计阶段加入更严格的性能预算——创意官网的动效往往是加载性能的最大隐患，在视觉体验和加载速度之间找到平衡，需要更早纳入设计决策。',
+        summary: '最好的创意官网，是让访客在离开之前忘记了自己在「看」官网。技术和设计应该服务于故事，而不是让故事服务于技术展示。',
         metrics: [], resultText: ''
       }
     },
@@ -3031,7 +3058,8 @@
         problems: '数据分析和用户访谈是两条平行的工作线，经常得出看似矛盾的结论：数据显示用户在 A 步骤流失最多，但访谈用户对 A 步骤几乎没有记忆，反而提到 B 步骤让他们感到困惑。\n\n如何让定量数据和定性洞察互相验证、而不是互相干扰，是这次研究最核心的方法论挑战。',
         reason: '留存问题的根本原因往往不在流失点本身，而在更早的体验节点——用户在某处积累了不满意感，只是在后面某个时间点才选择离开。线性的漏斗视角容易误判原因。',
         decision: '研究框架：先用漏斗数据确定「哪些步骤流失率异常」，再通过用户访谈补充「流失时用户在想什么」，最后交叉验证得出归因。\n\n最终定位到 3 个关键节点：① 首次权限申请时机过早（用户还没感受到价值就被要求授权）；② 核心功能入口层级过深（新用户需要 4 步才能触达）；③ 首次成功体验时间过长（从注册到第一次完整使用平均需要 11 分钟）。',
-        summary: '流失分析最有价值的输出，不是「在哪里流失」，而是「用户在那一刻在想什么」。',
+        retrospective: '如果重来，我会在漏斗分析阶段更早引入用户访谈，定量数据告诉你「哪里出了问题」，但定性研究才能告诉你「为什么」。两者结合，方案的方向感会更准。',
+        summary: '流失分析最有价值的输出，不是「在哪里流失」，而是「用户在那一刻在想什么」。数据只是线索，理解用户心理才是解法。',
         metrics: [], resultText: ''
       }
     }
@@ -3052,12 +3080,13 @@
 
     const tocLinks = [
       ['proj-sec-header','概览'],
-      s.bg       ? ['proj-sec-bg','问题发现']       : null,
-      s.problems ? ['proj-sec-problems','卡点难点'] : null,
-      s.reason   ? ['proj-sec-reason','根本原因']   : null,
-      s.decision ? ['proj-sec-decision','决策过程'] : null,
+      s.bg            ? ['proj-sec-bg','问题发现']       : null,
+      s.problems      ? ['proj-sec-problems','卡点难点'] : null,
+      s.reason        ? ['proj-sec-reason','根本原因']   : null,
+      s.decision      ? ['proj-sec-decision','决策过程'] : null,
       (s.metrics && s.metrics.length) ? ['proj-sec-result','上线结果'] : null,
-      s.summary  ? ['proj-sec-summary','总结']      : null,
+      s.retrospective ? ['proj-sec-retro','如果重来']    : null,
+      s.summary       ? ['proj-sec-summary','复盘']      : null,
     ].filter(Boolean);
 
     const tocHtml = tocLinks.map((l,i) =>
@@ -3098,7 +3127,8 @@
             ${s.reason ? `<div class="proj-section" id="proj-sec-reason"><div class="proj-section-heading">为什么会出现这个问题</div>${s.reason.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">决策过程与原因</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             ${resultSection ? `<div id="proj-sec-result">${resultSection}</div>` : ''}
-            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-quote">${s.summary}</div></div>` : ''}
+            ${s.retrospective ? `<div class="proj-section" id="proj-sec-retro"><div class="proj-section-heading">如果重来一次，我会优化哪些方面</div>${s.retrospective.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-section-heading">复盘</div>${s.summary.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
           </div>
           ${editBar}
         </div>
