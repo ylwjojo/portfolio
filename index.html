@@ -610,32 +610,73 @@
     /* matrix grid: 4 cols (row-header + 3 data), rows built in HTML */
     .sb-matrix {
       display: grid;
-      grid-template-columns: 72px 1fr 1fr 1fr;
+      grid-template-columns: 76px 1fr 1fr 1fr;
       gap: 0;
     }
-    /* column headers — 阶段维度 (X轴) — 蓝色系 */
-    .sb-col-header {
-      background: var(--sb-col-bg);
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      padding: 10px 12px 8px;
-      text-align: center;
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--sb-col-color);
-      line-height: 1.3;
-      letter-spacing: 0.02em;
-    }
-    .sb-col-header:last-child { border-right: none; }
+
+    /* ── Corner cell ── */
     .sb-corner {
-      background: var(--sb-corner-bg);
+      background: var(--white);
       border-bottom: 1px solid var(--border);
       border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      min-height: 62px;
+    }
+    .sb-corner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom right,
+        transparent calc(50% - 0.5px),
+        var(--border) calc(50% - 0.5px),
+        var(--border) calc(50% + 0.5px),
+        transparent calc(50% + 0.5px)
+      );
+    }
+    .sb-corner-attr {
+      position: absolute;
+      top: 7px; right: 8px;
+      font-size: 9.5px; font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+    .sb-corner-role {
+      position: absolute;
+      bottom: 7px; left: 8px;
+      font-size: 9.5px; font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1;
     }
 
-    /* row headers — 价值维度 (Y轴) — 橙色系 */
+    /* ── Column headers ── */
+    .sb-col-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 14px 12px 12px;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .sb-col-header:last-child { border-right: none; }
+    .sb-col-main {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+    .sb-col-sub {
+      font-size: 10px;
+      color: var(--text-light);
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    /* ── Row headers ── */
     .sb-row-header {
-      background: var(--sb-row-bg);
+      background: var(--white);
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -643,51 +684,67 @@
       justify-content: center;
       padding: 0 8px;
       text-align: center;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
-      color: var(--sb-row-color);
       line-height: 1.35;
       letter-spacing: 0.02em;
     }
+    .sb-row-user { color: #16a34a; }
+    .sb-row-biz  { color: #d97706; }
+    .sb-row-eng  { color: #2563eb; }
+    .sb-last-row.sb-row-header,
     .sb-last-row .sb-row-header { border-bottom: none; }
 
+    /* ── Data cells ── */
     .sb-cell {
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 16px 12px;
+      padding: 22px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 6px;
+      gap: 5px;
       transition: background 0.15s, outline 0.15s;
-      min-height: 80px;
+      min-height: 108px;
       cursor: default;
     }
     .sb-cell:last-child,
     .sb-row-end { border-right: none; }
     .sb-last-row .sb-cell { border-bottom: none; }
 
-    .sb-cell.filled { background: var(--sb-filled-bg); cursor: pointer; }
-    .sb-cell.empty  { background: var(--sb-empty-bg); }
-    .sb-cell.filled:hover { background: var(--sb-hover-bg); }
+    /* Row-based backgrounds */
+    [data-matrix-key^="user_"] { background: #edf7ea; }
+    [data-matrix-key^="biz_"]  { background: #fef9ee; }
+    [data-matrix-key^="eng_"]  { background: #eef4fd; }
+
+    .sb-cell.filled { cursor: pointer; }
+    [data-matrix-key^="user_"].filled:hover { background: #d5efcc; }
+    [data-matrix-key^="biz_"].filled:hover  { background: #fdefd2; }
+    [data-matrix-key^="eng_"].filled:hover  { background: #d6e9fa; }
     .sb-cell.active {
-      background: var(--sb-active-bg) !important;
       outline: 2px solid #6B5CE7;
       outline-offset: -2px;
       position: relative;
       z-index: 1;
     }
 
+    /* Empty cells — same row color but desaturated */
+    [data-matrix-key^="user_"].empty { background: #f3fbf1; }
+    [data-matrix-key^="biz_"].empty  { background: #fdfaf3; }
+    [data-matrix-key^="eng_"].empty  { background: #f3f8fe; }
+
     .sb-cell-num {
-      font-size: 30px;
+      font-size: 36px;
       font-weight: 900;
       line-height: 1;
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
     }
-    .filled .sb-cell-num { color: #6B5CE7; }
-    .empty  .sb-cell-num { color: var(--sb-empty-num); font-size: 18px; }
+    [data-matrix-key^="user_"] .sb-cell-num { color: #16a34a; }
+    [data-matrix-key^="biz_"]  .sb-cell-num { color: #d97706; }
+    [data-matrix-key^="eng_"]  .sb-cell-num { color: #2563eb; }
+    .empty .sb-cell-num { opacity: 0.25; font-size: 24px; }
 
     .sb-cell-info { display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .sb-cell-name {
@@ -696,19 +753,11 @@
       color: var(--text);
       line-height: 1.2;
     }
-    .empty .sb-cell-name { color: var(--sb-empty-name); }
-    .sb-cell-tag {
-      display: inline-block;
-      font-size: 9px;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
+    .empty .sb-cell-name { color: var(--text-light); }
+    .sb-cell-tag { display: none; }
     .tag-user    { background: var(--tag-user-bg); color: var(--tag-user-color); }
     .tag-biz     { background: var(--tag-biz-bg);  color: var(--tag-biz-color); }
     .tag-eng     { background: var(--tag-eng-bg);  color: var(--tag-eng-color); }
-    .empty .sb-cell-tag { background: var(--sb-empty-tag-bg); color: var(--sb-empty-tag-color); }
 
     /* ===== NOTION MATRIX CARD ===== */
     .matrix-card { padding: 0; overflow: hidden; }
@@ -1562,13 +1611,25 @@
     <div class="sb-matrix">
 
       <!-- ── 列头行 ── -->
-      <div class="sb-corner"></div>
-      <div class="sb-col-header">有存量数据与用户<br>优化型</div>
-      <div class="sb-col-header">有存量用户 无数据基线<br>探索型</div>
-      <div class="sb-col-header">无存量用户 无数据基线<br>0–1创建型</div>
+      <div class="sb-corner">
+        <span class="sb-corner-attr">属性</span>
+        <span class="sb-corner-role">核心作用</span>
+      </div>
+      <div class="sb-col-header">
+        <div class="sb-col-main">优化</div>
+        <div class="sb-col-sub">存量数据与用户</div>
+      </div>
+      <div class="sb-col-header">
+        <div class="sb-col-main">探索</div>
+        <div class="sb-col-sub">存量用户 · 无数据基线</div>
+      </div>
+      <div class="sb-col-header">
+        <div class="sb-col-main">0-1创新</div>
+        <div class="sb-col-sub">无存量用户 · 无数据基线</div>
+      </div>
 
       <!-- ── 行1：用户价值 ── -->
-      <div class="sb-row-header">用户<br>价值</div>
+      <div class="sb-row-header sb-row-user">用户<br>价值</div>
       <div class="sb-cell filled" data-matrix-key="user_optimize" data-base-count="14" data-subtype="体验优化" onclick="setSubFilter(this,'体验优化')">
         <div class="sb-cell-num">14</div>
         <div class="sb-cell-info">
@@ -1592,7 +1653,7 @@
       </div>
 
       <!-- ── 行2：业务价值 ── -->
-      <div class="sb-row-header">业务<br>价值</div>
+      <div class="sb-row-header sb-row-biz">业务<br>价值</div>
       <div class="sb-cell filled" data-matrix-key="biz_optimize" data-base-count="5" data-subtype="业务增长优化" onclick="setSubFilter(this,'业务增长优化')">
         <div class="sb-cell-num">5</div>
         <div class="sb-cell-info">
@@ -1616,7 +1677,7 @@
       </div>
 
       <!-- ── 行3：工程效率 ── -->
-      <div class="sb-row-header sb-last-row">工程<br>效率</div>
+      <div class="sb-row-header sb-row-eng sb-last-row">工程<br>效率</div>
       <div class="sb-cell filled sb-last-row" data-matrix-key="eng_optimize" data-base-count="4" data-subtype="产品基础架构" onclick="setSubFilter(this,'产品基础架构')">
         <div class="sb-cell-num">4</div>
         <div class="sb-cell-info">
