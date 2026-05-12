@@ -594,7 +594,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 14px 20px 10px;
-      border-bottom: 1px solid var(--border);
     }
     .sb-head-left { display: flex; align-items: baseline; gap: 10px; }
     .sb-head-title { font-size: 13px; font-weight: 700; color: var(--text); }
@@ -617,8 +616,6 @@
     /* ── Corner cell ── */
     .sb-corner {
       background: var(--white);
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
       position: relative;
       overflow: hidden;
       min-height: 62px;
@@ -653,13 +650,10 @@
     /* ── Column headers ── */
     .sb-col-header {
       background: var(--white);
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
       padding: 14px 12px 12px;
       text-align: center;
       line-height: 1.3;
     }
-    .sb-col-header:last-child { border-right: none; }
     .sb-col-main {
       font-size: 15px;
       font-weight: 800;
@@ -677,8 +671,6 @@
     /* ── Row headers ── */
     .sb-row-header {
       background: var(--white);
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -692,13 +684,8 @@
     .sb-row-user { color: #16a34a; }
     .sb-row-biz  { color: #d97706; }
     .sb-row-eng  { color: #2563eb; }
-    .sb-last-row.sb-row-header,
-    .sb-last-row .sb-row-header { border-bottom: none; }
-
     /* ── Data cells ── */
     .sb-cell {
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
       padding: 22px 16px;
       display: flex;
       flex-direction: column;
@@ -710,10 +697,6 @@
       min-height: 108px;
       cursor: default;
     }
-    .sb-cell:last-child,
-    .sb-row-end { border-right: none; }
-    .sb-last-row .sb-cell { border-bottom: none; }
-
     /* 行色系 × 列深度：左浅右深，表示创新价值递增 */
     /* 用户价值 — 绿色系 */
     [data-matrix-key="user_optimize"] { background: rgba(237,247,234,0.2); }
