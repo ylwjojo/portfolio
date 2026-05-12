@@ -1011,8 +1011,8 @@
     }
 
     .proj-eyebrow {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-      color: var(--text-muted); margin-bottom: 12px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.02em;
+      color: var(--text-muted); margin-top: 10px; margin-bottom: 20px;
     }
     .proj-title {
       font-size: 30px; font-weight: 800; line-height: 1.25;
@@ -1917,8 +1917,8 @@
 
           <!-- 概览 -->
           <div class="proj-section" id="proj-sec-header">
-            <div class="proj-eyebrow">BILIBILI 实战经验 · 体验探索</div>
             <h1 class="proj-title">IP页滑动热区重定义 · 手势引导设计</h1>
+            <div class="proj-eyebrow">哔哩哔哩实战经验 · 2025-08</div>
             <div class="proj-oneliner">
               这个需求让我第一次意识到：没有问题的方案，可能才是最大的问题。
             </div>
@@ -2782,8 +2782,8 @@
           <div class="proj-body" id="dynProjBody" ${isAdmin ? 'contenteditable="true"' : ''}>
             ${p._bodyHTML || `
             <div class="proj-section" id="proj-sec-header">
-              ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
               <h1 class="proj-title">${p.title}</h1>
+              ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
               ${p.oneliner ? `<div class="proj-oneliner">${p.oneliner}</div>` : ''}
             </div>
             ${s.bg ? `<div class="proj-section" id="proj-sec-bg"><div class="proj-section-heading">问题是如何发现的</div>${s.bg.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
@@ -2893,7 +2893,7 @@
     'closetnow': {
       id: 'closetnow', type: 'project',
       title: 'ClosetNow · 品牌识别系统设计',
-      eyebrow: '个人项目 · 品牌视觉',
+      eyebrow: '个人项目 · 2025-09',
       oneliner: '一个品牌的气质，藏在 Logo 最小单元的取舍里。',
       tags: ['品牌识别', '视觉系统'],
       meta: { '需求类型': '品牌 / 0-1 创建', '项目周期': '3w', '结论': '交付品牌规范手册', '状态': '✅ 已交付' },
@@ -2909,7 +2909,7 @@
     'portfolio-site': {
       id: 'portfolio-site', type: 'project',
       title: '个人作品集网站 · 设计到实现的全流程',
-      eyebrow: '个人项目 · 全栈设计',
+      eyebrow: '个人项目 · 2026-05',
       oneliner: '设计和写代码都不难，难的是把自己想清楚。',
       tags: ['网站', 'UX', '前端'],
       meta: { '需求类型': '0-1 个人项目', '项目周期': '持续迭代', '结论': '在线运行中', '状态': '🔄 持续更新' },
@@ -2925,7 +2925,7 @@
     'creator-tool': {
       id: 'creator-tool', type: 'bili',
       title: '内容创作工具 · 从 0 到 1 MVP 设计',
-      eyebrow: 'BILIBILI 实战经验 · 创作者产品',
+      eyebrow: '哔哩哔哩实战经验 · 2025-11',
       oneliner: '工具类产品最容易犯的错：把功能当成价值。',
       tags: ['0-1产品', '创作者工具'],
       meta: { '需求类型': '0-1 创建型', '项目周期': '2m', '结论': '完成核心功能验证', '状态': '✅ 已上线灰度' },
@@ -2941,7 +2941,7 @@
     'motion-token': {
       id: 'motion-token', type: 'bili',
       title: '交互动效系统 · bilibili Motion Design Token',
-      eyebrow: 'BILIBILI 实战经验 · 设计系统',
+      eyebrow: '哔哩哔哩实战经验 · 2026-05',
       oneliner: '动效不是装饰，是产品行为语言的一部分。',
       tags: ['动效', '设计系统', 'Design Token'],
       meta: { '需求类型': '工程效率 / 探索型', '项目周期': '6w', '结论': '推广至 3 个业务线', '状态': '✅ 已落地' },
@@ -2957,7 +2957,7 @@
     'ecomm-analysis': {
       id: 'ecomm-analysis', type: 'thinking',
       title: '电商购物流程 · 主流平台核心路径拆解',
-      eyebrow: '设计思考 · 体验分析',
+      eyebrow: '设计思考 · 2025-06',
       oneliner: '分析竞品不是为了抄，而是为了搞清楚「为什么它这样做」。',
       tags: ['分析', '竞品研究', 'UX'],
       meta: { '需求类型': '研究 / 方法论', '项目周期': '1w', '结论': '提炼 6 个可复用设计模式', '状态': '📄 研究报告' },
@@ -2973,7 +2973,7 @@
     'gestalt': {
       id: 'gestalt', type: 'thinking',
       title: '格式塔与视觉层级 · 设计认知底层逻辑',
-      eyebrow: '设计思考 · 理论沉淀',
+      eyebrow: '设计思考 · 2025-12',
       oneliner: '我们以为用户在「看」界面，其实他们在「感知」界面。',
       tags: ['设计理论', '认知心理学', '视觉层级'],
       meta: { '需求类型': '方法论 / 知识沉淀', '项目周期': '持续积累', '结论': '输出系统性设计指引', '状态': '📄 持续更新' },
@@ -2989,7 +2989,7 @@
     'data-dashboard': {
       id: 'data-dashboard', type: 'bili',
       title: '运营数据看板 · 信息可视化与决策效率',
-      eyebrow: 'BILIBILI 实战经验 · 内部工具',
+      eyebrow: '哔哩哔哩实战经验 · 2025-10',
       oneliner: '数据可视化最大的敌人，是把所有数据都放上去。',
       tags: ['数据可视化', '内部工具', '信息架构'],
       meta: { '需求类型': '业务增长 / 优化型', '项目周期': '3w', '结论': '决策链路缩短 40%', '状态': '✅ 已上线使用' },
@@ -3006,7 +3006,7 @@
     'brand-site': {
       id: 'brand-site', type: 'project',
       title: '品牌官网 · 沉浸式叙事交互体验',
-      eyebrow: '个人项目 · 创意开发',
+      eyebrow: '个人项目 · 2026-01',
       oneliner: '当页面本身就是产品体验时，滚动的每一帧都是设计决策。',
       tags: ['网站', '动效', 'GSAP'],
       meta: { '需求类型': '0-1 创建', '项目周期': '2w', '结论': '交付上线运行', '状态': '✅ 已上线' },
@@ -3022,7 +3022,7 @@
     'retention-funnel': {
       id: 'retention-funnel', type: 'thinking',
       title: '用户增长漏斗 · 留存流失节点定位',
-      eyebrow: '设计思考 · 增长分析',
+      eyebrow: '设计思考 · 2026-03',
       oneliner: '数据告诉你「哪里出了问题」，用户访谈告诉你「为什么」。',
       tags: ['增长分析', '用户研究', '留存'],
       meta: { '需求类型': '研究 / 增长分析', '项目周期': '2w', '结论': '定位 3 个关键流失节点', '状态': '📄 已输出改进方向' },
@@ -3089,8 +3089,8 @@
         <div class="proj-article-content" id="dynArticleContent">
           <div class="proj-body" id="dynProjBody" ${isAdmin ? 'contenteditable="true"' : ''}>
             <div class="proj-section" id="proj-sec-header">
-              ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
               <h1 class="proj-title">${p.title}</h1>
+              ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
               ${p.oneliner ? `<div class="proj-oneliner">${p.oneliner}</div>` : ''}
             </div>
             ${s.bg ? `<div class="proj-section" id="proj-sec-bg"><div class="proj-section-heading">问题是如何发现的</div>${s.bg.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
