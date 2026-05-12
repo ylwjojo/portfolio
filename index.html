@@ -1306,19 +1306,37 @@
     [data-admin] .admin-only { display: flex !important; }
     [data-admin] .admin-only-block { display: block !important; }
 
+    /* Admin toggle switch */
     .admin-toggle-btn {
-      width: 34px; height: 34px; border-radius: 8px; border: none;
-      background: transparent; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted); transition: background 0.15s, color 0.15s;
-      flex-shrink: 0;
+      height: 34px; border: none; background: transparent;
+      cursor: pointer; display: flex; align-items: center;
+      gap: 7px; padding: 0 4px; flex-shrink: 0;
+      border-radius: 8px;
+      transition: background 0.15s;
     }
-    .admin-toggle-btn:hover { background: var(--tag-bg); color: var(--text); }
-    [data-admin] .admin-toggle-btn {
-      background: #6B5CE7; color: #fff;
+    .admin-toggle-btn:hover { background: var(--tag-bg); }
+    .admin-toggle-label {
+      font-size: 11.5px; font-weight: 600; color: var(--text-muted);
+      letter-spacing: 0.01em; white-space: nowrap;
+      transition: color 0.2s;
+      user-select: none;
     }
-    [data-admin] .admin-toggle-btn:hover { background: #5a4dd6; }
-    .admin-toggle-btn svg { width: 16px; height: 16px; }
+    [data-admin] .admin-toggle-label { color: var(--text); }
+    .toggle-track {
+      width: 34px; height: 19px; border-radius: 10px;
+      background: var(--border);
+      position: relative; flex-shrink: 0;
+      transition: background 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-admin] .toggle-track { background: #F5A524; }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 15px; height: 15px; border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+      transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-admin] .toggle-thumb { transform: translateX(15px); }
 
     /* Editable elements in admin mode */
     [data-admin] [data-editable]:hover,
@@ -1441,11 +1459,9 @@
         </svg>
       </a>
 
-      <button class="admin-toggle-btn" id="adminToggleBtn" onclick="toggleAdmin()" title="管理模式">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
+      <button class="admin-toggle-btn" id="adminToggleBtn" onclick="toggleAdmin()" title="管理员模式">
+        <span class="admin-toggle-label">管理员模式</span>
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
       </button>
       <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3050,14 +3066,7 @@
     }
   }
 
-  function _setAdminBtnIcon(isAdmin) {
-    const btn = document.getElementById('adminToggleBtn');
-    if (!btn) return;
-    // Closed lock = admin ON (you are the admin), Open lock = browse mode
-    btn.innerHTML = isAdmin
-      ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
-      : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`;
-  }
+  function _setAdminBtnIcon() { /* Toggle state handled purely by CSS [data-admin] */ }
 
   // ===== STATIC PROJECT EDITING =====
   function _setStaticProjEditable(on) {
