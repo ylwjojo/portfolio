@@ -1627,7 +1627,7 @@
   </div>
 
   <!-- Card 1 — ClosetNow -->
-  <div class="card" data-type="all project">
+  <div class="card" data-type="all project" onclick="openBuiltinProject('closetnow')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:#111;display:flex;align-items:center;justify-content:center">
       <svg width="56" height="56" viewBox="0 0 140 140" fill="none">
         <rect x="26" y="20" width="22" height="22" fill="white"/>
@@ -1649,7 +1649,7 @@
   </div>
 
   <!-- Card 2 tall -->
-  <div class="card" data-type="all project">
+  <div class="card" data-type="all project" onclick="openBuiltinProject('portfolio-site')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">网站</span><span class="card-tag">UX</span></div>
@@ -1659,7 +1659,7 @@
   </div>
 
   <!-- Card 3 -->
-  <div class="card" data-type="all bili" data-subtype="体验优化">
+  <div class="card" data-type="all bili" data-subtype="体验优化" onclick="openBuiltinProject('creator-tool')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">0-1产品</span></div>
@@ -1687,7 +1687,7 @@
   </div>
 
   <!-- Card 4 (original) -->
-  <div class="card" data-type="all bili" data-subtype="设计系统搭建">
+  <div class="card" data-type="all bili" data-subtype="设计系统搭建" onclick="openBuiltinProject('motion-token')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">动效</span></div>
@@ -1697,7 +1697,7 @@
   </div>
 
   <!-- Card 5 tall -->
-  <div class="card" data-type="all thinking">
+  <div class="card" data-type="all thinking" onclick="openBuiltinProject('ecomm-analysis')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">分析</span><span class="card-tag">UX</span></div>
@@ -1707,7 +1707,7 @@
   </div>
 
   <!-- Card 6 -->
-  <div class="card" data-type="all thinking">
+  <div class="card" data-type="all thinking" onclick="openBuiltinProject('gestalt')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">设计理论</span></div>
@@ -1717,7 +1717,7 @@
   </div>
 
   <!-- Card 7 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('data-dashboard')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">0-1产品</span><span class="card-tag">UX</span></div>
@@ -1727,7 +1727,7 @@
   </div>
 
   <!-- Card 8 -->
-  <div class="card" data-type="all project">
+  <div class="card" data-type="all project" onclick="openBuiltinProject('brand-site')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">网站</span><span class="card-tag">动效</span></div>
@@ -1737,7 +1737,7 @@
   </div>
 
   <!-- Card 9 -->
-  <div class="card" data-type="all thinking">
+  <div class="card" data-type="all thinking" onclick="openBuiltinProject('retention-funnel')" style="cursor:pointer">
     <div class="card-thumb ph"></div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">分析</span></div>
@@ -2775,6 +2775,242 @@
     if (section && content) content.scrollTo({ top: section.offsetTop - 16, behavior: 'smooth' });
     document.querySelectorAll('#dynTocNav .proj-toc-link').forEach(l => l.classList.remove('toc-active'));
     if (linkEl) linkEl.classList.add('toc-active');
+  }
+
+  // ===== BUILTIN PROJECT DATA =====
+  const BUILTIN_PROJECTS = {
+    'closetnow': {
+      id: 'closetnow', type: 'project',
+      title: 'ClosetNow · 品牌识别系统设计',
+      eyebrow: '个人项目 · 品牌视觉',
+      oneliner: '一个品牌的气质，藏在 Logo 最小单元的取舍里。',
+      tags: ['品牌识别', '视觉系统'],
+      meta: { '需求类型': '品牌 / 0-1 创建', '项目周期': '3w', '结论': '交付品牌规范手册', '状态': '✅ 已交付' },
+      sections: {
+        bg: '整理服务品牌 ClosetNow，面向都市年轻人提供上门收纳服务。创始人的核心诉求是传递两个感知：「专业可靠」和「轻盈有序」。接触点覆盖 App、小程序和服务员工服。\n\n品牌从零开始，没有任何视觉积累。从品牌名称到完整识别系统，需要在三周内全部建立。',
+        problems: '品牌需要同时服务两类用户——预约整理的 C 端用户（期待被照顾、被尊重的感受）和执行整理的整理师（需要专业感和归属感）。两类受众对视觉的期待并不完全一致，但品牌只有一套视觉语言。\n\n另一个难点是：「整理」品类在中国仍属新兴，品牌需要兼顾品类教育和品牌认知，不能太小众，也不能丢失个性。',
+        reason: '市面上同类品牌走两个极端：要么过于生活系（温暖但不专业），要么过于工具系（高效但冷漠）。ClosetNow 的差异化机会恰好在两者之间——有质感的专业感，有温度的秩序感。',
+        decision: '视觉核心选择「格子」作为最小设计单元——既呼应整理与分类的产品属性，格子的模块化特性也天然支持系统延伸。\n\n主色选择近白暖灰与沉稳深绿，避免了红橙系（过于消费化）和纯蓝系（过于科技感），在同类中具备识别差异。\n\n字体选用无衬线中英文组合，强调可读性与现代感，与整理品类「清晰有序」的价值高度匹配。',
+        summary: '品牌设计最难的地方不是画 Logo，是在动笔之前先想清楚：这个品牌到底要让人感受到什么。',
+        metrics: [], resultText: ''
+      }
+    },
+    'portfolio-site': {
+      id: 'portfolio-site', type: 'project',
+      title: '个人作品集网站 · 设计到实现的全流程',
+      eyebrow: '个人项目 · 全栈设计',
+      oneliner: '设计和写代码都不难，难的是把自己想清楚。',
+      tags: ['网站', 'UX', '前端'],
+      meta: { '需求类型': '0-1 个人项目', '项目周期': '持续迭代', '结论': '在线运行中', '状态': '🔄 持续更新' },
+      sections: {
+        bg: '在决定做这个作品集之前，经历了一段纠结：用 Notion？用模板？还是从零写一个？\n\n最终选择从零写，不是为了证明什么，而是：一个产品设计师的作品集，如果连自己的体验都没仔细想过，解释力会大打折扣。',
+        problems: '作品集的核心矛盾是：内容越丰富越好，但注意力越稀缺。怎么在「展示足够多」和「不让人感到疲惫」之间找到平衡，是真正的设计挑战。\n\n技术选型上，为了最大化可控性和加载性能，选择纯 HTML / CSS / JS 实现，没有使用任何框架——所有动效和交互逻辑均手写。',
+        reason: '大多数设计师的作品集长得差不多：大图、描述、交付物截图。这种格式能传递「我做了什么」，但很难传递「我是怎么想的」。我想要的是一个能体现设计决策过程的作品集，而不只是结果展示台。',
+        decision: '架构上选择「需求分类矩阵」作为核心导航层——这不只是筛选方式，也是对自己工作方式的梳理和表达。\n\n英雄区用可变字体做字重压力交互，是一个刻意设计的"签名式"细节：来访者会注意到，然后想看下去。\n\n整体风格以内容为主，去掉所有装饰性元素，让文字和结构说话。',
+        summary: '这个网站是一个持续迭代的产品，每次更新都是一次自我整理的机会。',
+        metrics: [], resultText: ''
+      }
+    },
+    'creator-tool': {
+      id: 'creator-tool', type: 'bili',
+      title: '内容创作工具 · 从 0 到 1 MVP 设计',
+      eyebrow: 'BILIBILI 实战经验 · 创作者产品',
+      oneliner: '工具类产品最容易犯的错：把功能当成价值。',
+      tags: ['0-1产品', '创作者工具'],
+      meta: { '需求类型': '0-1 创建型', '项目周期': '2m', '结论': '完成核心功能验证', '状态': '✅ 已上线灰度' },
+      sections: {
+        bg: 'bilibili 创作者中台长期缺少面向中小 UP 主的轻量内容生产工具——现有创作中心功能繁杂，对刚起步的 UP 主来说学习成本过高。\n\n项目目标：在 2 个月内上线最小可用版本，覆盖内容策划→标题优化→发布三个核心节点，帮助创作者降低「第一条视频」的门槛。',
+        problems: 'MVP 的核心难点不是功能少，而是「少到哪里」的判断。团队内部对最小集合存在分歧：产品希望保留更多功能覆盖更多场景，研发希望缩减以控制排期，设计需要在两者之间找到用户真正需要的部分。\n\n另一个问题是：面向创作者的工具，难以通过常规用户测试验证——创作本身是需要反复磨合的过程，单次测试很难复现真实场景。',
+        reason: '中小创作者在内容生产上的核心瓶颈不是技术能力，而是「不知道从哪里开始」。原有流程把策划、拍摄、剪辑、发布全部混在一起，对新手来说找不到入口。',
+        decision: '把整个流程拆成三个独立「工作站」：策划站（结构化输出创作方向）、优化站（标题/封面 A/B 建议）、发布站（一键同步多平台）。\n\n每个工作站有明确的输入-输出定义，创作者可以在任意节点进入，不必从头走完整个流程。\n\nMVP 对标目标：让一个从未发过视频的 UP 主，在第一次使用时感受到「我知道下一步该做什么」。',
+        summary: 'MVP 不是功能的最小集合，是价值的最小闭环。',
+        metrics: [], resultText: ''
+      }
+    },
+    'motion-token': {
+      id: 'motion-token', type: 'bili',
+      title: '交互动效系统 · bilibili Motion Design Token',
+      eyebrow: 'BILIBILI 实战经验 · 设计系统',
+      oneliner: '动效不是装饰，是产品行为语言的一部分。',
+      tags: ['动效', '设计系统', 'Design Token'],
+      meta: { '需求类型': '工程效率 / 探索型', '项目周期': '6w', '结论': '推广至 3 个业务线', '状态': '✅ 已落地' },
+      sections: {
+        bg: 'bilibili 各业务线的动效长期缺乏一致性——同一种操作（如列表加载、页面切换）在不同 App 模块里呈现出完全不同的参数，既增加用户认知成本，也让研发每次都需要重新定义。\n\n项目来源于一次跨业务设计评审，有人提出：「我们的动效像是十个人各自在工作，而不是一个产品。」',
+        problems: '动效规范的难点不在于制定，而在于落地。以往的规范文档停留在 Figma 里，研发很少参考：一是动效参数的描述方式对研发不友好，二是没有直接可用的代码对应。\n\nDesign Token 的引入也有阻力：需要协调设计系统、各业务线设计师、研发平台三方对齐，任何一方不配合都会让 Token 体系沦为形式。',
+        reason: '核心问题是：设计语言和工程实现之间缺少"翻译层"。设计师在 Figma 里定义了 ease-in-out 300ms，但研发不知道这对应什么场景、是否可以复用、边界情况怎么处理。',
+        decision: '从最高频的 3 类动效开始（进场、退场、状态变化），提取参数规律，用 Token 命名系统固化（如 `motion-enter-standard`、`motion-exit-quick`）。\n\n同时输出配套研发组件库，直接封装动效参数，研发调用时只需引用 Token 名称，无需手动输入数值。\n\n验证方式：找 2 个业务线研发工程师试用，记录理解成本和调用误差率，两轮迭代后落地。',
+        summary: '规范能不能落地，取决于它对研发来说是不是比「自己写」更省事。',
+        metrics: [], resultText: ''
+      }
+    },
+    'ecomm-analysis': {
+      id: 'ecomm-analysis', type: 'thinking',
+      title: '电商购物流程 · 主流平台核心路径拆解',
+      eyebrow: '设计思考 · 体验分析',
+      oneliner: '分析竞品不是为了抄，而是为了搞清楚「为什么它这样做」。',
+      tags: ['分析', '竞品研究', 'UX'],
+      meta: { '需求类型': '研究 / 方法论', '项目周期': '1w', '结论': '提炼 6 个可复用设计模式', '状态': '📄 研究报告' },
+      sections: {
+        bg: '在接手一个电商类需求之前，系统做了一次竞品体验拆解，对象包括淘宝、京东、拼多多、得物和小红书。\n\n选择这五个平台，是因为它们代表了五种完全不同的核心逻辑：搜索型、价格型、社交裂变型、文化消费型、内容种草型。购物流程虽然相似，但背后的决策逻辑截然不同。',
+        problems: '竞品分析最容易陷入「截图式分析」——只记录界面长什么样，而不追问「为什么这样设计」。\n\n这次分析的挑战在于：不同平台的核心用户群体、商业模型和消费动机差异很大，不能简单地用同一套标准去评价谁好谁坏，需要先理解各自的设计前提。',
+        reason: '想回答的核心问题是：在同样的「商品详情页→加购→结算」路径上，不同平台做了哪些关键取舍？这些取舍背后的逻辑是什么？',
+        decision: '分析框架选择「路径节点 × 决策成本」二维视角：横轴是用户在购买路径上的每个节点，纵轴是用户在该节点的认知负荷、操作步骤和信息密度。\n\n最终提炼出 6 个跨平台可复用模式，包括：「社会证明前置」「价格锚点设置」「结算流程压缩」等。这些模式在后续设计中直接作为决策参考。',
+        summary: '好的竞品分析，结论应该是一套设计语言，而不是一份功能对比表。',
+        metrics: [], resultText: ''
+      }
+    },
+    'gestalt': {
+      id: 'gestalt', type: 'thinking',
+      title: '格式塔与视觉层级 · 设计认知底层逻辑',
+      eyebrow: '设计思考 · 理论沉淀',
+      oneliner: '我们以为用户在「看」界面，其实他们在「感知」界面。',
+      tags: ['设计理论', '认知心理学', '视觉层级'],
+      meta: { '需求类型': '方法论 / 知识沉淀', '项目周期': '持续积累', '结论': '输出系统性设计指引', '状态': '📄 持续更新' },
+      sections: {
+        bg: '这篇整理的起因，是一次设计评审中的争论：一位同事认为某个按钮应该放左边，另一位认为放右边更合理。两人讲了很多直觉，但都没有说服对方。\n\n我意识到我们缺少一套共同的「视觉认知语言」来描述和判断设计决策。于是系统整理了格式塔理论在 UI 设计中的实际应用，以及视觉层级建立的底层逻辑。',
+        problems: '设计理论在工作中的主要问题是「懂但用不上」——知道接近性原则，但落到具体决策时仍然靠直觉。\n\n整理的难点在于：如何把抽象的认知心理学原理，转化为在设计评审中可以直接使用的判断标准。',
+        reason: '视觉设计的大多数争议，本质上是「用户看到这里时，他的视线会去哪里」这个问题的不同判断。没有共同的认知框架，这类讨论很难有效推进。',
+        decision: '整理框架分三层：感知层（能不能看到）→ 理解层（能不能看懂）→ 判断层（能不能做决定）。\n\n每一层对应不同的设计工具：感知层 → 格式塔原则（接近性、相似性、连续性）；理解层 → 信息层级（对比、重复、对齐、亲密性）；判断层 → 行动引导（视觉重心、焦点设计、CTA 设计）。',
+        summary: '设计原则不是规则，是描述「为什么用户会有这个感受」的工具。',
+        metrics: [], resultText: ''
+      }
+    },
+    'data-dashboard': {
+      id: 'data-dashboard', type: 'bili',
+      title: '运营数据看板 · 信息可视化与决策效率',
+      eyebrow: 'BILIBILI 实战经验 · 内部工具',
+      oneliner: '数据可视化最大的敌人，是把所有数据都放上去。',
+      tags: ['数据可视化', '内部工具', '信息架构'],
+      meta: { '需求类型': '业务增长 / 优化型', '项目周期': '3w', '结论': '决策链路缩短 40%', '状态': '✅ 已上线使用' },
+      sections: {
+        bg: 'bilibili 运营团队每天需要追踪数十个内容模块的核心指标，但当时的数据系统是一个所有指标并列罗列的表格，没有重点，没有趋势，看完一遍之后仍然不知道今天最需要关注什么。\n\n需求来自运营负责人的一句话：「现在每天看数据要花一个小时，但我想要的答案只有三个。」',
+        problems: '数据看板设计最难的不是视觉美化，而是「选什么、不选什么」。运营团队提供了 50+ 个他们认为重要的指标，但如果全部展示，看板就会失去意义。\n\n另一个难点是：不同角色（运营、内容、商业化）对「重要」的定义不同。看板需要同时服务三类用户，但三者的关注焦点几乎不重叠。',
+        reason: '原有数据系统是「数据库视角」——把所有数据给你，由你自己找答案。运营团队实际需要的是「决策视角」——告诉我今天有什么异常、需要我做什么判断。',
+        decision: '核心设计决策：将看板分为「今日快照」和「趋势追踪」两个层次。快照层只展示 5 个当日最关键指标，并用颜色标注是否异常；趋势层支持下钻到 30 天维度的详细数据。\n\n角色差异化通过视图切换解决，不同角色进入后默认看到各自关注的指标集合，避免「一个看板服务所有人」的信息过载。',
+        summary: '数据看板的价值不在于信息量，而在于「看完之后你知道该做什么」。',
+        metrics: [{ label: '决策链路缩短', value: '40%' }, { label: '日均使用时长', value: '−34min' }],
+        resultText: '上线后运营团队从每日 1 小时数据梳理缩短至约 26 分钟，关键异常的发现时效从次日提前到实时。'
+      }
+    },
+    'brand-site': {
+      id: 'brand-site', type: 'project',
+      title: '品牌官网 · 沉浸式叙事交互体验',
+      eyebrow: '个人项目 · 创意开发',
+      oneliner: '当页面本身就是产品体验时，滚动的每一帧都是设计决策。',
+      tags: ['网站', '动效', 'GSAP'],
+      meta: { '需求类型': '0-1 创建', '项目周期': '2w', '结论': '交付上线运行', '状态': '✅ 已上线' },
+      sections: {
+        bg: '一个朋友的创意工作室需要一个官网，核心需求是：「不要像普通公司官网，要让人一进来就感受到我们的风格。」\n\n工作室定位艺术装置与空间体验设计，客户群体是策展方和品牌方。他们需要的官网不是展示作品清单，而是本身就能传递创作气质的体验。',
+        problems: '创意类官网的难点是在「酷」和「可用」之间找平衡。太克制，就和普通公司网站没有区别；太激进，访客可能看不懂在干什么，甚至找不到联系方式。\n\n技术上的挑战：大量动效在移动端的性能问题。GSAP 动画在桌面端流畅，但在低端安卓机上会出现掉帧，需要针对设备能力做降级处理。',
+        reason: '工作室的核心资产是「叙事能力」——擅长创造沉浸式空间体验。官网应该是这个能力的数字延伸，而不是一本作品集翻页。',
+        decision: '选择基于滚动进度的动态叙事方式：页面不是静止的，而是随着用户滚动「生长」出来。文字、图形和颜色的变化跟随滚动位置触发，形成一种「被带入」的感受。\n\nGSAP + CSS 变量实现主要动效；性能降级策略：检测到低性能设备时，自动切换为简单淡入代替复杂动画，保证核心内容可读。',
+        summary: '最好的创意官网，是让访客在离开之前忘记了自己在「看」官网。',
+        metrics: [], resultText: ''
+      }
+    },
+    'retention-funnel': {
+      id: 'retention-funnel', type: 'thinking',
+      title: '用户增长漏斗 · 留存流失节点定位',
+      eyebrow: '设计思考 · 增长分析',
+      oneliner: '数据告诉你「哪里出了问题」，用户访谈告诉你「为什么」。',
+      tags: ['增长分析', '用户研究', '留存'],
+      meta: { '需求类型': '研究 / 增长分析', '项目周期': '2w', '结论': '定位 3 个关键流失节点', '状态': '📄 已输出改进方向' },
+      sections: {
+        bg: '某功能模块的次日留存率显著低于预期，但现有埋点数据只能显示用户在哪里离开，无法解释为什么。\n\n这次分析的目标：结合漏斗数据和用户访谈，定位关键流失节点，并给出有改进方向的结论，而不只是描述现象。',
+        problems: '数据分析和用户访谈是两条平行的工作线，经常得出看似矛盾的结论：数据显示用户在 A 步骤流失最多，但访谈用户对 A 步骤几乎没有记忆，反而提到 B 步骤让他们感到困惑。\n\n如何让定量数据和定性洞察互相验证、而不是互相干扰，是这次研究最核心的方法论挑战。',
+        reason: '留存问题的根本原因往往不在流失点本身，而在更早的体验节点——用户在某处积累了不满意感，只是在后面某个时间点才选择离开。线性的漏斗视角容易误判原因。',
+        decision: '研究框架：先用漏斗数据确定「哪些步骤流失率异常」，再通过用户访谈补充「流失时用户在想什么」，最后交叉验证得出归因。\n\n最终定位到 3 个关键节点：① 首次权限申请时机过早（用户还没感受到价值就被要求授权）；② 核心功能入口层级过深（新用户需要 4 步才能触达）；③ 首次成功体验时间过长（从注册到第一次完整使用平均需要 11 分钟）。',
+        summary: '流失分析最有价值的输出，不是「在哪里流失」，而是「用户在那一刻在想什么」。',
+        metrics: [], resultText: ''
+      }
+    }
+  };
+
+  function openBuiltinProject(id) {
+    const p = BUILTIN_PROJECTS[id];
+    if (!p) return;
+
+    const isAdmin = document.documentElement.hasAttribute('data-admin');
+    const s = p.sections;
+
+    const metricsHtml = s.metrics && s.metrics.length
+      ? `<div class="proj-metrics">${s.metrics.map(m => `<div class="proj-metric"><div class="proj-metric-num">${m.value}</div><div class="proj-metric-label">${m.label}</div></div>`).join('')}</div>` : '';
+    const resultNoteHtml = s.resultText ? `<div class="proj-result-note">${s.resultText}</div>` : '';
+    const resultSection = (metricsHtml || resultNoteHtml)
+      ? `<div class="proj-section"><div class="proj-section-heading">上线验证结果</div>${metricsHtml}${resultNoteHtml}</div>` : '';
+
+    const tocLinks = [
+      ['proj-sec-header','概览'],
+      s.bg       ? ['proj-sec-bg','问题发现']       : null,
+      s.problems ? ['proj-sec-problems','卡点难点'] : null,
+      s.reason   ? ['proj-sec-reason','根本原因']   : null,
+      s.decision ? ['proj-sec-decision','决策过程'] : null,
+      (s.metrics && s.metrics.length) ? ['proj-sec-result','上线结果'] : null,
+      s.summary  ? ['proj-sec-summary','总结']      : null,
+    ].filter(Boolean);
+
+    const tocHtml = tocLinks.map((l,i) =>
+      `<a class="proj-toc-link${i===0?' toc-active':''}" onclick="dynScrollTo('${l[0]}',this)">${l[1]}</a>`
+    ).join('');
+
+    const metaHtml = Object.entries(p.meta).filter(([,v]) => v)
+      .map(([k,v]) => `<div class="proj-right-meta-item"><div class="proj-right-meta-label">${k}</div><div class="proj-right-meta-value">${v}</div></div>`).join('');
+
+    const editBar = isAdmin ? `
+      <div class="proj-edit-bar">
+        <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
+        <div style="margin-left:auto;display:flex;gap:8px;">
+          <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveBuiltinProjectEdits('${id}')">保存更改</button>
+        </div>
+      </div>` : '';
+
+    document.getElementById('dynProjModal').innerHTML = `
+      <div class="proj-topbar">
+        <button class="proj-back-btn" onclick="closeDynProject()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          返回
+        </button>
+      </div>
+      <div class="proj-article-wrap">
+        <div class="proj-sidebar">
+          <nav class="proj-toc-nav" id="dynTocNav">${tocHtml}</nav>
+        </div>
+        <div class="proj-article-content" id="dynArticleContent">
+          <div class="proj-body" id="dynProjBody" ${isAdmin ? 'contenteditable="true"' : ''}>
+            <div class="proj-section" id="proj-sec-header">
+              ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
+              <h1 class="proj-title">${p.title}</h1>
+              ${p.oneliner ? `<div class="proj-oneliner">${p.oneliner}</div>` : ''}
+            </div>
+            ${s.bg ? `<div class="proj-section" id="proj-sec-bg"><div class="proj-section-heading">问题是如何发现的</div>${s.bg.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.problems ? `<div class="proj-section" id="proj-sec-problems"><div class="proj-section-heading">卡点与难点</div>${s.problems.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.reason ? `<div class="proj-section" id="proj-sec-reason"><div class="proj-section-heading">为什么会出现这个问题</div>${s.reason.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">决策过程与原因</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${resultSection ? `<div id="proj-sec-result">${resultSection}</div>` : ''}
+            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-quote">${s.summary}</div></div>` : ''}
+          </div>
+          ${editBar}
+        </div>
+        <div class="proj-right-col" id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
+      </div>`;
+
+    document.getElementById('dynProjOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function saveBuiltinProjectEdits(id) {
+    const body = document.getElementById('dynProjBody');
+    const rightCol = document.getElementById('dynProjRightCol');
+    const override = {
+      bodyHTML:     body     ? body.innerHTML     : null,
+      rightColHTML: rightCol ? rightCol.innerHTML : null,
+    };
+    try {
+      localStorage.setItem('builtin_override_' + id, JSON.stringify(override));
+      showToast('内容已保存 ✓');
+    } catch(e) {
+      showToast('存储空间不足，保存失败', '✕');
+    }
   }
 
   // Load stored projects on page init
