@@ -742,11 +742,14 @@
 
     .sb-cell.filled { cursor: pointer; }
     .sb-cell.active {
-      outline: 2px solid #6B5CE7;
+      outline: 2px solid currentColor;
       outline-offset: -2px;
       position: relative;
       z-index: 1;
     }
+    [data-matrix-key^="user_"].active { outline-color: #2b8c2b; }
+    [data-matrix-key^="biz_"].active  { outline-color: #b06410; }
+    [data-matrix-key^="eng_"].active  { outline-color: #1a50b0; }
 
     .sb-cell-num {
       font-size: 36px;
