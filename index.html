@@ -390,7 +390,7 @@
       min-height: var(--sub-h);
       display: flex;
       align-items: center;
-      padding: 8px 20px;
+      padding: 0 20px;
       gap: 4px;
       transition: top 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -401,14 +401,6 @@
       .subnav.nav-open { top: calc(var(--nav-h) + 480px); }
     }
 
-    .filter-year {
-      font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px;
-      border: 1px solid var(--border); background: transparent; color: var(--text-2);
-      cursor: pointer; transition: all 0.15s;
-    }
-    .filter-year:hover { color: var(--text); background: var(--tag-bg); }
-    .filter-year.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-    .subnav-year { display: flex; gap: 6px; align-items: center; padding: 10px 0 6px 0; border-top: 1px solid var(--border); margin-top: 8px; }
 
     .filter-tag {
       font-size: 13px;
@@ -1636,11 +1628,6 @@
   <div class="view-toggle">
     <button class="view-btn" onclick="setView('list',this)">列表</button>
     <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
-  </div>
-  <div class="subnav-year" style="width:100%">
-    <button class="filter-year active" onclick="setYear(this,'all')">全部年份</button>
-    <button class="filter-year" onclick="setYear(this,'2026')">2026</button>
-    <button class="filter-year" onclick="setYear(this,'2025')">2025</button>
   </div>
 </div>
 
