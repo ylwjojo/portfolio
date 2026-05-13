@@ -56,33 +56,41 @@
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
     }
 
-    .hero-scroll {
+    .hero-entries {
       position: absolute;
-      bottom: 32px;
+      bottom: 48px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: #333;
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      cursor: pointer;
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      gap: 12px;
       animation: fadeUp 1s 1.5s both;
+      white-space: nowrap;
     }
-    .hero-scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, transparent, #444);
-      animation: extendLine 1.8s ease infinite;
+    .hero-entry {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border: 1px solid #2a2a2a;
+      border-radius: 2px;
+      color: #666;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      cursor: pointer;
+      background: transparent;
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
-    @keyframes extendLine {
-      0%   { transform: scaleY(0); transform-origin: top;    opacity: 0; }
-      50%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
-      100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+    .hero-entry:hover {
+      color: #fff;
+      border-color: #555;
+      background: rgba(255,255,255,0.04);
+    }
+    .hero-entry-arrow {
+      font-size: 10px;
+      opacity: 0.5;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateX(-50%) translateY(12px); }
@@ -1517,9 +1525,10 @@
   <div class="hero-noise"></div>
   <div class="hero-text" id="heroText"></div>
   <div class="hero-sub">设计 · 研究 · 用 AI 交付</div>
-  <div class="hero-scroll" onclick="document.getElementById('mainContent').scrollIntoView({behavior:'smooth'})">
-    <span>Scroll</span>
-    <div class="hero-scroll-line"></div>
+  <div class="hero-entries">
+    <button class="hero-entry" onclick="document.getElementById('mainContent').scrollIntoView({behavior:'smooth'})">作品集</button>
+    <button class="hero-entry" onclick="openProjectLibrary()">项目库 <span class="hero-entry-arrow">↓</span></button>
+    <a class="hero-entry" href="resume.html">简历 <span class="hero-entry-arrow">↗</span></a>
   </div>
 </section>
 
@@ -2830,14 +2839,21 @@
 
   function setView(view, btn) {
     document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
     if (view === 'list') {
       document.getElementById('galleryView').classList.add('hidden');
       document.getElementById('listView').classList.remove('hidden');
+      document.querySelector('.view-btn[onclick*="list"]')?.classList.add('active');
     } else {
       document.getElementById('listView').classList.add('hidden');
       document.getElementById('galleryView').classList.remove('hidden');
+      document.querySelector('.view-btn[onclick*="gallery"]')?.classList.add('active');
     }
+  }
+
+  function openProjectLibrary() {
+    setView('list', null);
+    document.getElementById('mainContent').scrollIntoView({behavior:'smooth'});
   }
 
 
