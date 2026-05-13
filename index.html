@@ -401,6 +401,15 @@
       .subnav.nav-open { top: calc(var(--nav-h) + 480px); }
     }
 
+    .filter-year {
+      font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px;
+      border: 1px solid var(--border); background: transparent; color: var(--text-2);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .filter-year:hover { color: var(--text); background: var(--tag-bg); }
+    .filter-year.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .subnav-year { display: flex; gap: 6px; align-items: center; padding: 6px 0 2px 0; border-top: 1px solid var(--border); margin-top: 6px; }
+
     .filter-tag {
       font-size: 13px;
       padding: 4px 14px;
@@ -1615,16 +1624,23 @@
 </div>
 
 <!-- ===== FILTER BAR ===== -->
-<div class="subnav">
-  <button class="filter-tag active" onclick="setFilter(this,'all')">全部</button>
-  <button class="filter-tag" onclick="setFilter(this,'bili')">bilibili 实战经验</button>
-  <button class="filter-tag" onclick="setFilter(this,'project')">个人项目</button>
-  <button class="filter-tag" onclick="setFilter(this,'thinking')">思考</button>
+<div class="subnav" style="flex-wrap:wrap">
+  <div style="display:flex;gap:6px;align-items:center;flex:1;flex-wrap:wrap">
+    <button class="filter-tag active" onclick="setFilter(this,'all')">全部</button>
+    <button class="filter-tag" onclick="setFilter(this,'bili')">bilibili 实战经验</button>
+    <button class="filter-tag" onclick="setFilter(this,'project')">个人项目</button>
+    <button class="filter-tag" onclick="setFilter(this,'thinking')">思考</button>
+  </div>
   <div class="subnav-spacer"></div>
   <button class="create-proj-btn admin-only" onclick="openCreateModal()">＋ 新建项目</button>
   <div class="view-toggle">
     <button class="view-btn" onclick="setView('list',this)">列表</button>
     <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
+  </div>
+  <div class="subnav-year" style="width:100%">
+    <button class="filter-year active" onclick="setYear(this,'all')">全部年份</button>
+    <button class="filter-year" onclick="setYear(this,'2026')">2026</button>
+    <button class="filter-year" onclick="setYear(this,'2025')">2025</button>
   </div>
 </div>
 
@@ -1641,7 +1657,7 @@
         <span class="sb-head-sub">bilibili 实战经验 · 价值维度 × 阶段维度</span>
       </div>
       <div class="sb-head-total">
-        <span class="sb-head-total-num" id="matrixTotal">33</span>
+        <span class="sb-head-total-num" id="matrixTotal">24</span>
         <span class="sb-head-total-label">项需求</span>
       </div>
     </div>
@@ -1669,15 +1685,15 @@
 
       <!-- ── 行1：用户价值 ── -->
       <div class="sb-row-header sb-row-user">用户<br>价值</div>
-      <div class="sb-cell filled" data-matrix-key="user_optimize" data-base-count="14" data-subtype="体验优化" onclick="setSubFilter(this,'体验优化')">
-        <div class="sb-cell-num">14</div>
+      <div class="sb-cell filled" data-matrix-key="user_optimize" data-base-count="1" data-subtype="体验优化" onclick="setSubFilter(this,'体验优化')">
+        <div class="sb-cell-num">1</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">体验优化</div>
           <span class="sb-cell-tag tag-user">用户价值</span>
         </div>
       </div>
-      <div class="sb-cell filled" data-matrix-key="user_explore" data-base-count="5" data-subtype="体验探索" onclick="setSubFilter(this,'体验探索')">
-        <div class="sb-cell-num">5</div>
+      <div class="sb-cell filled" data-matrix-key="user_explore" data-base-count="11" data-subtype="体验探索" onclick="setSubFilter(this,'体验探索')">
+        <div class="sb-cell-num">11</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">体验探索</div>
           <span class="sb-cell-tag tag-user">用户价值</span>
@@ -1693,8 +1709,8 @@
 
       <!-- ── 行2：业务价值 ── -->
       <div class="sb-row-header sb-row-biz">业务<br>价值</div>
-      <div class="sb-cell filled" data-matrix-key="biz_optimize" data-base-count="5" data-subtype="业务增长优化" onclick="setSubFilter(this,'业务增长优化')">
-        <div class="sb-cell-num">5</div>
+      <div class="sb-cell filled" data-matrix-key="biz_optimize" data-base-count="8" data-subtype="业务增长优化" onclick="setSubFilter(this,'业务增长优化')">
+        <div class="sb-cell-num">8</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">业务增长优化</div>
           <span class="sb-cell-tag tag-biz">业务价值</span>
@@ -1717,15 +1733,15 @@
 
       <!-- ── 行3：工程效率 ── -->
       <div class="sb-row-header sb-row-eng sb-last-row">工程<br>效率</div>
-      <div class="sb-cell filled sb-last-row" data-matrix-key="eng_optimize" data-base-count="4" data-subtype="产品基础架构" onclick="setSubFilter(this,'产品基础架构')">
-        <div class="sb-cell-num">4</div>
+      <div class="sb-cell filled sb-last-row" data-matrix-key="eng_optimize" data-base-count="1" data-subtype="产品基础架构" onclick="setSubFilter(this,'产品基础架构')">
+        <div class="sb-cell-num">1</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">产品基础架构</div>
           <span class="sb-cell-tag tag-eng">工程效率</span>
         </div>
       </div>
-      <div class="sb-cell filled sb-last-row" data-matrix-key="eng_explore" data-base-count="2" data-subtype="设计系统搭建" onclick="setSubFilter(this,'设计系统搭建')">
-        <div class="sb-cell-num">2</div>
+      <div class="sb-cell empty sb-last-row" data-matrix-key="eng_explore" data-base-count="0" data-subtype="设计系统搭建">
+        <div class="sb-cell-num">—</div>
         <div class="sb-cell-info">
           <div class="sb-cell-name">设计系统搭建</div>
           <span class="sb-cell-tag tag-eng">工程效率</span>
@@ -1740,48 +1756,6 @@
       </div>
 
     </div><!-- /sb-matrix -->
-  </div>
-
-  <!-- Card 1 — ClosetNow -->
-  <div class="card" data-type="all project" onclick="openBuiltinProject('closetnow')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:#111;display:flex;align-items:center;justify-content:center">
-      <svg width="56" height="56" viewBox="0 0 140 140" fill="none">
-        <rect x="26" y="20" width="22" height="22" fill="white"/>
-        <rect x="59" y="15" width="22" height="22" transform="rotate(45 70 26)" fill="white"/>
-        <rect x="92" y="20" width="22" height="22" fill="white"/>
-        <rect x="15" y="52" width="22" height="22" transform="rotate(45 26 63)" fill="white"/>
-        <rect x="59" y="52" width="22" height="22" fill="white"/>
-        <rect x="103" y="52" width="22" height="22" transform="rotate(45 114 63)" fill="white"/>
-        <rect x="26" y="86" width="22" height="22" fill="white"/>
-        <rect x="59" y="81" width="22" height="22" transform="rotate(45 70 92)" fill="white"/>
-        <rect x="92" y="86" width="22" height="22" fill="white"/>
-      </svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">品牌识别</span><span class="card-tag">视觉系统</span></div>
-      <div class="card-title">ClosetNow · 品牌识别系统设计</div>
-      <div class="card-desc">从用户研究出发，为整理服务品牌建立完整视觉语言，覆盖 Logo、色彩、字体及应用场景。</div>
-    </div>
-  </div>
-
-  <!-- Card 2 tall -->
-  <div class="card" data-type="all project" onclick="openBuiltinProject('portfolio-site')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">网站</span><span class="card-tag">UX</span></div>
-      <div class="card-title">个人作品集网站 · 设计&开发</div>
-      <div class="card-desc">你现在看到的这个网站。从信息架构到前端实现，独立完成全流程。</div>
-    </div>
-  </div>
-
-  <!-- Card 3 -->
-  <div class="card" data-type="all bili" data-subtype="体验优化" onclick="openBuiltinProject('creator-tool')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">0-1产品</span></div>
-      <div class="card-title">内容创作工具 · MVP 产品设计</div>
-      <div class="card-desc">面向 B 端创作者的内容生产工具，核心功能验证与快速迭代。</div>
-    </div>
   </div>
 
   <!-- Card 4 — IP页滑动热区优化 -->
@@ -1802,79 +1776,301 @@
     </div>
   </div>
 
-  <!-- Card 4 (original) -->
-  <div class="card" data-type="all bili" data-subtype="设计系统搭建" onclick="openBuiltinProject('motion-token')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
+  <!-- Card: 漫展圈资料库建设 -->
+  <div class="card" data-type="all bili" data-subtype="全新业务搭建" onclick="openBuiltinProject('manzhan-library')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1040,#3d2080);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="16" height="20" rx="2" fill="rgba(255,255,255,0.9)"/><rect x="6" y="32" width="16" height="8" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="26" y="6" width="20" height="14" rx="2" fill="rgba(255,255,255,0.7)"/><rect x="26" y="24" width="20" height="22" rx="2" fill="rgba(255,255,255,0.5)"/></svg>
+    </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">动效</span></div>
-      <div class="card-title">交互动效系统 · Design Token 实践</div>
-      <div class="card-desc">制定动效规范，统一产品内 Motion 语言，提升交互一致性。</div>
+      <div class="card-tags">
+        <span class="card-tag">社区产品</span>
+        <span class="card-tag">0-1 创新</span>
+        <span class="card-tag">已上线</span>
+      </div>
+      <div class="card-title">漫展圈资料库 · 0-1 社区内容产品设计</div>
+      <div class="card-desc">从零搭建 IP 圈子资料库，以 IP 维度组织 UGC 内容沉淀，解决社区内容无法积累的核心矛盾，上线后反响良好。</div>
     </div>
   </div>
 
-  <!-- Card 5 tall -->
-  <div class="card" data-type="all thinking" onclick="openBuiltinProject('ecomm-analysis')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
+  <!-- Card: 发布器增加@用户能力 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('publisher-at')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a2818,#1a5c38);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="18" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" fill="none"/><text x="26" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="rgba(255,255,255,0.9)" font-family="sans-serif">@</text></svg>
+    </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">分析</span><span class="card-tag">UX</span></div>
-      <div class="card-title">电商购物流程 · 竞品体验分析</div>
-      <div class="card-desc">对主流电商 App 核心路径进行拆解，提炼可复用的设计模式。</div>
+      <div class="card-tags">
+        <span class="card-tag">社区建设</span>
+        <span class="card-tag">基础建设</span>
+        <span class="card-tag">已上线</span>
+      </div>
+      <div class="card-title">社区发布器 · @用户能力基建设计</div>
+      <div class="card-desc">补齐发布器基础能力缺口，设计自然语言触发的@用户交互，以最小成本完成社区功能闭环。</div>
     </div>
   </div>
 
-  <!-- Card 6 -->
-  <div class="card" data-type="all thinking" onclick="openBuiltinProject('gestalt')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
+  <!-- Card: T3搜索中间页优化 -->
+  <div class="card" data-type="all bili" data-subtype="全新业务搭建" onclick="openBuiltinProject('search-middle')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1208,#6b4800);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="6" rx="3" fill="rgba(255,255,255,0.85)"/><rect x="8" y="18" width="28" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="8" y="26" width="32" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="8" y="34" width="20" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><circle cx="40" cy="38" r="8" fill="rgba(255,183,0,0.8)"/><text x="40" y="42" text-anchor="middle" font-size="10" fill="#1a1208" font-weight="700" font-family="sans-serif">↗</text></svg>
+    </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">设计理论</span></div>
-      <div class="card-title">格式塔与视觉层级 · 设计原则梳理</div>
-      <div class="card-desc">系统整理认知心理学与视觉设计的底层逻辑，输出可落地指引。</div>
+      <div class="card-tags">
+        <span class="card-tag">交易体验</span>
+        <span class="card-tag">营销方案</span>
+        <span class="card-tag">待开发</span>
+      </div>
+      <div class="card-title">T3 搜索中间页 · 商品曝光结构优化</div>
+      <div class="card-desc">识别搜索中间页高价值流量的路径断点，重设「上新」「盲盒」等入口豆腐块，提升转化漏斗效率。</div>
     </div>
   </div>
 
-  <!-- Card 7 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('data-dashboard')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
+  <!-- Card: 漫展圈展会tab个性化编辑 -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('manzhan-tab')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0d1b3e,#1e3a8a);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="12" width="40" height="6" rx="3" fill="rgba(255,255,255,0.85)"/><rect x="6" y="22" width="20" height="20" rx="3" fill="rgba(255,255,255,0.5)"/><rect x="30" y="22" width="16" height="8" rx="3" fill="rgba(255,255,255,0.4)"/><rect x="30" y="34" width="16" height="8" rx="3" fill="rgba(255,255,255,0.25)"/></svg>
+    </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">0-1产品</span><span class="card-tag">UX</span></div>
-      <div class="card-title">SaaS 数据看板 · 信息可视化设计</div>
-      <div class="card-desc">帮助运营团队实时监控核心指标，降低决策链路中的信息摩擦。</div>
+      <div class="card-tags"><span class="card-tag">社区产品</span><span class="card-tag">用户个性化</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">漫展圈展会项目 Tab · 用户个性化编辑</div>
+      <div class="card-desc">赋予用户自主编排展会项目 Tab 的能力，提升复访动因；上线后 T3 入口 UV 从 980 提升至 1078，复访率由 0.44% 升至 0.49%。</div>
     </div>
   </div>
 
-  <!-- Card 8 -->
-  <div class="card" data-type="all project" onclick="openBuiltinProject('brand-site')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
+  <!-- Card: 惊喜赏订单增加发货时间 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('surprise-delivery')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#2d1200,#7c3a00);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="16" width="36" height="24" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/><path d="M8 22h36" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="15" y="28" width="10" height="6" rx="1.5" fill="rgba(255,255,255,0.7)"/><circle cx="38" cy="17" r="7" fill="rgba(255,183,0,0.8)"/><path d="M38 13v4.5l2.5 2.5" stroke="#2d1200" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">网站</span><span class="card-tag">动效</span></div>
-      <div class="card-title">品牌官网 · 创意交互体验</div>
-      <div class="card-desc">结合 GSAP 与 CSS 动画，打造沉浸式品牌叙事页面。</div>
+      <div class="card-tags"><span class="card-tag">交易体验</span><span class="card-tag">订单功能</span><span class="card-tag">Hold</span></div>
+      <div class="card-title">惊喜赏 · 订单增加发货时间展示</div>
+      <div class="card-desc">完善惊喜赏订单信息链路，在订单页增加发货时间节点展示，降低用户焦虑，属于交易基建补齐类优化。</div>
     </div>
   </div>
 
-  <!-- Card 9 -->
-  <div class="card" data-type="all thinking" onclick="openBuiltinProject('retention-funnel')" style="cursor:pointer">
-    <div class="card-thumb ph"></div>
+  <!-- Card: T3用户图片一致性 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-img-consistency')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1929,#162f4a);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="28" y="10" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="6" y="28" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="28" y="28" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><path d="M24 17h4M24 35h4M17 24v4M35 24v4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">分析</span></div>
-      <div class="card-title">用户增长漏斗 · 留存数据拆解</div>
-      <div class="card-desc">结合埋点数据与用户访谈，定位关键流失节点并提出改进方案。</div>
+      <div class="card-tags"><span class="card-tag">交易体验</span><span class="card-tag">视觉一致性</span><span class="card-tag">Hold</span></div>
+      <div class="card-title">T3 · 用户图片一致性规范设计</div>
+      <div class="card-desc">针对 T3 平台图片展示的尺寸、裁切与排版逻辑进行规范，消除不同入口下图片展示不一致的体验割裂感。</div>
     </div>
   </div>
+
+  <!-- Card: T3首页品类更新结构变动 -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('t3-category')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a2e1a,#1a6040);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="16" height="16" rx="3" fill="rgba(255,255,255,0.7)"/><rect x="28" y="8" width="16" height="16" rx="3" fill="rgba(255,255,255,0.5)"/><rect x="8" y="28" width="10" height="10" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="22" y="28" width="10" height="10" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="36" y="28" width="8" height="10" rx="2" fill="rgba(255,255,255,0.3)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">信息架构</span><span class="card-tag">导购效率</span><span class="card-tag">待开发</span></div>
+      <div class="card-title">T3 首页品类 · 导航结构更新设计</div>
+      <div class="card-desc">针对 T3 首页长期存在的品类划分混乱问题，重新梳理品类层级与展现结构，对标抖音商城、小红书完成信息架构更新。</div>
+    </div>
+  </div>
+
+  <!-- Card: 票务商品卡进feeds -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('ticket-feeds')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#2d0a1a,#7c1f40);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="10" width="22" height="32" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><rect x="10" y="14" width="18" height="10" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="10" y="27" width="12" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/><rect x="10" y="33" width="8" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/><path d="M36 14l6 6-6 6M42 20H30" stroke="rgba(255,183,0,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">票务</span><span class="card-tag">商品曝光</span><span class="card-tag">待验收</span></div>
+      <div class="card-title">票务商品卡 · 进 Feeds 曝光设计</div>
+      <div class="card-desc">将票务商品卡片注入 T3 Feeds 流，扩大票务曝光渠道；选定 IP+角色×商品+上新商品数+场景图方案，兼顾 GMV 流量与 IP 匹配效率。</div>
+    </div>
+  </div>
+
+  <!-- Card: T3拓宽首页搜索 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-search-expand')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a40,#3d1f99);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="40" height="10" rx="5" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><circle cx="14" cy="15" r="3" fill="rgba(255,255,255,0.6)"/><rect x="20" y="13" width="20" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="6" y="26" width="30" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="6" y="34" width="24" height="4" rx="2" fill="rgba(255,255,255,0.2)"/><path d="M42 30l5 5" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/><circle cx="39" cy="27" r="5" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" fill="none"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">搜索体验</span><span class="card-tag">转化优化</span><span class="card-tag">待验收</span></div>
+      <div class="card-title">T3 首页搜索 · 搜索场域拓宽设计</div>
+      <div class="card-desc">扩大搜索栏的视觉与交互场域，降低搜索行为触发门槛，提升 T3 首页搜索渗透率，优化 GMV 转化效率。</div>
+    </div>
+  </div>
+
+  <!-- Card: demo市集T3内触点方案 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('demo-marketplace')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1e1408,#5c3d10);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="14" width="36" height="26" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M8 22h36" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="12" y="26" width="12" height="10" rx="2" fill="rgba(255,183,0,0.5)"/><rect x="28" y="26" width="12" height="4" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="28" y="33" width="8" height="3" rx="1.5" fill="rgba(255,255,255,0.25)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">C2C 探索</span><span class="card-tag">触点方案</span><span class="card-tag">Demo上线</span></div>
+      <div class="card-title">市集 · T3 内 C2C 触点方案 Demo</div>
+      <div class="card-desc">探索 C2C 交易在 T3 会员购主场景内的自然触点植入路径，以 Demo 形式验证用户对市集商品卡在主平台出现的接受度。</div>
+    </div>
+  </div>
+
+  <!-- Card: PC端账户中心增加广告账户模块 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('pc-account-ad')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1020,#1c2a50);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="40" height="32" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><rect x="6" y="10" width="12" height="32" rx="3" fill="rgba(255,255,255,0.12)"/><rect x="10" y="14" width="4" height="4" rx="1" fill="rgba(255,255,255,0.6)"/><rect x="10" y="22" width="4" height="4" rx="1" fill="rgba(255,255,255,0.4)"/><rect x="10" y="30" width="4" height="4" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="22" y="16" width="18" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="22" y="24" width="14" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">PC 端</span><span class="card-tag">B 端功能</span><span class="card-tag">Hold</span></div>
+      <div class="card-title">PC 端账户中心 · 广告账户模块设计</div>
+      <div class="card-desc">在 PC 端账户中心新增广告账户管理模块，面向商家 / B 端用户，整合广告账户信息与权限管理入口，完善账户中心功能体系。</div>
+    </div>
+  </div>
+
+  <!-- Card: 账单实名变更引导重开账户 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('bill-reopen')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#061e1a,#0d4038);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="10" y="8" width="32" height="40" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="15" y="14" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.6)"/><rect x="15" y="20" width="16" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/><rect x="15" y="26" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/><circle cx="26" cy="38" r="5" stroke="rgba(0,255,180,0.7)" stroke-width="1.5" fill="none"/><path d="M23.5 38l2 2 3.5-4" stroke="rgba(0,255,180,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">账单体验</span><span class="card-tag">实名认证</span><span class="card-tag">Hold</span></div>
+      <div class="card-title">账单 · 实名变更引导重开账户设计</div>
+      <div class="card-desc">针对用户实名变更后账户被冻结的高频客诉场景，设计清晰的引导链路，帮助用户顺畅完成重新开户操作，降低关键路径流失。</div>
+    </div>
+  </div>
+
+  <!-- Card: T3直播间平台券弹窗 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-livestream-coupon')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#200614,#5c0f2e);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="10" width="36" height="28" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><circle cx="26" cy="24" r="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,100,100,0.8)" stroke-width="1.5"/><path d="M23 24l2 2 4-4" stroke="rgba(255,150,150,0.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="42" width="24" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><path d="M26 38v4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">直播间</span><span class="card-tag">营销优惠</span><span class="card-tag">待开发</span></div>
+      <div class="card-title">T3 直播间 · 平台券弹窗交互设计</div>
+      <div class="card-desc">在直播间场景中植入平台券弹窗，提升优惠券触达效率；受技术限制主站无法自动触发弹窗，最终以挂件样式落地。</div>
+    </div>
+  </div>
+
+  <!-- ===== 2025 项目 ===== -->
+
+  <!-- ticket-seat: 票务｜C端选座体验优化 -->
+  <div class="card" data-type="all bili" data-subtype="体验优化" data-year="2025" onclick="openBuiltinProject('ticket-seat')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a2e,#1a3a6e);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="12" width="36" height="28" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="12" y="16" width="10" height="8" rx="1.5" fill="rgba(255,255,255,0.5)"/><rect x="25" y="16" width="10" height="8" rx="1.5" fill="rgba(100,180,255,0.6)"/><rect x="12" y="27" width="10" height="8" rx="1.5" fill="rgba(255,255,255,0.3)"/><rect x="25" y="27" width="10" height="8" rx="1.5" fill="rgba(255,255,255,0.3)"/><path d="M40 36l4 4M44 36l-4 4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">票务体验</span><span class="card-tag">交互升级</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">票务 · C 端选座体验全面优化</div>
+      <div class="card-desc">对标行业主流选座体验，引入手势缩放与票价色彩筛选，解决旧版交互方式老化、操作路径复杂的核心问题。</div>
+    </div>
+  </div>
+
+  <!-- publisher-template: 圈子｜发布器写作模板+优质内容 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-year="2025" onclick="openBuiltinProject('publisher-template')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0e30,#3d2070);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="36" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><rect x="13" y="14" width="26" height="4" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="13" y="22" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/><rect x="13" y="29" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/><circle cx="38" cy="38" r="7" fill="rgba(160,100,255,0.7)"/><path d="M35.5 38h5M38 35.5v5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">社区建设</span><span class="card-tag">创作体验</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">圈子发布器 · 写作模板与优质内容引导</div>
+      <div class="card-desc">在发布器内增加模板复用与官方优质图文攻略入口，降低创作门槛，提升社区内容质量基线。</div>
+    </div>
+  </div>
+
+  <!-- publisher-tag: 圈子｜发布器标签搜索功能 -->
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-year="2025" onclick="openBuiltinProject('publisher-tag')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0e1a0e,#1a3a1a);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="7" y="10" width="38" height="10" rx="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/><circle cx="14" cy="15" r="3" fill="rgba(255,255,255,0.55)"/><rect x="20" y="13" width="18" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="7" y="26" width="12" height="6" rx="3" fill="rgba(80,200,120,0.5)" stroke="rgba(80,200,120,0.7)" stroke-width="1"/><rect x="22" y="26" width="14" height="6" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/><rect x="39" y="26" width="6" height="6" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="7" y="36" width="10" height="6" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="20" y="36" width="18" height="6" rx="3" fill="rgba(80,200,120,0.4)" stroke="rgba(80,200,120,0.6)" stroke-width="1"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">社区建设</span><span class="card-tag">基础建设</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">圈子发布器 · 标签搜索与自定义能力</div>
+      <div class="card-desc">补齐发布器标签能力短板，支持搜索与自定义标签，提升图文内容的可发现性与社区内容组织效率。</div>
+    </div>
+  </div>
+
+  <!-- ip-domain-research: 调研｜IP在全交易场域透出链路 -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ip-domain-research')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a20,#3a1060);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="12" cy="26" r="5" fill="rgba(255,255,255,0.5)"/><circle cx="26" cy="12" r="5" fill="rgba(255,255,255,0.5)"/><circle cx="40" cy="26" r="5" fill="rgba(255,255,255,0.5)"/><circle cx="26" cy="40" r="5" fill="rgba(200,130,255,0.7)"/><path d="M17 26h4M26 17v4M35 26h-4M26 35v-4" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/><circle cx="26" cy="26" r="4" fill="rgba(180,100,255,0.6)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">调研</span><span class="card-tag">IP 导购</span><span class="card-tag">Demo上线</span></div>
+      <div class="card-title">调研 · IP 全交易场域透出链路与类目划分</div>
+      <div class="card-desc">系统梳理 IP 在会员购各场景下的导购透传逻辑，输出类目重构方案，以 Demo 形式倒逼产品基建优先级。</div>
+    </div>
+  </div>
+
+  <!-- ip-switch: T3｜IP页支持切换更多IP -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ip-switch')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a1a,#104040);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="40" height="10" rx="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="6" y="10" width="13" height="10" rx="5" fill="rgba(0,200,180,0.5)"/><rect x="6" y="24" width="40" height="20" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><rect x="10" y="28" width="14" height="12" rx="2" fill="rgba(0,200,180,0.3)"/><rect x="27" y="28" width="15" height="5" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="27" y="35" width="10" height="5" rx="2" fill="rgba(255,255,255,0.2)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">功能优化</span><span class="card-tag">IP 体验</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">T3 IP 页 · 支持切换查看更多 IP</div>
+      <div class="card-desc">解决 IP 页只能被动接受推送、无法主动切换 IP 的体验缺口，建立可延伸的 IP 管理交互框架。</div>
+    </div>
+  </div>
+
+  <!-- newcomer-popup: 新客｜弹窗迭代、新人发券增加券类型 -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('newcomer-popup')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#2a0a0a,#6a2020);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="10" width="36" height="32" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><rect x="12" y="16" width="28" height="8" rx="2" fill="rgba(255,80,80,0.3)" stroke="rgba(255,100,100,0.5)" stroke-width="1"/><rect x="14" y="18" width="10" height="4" rx="1" fill="rgba(255,150,150,0.5)"/><rect x="27" y="18" width="10" height="4" rx="1" fill="rgba(255,150,150,0.35)"/><rect x="12" y="28" width="12" height="10" rx="2" fill="rgba(255,255,255,0.15)"/><rect x="28" y="28" width="12" height="4" rx="1.5" fill="rgba(255,255,255,0.25)"/><rect x="28" y="34" width="8" height="4" rx="1.5" fill="rgba(255,255,255,0.15)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">运营引流</span><span class="card-tag">新客转化</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">新客弹窗 · 视觉迭代与多券类型兼容</div>
+      <div class="card-desc">升级新客弹窗的二次元氛围感与券展示结构，兼容主流券数量（4张），从信息层级指导视觉创作，提升首次触达转化率。</div>
+    </div>
+  </div>
+
+  <!-- t3-placeholder-word: T3｜底纹词样式策略方案 -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('t3-placeholder-word')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1a0a,#3a3a10);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="12" width="40" height="12" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="13" cy="18" r="3.5" fill="rgba(255,220,50,0.6)"/><rect x="19" y="16" width="16" height="4" rx="2" fill="rgba(255,255,255,0.35)"/><rect x="8" y="30" width="16" height="5" rx="2.5" fill="rgba(255,220,50,0.4)" stroke="rgba(255,220,50,0.6)" stroke-width="1"/><rect x="27" y="30" width="10" height="5" rx="2.5" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="8" y="39" width="12" height="5" rx="2.5" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/><rect x="23" y="39" width="18" height="5" rx="2.5" fill="rgba(255,220,50,0.3)" stroke="rgba(255,220,50,0.5)" stroke-width="1"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">搜索优化</span><span class="card-tag">运营引流</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">T3 搜索 · 底纹词个性化推荐策略设计</div>
+      <div class="card-desc">将搜索底纹词从纯运营配置升级为三层策略（近期搜索→近期浏览→热门词条），引入个性化推荐逻辑，提升搜索入口的触达价值。</div>
+    </div>
+  </div>
+
+  <!-- ticket-activity-filter: 票务｜详情页支持配置运营活动筛选 -->
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ticket-activity-filter')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a2a,#1a4a5a);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="7" y="8" width="38" height="36" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><rect x="11" y="13" width="30" height="8" rx="2" fill="rgba(255,255,255,0.12)"/><rect x="13" y="15" width="6" height="4" rx="1" fill="rgba(100,200,220,0.6)"/><rect x="22" y="15" width="6" height="4" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="31" y="15" width="6" height="4" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="11" y="24" width="30" height="6" rx="1.5" fill="rgba(255,255,255,0.1)"/><path d="M13 27h26" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><rect x="11" y="33" width="20" height="5" rx="1.5" fill="rgba(100,200,220,0.25)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">票务</span><span class="card-tag">社区打造</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">票务详情页 · 运营活动筛选项配置</div>
+      <div class="card-desc">在票务评论区增加运营可配置的活动筛选项，丰富社区图文内容的分类入口，提升票务页内容的可浏览性。</div>
+    </div>
+  </div>
+
+  <!-- model-circle: 圈子｜拓品：模型圈 -->
+  <div class="card" data-type="all bili" data-subtype="全新业务搭建" data-year="2025" onclick="openBuiltinProject('model-circle')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a2a,#402060);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="18" r="8" fill="rgba(255,255,255,0.1)" stroke="rgba(200,150,255,0.7)" stroke-width="1.5"/><path d="M22 18c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/><rect x="12" y="30" width="10" height="12" rx="2" fill="rgba(200,150,255,0.35)" stroke="rgba(200,150,255,0.5)" stroke-width="1.2"/><rect x="30" y="30" width="10" height="12" rx="2" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/><path d="M26 26v4M17 30h18" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">社区产品</span><span class="card-tag">0-1 创新</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">圈子 · 模型圈品类从零搭建</div>
+      <div class="card-desc">识别模型品类具备的双边效应（爆品+UGC 共存），从零搭建模型圈社区产品形态，上线后成为圈子内容体系新增长点。</div>
+    </div>
+  </div>
+
+  <!-- feedback-board: 基建｜用户反馈看板迭代需求 -->
+  <div class="card" data-type="all bili" data-subtype="产品基础架构" data-year="2025" onclick="openBuiltinProject('feedback-board')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a0a,#204020);display:flex;align-items:center;justify-content:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="36" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><rect x="12" y="14" width="28" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="12" y="22" width="10" height="14" rx="2" fill="rgba(80,200,100,0.4)"/><rect x="25" y="22" width="10" height="8" rx="2" fill="rgba(255,255,255,0.2)"/><rect x="25" y="33" width="10" height="3" rx="1.5" fill="rgba(255,255,255,0.15)"/><rect x="12" y="38" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">内部工具</span><span class="card-tag">基础建设</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">用研 · 用户反馈看板升级迭代</div>
+      <div class="card-desc">升级【建议反馈】问卷结构，增加订单关联与分类联动，帮助用研团队收集更高质量的用户反馈信息，提升问题定位效率。</div>
+    </div>
+  </div>
+
 
 </div>
 
 <!-- ===== LIST VIEW (hidden by default) ===== -->
 <div class="gallery-list hidden" id="listView">
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">智能客服系统 · 全链路体验设计</div><div class="list-desc">从 0 搭建企业级 IM 客服平台，覆盖坐席工作台、机器人配置与数据看板。</div><div class="list-tags"><span class="list-tag">UX</span><span class="list-tag">0-1产品</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">个人作品集网站 · 设计&开发</div><div class="list-desc">你现在看到的这个网站。从信息架构到前端实现，独立完成全流程。</div><div class="list-tags"><span class="list-tag">网站</span><span class="list-tag">UX</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">内容创作工具 · MVP 产品设计</div><div class="list-desc">面向 B 端创作者的内容生产工具，核心功能验证与快速迭代。</div><div class="list-tags"><span class="list-tag">0-1产品</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">交互动效系统 · Design Token 实践</div><div class="list-desc">制定动效规范，统一产品内 Motion 语言，提升交互一致性。</div><div class="list-tags"><span class="list-tag">动效</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">电商购物流程 · 竞品体验分析</div><div class="list-desc">对主流电商 App 核心路径进行拆解，提炼可复用的设计模式。</div><div class="list-tags"><span class="list-tag">分析</span><span class="list-tag">UX</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">格式塔与视觉层级 · 设计原则梳理</div><div class="list-desc">系统整理认知心理学与视觉设计的底层逻辑，输出可落地指引。</div><div class="list-tags"><span class="list-tag">设计理论</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">SaaS 数据看板 · 信息可视化设计</div><div class="list-desc">帮助运营团队实时监控核心指标，降低决策链路中的信息摩擦。</div><div class="list-tags"><span class="list-tag">0-1产品</span><span class="list-tag">UX</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">品牌官网 · 创意交互体验</div><div class="list-desc">结合 GSAP 与 CSS 动画，打造沉浸式品牌叙事页面。</div><div class="list-tags"><span class="list-tag">网站</span><span class="list-tag">动效</span></div></div></div>
-  <div class="list-card"><div class="list-thumb"></div><div class="list-info"><div class="list-title">用户增长漏斗 · 留存数据拆解</div><div class="list-desc">结合埋点数据与用户访谈，定位关键流失节点并提出改进方案。</div><div class="list-tags"><span class="list-tag">分析</span></div></div></div>
 </div>
 
 <!-- ===== PROJECT MODAL: Moonvy-style article layout ===== -->
@@ -1923,7 +2119,7 @@
           <!-- 概览 -->
           <div class="proj-section" id="proj-sec-header">
             <h1 class="proj-title">IP页滑动热区重定义 · 手势引导设计</h1>
-            <div class="proj-eyebrow">哔哩哔哩实战经验 · 2025-08</div>
+            <div class="proj-eyebrow">哔哩哔哩实战经验 · 2026-01</div>
             <div class="proj-oneliner">
               这个需求让我第一次意识到：没有问题的方案，可能才是最大的问题。
             </div>
@@ -2377,6 +2573,7 @@
   // ── 当前筛选状态 ──
   let _mainFilter = 'all';
   let _subFilter  = null;   // 矩阵格子子筛选
+  let _yearFilter = null;   // 年份筛选
 
   function applyFilters() {
     document.querySelectorAll('#galleryView .card').forEach(c => {
@@ -2384,14 +2581,24 @@
       const subtype = c.dataset.subtype || '';
       const hasSubtype = c.hasAttribute('data-subtype');
 
-      // 主类型筛选
       const passMain = _mainFilter === 'all' || types.includes(_mainFilter);
-
-      // 子类型筛选：无 data-subtype 的卡片（矩阵/看板）始终显示
       const passSub  = !_subFilter || !hasSubtype || subtype === _subFilter;
 
-      c.style.display = (passMain && passSub) ? '' : 'none';
+      // 年份筛选：没有 data-year 的卡片（矩阵等）始终显示
+      const cardYear = c.dataset.year || (hasSubtype ? '2026' : null);
+      const passYear = !_yearFilter || cardYear === null || cardYear === _yearFilter;
+
+      c.style.display = (passMain && passSub && passYear) ? '' : 'none';
     });
+  }
+
+  function setYear(el, year) {
+    _yearFilter = (year === 'all') ? null : year;
+    document.querySelectorAll('.filter-year').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    _subFilter = null;
+    document.querySelectorAll('.sb-cell.active').forEach(c => c.classList.remove('active'));
+    applyFilters();
   }
 
   function setFilter(el, type) {
@@ -2554,7 +2761,7 @@
     // Update total (base 33 + all extras)
     const totalDelta = Object.values(delta).reduce((a, b) => a + b, 0);
     const totalEl = document.getElementById('matrixTotal');
-    if (totalEl) totalEl.textContent = 33 + totalDelta;
+    if (totalEl) totalEl.textContent = 24 + totalDelta;
   }
 
   // ===== CREATE PROJECT =====
@@ -2914,157 +3121,409 @@
 
   // ===== BUILTIN PROJECT DATA =====
   const BUILTIN_PROJECTS = {
-    'closetnow': {
-      id: 'closetnow', type: 'project',
-      title: 'ClosetNow · 品牌识别系统设计',
-      eyebrow: '个人项目 · 2025-09',
-      oneliner: '一个品牌的气质，藏在 Logo 最小单元的取舍里。',
-      tags: ['品牌识别', '视觉系统'],
-      meta: { '需求类型': '品牌 / 0-1 创建', '项目周期': '3w', '结论': '交付品牌规范手册', '状态': '✅ 已交付' },
+    'manzhan-library': {
+      id: 'manzhan-library', type: 'bili',
+      title: '漫展圈资料库 · 0-1 社区内容产品设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-04',
+      oneliner: '从零搭建用户内容数据层，是比优化现有功能更难的产品决策。',
+      tags: ['社区产品', '0-1创新', '已上线'],
+      meta: { '需求类型': '创新 / 0-1 搭建', '项目周期': '4m（12月—4月）', '结论': '增长｜全量', '状态': '✅ 已上线', '洞察报告': '如何打造社区，转化用户流量' },
       sections: {
-        bg: '整理服务品牌 ClosetNow，面向都市年轻人提供上门收纳服务。创始人的核心诉求是传递两个感知：「专业可靠」和「轻盈有序」。接触点覆盖 App、小程序和服务员工服。\n\n品牌从零开始，没有任何视觉积累。从品牌名称到完整识别系统，需要在三周内全部建立。',
-        problems: '品牌需要同时服务两类用户——预约整理的 C 端用户（期待被照顾、被尊重的感受）和执行整理的整理师（需要专业感和归属感）。两类受众对视觉的期待并不完全一致，但品牌只有一套视觉语言。\n\n另一个难点是：「整理」品类在中国仍属新兴，品牌需要兼顾品类教育和品牌认知，不能太小众，也不能丢失个性。',
-        reason: '市面上同类品牌走两个极端：要么过于生活系（温暖但不专业），要么过于工具系（高效但冷漠）。ClosetNow 的差异化机会恰好在两者之间——有质感的专业感，有温度的秩序感。',
-        decision: '视觉核心选择「格子」作为最小设计单元——既呼应整理与分类的产品属性，格子的模块化特性也天然支持系统延伸。\n\n主色选择近白暖灰与沉稳深绿，避免了红橙系（过于消费化）和纯蓝系（过于科技感），在同类中具备识别差异。\n\n字体选用无衬线中英文组合，强调可读性与现代感，与整理品类「清晰有序」的价值高度匹配。',
-        retrospective: '如果重来，我会在视觉语言确定之前，先花更多时间做竞品情绪板对比，让客户真正"看到"方向差异，而不只是口头描述。视觉决策需要眼睛来做，文字说服的效率远不如图片。',
-        summary: '品牌设计最难的地方不是画 Logo，是在动笔之前先想清楚：这个品牌到底要让人感受到什么。一旦想清楚了，后面的每一个视觉决策都会变得有依据。',
+        bg: '模型圈是会员购漫展品类的核心内容社区，用户在其中发布涂装、改造、晒图等 UGC 内容。品类双边效应已经验证：用户既是内容供给方也是消费方，爆品持续带动社区活跃。\n\n但内容的积累模式停留在时间线刷新，发出后很快被淹没，没有可查询、可按 IP 索引的「资料库」入口。有爆品、有用户参与意愿，但缺少沉淀机制——这是这个项目的起点。',
+        problems: '资料库是一个「无数据基线」的创新项目：没有历史数据参考，用户行为模式未知，内容组织逻辑需要从零验证。\n\n更深的矛盾在于冷启动：资料库的核心价值是「积累」，但上线初期内容必然稀疏。如何在内容不足时仍然提供足够的价值留住用户并促进贡献，是整个项目最难的设计命题。\n\n需求在推进过程中经历多次确认和调整：承接页结构反复变动，卡片样式需要同步新版设计语言（圆角从 8px 调为 12px），库存不足状态需要强提示弹窗以避免用户支付时才收到报错。',
+        reason: '漫展品类用户有强烈的 IP 附属感——他们不只是在买东西，而是在参与某个 IP 的文化圈子。这类用户需要一个可以深度沉淀和交流 IP 知识的空间，而不只是时间线刷图。\n\n现有的发布器逻辑无法承接「沉淀型」内容需求：用户想找某个 IP 的涂装教程，只能靠搜索关键词碰运气，没有结构化的内容索引。资料库是为了补上这块空缺。',
+        decision: '核心设计决策：以 IP 为维度组织内容，而不是以时间线或用户维度。每个 IP 拥有独立的资料库空间，用户可以按主题浏览、贡献和索引内容。\n\n冷启动策略：初期由官方内容和高质量 UGC 种子填充，而不是等待用户自发生产。这样即使内容量少，资料库也能展示出「这里有值得收藏的内容」的价值感。\n\n设计规范对齐：卡片圆角统一升级为 12px，与会员购整体设计语言保持一致；增加库存不足强提示弹窗，避免链路断裂带来的用户损失。',
+        retrospective: '0-1 产品在初期可以暂时放过一些细节能力，这没有问题。但在后续 1-100 的过程中，一定要提前考虑同类功能的延展性——不能每次都「随便找个地方放个入口」。\n\n这次资料库的信息架构，在上线后已经成为圈子内容体系的底层框架。如果当时没有把 IP 维度想清楚，后续的内容分类扩展会非常痛苦。',
+        summary: '社区产品最难的地方不是功能设计，而是内容冷启动。要让一个空的容器变得有价值，需要提前想清楚：谁是第一批贡献者，他们为什么愿意贡献，以及空内容状态下用户感知到的价值是什么。',
+        metrics: [{ label: '上线结论', value: '全量' }, { label: '质量评级', value: '高｜核心' }],
+        resultText: '上线后反响良好，资料库成为漫展圈内容体系的核心入口，双边内容流转效率显著提升。'
+      }
+    },
+    'publisher-at': {
+      id: 'publisher-at', type: 'bili',
+      title: '社区发布器 · @用户能力基建设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-01',
+      oneliner: '基础建设不是「加功能」，是把一个不完整的产品补成应有的样子。',
+      tags: ['社区建设', '基础建设', '已上线'],
+      meta: { '需求类型': '基础建设 / 探索型', '项目周期': '2w', '上线时间': '2026-01-28', '结论': '基建｜优化', '状态': '✅ 已上线' },
+      sections: {
+        bg: '圈子社区发布器上线后，一直缺少一个市面上所有社区产品都已具备的基础能力：@用户。这不是用户强烈要求的功能，但它是完整发布器的必要组成部分——缺少它意味着用户在圈子内无法通过内容直接建立人际连接，社区互动的深度受到了天然限制。',
+        problems: '技术侧的挑战在于 @用户的识别与渲染：输入时需要实时搜索匹配用户，选择后在发布内容中以特殊样式高亮，点击后跳转对应主页。\n\n设计上的决策点包括：是否显示用户标签（认证标识）、@文本是否需要高亮背景色，以及重名用户如何精确识别。最终因主站技术力限制，标签逻辑被完全取消，以最简化方式上线。',
+        reason: '平台发布器不支持 @用户，本质上是一个「功能欠债」。用户和竞品对比时，会感受到这个产品不完整。这类基础建设欠债如果不主动还清，会持续影响用户对产品专业度的感知，也会让社区的互动密度天花板过低。',
+        decision: '交互方案选择自然语言触发方式：用户在输入框中键入「@」后自动弹出用户搜索面板，实时匹配关注列表和搜索结果，选择后将 @用户名嵌入文本。\n\n重名用户的精确识别问题通过搜索结果中展示头像 + UID 辅助区分，不采用额外标签，保持界面简洁。\n\n最终判断：标签的感知价值不足以抵消主站技术改动成本，以最小可用版本上线，后续视数据决定是否升级。',
+        retrospective: '产品的 0-1 阶段可以暂时放过一些细节能力，但每当新增同类功能时，都应该考虑整体延展性——不能每次都「随便找个地方放个按钮」。\n\n这次 @功能的交互决策框架（自然语言触发 + 实时搜索 + 最小化界面干扰），可以作为后续发布器其他互动能力（#话题标签、表情包等）的参考模板。',
+        summary: '基础建设类需求的价值不体现在数据指标上，而体现在「用户感知的完整度」上。一个发布器没有 @功能，不会让人立刻离开，但会让人觉得这个产品不够完整，进而降低长期使用意愿——这种损耗是隐性的，但是真实的。',
         metrics: [], resultText: ''
       }
     },
-    'portfolio-site': {
-      id: 'portfolio-site', type: 'project',
-      title: '个人作品集网站 · 设计到实现的全流程',
-      eyebrow: '个人项目 · 2026-05',
-      oneliner: '设计和写代码都不难，难的是把自己想清楚。',
-      tags: ['网站', 'UX', '前端'],
-      meta: { '需求类型': '0-1 个人项目', '项目周期': '持续迭代', '结论': '在线运行中', '状态': '🔄 持续更新' },
+    'search-middle': {
+      id: 'search-middle', type: 'bili',
+      title: 'T3 搜索中间页 · 商品曝光结构优化',
+      eyebrow: '哔哩哔哩实战经验 · 2026-04',
+      oneliner: '搜索中间页是转化链路上最容易被忽略、也最值得优化的一层。',
+      tags: ['交易体验', '营销方案', '待开发'],
+      meta: { '需求类型': '商业化 / 创新型', '项目周期': '1w（设计阶段）', '结论': '基建｜优化', '状态': '⏳ 待开发', '洞察报告': '交易生态中对转化率的优化行为' },
       sections: {
-        bg: '在决定做这个作品集之前，经历了一段纠结：用 Notion？用模板？还是从零写一个？\n\n最终选择从零写，不是为了证明什么，而是：一个产品设计师的作品集，如果连自己的体验都没仔细想过，解释力会大打折扣。',
-        problems: '作品集的核心矛盾是：内容越丰富越好，但注意力越稀缺。怎么在「展示足够多」和「不让人感到疲惫」之间找到平衡，是真正的设计挑战。\n\n技术选型上，为了最大化可控性和加载性能，选择纯 HTML / CSS / JS 实现，没有使用任何框架——所有动效和交互逻辑均手写。',
-        reason: '大多数设计师的作品集长得差不多：大图、描述、交付物截图。这种格式能传递「我做了什么」，但很难传递「我是怎么想的」。我想要的是一个能体现设计决策过程的作品集，而不只是结果展示台。',
-        decision: '架构上选择「需求分类矩阵」作为核心导航层——这不只是筛选方式，也是对自己工作方式的梳理和表达。\n\n英雄区用可变字体做字重压力交互，是一个刻意设计的"签名式"细节：来访者会注意到，然后想看下去。\n\n整体风格以内容为主，去掉所有装饰性元素，让文字和结构说话。',
-        retrospective: '如果重来，我会更早建立内容更新机制，而不是把作品集当成"发布即完成"的项目。持续迭代的作品集才能真正反映成长轨迹。',
-        summary: '这个网站是一个持续迭代的产品，每次更新都是一次自我整理。设计和写代码都不难，难的是把自己想清楚——知道自己是谁，想传递什么。',
+        bg: 'T3 首页流量通过搜索词进入搜索中间页，再流向具体商品或品类页面。当前搜索中间页展示结构较为单一，对「上新」「盲盒」「票务」等具有独立场景价值的商品类型缺乏针对性入口，导致流量利用效率偏低。\n\n需求的起点来自对「搜索词 → 中间页 → 商品页」路径数据的复盘：部分有明确购买意图的用户在中间页就流失，而不是进入商品详情页。这说明中间页的信息架构没有有效识别和引导这类用户。',
+        problems: '搜索中间页的核心矛盾是：它是一个意图模糊的节点——用户进来可能是在找特定商品，也可能只是在探索品类。这两类用户需要不同的信息架构，但中间页只有一个版本。\n\n要在不增加页面复杂度的前提下同时服务两类用户，设计上需要做很多取舍。另一个现实难点是：方案推进过程中与产品存在分歧，这类项目需要能快速产出多个方案供比较，而不是在「要不要做」这个问题上反复拉锯。',
+        reason: '当前结构无法有效引导用户进入高价值页面（如「上新频道页」「魔力赏」），豆腐块入口的点击路径不够直接，部分有强意图的用户在中间页就流失了。\n\n竞品分析佐证：淘票票、大麦均在搜索中间页首屏露出最低票价和专属频道入口，这是行业已验证的转化提升策略。',
+        decision: '设计策略：保持现有搜索结果列表的基础上，在页面头部增加高优先级商品类型的专属入口豆腐块，以「上新」「盲盒」两个流量卡点为优先。\n\n预期 ROI 估算：牺牲约 10% 的评论区曝光，换取约 5% 的下单转化提升。Trade-off 明确，决策有据可查。\n\n方案管理原则：所有方案版本必须留存记录。推进受阻时快速拿出多个方案并排呈现，把决策权交给产品，而不是在方向上消耗时间。',
+        retrospective: '这个需求让我意识到：凡是方案，必须留痕。与产品的讨论中，立场和诉求经常变化，如果没有版本记录，很容易陷入「你当时说的是这个」的无效争论。\n\n文档化不只是为了汇报，而是为了保护自己的决策过程——当方案被质疑时，能够清晰地展示推导路径，比重新讲一遍要有效得多。',
+        summary: '搜索中间页的价值远大于很多人的直觉判断。它是流量分发的第一个主动决策点：搜索词决定用户来，中间页决定用户去哪里。把这一层做好，对整体转化漏斗的影响远大于优化商品详情页的细节。',
         metrics: [], resultText: ''
       }
     },
-    'creator-tool': {
-      id: 'creator-tool', type: 'bili',
-      title: '内容创作工具 · 从 0 到 1 MVP 设计',
-      eyebrow: '哔哩哔哩实战经验 · 2025-11',
-      oneliner: '工具类产品最容易犯的错：把功能当成价值。',
-      tags: ['0-1产品', '创作者工具'],
-      meta: { '需求类型': '0-1 创建型', '项目周期': '2m', '结论': '完成核心功能验证', '状态': '✅ 已上线灰度' },
+    'manzhan-tab': {
+      id: 'manzhan-tab', type: 'bili',
+      title: '漫展圈展会项目 Tab · 用户个性化编辑',
+      eyebrow: '哔哩哔哩实战经验 · 2026-01',
+      oneliner: '把内容组织的决定权还给用户，是社区产品建立深度黏性的核心策略。',
+      tags: ['社区产品', '用户个性化', '已上线'],
+      meta: { '需求类型': '探索型 / 功能优化', '项目周期': '1m（1月—3月）', '上线时间': '2026-03-02', '结论': '增长｜全量', '状态': '✅ 已上线' },
       sections: {
-        bg: 'bilibili 创作者中台长期缺少面向中小 UP 主的轻量内容生产工具——现有创作中心功能繁杂，对刚起步的 UP 主来说学习成本过高。\n\n项目目标：在 2 个月内上线最小可用版本，覆盖内容策划→标题优化→发布三个核心节点，帮助创作者降低「第一条视频」的门槛。',
-        problems: 'MVP 的核心难点不是功能少，而是「少到哪里」的判断。团队内部对最小集合存在分歧：产品希望保留更多功能覆盖更多场景，研发希望缩减以控制排期，设计需要在两者之间找到用户真正需要的部分。\n\n另一个问题是：面向创作者的工具，难以通过常规用户测试验证——创作本身是需要反复磨合的过程，单次测试很难复现真实场景。',
-        reason: '中小创作者在内容生产上的核心瓶颈不是技术能力，而是「不知道从哪里开始」。原有流程把策划、拍摄、剪辑、发布全部混在一起，对新手来说找不到入口。',
-        decision: '把整个流程拆成三个独立「工作站」：策划站（结构化输出创作方向）、优化站（标题/封面 A/B 建议）、发布站（一键同步多平台）。\n\n每个工作站有明确的输入-输出定义，创作者可以在任意节点进入，不必从头走完整个流程。\n\nMVP 对标目标：让一个从未发过视频的 UP 主，在第一次使用时感受到「我知道下一步该做什么」。',
-        retrospective: '如果重来，我会在 MVP 立项时就约定好「验证成功的标准是什么」，而不是上线后再回头定义成功指标。目标模糊会导致迭代方向飘移，尤其在跨职能团队中更明显。',
-        summary: 'MVP 不是功能的最小集合，是价值的最小闭环。知道砍掉什么，比知道加什么更难，也更重要。',
+        bg: '漫展圈的展会详情页设有多个 Tab，用于分类展示展会项目信息（嘉宾、活动、商品等）。当前 Tab 顺序由系统固定，无法反映用户的真实关注优先级。\n\n对于重度漫展用户来说，他们每次进入展会页都有明确的查看目标——有人最关心嘉宾阵容，有人最想看周边商品——但必须手动滑到固定位置才能找到目标内容，造成不必要的操作成本，同时也降低了二次访问的动力。',
+        problems: '这是一个「无数据基线」的探索型需求：用户的 Tab 偏好分布事先未知，个性化逻辑的设计无法从历史数据中直接推导。\n\n技术上的难点在于：用户自定义排序的状态需要持久化到账户维度，而非本地缓存，确保跨设备和跨会话的体验一致性。\n\n弹框曝光率的数据由于埋点缺失无法精确收集，只有 UV 和复访率两个核心指标可用于效果评估。',
+        reason: '漫展用户对特定 IP 和活动有高度个性化的关注点。复访率低的核心原因之一，是「再次进来也看不到我想看的东西」——个性化 Tab 编辑能够让用户每次回来都能直达自己最关注的内容，建立「这个页面是为我定制的」心智。',
+        decision: '核心交互方案：在 Tab 栏尾部增加编辑入口，用户可以自由调整 Tab 顺序和可见性，设置保存至账户。\n\n初始状态：系统根据当前展会内容的丰富度，默认展示最有价值的 Tab；用户编辑后覆盖默认排序，再次进入时保持上次设置。\n\n冷启动策略：引导首次访问用户尝试编辑，通过新手引导提示降低功能发现门槛。',
+        retrospective: '功能上线后，T3 入口 UV 从 980 提升至 1078，复访率由 0.44% 升至 0.49%，验证了个性化策略的有效性。\n\n数据缺失（弹框曝光率未埋点）导致无法完整评估功能曝光效率，这是需要在下一期迭代中补上的测量短板——好的功能需要好的度量才能持续优化。',
+        summary: '用户个性化不只是「让用户更方便」，它是建立社区用户深度黏性的核心机制。当用户花时间设置了「自己的版本」，他们与产品之间就形成了一种轻微的所有权感——这种感觉是推动复访的真实动力。',
+        metrics: [{ label: 'T3入口UV', value: '1078 vs 980' }, { label: '复访率提升', value: '0.44%→0.49%' }],
+        resultText: '上线后 T3 入口访问 UV 提升约 10%，复访率从 0.44% 提升至 0.49%，数据验证个性化编辑有效提升用户回访动力。'
+      }
+    },
+    'surprise-delivery': {
+      id: 'surprise-delivery', type: 'bili',
+      title: '惊喜赏 · 订单增加发货时间展示',
+      eyebrow: '哔哩哔哩实战经验 · 2026-02',
+      oneliner: '让用户知道「什么时候发货」，是降低售后焦虑最直接的交互方案。',
+      tags: ['交易体验', '订单功能', 'Hold'],
+      meta: { '需求类型': '基建优化 / 功能补齐', '项目周期': '交互完成：2026-02-13', '结论': '基建｜优化', '状态': '⏸ Hold', '洞察报告': '如何打造一个好的线上商城' },
+      sections: {
+        bg: '惊喜赏（盲盒类商品）的购买流程中，用户在下单后对「发货时间」有强烈的关注需求——盲盒商品通常有较长的预售期或分批发货机制，用户不知道自己的订单什么时候会发货，容易产生焦虑和客服咨询。\n\n当前订单页只展示订单状态（待发货/已发货/已签收），缺少具体的发货时间节点信息，用户无法形成明确的等待预期。',
+        problems: '信息展示的平衡问题：发货时间可能因库存、预售规则等因素发生变化，展示固定时间可能引发用户预期落差；展示时间区间则可能因信息过多导致界面复杂度上升。\n\n技术依赖：需要后端透传实时的发货时间字段，并处理「时间未确定」等边界状态的展示逻辑。\n\n项目因资源排期问题进入 Hold 状态，设计方案已完成但未进入开发阶段。',
+        reason: '订单功能的完整度直接影响用户对平台的信任感。对于盲盒类商品，用户需要知道「我的东西什么时候发」——这不是额外需求，而是订单信息应该提供的基础内容。缺少这个信息，会导致用户反复查看订单页、产生不必要的客服咨询，增加平台运营成本。',
+        decision: '设计方案：在订单卡片的状态区域增加发货时间节点，以「预计 XX月XX日 发货」的形式展示；时间未确定时显示「发货时间待确认」，给用户一个明确的信息状态而非空白。\n\n边界处理：库存不足时增加强提示弹窗，避免用户支付时才收到报错信息，提前在链路断点给出明确反馈。',
+        retrospective: '交互稿完成后项目因开发资源限制进入 Hold，这是平台型产品常见的项目命运。\n\n复盘：对于基建类需求，设计方案的价值不仅在于是否落地，还在于「当资源到位时可以快速启动」——方案文档化和交互稿的完整度，决定了项目重启的速度。',
+        summary: '订单信息的完整度是交易平台基础体验的组成部分。用户购买后的焦虑感，很大程度来自信息不对称——他们不知道接下来会发生什么。提供清晰的发货时间预期，是降低售后摩擦最低成本的设计手段。',
         metrics: [], resultText: ''
       }
     },
-    'motion-token': {
-      id: 'motion-token', type: 'bili',
-      title: '交互动效系统 · bilibili Motion Design Token',
-      eyebrow: '哔哩哔哩实战经验 · 2026-05',
-      oneliner: '动效不是装饰，是产品行为语言的一部分。',
-      tags: ['动效', '设计系统', 'Design Token'],
-      meta: { '需求类型': '工程效率 / 探索型', '项目周期': '6w', '结论': '推广至 3 个业务线', '状态': '✅ 已落地' },
+    't3-img-consistency': {
+      id: 't3-img-consistency', type: 'bili',
+      title: 'T3 · 用户图片一致性规范设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-02',
+      oneliner: '视觉一致性不是设计细节，是用户对平台「专业感」建立的基础。',
+      tags: ['交易体验', '视觉一致性', 'Hold'],
+      meta: { '需求类型': '基建优化 / 规范建设', '项目周期': '交互完成：2026-02-13', '结论': '基建｜优化', '状态': '⏸ Hold', '洞察报告': '如何打造一个好的线上商城' },
       sections: {
-        bg: 'bilibili 各业务线的动效长期缺乏一致性——同一种操作（如列表加载、页面切换）在不同 App 模块里呈现出完全不同的参数，既增加用户认知成本，也让研发每次都需要重新定义。\n\n项目来源于一次跨业务设计评审，有人提出：「我们的动效像是十个人各自在工作，而不是一个产品。」',
-        problems: '动效规范的难点不在于制定，而在于落地。以往的规范文档停留在 Figma 里，研发很少参考：一是动效参数的描述方式对研发不友好，二是没有直接可用的代码对应。\n\nDesign Token 的引入也有阻力：需要协调设计系统、各业务线设计师、研发平台三方对齐，任何一方不配合都会让 Token 体系沦为形式。',
-        reason: '核心问题是：设计语言和工程实现之间缺少"翻译层"。设计师在 Figma 里定义了 ease-in-out 300ms，但研发不知道这对应什么场景、是否可以复用、边界情况怎么处理。',
-        decision: '从最高频的 3 类动效开始（进场、退场、状态变化），提取参数规律，用 Token 命名系统固化（如 `motion-enter-standard`、`motion-exit-quick`）。\n\n同时输出配套研发组件库，直接封装动效参数，研发调用时只需引用 Token 名称，无需手动输入数值。\n\n验证方式：找 2 个业务线研发工程师试用，记录理解成本和调用误差率，两轮迭代后落地。',
-        retrospective: '如果重来，我会在规范制定阶段就把研发工程师拉进来参与定义，而不是设计完成后再"翻译"给研发。规范的消费者参与制定，落地阻力会小很多。',
-        summary: '规范能不能落地，取决于它对研发来说是不是比「自己写」更省事。设计规范的价值，最终要在协作效率上体现，而不只是在文档里。',
+        bg: 'T3 会员购平台中，用户上传的图片在不同场景（商品详情页、Feeds 流卡片、搜索结果页、圈子帖子）下呈现不一致的裁切比例、尺寸规格和排版逻辑，导致视觉观感割裂。\n\n这个问题随着平台功能扩展逐渐积累——每个新功能在上线时都选择了当时「最方便」的图片规格，而没有系统性地考虑整体一致性，最终形成了多套互不统一的图片展示逻辑。',
+        problems: '规范类需求的核心难点不在于设计，而在于对齐：需要梳理现有所有图片使用场景，找出不一致的根源，再提出统一规范并推动各功能模块同步更新。\n\n技术成本较高：图片裁切比例的统一意味着部分已有内容需要重新处理，而存量内容的迁移成本是项目 Hold 的核心原因之一。',
+        reason: '用户对平台视觉质量的感知，往往来自于「整体感」——当图片在不同场景下以不同比例、不同清晰度出现，用户会隐约感到「这个平台不够精致」，即使他们说不出具体原因。\n\n一致性规范建设属于设计基建，其价值不在于单次改动带来的提升，而在于为后续所有图片相关功能建立一个可以复用的规范基础。',
+        decision: '设计策略：先做现状摸底，梳理所有图片出现场景及当前规格；再按场景优先级分批建立统一规范——首批覆盖高频场景（商品卡、Feeds 卡），后续逐步扩展。\n\n规范文档化：输出可复用的图片规格指引，供后续功能研发时直接引用，避免新功能再次引入不一致。',
+        retrospective: '这类基建类项目的常见命运是「优先级永远不够高」——它的价值是积累性的，很难在短期内产出可量化的数据指标。\n\n推动基建项目需要先建立问题共识：用具体的视觉对比案例让产品和开发看到问题的真实影响，比直接提需求要有效得多。',
+        summary: '设计规范的建立不是为了约束，而是为了让每个人都能做出「默认正确」的决策。当规范缺失时，每次新功能上线都需要重新讨论图片应该怎么展示——这些讨论成本的总和，远超建立一次规范的成本。',
         metrics: [], resultText: ''
       }
     },
-    'ecomm-analysis': {
-      id: 'ecomm-analysis', type: 'thinking',
-      title: '电商购物流程 · 主流平台核心路径拆解',
-      eyebrow: '设计思考 · 2025-06',
-      oneliner: '分析竞品不是为了抄，而是为了搞清楚「为什么它这样做」。',
-      tags: ['分析', '竞品研究', 'UX'],
-      meta: { '需求类型': '研究 / 方法论', '项目周期': '1w', '结论': '提炼 6 个可复用设计模式', '状态': '📄 研究报告' },
+    't3-category': {
+      id: 't3-category', type: 'bili',
+      title: 'T3 首页品类 · 导航结构更新设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-03',
+      oneliner: '品类导航是用户进入平台后的第一个决策节点，它的混乱直接造成流量浪费。',
+      tags: ['信息架构', '导购效率', '待开发'],
+      meta: { '需求类型': '探索型 / 结构重组', '项目周期': '交互完成：2026-03-16', '结论': '增长｜全量', '状态': '⏳ 待开发', '洞察报告': '交易生态中对转化率的优化行为' },
       sections: {
-        bg: '在接手一个电商类需求之前，系统做了一次竞品体验拆解，对象包括淘宝、京东、拼多多、得物和小红书。\n\n选择这五个平台，是因为它们代表了五种完全不同的核心逻辑：搜索型、价格型、社交裂变型、文化消费型、内容种草型。购物流程虽然相似，但背后的决策逻辑截然不同。',
-        problems: '竞品分析最容易陷入「截图式分析」——只记录界面长什么样，而不追问「为什么这样设计」。\n\n这次分析的挑战在于：不同平台的核心用户群体、商业模型和消费动机差异很大，不能简单地用同一套标准去评价谁好谁坏，需要先理解各自的设计前提。',
-        reason: '想回答的核心问题是：在同样的「商品详情页→加购→结算」路径上，不同平台做了哪些关键取舍？这些取舍背后的逻辑是什么？',
-        decision: '分析框架选择「路径节点 × 决策成本」二维视角：横轴是用户在购买路径上的每个节点，纵轴是用户在该节点的认知负荷、操作步骤和信息密度。\n\n最终提炼出 6 个跨平台可复用模式，包括：「社会证明前置」「价格锚点设置」「结算流程压缩」等。这些模式在后续设计中直接作为决策参考。',
-        retrospective: '如果重来，我会在竞品分析结束后，增加一个「设计前提拆解」环节，明确说明每个平台的设计决策背后是什么商业逻辑在驱动，这样输出的结论会更有说服力，也更能指导后续设计方向。',
-        summary: '好的竞品分析，结论应该是一套设计语言，而不是一份功能对比表。分析竞品不是为了抄，而是为了搞清楚「为什么它这样做」。',
+        bg: 'T3 会员购首页的品类导航结构已经沿用较长时间，在业务快速扩展（票务、惊喜赏、模型、漫展等）后，品类划分逻辑已经无法清晰反映平台实际的内容构成。\n\n用户在进入首页后，面对的是一个混乱的品类入口——不同性质的商品（功能性品类 vs 活动性品类 vs IP 品类）被放在同一层级，导致用户需要花费额外的认知成本才能找到感兴趣的品类。',
+        problems: '品类重组涉及多个业务方的利益博弈：每个品类都有对应的运营团队，他们对自己品类的位置和曝光量有强烈的诉求。设计方案需要在满足业务诉求的同时，保持对用户侧的清晰度。\n\n技术实现上，品类结构的调整会影响搜索结果页、频道页的承接逻辑，需要多端同步更新，工程成本较高，这是项目当前处于「待开发」状态的主要原因。',
+        reason: '用户在品类导航上花费的认知成本，是无声的转化损失——他们不知道「盲盒」和「魔力赏」是不是同一类东西，不知道票务应该在哪里找，最终放弃探索、直接搜索或离开。\n\n竞品分析（抖音商城、小红书）已经在品类导航上建立了清晰的层级逻辑：一级品类是用户心智中已有的大类，二级品类才做精细化分，T3 需要向这个方向靠齐。',
+        decision: '设计策略：压缩首页头部操作区高度（对比竞品做像素级分析，保证下方 Feeds 流足够的首屏曝光），在品类区域重新梳理一级二级品类结构。\n\n核心原则：一级品类以用户已有心智为准，不引入需要学习的新分类；二级品类才做 IP 级、活动级的精细化区分。\n\n页面结构：入口豆腐块点击后承接到对应品类的频道页，频道页内再展示更细化的分类筛选，保持层级清晰、承接顺畅。',
+        retrospective: '这个需求让我深刻意识到：信息架构调整是设计工作中影响面最广、推进成本最高的一类。它牵扯的不只是界面设计，更是整个业务对「产品是什么」的重新定义。\n\n推进这类需求时，最有效的武器是竞品对比数据——不是说「我们的品类结构不够清晰」，而是展示「竞品的用户平均找到目标品类需要 X 次点击，我们需要 Y 次」。',
+        summary: '品类导航是电商首页的信息骨架，它决定了用户对「这个平台卖什么」的第一判断。骨架混乱，再好的商品也难以被发现。品类重组是一项底层投资，短期数据未必亮眼，但长期是用户效率和平台 GMV 的基础保障。',
         metrics: [], resultText: ''
       }
     },
-    'gestalt': {
-      id: 'gestalt', type: 'thinking',
-      title: '格式塔与视觉层级 · 设计认知底层逻辑',
-      eyebrow: '设计思考 · 2025-12',
-      oneliner: '我们以为用户在「看」界面，其实他们在「感知」界面。',
-      tags: ['设计理论', '认知心理学', '视觉层级'],
-      meta: { '需求类型': '方法论 / 知识沉淀', '项目周期': '持续积累', '结论': '输出系统性设计指引', '状态': '📄 持续更新' },
+    'ticket-feeds': {
+      id: 'ticket-feeds', type: 'bili',
+      title: '票务商品卡 · 进 Feeds 曝光设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-03',
+      oneliner: '好的商品缺少曝光渠道时，设计的任务是找到最自然的流量入口。',
+      tags: ['票务', '商品曝光', '待验收'],
+      meta: { '需求类型': '商业化 / 业务增长', '项目周期': '2026-03-26 → 04-07', '结论': '增长｜全量', '状态': '🔍 待验收', '质量': '高｜核心', '洞察报告': '交易生态中对转化率的优化行为' },
       sections: {
-        bg: '这篇整理的起因，是一次设计评审中的争论：一位同事认为某个按钮应该放左边，另一位认为放右边更合理。两人讲了很多直觉，但都没有说服对方。\n\n我意识到我们缺少一套共同的「视觉认知语言」来描述和判断设计决策。于是系统整理了格式塔理论在 UI 设计中的实际应用，以及视觉层级建立的底层逻辑。',
-        problems: '设计理论在工作中的主要问题是「懂但用不上」——知道接近性原则，但落到具体决策时仍然靠直觉。\n\n整理的难点在于：如何把抽象的认知心理学原理，转化为在设计评审中可以直接使用的判断标准。',
-        reason: '视觉设计的大多数争议，本质上是「用户看到这里时，他的视线会去哪里」这个问题的不同判断。没有共同的认知框架，这类讨论很难有效推进。',
-        decision: '整理框架分三层：感知层（能不能看到）→ 理解层（能不能看懂）→ 判断层（能不能做决定）。\n\n每一层对应不同的设计工具：感知层 → 格式塔原则（接近性、相似性、连续性）；理解层 → 信息层级（对比、重复、对齐、亲密性）；判断层 → 行动引导（视觉重心、焦点设计、CTA 设计）。',
-        retrospective: '如果重来，我会在文章结构上增加更多实际案例的对照——纯理论的梳理对有经验的设计师有价值，但配合具体的设计决策案例，会让原则更有说服力和可操作性。',
-        summary: '设计原则不是规则，是描述「为什么用户会有这个感受」的工具。理解了原则背后的心理机制，才能在新场景中灵活运用，而不是死套公式。',
+        bg: '票务类商品（演唱会、漫展、展览等）在 bilibili 会员购平台上具有独特的社区文化属性——用户不只是在买票，而是在参与一种圈子活动。票务商品与用户兴趣圈层高度匹配，理论上有很强的 Feeds 流分发潜力。\n\n然而，当前票务商品只在专属的票务频道页和搜索结果中出现，缺少在 T3 首页 Feeds 流中的曝光渠道，导致大量潜在的票务兴趣用户在浏览 Feeds 时无法接触到票务商品，形成明显的流量价值浪费。',
+        problems: '票务商品卡在 Feeds 流中的信息层级设计存在较大挑战：票务商品的核心信息（IP、日期、城市、最低票价）与普通商品卡（封面图、商品名、价格、好评率）的信息架构完全不同，需要设计一套能在 Feeds 流中高效传递票务信息的专属卡片。\n\n如何在保证信息密度的同时维持 Feeds 流整体的视觉一致性，是这次设计的核心取舍点。',
+        reason: '票务对于会员购整体 GMV 的贡献价值高于普通商品，但流量渠道过于单一，大量有潜在购买意愿的用户无法被有效触达。\n\n竞品（大麦、淘票票）已经开始在平台的 Feeds 流中展示票务信息，验证了这个方向的可行性。bilibili 的优势在于社区生态——用户和 IP 之间已经有情感连接，票务商品在 Feeds 中的自然触达效率应该高于纯交易平台。',
+        decision: '经过多轮方案比较，最终选定的卡片形式：IP 主视觉 + 2 个角色形象 × 商品信息 + 上新商品数量标注 + 场景图背景。\n\n这个方案的逻辑：IP 是用户在 Feeds 中停下来的理由；角色形象和商品数量传达「这里有多个可以买的东西」的价值感；场景图提供氛围感，让卡片和 Feeds 流的内容调性融合。\n\n设计推荐这个方案的核心依据：可以同时增加 GMV 流量、IP 匹配效率，且视觉融合度最高，不会让 Feeds 流显得像「插入了广告」。',
+        retrospective: '这个项目书出了很多方案，最终被产品接受的方案并不是我最初推荐的第一选择。每次方案评审都是对「用户视角」和「业务视角」的重新校准。\n\n复盘：卡片设计的取舍不只是美学判断，更是数据假设的物化——每个设计元素都应该对应一个可验证的效果假设。方案比较时如果能先对齐假设，再讨论方案，会比直接讨论「哪个好看」更高效。',
+        summary: '流量分配是平台战略的体现。把什么样的商品放在什么样的位置，决定了平台在用户心中是「什么类型的地方」。票务进 Feeds 不只是增加了一种商品曝光方式，更是在强化 bilibili 会员购「文化消费」的平台定位。',
+        metrics: [{ label: '质量评级', value: '高｜核心' }, { label: '结论', value: '增长｜全量' }],
+        resultText: '方案设计完成，进入待验收阶段，最终选定 IP+角色×商品+上新数量+场景图的卡片形式，设计推荐方案被产品采纳。'
+      }
+    },
+    't3-search-expand': {
+      id: 't3-search-expand', type: 'bili',
+      title: 'T3 首页搜索 · 搜索场域拓宽设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-03',
+      oneliner: '搜索渗透率是电商平台导购效率的核心指标，场域大小直接影响用户的搜索意愿。',
+      tags: ['搜索体验', '转化优化', '待验收'],
+      meta: { '需求类型': '基建优化 / 体验提升', '项目周期': '2026-03-24 → 03-25', '上线时间': '2026-04-20', '验收时间': '2026-04-17', '结论': '基建｜优化', '状态': '🔍 待验收' },
+      sections: {
+        bg: 'T3 会员购首页的搜索栏在视觉上偏小、交互热区不够大，用户在浏览首页时不容易感知到搜索功能的存在，导致搜索渗透率偏低。\n\n搜索是电商平台中意图最明确的用户行为——搜索用户的购买转化率通常显著高于浏览用户。提升搜索渗透率，相当于把更多有购买意图的用户引导到高效率的转化路径。',
+        problems: '搜索栏的视觉扩张受到首页整体布局的约束：头部操作区空间有限，扩大搜索栏可能压缩品类导航或 Banner 的曝光空间，需要在不同模块之间做 ROI 取舍。\n\n搜索框的扩大还需要配合底纹词策略的优化——视觉上更大的搜索框，如果底纹词的内容质量不高，反而可能降低点击率，需要配套的内容运营支持。',
+        reason: '对标竞品（抖音商城、小红书）的搜索栏设计，它们普遍采用全宽度搜索栏 + 高对比度视觉处理，在首屏就给用户建立明确的「这里可以搜索想要的东西」的引导。\n\n当前搜索栏的视觉权重不够，用户在浏览态下容易忽略搜索入口，直到有明确搜索意图时才想到去找搜索框——这个「想到」的延迟，就是流失的转化机会。',
+        decision: '设计方向：适当拓宽搜索栏的视觉占比，提高搜索入口在首屏的感知优先级，同时缩小头部操作区整体高度，保证下方 Feeds 流的首屏曝光面积不受影响。\n\n底纹词联动：拓宽后的搜索栏可以展示更多的底纹词内容，配合运营提供的高质量搜索词，形成更强的搜索引导。',
+        retrospective: '这个需求的设计周期极短（1天完成交互稿），体现了「小需求快迭代」的工作模式的价值——有些功能不需要深度方案，快速对齐、快速交付、快速验证。\n\n但快速交付并不意味着可以跳过设计依据的记录：哪怕是一个小改动，也需要记录「为什么这样改」，方便后续数据复盘时有据可查。',
+        summary: '搜索场域的大小，决定了用户是否愿意「想到搜索时就立即搜索」。这是一个看起来微小但影响深远的体验细节——它决定了多少有购买意图的用户能够走上高效率的转化路径，而不是继续低效地刷 Feeds。',
         metrics: [], resultText: ''
       }
     },
-    'data-dashboard': {
-      id: 'data-dashboard', type: 'bili',
-      title: '运营数据看板 · 信息可视化与决策效率',
-      eyebrow: '哔哩哔哩实战经验 · 2025-10',
-      oneliner: '数据可视化最大的敌人，是把所有数据都放上去。',
-      tags: ['数据可视化', '内部工具', '信息架构'],
-      meta: { '需求类型': '业务增长 / 优化型', '项目周期': '3w', '结论': '决策链路缩短 40%', '状态': '✅ 已上线使用' },
+    'demo-marketplace': {
+      id: 'demo-marketplace', type: 'bili',
+      title: '市集 · T3 内 C2C 触点方案 Demo',
+      eyebrow: '哔哩哔哩实战经验 · 2026-03',
+      oneliner: '验证一个新的交易模式，先做 Demo 再推产品，是降低战略试错成本的正确路径。',
+      tags: ['C2C 探索', '触点方案', 'Demo上线'],
+      meta: { '需求类型': '创新探索 / 战略实验', '项目周期': '2026-02-11 → 03-17', '结论': '沉淀｜Demo', '状态': '✅ 已上线（Demo）', '洞察报告': 'C2C交易功能' },
       sections: {
-        bg: 'bilibili 运营团队每天需要追踪数十个内容模块的核心指标，但当时的数据系统是一个所有指标并列罗列的表格，没有重点，没有趋势，看完一遍之后仍然不知道今天最需要关注什么。\n\n需求来自运营负责人的一句话：「现在每天看数据要花一个小时，但我想要的答案只有三个。」',
-        problems: '数据看板设计最难的不是视觉美化，而是「选什么、不选什么」。运营团队提供了 50+ 个他们认为重要的指标，但如果全部展示，看板就会失去意义。\n\n另一个难点是：不同角色（运营、内容、商业化）对「重要」的定义不同。看板需要同时服务三类用户，但三者的关注焦点几乎不重叠。',
-        reason: '原有数据系统是「数据库视角」——把所有数据给你，由你自己找答案。运营团队实际需要的是「决策视角」——告诉我今天有什么异常、需要我做什么判断。',
-        decision: '核心设计决策：将看板分为「今日快照」和「趋势追踪」两个层次。快照层只展示 5 个当日最关键指标，并用颜色标注是否异常；趋势层支持下钻到 30 天维度的详细数据。\n\n角色差异化通过视图切换解决，不同角色进入后默认看到各自关注的指标集合，避免「一个看板服务所有人」的信息过载。',
-        retrospective: '如果重来，我会在设计评审之前先做一轮「决策模拟」——把看板给目标用户看，问他们「看完之后你打算做什么决策」，这比问「信息够不够清晰」更能发现真正的设计问题。',
-        summary: '数据看板的价值不在于信息量，而在于「看完之后你知道该做什么」。帮用户减少认知负担，才是信息可视化的核心目标。',
-        metrics: [{ label: '决策链路缩短', value: '40%' }, { label: '日均使用时长', value: '−34min' }],
-        resultText: '上线后运营团队从每日 1 小时数据梳理缩短至约 26 分钟，关键异常的发现时效从次日提前到实时。'
-      }
-    },
-    'brand-site': {
-      id: 'brand-site', type: 'project',
-      title: '品牌官网 · 沉浸式叙事交互体验',
-      eyebrow: '个人项目 · 2026-01',
-      oneliner: '当页面本身就是产品体验时，滚动的每一帧都是设计决策。',
-      tags: ['网站', '动效', 'GSAP'],
-      meta: { '需求类型': '0-1 创建', '项目周期': '2w', '结论': '交付上线运行', '状态': '✅ 已上线' },
-      sections: {
-        bg: '一个朋友的创意工作室需要一个官网，核心需求是：「不要像普通公司官网，要让人一进来就感受到我们的风格。」\n\n工作室定位艺术装置与空间体验设计，客户群体是策展方和品牌方。他们需要的官网不是展示作品清单，而是本身就能传递创作气质的体验。',
-        problems: '创意类官网的难点是在「酷」和「可用」之间找平衡。太克制，就和普通公司网站没有区别；太激进，访客可能看不懂在干什么，甚至找不到联系方式。\n\n技术上的挑战：大量动效在移动端的性能问题。GSAP 动画在桌面端流畅，但在低端安卓机上会出现掉帧，需要针对设备能力做降级处理。',
-        reason: '工作室的核心资产是「叙事能力」——擅长创造沉浸式空间体验。官网应该是这个能力的数字延伸，而不是一本作品集翻页。',
-        decision: '选择基于滚动进度的动态叙事方式：页面不是静止的，而是随着用户滚动「生长」出来。文字、图形和颜色的变化跟随滚动位置触发，形成一种「被带入」的感受。\n\nGSAP + CSS 变量实现主要动效；性能降级策略：检测到低性能设备时，自动切换为简单淡入代替复杂动画，保证核心内容可读。',
-        retrospective: '如果重来，我会在动效设计阶段加入更严格的性能预算——创意官网的动效往往是加载性能的最大隐患，在视觉体验和加载速度之间找到平衡，需要更早纳入设计决策。',
-        summary: '最好的创意官网，是让访客在离开之前忘记了自己在「看」官网。技术和设计应该服务于故事，而不是让故事服务于技术展示。',
+        bg: 'bilibili 会员购平台以 B2C 交易为主（商家向消费者）。然而，在二次元、潮玩等圈子文化强烈的品类中，用户与用户之间存在大量的商品流转需求——已购的手办、多余的展会周边、闲置的模型等，这些 C2C 需求目前只能通过站外渠道（闲鱼等）满足。\n\n这个项目的核心命题是：如果在 T3 会员购的主场景内植入 C2C 触点，用户会接受吗？他们愿意在这里进行二手交易吗？',
+        problems: '最核心的设计挑战是「自然融入」：C2C 商品卡如果设计得和 B2C 商品太相似，用户会对产品质量产生混淆；如果差异化太明显，又会破坏 Feeds 流的视觉一致性，甚至让用户感到突兀。\n\n另一个挑战是信任问题：C2C 交易的用户信任成本远高于 B2C——用户需要知道卖家是谁、有没有交易记录、商品的真实状态如何。如何在最小化界面干扰的前提下传递足够的信任信号，是卡片设计的核心难点。',
+        reason: '圈子文化驱动的二手流转是 bilibili 用户的真实需求，而且这部分需求目前完全流向了站外——这既是流量流失，也是商业化的空白地带。\n\n以 Demo 形式先验证的逻辑：C2C 功能的研发成本很高，如果直接开发完整产品后用户不接受，投入将大量浪费。先以 Demo 测试用户反应，获取真实的行为数据，再决定是否投入正式研发——这是低风险验证的标准路径。',
+        decision: '触点植入策略：在特定圈子（如模型圈、漫展圈）的 Feeds 流中，以独特卡片样式植入 C2C 市集商品，样式上与 B2C 商品明显区分（标注"二手"或"市集"标识），但保持视觉融合度。\n\n信任信号设计：卡片展示卖家的圈子身份（如发帖数、关注者数）作为轻量级信任背书，不引入复杂的信用评分系统，保持 Demo 的简洁性。',
+        retrospective: '这个项目以 Demo 形式上线，是我参与过的为数不多的「战略实验型」需求。它的价值不在于功能本身，而在于验证一个业务方向是否可行。\n\n这类项目的设计重点和普通产品需求完全不同：不需要把每个细节做到最好，而是要让最关键的假设（用户愿意在 T3 内进行 C2C 交易吗）得到验证。设计决策应该服务于验证目标，而不是追求设计完整性。',
+        summary: '产品探索的正确姿势是：先用最小的代价验证最关键的假设，再决定是否加大投入。Demo 不是「简陋的正式产品」，而是「专门设计用来验证假设的工具」——它的成功标准和正式产品完全不同。',
         metrics: [], resultText: ''
       }
     },
-    'retention-funnel': {
-      id: 'retention-funnel', type: 'thinking',
-      title: '用户增长漏斗 · 留存流失节点定位',
-      eyebrow: '设计思考 · 2026-03',
-      oneliner: '数据告诉你「哪里出了问题」，用户访谈告诉你「为什么」。',
-      tags: ['增长分析', '用户研究', '留存'],
-      meta: { '需求类型': '研究 / 增长分析', '项目周期': '2w', '结论': '定位 3 个关键流失节点', '状态': '📄 已输出改进方向' },
+    'pc-account-ad': {
+      id: 'pc-account-ad', type: 'bili',
+      title: 'PC 端账户中心 · 广告账户模块设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-04',
+      oneliner: 'B 端需求的复杂性往往来自信息而非交互，先理清业务逻辑再动手设计。',
+      tags: ['PC 端', 'B 端功能', 'Hold'],
+      meta: { '需求类型': '功能新增 / B 端改造', '项目周期': '2026-04-20 → 04-22', '结论': '基建｜优化', '状态': '⏸ Hold', '洞察报告': '打造B端优秀的商家管理工具' },
       sections: {
-        bg: '某功能模块的次日留存率显著低于预期，但现有埋点数据只能显示用户在哪里离开，无法解释为什么。\n\n这次分析的目标：结合漏斗数据和用户访谈，定位关键流失节点，并给出有改进方向的结论，而不只是描述现象。',
-        problems: '数据分析和用户访谈是两条平行的工作线，经常得出看似矛盾的结论：数据显示用户在 A 步骤流失最多，但访谈用户对 A 步骤几乎没有记忆，反而提到 B 步骤让他们感到困惑。\n\n如何让定量数据和定性洞察互相验证、而不是互相干扰，是这次研究最核心的方法论挑战。',
-        reason: '留存问题的根本原因往往不在流失点本身，而在更早的体验节点——用户在某处积累了不满意感，只是在后面某个时间点才选择离开。线性的漏斗视角容易误判原因。',
-        decision: '研究框架：先用漏斗数据确定「哪些步骤流失率异常」，再通过用户访谈补充「流失时用户在想什么」，最后交叉验证得出归因。\n\n最终定位到 3 个关键节点：① 首次权限申请时机过早（用户还没感受到价值就被要求授权）；② 核心功能入口层级过深（新用户需要 4 步才能触达）；③ 首次成功体验时间过长（从注册到第一次完整使用平均需要 11 分钟）。',
-        retrospective: '如果重来，我会在漏斗分析阶段更早引入用户访谈，定量数据告诉你「哪里出了问题」，但定性研究才能告诉你「为什么」。两者结合，方案的方向感会更准。',
-        summary: '流失分析最有价值的输出，不是「在哪里流失」，而是「用户在那一刻在想什么」。数据只是线索，理解用户心理才是解法。',
+        bg: '会员购平台的商家（B 端用户）在 PC 端账户中心需要管理广告投放账户，包括广告账户的权限分配、消耗查看、账户关联等操作。\n\n当前账户中心没有广告账户相关的管理入口，商家需要通过其他路径进入广告后台，账户管理体验割裂，不符合 PC 端账户中心作为商家运营「中控台」的定位。',
+        problems: '这是一个典型的 B 端功能需求，其复杂性来自信息层面而非交互层面：广告账户的权限层级、账户类型、关联关系等业务逻辑需要先理清，才能确定界面应该展示什么内容。\n\n设计过程中发现，产品对这个需求的业务逻辑本身也存在模糊地带——在没有充分梳理底层业务逻辑之前，讨论界面设计是无效的。这导致了大量时间被消耗在「设计是否正确」的反复确认上，而不是在实质性的设计推进上。',
+        reason: 'PC 端账户中心应该是商家所有账户相关操作的聚合入口。广告账户是商家运营中的重要工具，缺少管理入口意味着商家需要在多个系统之间切换，增加了不必要的操作成本。',
+        decision: '设计方案：在账户中心侧边栏新增「广告账户」入口，内页展示当前账户关联的广告账户列表，支持基础的权限管理（查看、转让、解绑）。\n\n关键决策：功能范围严格控制在「广告账户管理」的基础能力，不引入广告投放操作（那属于广告后台的职责）——账户中心的边界是「管理账户关系」，不是「做广告投放」。',
+        retrospective: '这个需求让我形成了面对 B 端项目的工作原则：在做设计稿之前，一定要先找到负责该业务的产品同学，理清「这块之前的逻辑是什么」，避免基于错误的业务理解花时间做无效方案。\n\nB 端需求和 C 端需求最大的区别在于：C 端可以通过用户视角做推导，但 B 端的逻辑往往有大量历史背景和系统约束，必须先从业务方那里获取第一手信息。',
+        summary: 'B 端设计的第一步不是打开 Figma，而是把业务逻辑理清楚。一个看起来很小的 B 端功能，背后可能是复杂的权限系统和账户关系网络。理清信息，才能输出真正可用的方案。',
+        metrics: [], resultText: ''
+      }
+    },
+    'bill-reopen': {
+      id: 'bill-reopen', type: 'bili',
+      title: '账单 · 实名变更引导重开账户设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-04',
+      oneliner: '链路设计要从宏观到微观，不能只盯着某个页面，忘记整体流程的连贯性。',
+      tags: ['账单体验', '实名认证', 'Hold'],
+      meta: { '需求类型': '基建修复 / 客诉驱动', '项目周期': '交互完成：2026-04-17', '结论': '基建｜优化', '状态': '⏸ Hold', '洞察报告': 'C2C交易功能' },
+      sections: {
+        bg: '用户在完成实名变更（如身份证信息更新）后，其原有账户会因安全机制被冻结，需要重新开户才能继续正常使用交易功能。\n\n当前的问题在于：账户被冻结后，用户不知道下一步应该做什么。缺少清晰的引导链路，导致用户只能通过客服咨询解决，形成高频客诉。这是一个有明确线上 bug 性质的交互缺失，直接损伤了用户利益。',
+        problems: '这类引导型需求的设计难点在于链路完整性：用户从「发现账户异常」到「完成重开账户」的完整路径涉及多个页面（账单页 → 账户状态说明 → 实名认证入口 → 重开申请 → 结果反馈），每一步的文案和交互都需要准确传递状态信息。\n\n特别难处理的是信息掩码规则：为了保护用户隐私，身份证号需要掩码展示，但掩码方式不当（如只露后四位）可能导致用户无法确认这是自己的身份证，引发新的困惑。设计最终采用前四后三的掩码方式，平衡隐私保护和识别度。',
+        reason: '这是一个客诉驱动 + 线上 bug 性质的需求：用户实名变更后账户被冻结，但没有任何引导告知他们下一步该做什么，直接导致用户损失使用权益。这种情况属于「平台欠用户一个交代」，不处理会持续产生客服成本和用户信任损耗。',
+        decision: '引导链路设计原则：以用户当前所处的「状态」为起点，每一步都明确告知「这里发生了什么」「为什么会这样」「你需要做什么」，不给用户留理解空白。\n\n按钮文案策略：根据用户所处的具体状态动态调整按钮文案，不使用通用的「确定 / 取消」，而是使用「重新认证 / 申请开户 / 查看状态」等状态化文案，降低用户的行动门槛。\n\n按钮层级：当页面有多个操作选项时，必须拉开主次层级，避免用户在关键决策点产生混乱。',
+        retrospective: '这个需求让我对「链路设计」有了更深的理解：交互稿不能从单一页面出发，必须从完整链路出发——先把所有状态和流程画出来，再逐步填充每个节点的交互细节。\n\n如果一开始只盯着账单页在想「这里应该放什么」，很容易陷入局部最优，而忽视了整体链路的顺畅性。宏观 → 微观的设计顺序，在链路设计中尤为重要。',
+        summary: '引导类交互设计的核心是「零歧义」——用户在任何一步都不应该有「我不知道该做什么」的感受。账户重开这类高风险场景，设计上的模糊会被用户放大为恐慌，清晰的引导不只是体验问题，更是建立信任的基础。',
+        metrics: [], resultText: ''
+      }
+    },
+    't3-livestream-coupon': {
+      id: 't3-livestream-coupon', type: 'bili',
+      title: 'T3 直播间 · 平台券弹窗交互设计',
+      eyebrow: '哔哩哔哩实战经验 · 2026-04',
+      oneliner: '平台限制是设计的现实边界，在约束内找到最优解是设计师的核心能力之一。',
+      tags: ['直播间', '营销优惠', '待开发'],
+      meta: { '需求类型': '营销功能 / 技术约束型', '项目周期': '交互完成：2026-04-23', '结论': '基建｜优化', '状态': '⏳ 待开发', '洞察报告': '交易生态中对转化率的优化行为' },
+      sections: {
+        bg: '会员购平台计划在直播间场景中投放平台优惠券，以提升用户在直播间观看时的即时消费转化率。\n\n直播间是一个高实时性、高情绪化的消费场景——用户处于主动浏览状态，且往往受到主播和直播内容的情绪影响，是触达优惠券的高效时机。',
+        problems: '技术上存在关键限制：直播平台（bilibili 直播端）无法自动触发会员购的弹窗流程，因为触发弹窗的判断逻辑在主站代码中，而直播平台和主站的代码架构相互独立。\n\n这意味着最初设想的「进入直播间时自动弹出优惠券弹窗」方案从技术上不可行。这是会员购与主站之间的系统边界问题，在实际工作中屡次出现，是平台型产品的常见痛点。',
+        reason: '直播间是平台流量峰值时段的高密度场景，在这里投放优惠券的时机价值高。即使无法做到自动触发弹窗，也需要找到可行的替代方案，尽量保留优惠券在直播场景中的曝光价值。',
+        decision: '技术限制确认后，将方案从「自动弹窗」调整为「挂件样式」：在直播间界面以常驻小挂件的形式展示可用优惠券，用户主动点击才展开详细信息。\n\n挂件设计原则：不干扰直播内容的主要视野（主播和视频内容区域），但在视觉上有足够的存在感让用户注意到。位置锚定在直播间右下角，与「购物车」「礼物」等现有操作挂件保持一致的视觉语言。',
+        retrospective: '会员购与主站之间的系统边界问题在多个需求中反复出现，这次需求再次证明了这个问题的普遍性。\n\n反思：在需求启动时，「可行性确认」应该成为标准步骤——特别是涉及跨系统交互的功能，应该在设计方案之前先和技术侧对齐边界，而不是在设计完成后才发现技术无法实现。这次的调整虽然最终找到了可行方案，但消耗了不必要的沟通成本。',
+        summary: '平台约束是产品设计的现实，优秀的设计师不是忽视约束，而是在约束内找到最优解。当「理想方案」不可行时，快速评估替代方案的 ROI，找到「在现有条件下最接近目标的方案」，是比抱怨约束更有价值的能力。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    // ===== 2025 PROJECTS =====
+
+    'ticket-seat': {
+      id: 'ticket-seat', type: 'bili',
+      title: '票务 · C 端选座体验全面优化',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '对标行业主流选座体验，用手势与色彩重建用户对票务选座的掌控感。',
+      tags: ['票务体验', '交互升级', '已上线'],
+      meta: { '需求类型': '体验优化 / 交互升级', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: '会员购票务品类的 C 端选座流程沿用旧版交互框架，与行业主流票务平台（大麦、淘票票）相比存在明显体验差距。用户在选座时无法使用手势缩放查看座位细节，票价信息的视觉区分度不足，导致选座效率低且错误率高。',
+        problems: '旧版选座交互有两个核心痛点：一是缺少手势缩放，用户看不清具体座位排布；二是票价区域颜色区分度低，用户无法快速筛选价位段。这两个问题在手机小屏上被进一步放大。',
+        reason: '票务选座是整个购票转化链路中决策成本最高的一步，交互老化直接导致用户在这一步放弃。对标竞品的功能配置已经成为行业标准，不跟上等于主动制造流失。',
+        decision: '核心改造两点：引入捏合手势缩放座位图（业界标准交互），以及为每个票价区增加高对比度色彩标注，支持按颜色快速筛选区域。在不改变选座页整体结构的前提下，精准解决两个最高频的操作痛点。',
+        retrospective: '这类对标行业标准的优化需求，设计决策难度不高，但需要在工程侧推动手势能力的接入——这往往才是真正的推进阻力所在。',
+        summary: '用户对「应有的体验」的预期由竞品锚定。选座是票务转化的关键节点，补齐基础交互缺口比任何视觉升级都更直接地影响转化率。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'publisher-template': {
+      id: 'publisher-template', type: 'bili',
+      title: '圈子发布器 · 写作模板与优质内容引导',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '在发布器内直接降低创作门槛，比在社区外做创作引导更有转化效率。',
+      tags: ['社区建设', '创作体验', '已上线'],
+      meta: { '需求类型': '体验探索 / 社区建设', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: '圈子发布器上线后，用户发布内容的意愿与发布质量之间存在明显落差——有意愿发布的用户因为「不知道写什么」「不知道怎么写好」而放弃，或是发布了质量较低的内容。',
+        problems: '两个核心问题：1）用户创作启动成本高，面对空白编辑框容易产生「不知道写什么」的卡顿；2）社区整体内容质量参差不齐，缺少将优质内容作为样板引导新手的机制。',
+        reason: '降低创作门槛的最有效位置是发布器本身，而不是在外围做引导。用户在决定创作时已经打开了发布器，这个时机的引导转化率最高。',
+        decision: '在发布器内增加两个入口：一是可复用的「写作模板」，覆盖常见帖子类型（开箱、攻略、晒图等）；二是官方精选的「优质内容示例」入口，让用户在发布前参考。两个功能都不强制，以轻量引导形式呈现，避免干扰正常发布流程。',
+        retrospective: '社区产品的内容质量是慢变量，这类功能上线后数据提升不会立竿见影。但模板机制带来的另一个收益是：内容结构逐渐趋于一致，有利于后续的内容分类和运营工作。',
+        summary: '降低创作门槛不是降低创作标准。写作模板给的是「结构」，帮用户越过从零开始的心理障碍，而不是替用户写内容——这个边界的设计需要格外谨慎。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'publisher-tag': {
+      id: 'publisher-tag', type: 'bili',
+      title: '圈子发布器 · 标签搜索与自定义能力',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '标签是内容可发现性的基础建设，缺少搜索能力等于缺少了一半的标签价值。',
+      tags: ['社区建设', '基础建设', '已上线'],
+      meta: { '需求类型': '体验探索 / 基础建设', '结论': '基建｜优化', '状态': '✅ 已上线' },
+      sections: {
+        bg: '圈子发布器上线时，标签选择只能从推荐列表中选取，不支持搜索和自定义。对于细分圈子（特定 IP、特定人物）的用户来说，推荐列表覆盖不到他们需要的标签，导致发布内容时标签使用率低，内容索引效率差。',
+        problems: '推荐标签有两个局限：数量有限（长尾内容覆盖不到）、更新慢（新热点反应不及时）。用户想为内容打上精确标签，但找不到合适的选项，最终要么随意选一个，要么不选。',
+        reason: '标签的价值体现在内容的可发现性上。标签系统不完整，圈子内容的搜索效率就无法提升，用户也无法通过标签找到同类内容，社区的聚合效应被削弱。',
+        decision: '在标签选择界面增加搜索框，支持实时搜索现有标签；当搜索词无匹配结果时，提供「创建新标签」选项。新建标签经过基础过滤（长度限制、违禁词检测）后即可使用。设计上优先展示已有热门标签，降低碎片化标签的产生。',
+        retrospective: '开放标签自定义之后，需要配套运营机制来管理标签质量——否则标签会迅速碎片化，反而降低内容索引效率。功能设计时要提前想到「用户如何滥用这个功能」，并为运营留出管理空间。',
+        summary: '标签系统的完整度决定了社区内容的组织效率。搜索+自定义是把标签从「运营工具」升级为「用户工具」的关键一步，这个转变对社区内容的长期可发现性有深远影响。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'ip-domain-research': {
+      id: 'ip-domain-research', type: 'bili',
+      title: '调研 · IP 全交易场域透出链路与类目划分',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '调研的价值不在于发现问题，而在于把隐性的系统性问题变成显性的决策依据。',
+      tags: ['调研', 'IP 导购', 'Demo上线'],
+      meta: { '需求类型': '业务增长优化 / 战略调研', '结论': '沉淀｜Demo', '状态': '✅ Demo上线' },
+      sections: {
+        bg: '会员购平台围绕 IP 有大量内容与商品，但不同场域（首页、搜索、圈子、品类页）之间的 IP 导购逻辑相互割裂，用户无法从一个 IP 入口出发，自然流转到与该 IP 相关的所有商品和内容。\n\n这次调研的目标是：系统梳理 IP 在各场域中的现有透出链路，识别断链和冗余节点，输出可落地的类目重构方案。',
+        problems: '调研本身的难点在于跨部门信息的整合——IP 相关逻辑分布在多个团队（票务、圈子、商品、搜索），每个团队只有局部视图，没有人能完整描述 IP 的全场域流转逻辑。需要通过访谈和文档梳理自行拼出全貌。',
+        reason: 'IP 是 bilibili 用户最核心的内容消费维度，但 IP 在商业化场景的导购效率极低——用户喜欢一个 IP，但在会员购找不到与这个 IP 相关的所有商品，错过了大量高意图购买机会。',
+        decision: '调研输出以两个交付物为主：一是 IP 全场域透出现状地图（可视化各场域的 IP 入口和流转路径），二是类目重构建议方案（以 IP 为一级分类维度的新组织逻辑）。\n\n以 Demo 形式验证类目重构方向，降低正式开发风险。',
+        retrospective: '这类调研需求的产出方式决定了它的影响力：输出可视化地图比输出文字报告更容易让产品和设计团队理解问题规模，也更容易推动后续的方案讨论。',
+        summary: '调研不是「搜集信息」，而是「把隐性问题显性化」。IP 场域断链是一个所有人都感受到但没人说清楚的问题，这次调研的核心价值就是把它变成一个可讨论、可决策的清晰命题。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'ip-switch': {
+      id: 'ip-switch', type: 'bili',
+      title: 'T3 IP 页 · 支持切换查看更多 IP',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '给用户主动切换 IP 的能力，等于把一个被动的展示页面变成主动的浏览工具。',
+      tags: ['功能优化', 'IP 体验', '已上线'],
+      meta: { '需求类型': '业务增长优化 / 体验补齐', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: 'T3 会员购的 IP 详情页通过首页推荐或外部跳转进入，用户只能被动查看被推送的单个 IP。当用户对某个 IP 感兴趣、想要延伸了解相关 IP 时，没有任何主动切换或推荐 IP 的入口，形成了典型的流量孤岛。',
+        problems: '用户进入 IP 页后，如果这个 IP 的内容不符合期望，只能退出重新找——没有「顺着逛下去」的路径，增加了用户的认知负担，也浪费了已有的用户浏览意图。',
+        reason: 'IP 消费的用户行为是圈层驱动的：对模型感兴趣的用户往往同时关注多个相关 IP，给他们切换 IP 的能力，等于把单次 IP 访问转化为多 IP 的持续浏览，显著提升页面停留价值。',
+        decision: '在 IP 页顶部增加横向可滑动的 IP 切换栏，展示「相关 IP」列表，用户点击后直接切换到对应 IP 的详情页，无需返回首页重新进入。\n\nIP 推荐逻辑基于品类相关性（同品类 IP 优先），保证推荐的 IP 与用户当前的消费兴趣方向一致。',
+        retrospective: '这个功能的设计难点不在于交互本身，而在于 IP 推荐算法的配合——算法质量直接决定用户切换后能否遇到真正感兴趣的 IP。设计方案要提前定义好推荐逻辑的最低质量要求，避免功能上线后推荐内容质量差损伤体验。',
+        summary: '流量孤岛的代价是悄无声息的——用户不会报错，只是默默离开。把 IP 页从孤岛变成节点，是提升 IP 场域整体流量价值最低成本的方式之一。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'newcomer-popup': {
+      id: 'newcomer-popup', type: 'bili',
+      title: '新客弹窗 · 视觉迭代与多券类型兼容',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '弹窗的第一印象决定了用户是「点击领取」还是「直接关掉」——氛围感是转化率的组成部分。',
+      tags: ['运营引流', '新客转化', '已上线'],
+      meta: { '需求类型': '业务增长优化 / 视觉迭代', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: '会员购新客进入时会看到发券弹窗，旧版弹窗视觉风格老化，与 bilibili 二次元调性不符，且券的展示结构无法灵活适应不同数量的券类型（最常见的是 4 张券，旧版展示效果较差）。',
+        problems: '两个核心问题：视觉层面弹窗没有足够的氛围感，与用户对 bilibili 的品牌预期不符；结构层面 4 张券的布局没有经过专门设计，信息层级混乱，难以快速感知最高价值券。',
+        reason: '新客弹窗是平台与用户的第一次深度互动，视觉质量直接影响用户对品牌的第一印象，以及领券率。领券率是后续首单转化的前置指标，弹窗体验不好会导致整个新客激活链路的起点就出现损耗。',
+        decision: '从信息层级出发指导视觉设计：优先突出最高价值券（面额最大或门槛最低），其余券以辅助形式排列，减少用户在信息层的认知消耗。\n\n视觉方向：强化 bilibili 二次元氛围感，引入与品类相关的 IP 元素作为弹窗视觉核心，与旧版通用营销感做明确区分。',
+        retrospective: '这类视觉迭代需求容易陷入「改来改去都是在感觉层面争论」的困境。解决办法是先把信息层级的框架定死，让视觉服务于信息优先级，而不是从视觉风格开始讨论。',
+        summary: '营销弹窗的设计本质是「快速建立信任并引导行动」。氛围感服务于信任建立，信息层级服务于行动引导——这两个目标定了，视觉决策的标准就清晰了。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    't3-placeholder-word': {
+      id: 't3-placeholder-word', type: 'bili',
+      title: 'T3 搜索 · 底纹词个性化推荐策略设计',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '搜索底纹词是零状态下最有价值的引导工具，把它从运营配置升级为个性化推荐是自然的方向。',
+      tags: ['搜索优化', '运营引流', '已上线'],
+      meta: { '需求类型': '业务增长优化 / 个性化推荐', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: 'T3 搜索框的底纹词（placeholder）长期依赖运营手动配置，内容固定且与用户个人行为无关。随着平台数据积累，具备了为用户提供个性化底纹词的能力，可以将搜索入口从「通用引导」升级为「个性化触达」。',
+        problems: '纯运营配置的底纹词有两个局限：一是无法反映用户的个人兴趣，千人一面；二是运营更新频率有限，无法及时跟上热点变化。这导致底纹词的点击率偏低，引导价值被浪费。',
+        reason: '底纹词是用户打开搜索框时的第一个信息接触点，这个位置的引导效率极高。个性化推荐能让底纹词从「运营工具」变成「用户工具」，提升搜索入口的整体触达价值。',
+        decision: '设计三层优先级策略：第一层展示用户近期搜索词（最强相关性），无近期搜索时展示近期浏览商品的相关词（次强相关性），均无时回退到热门搜索词（通用引导）。\n\n三层策略确保底纹词在任何场景下都有意义，同时最大化个性化覆盖率。',
+        retrospective: '推荐策略的设计需要提前考虑冷启动：新用户没有历史行为数据，需要热门词兜底。这个三层策略的设计正是为了解决冷启动问题——让新老用户都能从这个功能中获益。',
+        summary: '搜索底纹词的价值被长期低估。它是在用户意图最模糊的时刻（打开搜索框但还没输入）提供引导的唯一机会，用好这个位置能把大量「想搜但不知道搜什么」的用户转化为实际搜索行为。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'ticket-activity-filter': {
+      id: 'ticket-activity-filter', type: 'bili',
+      title: '票务详情页 · 运营活动筛选项配置',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '运营可配置的筛选项是社区内容组织效率的乘数器——让运营而非工程来决定内容分类。',
+      tags: ['票务', '社区打造', '已上线'],
+      meta: { '需求类型': '业务增长优化 / 运营工具', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: '票务详情页的评论区承载了大量用户生成的图文内容（观演攻略、座位测评、活动周边等），但所有内容都在一个平铺的时间流中展示，无法按活动维度分类浏览。用户找到自己感兴趣的内容类型需要花费大量时间滚动。',
+        problems: '内容分类的需求随活动类型变化而变化——演唱会需要「座位测评」「观演攻略」，漫展需要「周边打卡」「着装攻略」。如果分类硬编码在产品中，需要频繁开发迭代才能跟上运营节奏。',
+        reason: '内容可浏览性直接影响用户在票务页的停留时长和社区参与感。更好的内容组织不只是体验升级，也是提升票务社区活跃度的基础建设。',
+        decision: '将筛选项设计为运营可配置：运营通过后台配置每个票务活动对应的筛选标签，前端动态展示。工程只需一次开发，运营侧即可持续维护，实现了「产品灵活性」与「工程可持续性」的平衡。',
+        retrospective: '把配置能力交给运营而不是固化在产品中，是这类内容组织需求的正确思路。工程侧只需维护配置框架，运营侧掌握具体内容——这种分工能最大化响应速度，适应快速变化的活动运营节奏。',
+        summary: '灵活配置能力是大型平台产品的重要基础建设。把「什么内容可以筛选」的决策权从工程侧转移到运营侧，不只是提升了运营效率，更是建立了产品的长期可扩展性。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'model-circle': {
+      id: 'model-circle', type: 'bili',
+      title: '圈子 · 模型圈品类从零搭建',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '识别品类的双边效应是启动 0-1 社区产品最重要的前提判断。',
+      tags: ['社区产品', '0-1 创新', '已上线'],
+      meta: { '需求类型': '全新业务搭建 / 0-1 创新', '结论': '增长｜全量', '状态': '✅ 已上线' },
+      sections: {
+        bg: '模型（手办、可动、高达等）是 bilibili 会员购的重要品类，具有高客单价和强 IP 附属感。与其他品类不同，模型玩家有大量的 UGC 创作意愿——涂装、改造、开箱测评等内容类型在圈子外已经有丰富积累，但在会员购平台内没有聚合的社区空间。\n\n这个项目从零开始搭建模型圈社区，识别并利用模型品类的双边效应（爆品带流量 + UGC 提供黏性），将模型圈建立为圈子内容体系的新增长点。',
+        problems: '0-1 搭建最核心的命题是：如何在内容积累不足的冷启动阶段，让用户看到足够的「价值预期」而不是「空空的容器」。\n\n模型品类的另一个设计难点是内容多样性——涂装教程、开箱评测、改件展示在信息密度和呈现形式上差异很大，统一的内容框架需要足够灵活才能同时容纳这些内容类型。',
+        reason: '模型用户的核心需求是「找到同类」并「展示作品」——这是典型的社区驱动需求。品类已经有爆品验证了商业价值，缺少的只是内容沉淀的空间，社区补上这个空缺后，双边效应会自然启动。',
+        decision: '品类社区设计以「内容展示」为核心组织逻辑，而非「商品推荐」。用户进入模型圈看到的是社区内容（涂装、作品展示），商品信息作为内容的自然延伸出现，而不是反过来。\n\n冷启动策略：招募社区核心玩家（KOC）作为种子内容贡献者，确保上线时有足够质量的内容填充，避免冷启动页面空洞问题。',
+        retrospective: '模型圈上线后成为圈子内容体系中增长最快的新品类之一，验证了双边效应的判断。复盘核心经验：0-1 产品能否成功，在启动前的品类分析阶段就基本决定了——做对判断比做好设计更关键。',
+        summary: '社区产品 0-1 的本质是在品类和用户之间建立一个内容循环的起点。找到有双边效应潜力的品类，比任何设计技巧都更决定成败。',
+        metrics: [], resultText: ''
+      }
+    },
+
+    'feedback-board': {
+      id: 'feedback-board', type: 'bili',
+      title: '用研 · 用户反馈看板升级迭代',
+      eyebrow: '哔哩哔哩实战经验 · 2025',
+      oneliner: '问卷结构决定数据质量，数据质量决定问题定位效率——这是基础建设投资，不是表单改版。',
+      tags: ['内部工具', '基础建设', '已上线'],
+      meta: { '需求类型': '产品基础架构 / 内部工具', '结论': '基建｜优化', '状态': '✅ 已上线' },
+      sections: {
+        bg: '会员购平台内置了「建议反馈」入口，供用户提交体验问题和功能建议。随着平台规模扩大，用研团队发现反馈数据的质量越来越难以支撑准确的问题定位：反馈缺少订单关联，无法判断问题发生的具体场景；问题分类粒度过粗，不同问题类型混在一起难以按优先级处理。',
+        problems: '两个数据质量问题：1）反馈未关联订单信息，用研团队需要手动二次核实，效率极低；2）问题分类只有粗粒度的大类，细分问题（如「支付失败」vs「页面卡顿」）被混在同一类别里，定位时需要人工逐条筛选。',
+        reason: '用户反馈看板是产品迭代决策的信息来源之一。数据质量差等于决策依据不足，最终影响需求优先级判断的准确性。这是一个「不起眼但影响深远」的基础建设缺口。',
+        decision: '升级方向两个：一是在问卷中增加「关联订单」步骤，将反馈与具体交易记录绑定，便于用研还原问题发生场景；二是重新设计问题分类结构，改为「一级分类 + 二级分类联动」的两级结构，提升分类粒度和准确性。\n\n两个改动均需在不显著增加用户填写负担的前提下实现，保持反馈提交率不下降。',
+        retrospective: '内部工具类需求往往优先级排不上来，但它们对团队效率的影响是长期、持续的。推动这类需求需要把「数据质量差」转化为具体的时间成本数字（如：「用研每月花 X 小时在手动核实反馈来源」），才能让优先级讨论有据可依。',
+        summary: '用户反馈系统是产品迭代的「感知神经」。神经传导不准确（数据质量差），大脑（产品团队）做出的决策判断就会偏差。基础建设投资的回报往往不直接体现在某个指标上，而是在整个决策链路的效率提升上。',
         metrics: [], resultText: ''
       }
     }
