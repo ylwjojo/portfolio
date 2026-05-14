@@ -561,8 +561,8 @@
     .list-card {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 24px;
+      border-radius: 2px;
+      padding: 18px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -571,9 +571,9 @@
     }
     .list-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
     .list-thumb {
-      width: 80px;
-      height: 56px;
-      border-radius: 6px;
+      width: 100px;
+      height: 68px;
+      border-radius: 0;
       background: var(--placeholder-bg);
       flex-shrink: 0;
       overflow: hidden;
@@ -582,11 +582,12 @@
     .list-info { flex: 1; }
     .list-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
     .list-desc { font-size: 12px; color: var(--text-muted); }
-    .list-tags { display:flex; gap:6px; margin-top:6px; }
+    .list-tags { margin-top:5px; }
     .list-tag {
-      font-size: 11px; color: var(--text-light);
-      background: var(--tag-bg); border-radius: 4px; padding: 2px 8px;
+      font-size: 11px; color: #1f8a55;
+      font-weight: 500; letter-spacing: 0.01em;
     }
+    .list-tag.muted { color: var(--text-light); }
 
     /* ===== STATS DASHBOARD — matrix table (full-width span) ===== */
     .stats-banner {
@@ -1175,16 +1176,17 @@
     }
     .ms-row-head {
       font-size: 9.5px; font-weight: 700;
-      color: var(--text-muted); text-align: right;
-      padding: 6px 8px 6px 0; display: flex;
-      align-items: center; justify-content: flex-end;
+      color: var(--text-muted); text-align: center;
+      padding: 6px 4px; display: flex;
+      align-items: center; justify-content: center;
       line-height: 1.4;
     }
     .ms-cell {
       font-size: 10.5px; font-weight: 500; color: var(--text-muted);
       background: var(--surface-3); border: 1.5px solid var(--border);
-      border-radius: 5px; padding: 8px 6px; text-align: center;
-      cursor: pointer; transition: all 0.12s; line-height: 1.35;
+      border-radius: 5px; padding: 8px 6px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; cursor: pointer; transition: all 0.12s; line-height: 1.35;
     }
     .ms-cell:hover { border-color: #6B5CE7; color: #6B5CE7; background: #f0eeff; }
     .ms-cell.selected {
@@ -1644,7 +1646,7 @@
 <div class="gallery-grid" id="galleryView">
 
   <!-- ===== STATS DASHBOARD — 需求分类矩阵表格 ===== -->
-  <div class="stats-banner card" data-type="all bili" style="cursor:default;">
+  <div class="stats-banner card" data-type="bili" style="cursor:default;">
 
     <!-- header -->
     <div class="sb-head">
@@ -1773,7 +1775,7 @@
   </div>
 
   <!-- Card: 漫展圈资料库建设 -->
-  <div class="card" data-type="all bili" data-subtype="全新业务搭建" onclick="openBuiltinProject('manzhan-library')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="全新业务搭建" data-builtin-id="manzhan-library" onclick="openBuiltinProject('manzhan-library')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1040,#3d2080);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="16" height="20" rx="2" fill="rgba(255,255,255,0.9)"/><rect x="6" y="32" width="16" height="8" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="26" y="6" width="20" height="14" rx="2" fill="rgba(255,255,255,0.7)"/><rect x="26" y="24" width="20" height="22" rx="2" fill="rgba(255,255,255,0.5)"/></svg>
     </div>
@@ -1789,7 +1791,7 @@
   </div>
 
   <!-- Card: 发布器增加@用户能力 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('publisher-at')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="publisher-at" onclick="openBuiltinProject('publisher-at')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a2818,#1a5c38);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="18" stroke="rgba(255,255,255,0.8)" stroke-width="2.5" fill="none"/><text x="26" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="rgba(255,255,255,0.9)" font-family="sans-serif">@</text></svg>
     </div>
@@ -1805,7 +1807,7 @@
   </div>
 
   <!-- Card: T3搜索中间页优化 -->
-  <div class="card" data-type="all bili" data-subtype="全新业务搭建" onclick="openBuiltinProject('search-middle')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="全新业务搭建" data-builtin-id="search-middle" onclick="openBuiltinProject('search-middle')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1208,#6b4800);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="6" rx="3" fill="rgba(255,255,255,0.85)"/><rect x="8" y="18" width="28" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="8" y="26" width="32" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="8" y="34" width="20" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><circle cx="40" cy="38" r="8" fill="rgba(255,183,0,0.8)"/><text x="40" y="42" text-anchor="middle" font-size="10" fill="#1a1208" font-weight="700" font-family="sans-serif">↗</text></svg>
     </div>
@@ -1821,7 +1823,7 @@
   </div>
 
   <!-- Card: 漫展圈展会tab个性化编辑 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('manzhan-tab')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-builtin-id="manzhan-tab" onclick="openBuiltinProject('manzhan-tab')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0d1b3e,#1e3a8a);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="12" width="40" height="6" rx="3" fill="rgba(255,255,255,0.85)"/><rect x="6" y="22" width="20" height="20" rx="3" fill="rgba(255,255,255,0.5)"/><rect x="30" y="22" width="16" height="8" rx="3" fill="rgba(255,255,255,0.4)"/><rect x="30" y="34" width="16" height="8" rx="3" fill="rgba(255,255,255,0.25)"/></svg>
     </div>
@@ -1833,7 +1835,7 @@
   </div>
 
   <!-- Card: 惊喜赏订单增加发货时间 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('surprise-delivery')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="surprise-delivery" onclick="openBuiltinProject('surprise-delivery')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#2d1200,#7c3a00);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="16" width="36" height="24" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/><path d="M8 22h36" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="15" y="28" width="10" height="6" rx="1.5" fill="rgba(255,255,255,0.7)"/><circle cx="38" cy="17" r="7" fill="rgba(255,183,0,0.8)"/><path d="M38 13v4.5l2.5 2.5" stroke="#2d1200" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
@@ -1845,7 +1847,7 @@
   </div>
 
   <!-- Card: T3用户图片一致性 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-img-consistency')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="t3-img-consistency" onclick="openBuiltinProject('t3-img-consistency')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1929,#162f4a);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="28" y="10" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="6" y="28" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="28" y="28" width="18" height="14" rx="2" fill="rgba(255,255,255,0.6)"/><path d="M24 17h4M24 35h4M17 24v4M35 24v4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
@@ -1857,7 +1859,7 @@
   </div>
 
   <!-- Card: T3首页品类更新结构变动 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('t3-category')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-builtin-id="t3-category" onclick="openBuiltinProject('t3-category')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a2e1a,#1a6040);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="16" height="16" rx="3" fill="rgba(255,255,255,0.7)"/><rect x="28" y="8" width="16" height="16" rx="3" fill="rgba(255,255,255,0.5)"/><rect x="8" y="28" width="10" height="10" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="22" y="28" width="10" height="10" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="36" y="28" width="8" height="10" rx="2" fill="rgba(255,255,255,0.3)"/></svg>
     </div>
@@ -1869,7 +1871,7 @@
   </div>
 
   <!-- Card: 票务商品卡进feeds -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('ticket-feeds')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-builtin-id="ticket-feeds" onclick="openBuiltinProject('ticket-feeds')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#2d0a1a,#7c1f40);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="10" width="22" height="32" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><rect x="10" y="14" width="18" height="10" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="10" y="27" width="12" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/><rect x="10" y="33" width="8" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/><path d="M36 14l6 6-6 6M42 20H30" stroke="rgba(255,183,0,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
@@ -1881,7 +1883,7 @@
   </div>
 
   <!-- Card: T3拓宽首页搜索 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-search-expand')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="t3-search-expand" onclick="openBuiltinProject('t3-search-expand')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a40,#3d1f99);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="40" height="10" rx="5" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/><circle cx="14" cy="15" r="3" fill="rgba(255,255,255,0.6)"/><rect x="20" y="13" width="20" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="6" y="26" width="30" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="6" y="34" width="24" height="4" rx="2" fill="rgba(255,255,255,0.2)"/><path d="M42 30l5 5" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/><circle cx="39" cy="27" r="5" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" fill="none"/></svg>
     </div>
@@ -1893,7 +1895,7 @@
   </div>
 
   <!-- Card: demo市集T3内触点方案 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('demo-marketplace')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="demo-marketplace" onclick="openBuiltinProject('demo-marketplace')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1e1408,#5c3d10);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="14" width="36" height="26" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M8 22h36" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="12" y="26" width="12" height="10" rx="2" fill="rgba(255,183,0,0.5)"/><rect x="28" y="26" width="12" height="4" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="28" y="33" width="8" height="3" rx="1.5" fill="rgba(255,255,255,0.25)"/></svg>
     </div>
@@ -1905,7 +1907,7 @@
   </div>
 
   <!-- Card: PC端账户中心增加广告账户模块 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('pc-account-ad')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="pc-account-ad" onclick="openBuiltinProject('pc-account-ad')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1020,#1c2a50);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="40" height="32" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><rect x="6" y="10" width="12" height="32" rx="3" fill="rgba(255,255,255,0.12)"/><rect x="10" y="14" width="4" height="4" rx="1" fill="rgba(255,255,255,0.6)"/><rect x="10" y="22" width="4" height="4" rx="1" fill="rgba(255,255,255,0.4)"/><rect x="10" y="30" width="4" height="4" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="22" y="16" width="18" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="22" y="24" width="14" height="3" rx="1.5" fill="rgba(255,255,255,0.3)"/></svg>
     </div>
@@ -1917,7 +1919,7 @@
   </div>
 
   <!-- Card: 账单实名变更引导重开账户 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('bill-reopen')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="bill-reopen" onclick="openBuiltinProject('bill-reopen')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#061e1a,#0d4038);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="10" y="8" width="32" height="40" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="15" y="14" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.6)"/><rect x="15" y="20" width="16" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/><rect x="15" y="26" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.4)"/><circle cx="26" cy="38" r="5" stroke="rgba(0,255,180,0.7)" stroke-width="1.5" fill="none"/><path d="M23.5 38l2 2 3.5-4" stroke="rgba(0,255,180,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
@@ -1929,7 +1931,7 @@
   </div>
 
   <!-- Card: T3直播间平台券弹窗 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-livestream-coupon')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="t3-livestream-coupon" onclick="openBuiltinProject('t3-livestream-coupon')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#200614,#5c0f2e);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="10" width="36" height="28" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><circle cx="26" cy="24" r="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,100,100,0.8)" stroke-width="1.5"/><path d="M23 24l2 2 4-4" stroke="rgba(255,150,150,0.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="42" width="24" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><path d="M26 38v4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/></svg>
     </div>
@@ -1943,7 +1945,7 @@
   <!-- ===== 2025 项目 ===== -->
 
   <!-- ticket-seat: 票务｜C端选座体验优化 -->
-  <div class="card" data-type="all bili" data-subtype="体验优化" data-year="2025" onclick="openBuiltinProject('ticket-seat')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验优化" data-year="2025" data-builtin-id="ticket-seat" onclick="openBuiltinProject('ticket-seat')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a2e,#1a3a6e);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="12" width="36" height="28" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="12" y="16" width="10" height="8" rx="1.5" fill="rgba(255,255,255,0.5)"/><rect x="25" y="16" width="10" height="8" rx="1.5" fill="rgba(100,180,255,0.6)"/><rect x="12" y="27" width="10" height="8" rx="1.5" fill="rgba(255,255,255,0.3)"/><rect x="25" y="27" width="10" height="8" rx="1.5" fill="rgba(255,255,255,0.3)"/><path d="M40 36l4 4M44 36l-4 4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
@@ -1955,7 +1957,7 @@
   </div>
 
   <!-- publisher-template: 圈子｜发布器写作模板+优质内容 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" data-year="2025" onclick="openBuiltinProject('publisher-template')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-year="2025" data-builtin-id="publisher-template" onclick="openBuiltinProject('publisher-template')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0e30,#3d2070);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="36" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><rect x="13" y="14" width="26" height="4" rx="2" fill="rgba(255,255,255,0.6)"/><rect x="13" y="22" width="18" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/><rect x="13" y="29" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.35)"/><circle cx="38" cy="38" r="7" fill="rgba(160,100,255,0.7)"/><path d="M35.5 38h5M38 35.5v5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
@@ -1967,7 +1969,7 @@
   </div>
 
   <!-- publisher-tag: 圈子｜发布器标签搜索功能 -->
-  <div class="card" data-type="all bili" data-subtype="体验探索" data-year="2025" onclick="openBuiltinProject('publisher-tag')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="体验探索" data-year="2025" data-builtin-id="publisher-tag" onclick="openBuiltinProject('publisher-tag')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0e1a0e,#1a3a1a);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="7" y="10" width="38" height="10" rx="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/><circle cx="14" cy="15" r="3" fill="rgba(255,255,255,0.55)"/><rect x="20" y="13" width="18" height="4" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="7" y="26" width="12" height="6" rx="3" fill="rgba(80,200,120,0.5)" stroke="rgba(80,200,120,0.7)" stroke-width="1"/><rect x="22" y="26" width="14" height="6" rx="3" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/><rect x="39" y="26" width="6" height="6" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="7" y="36" width="10" height="6" rx="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="20" y="36" width="18" height="6" rx="3" fill="rgba(80,200,120,0.4)" stroke="rgba(80,200,120,0.6)" stroke-width="1"/></svg>
     </div>
@@ -1979,7 +1981,7 @@
   </div>
 
   <!-- ip-domain-research: 调研｜IP在全交易场域透出链路 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ip-domain-research')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="ip-domain-research" onclick="openBuiltinProject('ip-domain-research')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a20,#3a1060);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="12" cy="26" r="5" fill="rgba(255,255,255,0.5)"/><circle cx="26" cy="12" r="5" fill="rgba(255,255,255,0.5)"/><circle cx="40" cy="26" r="5" fill="rgba(255,255,255,0.5)"/><circle cx="26" cy="40" r="5" fill="rgba(200,130,255,0.7)"/><path d="M17 26h4M26 17v4M35 26h-4M26 35v-4" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/><circle cx="26" cy="26" r="4" fill="rgba(180,100,255,0.6)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/></svg>
     </div>
@@ -1991,7 +1993,7 @@
   </div>
 
   <!-- ip-switch: T3｜IP页支持切换更多IP -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ip-switch')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="ip-switch" onclick="openBuiltinProject('ip-switch')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a1a,#104040);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="10" width="40" height="10" rx="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><rect x="6" y="10" width="13" height="10" rx="5" fill="rgba(0,200,180,0.5)"/><rect x="6" y="24" width="40" height="20" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><rect x="10" y="28" width="14" height="12" rx="2" fill="rgba(0,200,180,0.3)"/><rect x="27" y="28" width="15" height="5" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="27" y="35" width="10" height="5" rx="2" fill="rgba(255,255,255,0.2)"/></svg>
     </div>
@@ -2003,7 +2005,7 @@
   </div>
 
   <!-- newcomer-popup: 新客｜弹窗迭代、新人发券增加券类型 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('newcomer-popup')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="newcomer-popup" onclick="openBuiltinProject('newcomer-popup')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#2a0a0a,#6a2020);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="10" width="36" height="32" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><rect x="12" y="16" width="28" height="8" rx="2" fill="rgba(255,80,80,0.3)" stroke="rgba(255,100,100,0.5)" stroke-width="1"/><rect x="14" y="18" width="10" height="4" rx="1" fill="rgba(255,150,150,0.5)"/><rect x="27" y="18" width="10" height="4" rx="1" fill="rgba(255,150,150,0.35)"/><rect x="12" y="28" width="12" height="10" rx="2" fill="rgba(255,255,255,0.15)"/><rect x="28" y="28" width="12" height="4" rx="1.5" fill="rgba(255,255,255,0.25)"/><rect x="28" y="34" width="8" height="4" rx="1.5" fill="rgba(255,255,255,0.15)"/></svg>
     </div>
@@ -2015,7 +2017,7 @@
   </div>
 
   <!-- t3-placeholder-word: T3｜底纹词样式策略方案 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('t3-placeholder-word')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="t3-placeholder-word" onclick="openBuiltinProject('t3-placeholder-word')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1a0a,#3a3a10);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="6" y="12" width="40" height="12" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="13" cy="18" r="3.5" fill="rgba(255,220,50,0.6)"/><rect x="19" y="16" width="16" height="4" rx="2" fill="rgba(255,255,255,0.35)"/><rect x="8" y="30" width="16" height="5" rx="2.5" fill="rgba(255,220,50,0.4)" stroke="rgba(255,220,50,0.6)" stroke-width="1"/><rect x="27" y="30" width="10" height="5" rx="2.5" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><rect x="8" y="39" width="12" height="5" rx="2.5" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/><rect x="23" y="39" width="18" height="5" rx="2.5" fill="rgba(255,220,50,0.3)" stroke="rgba(255,220,50,0.5)" stroke-width="1"/></svg>
     </div>
@@ -2027,7 +2029,7 @@
   </div>
 
   <!-- ticket-activity-filter: 票务｜详情页支持配置运营活动筛选 -->
-  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ticket-activity-filter')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="ticket-activity-filter" onclick="openBuiltinProject('ticket-activity-filter')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a2a,#1a4a5a);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="7" y="8" width="38" height="36" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><rect x="11" y="13" width="30" height="8" rx="2" fill="rgba(255,255,255,0.12)"/><rect x="13" y="15" width="6" height="4" rx="1" fill="rgba(100,200,220,0.6)"/><rect x="22" y="15" width="6" height="4" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="31" y="15" width="6" height="4" rx="1" fill="rgba(255,255,255,0.3)"/><rect x="11" y="24" width="30" height="6" rx="1.5" fill="rgba(255,255,255,0.1)"/><path d="M13 27h26" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><rect x="11" y="33" width="20" height="5" rx="1.5" fill="rgba(100,200,220,0.25)"/></svg>
     </div>
@@ -2039,7 +2041,7 @@
   </div>
 
   <!-- model-circle: 圈子｜拓品：模型圈 -->
-  <div class="card" data-type="all bili" data-subtype="全新业务搭建" data-year="2025" onclick="openBuiltinProject('model-circle')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="全新业务搭建" data-year="2025" data-builtin-id="model-circle" onclick="openBuiltinProject('model-circle')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a2a,#402060);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="18" r="8" fill="rgba(255,255,255,0.1)" stroke="rgba(200,150,255,0.7)" stroke-width="1.5"/><path d="M22 18c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/><rect x="12" y="30" width="10" height="12" rx="2" fill="rgba(200,150,255,0.35)" stroke="rgba(200,150,255,0.5)" stroke-width="1.2"/><rect x="30" y="30" width="10" height="12" rx="2" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/><path d="M26 26v4M17 30h18" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" stroke-linecap="round"/></svg>
     </div>
@@ -2051,7 +2053,7 @@
   </div>
 
   <!-- feedback-board: 基建｜用户反馈看板迭代需求 -->
-  <div class="card" data-type="all bili" data-subtype="产品基础架构" data-year="2025" onclick="openBuiltinProject('feedback-board')" style="cursor:pointer">
+  <div class="card" data-type="all bili" data-subtype="产品基础架构" data-year="2025" data-builtin-id="feedback-board" onclick="openBuiltinProject('feedback-board')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a0a,#204020);display:flex;align-items:center;justify-content:center">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><rect x="8" y="8" width="36" height="36" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/><rect x="12" y="14" width="28" height="4" rx="2" fill="rgba(255,255,255,0.5)"/><rect x="12" y="22" width="10" height="14" rx="2" fill="rgba(80,200,100,0.4)"/><rect x="25" y="22" width="10" height="8" rx="2" fill="rgba(255,255,255,0.2)"/><rect x="25" y="33" width="10" height="3" rx="1.5" fill="rgba(255,255,255,0.15)"/><rect x="12" y="38" width="22" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/></svg>
     </div>
@@ -2059,6 +2061,18 @@
       <div class="card-tags"><span class="card-tag">内部工具</span><span class="card-tag">基础建设</span><span class="card-tag">已上线</span></div>
       <div class="card-title">用研 · 用户反馈看板升级迭代</div>
       <div class="card-desc">升级【建议反馈】问卷结构，增加订单关联与分类联动，帮助用研团队收集更高质量的用户反馈信息，提升问题定位效率。</div>
+    </div>
+  </div>
+
+  <!-- 思考文章 -->
+  <div class="card" data-type="thinking" data-builtin-id="thinking-ai-designer" onclick="openBuiltinProject('thinking-ai-designer')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3e);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="20" cy="20" r="18" stroke="#8888cc" stroke-width="1.5"/><path d="M13 20 Q20 12 27 20 Q20 28 13 20Z" stroke="#8888cc" stroke-width="1.5" fill="none"/><circle cx="20" cy="20" r="3" fill="#8888cc"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">AI</span><span class="card-tag">设计思考</span><span class="card-tag">职业观</span></div>
+      <div class="card-title">当作为设计师的我们在谈论AI，究竟在谈论什么？</div>
+      <div class="card-desc">AI是万能放大器，不仅放大了技能，也放大了维护成本、沟通成本，也放大了恐慌。</div>
     </div>
   </div>
 
@@ -2074,215 +2088,225 @@
     <div class="list-info">
       <div class="list-title">IP页滑动热区重定义 · 手势引导设计</div>
       <div class="list-desc">识别左右滑动 Tab 的低价值使用，将热区重定义为切换 IP 内容页，以业务曝光目标驱动交互决策。</div>
-      <div class="list-tags"><span class="list-tag">交互策略</span><span class="list-tag">体验探索</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">曝光PV +4.27%，订单 +1.79%，预计GMV增量 +12.9万/周期</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" onclick="openBuiltinProject('manzhan-library')">
+  <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" data-builtin-id="manzhan-library" onclick="openBuiltinProject('manzhan-library')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a1040,#3d2080)"></div>
     <div class="list-info">
       <div class="list-title">漫展圈资料库 · 0-1 社区内容产品设计</div>
       <div class="list-desc">从零搭建 IP 圈子资料库，以 IP 维度组织 UGC 内容沉淀，解决社区内容无法积累的核心矛盾。</div>
-      <div class="list-tags"><span class="list-tag">社区产品</span><span class="list-tag">0-1 创新</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">全量上线，资料库成为漫展圈内容体系核心入口，双边内容流转效率显著提升</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('publisher-at')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="publisher-at" onclick="openBuiltinProject('publisher-at')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a2818,#1a5c38)"></div>
     <div class="list-info">
       <div class="list-title">社区发布器 · @用户能力基建设计</div>
       <div class="list-desc">补齐发布器基础能力缺口，设计自然语言触发的@用户交互，以最小成本完成社区功能闭环。</div>
-      <div class="list-tags"><span class="list-tag">社区建设</span><span class="list-tag">基础建设</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">已全量上线，@功能基础建设完成，发布器互动能力补齐</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" onclick="openBuiltinProject('search-middle')">
+  <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" data-builtin-id="search-middle" onclick="openBuiltinProject('search-middle')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a1208,#6b4800)"></div>
     <div class="list-info">
       <div class="list-title">T3 搜索中间页 · 商品曝光结构优化</div>
       <div class="list-desc">识别搜索中间页高价值流量的路径断点，重设「上新」「盲盒」等入口豆腐块，提升转化漏斗效率。</div>
-      <div class="list-tags"><span class="list-tag">交易体验</span><span class="list-tag">营销方案</span><span class="list-tag">待开发</span></div>
+      <div class="list-tags"><span class="list-tag muted">方案设计完成，ROI 测算明确，排期待推进</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('manzhan-tab')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-builtin-id="manzhan-tab" onclick="openBuiltinProject('manzhan-tab')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0d1b3e,#1e3a8a)"></div>
     <div class="list-info">
       <div class="list-title">漫展圈展会项目 Tab · 用户个性化编辑</div>
       <div class="list-desc">赋予用户自主编排展会项目 Tab 的能力，提升复访动因；上线后 T3 入口 UV 从 980 提升至 1078。</div>
-      <div class="list-tags"><span class="list-tag">社区产品</span><span class="list-tag">用户个性化</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">T3入口UV +10%，复访率 0.44%→0.49%，个性化编辑有效提升回访动力</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('surprise-delivery')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="surprise-delivery" onclick="openBuiltinProject('surprise-delivery')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#2d1200,#7c3a00)"></div>
     <div class="list-info">
       <div class="list-title">惊喜赏 · 订单增加发货时间展示</div>
       <div class="list-desc">完善惊喜赏订单信息链路，在订单页增加发货时间节点展示，降低用户焦虑，属于交易基建补齐类优化。</div>
-      <div class="list-tags"><span class="list-tag">交易体验</span><span class="list-tag">订单功能</span><span class="list-tag">Hold</span></div>
+      <div class="list-tags"><span class="list-tag muted">交互方案完成，订单发货信息补齐，因资源排期暂 Hold</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-img-consistency')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="t3-img-consistency" onclick="openBuiltinProject('t3-img-consistency')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1929,#162f4a)"></div>
     <div class="list-info">
       <div class="list-title">T3 · 用户图片一致性规范设计</div>
       <div class="list-desc">针对 T3 平台图片展示的尺寸、裁切与排版逻辑进行规范，消除不同入口下图片展示不一致的体验割裂感。</div>
-      <div class="list-tags"><span class="list-tag">交易体验</span><span class="list-tag">视觉一致性</span><span class="list-tag">Hold</span></div>
+      <div class="list-tags"><span class="list-tag muted">图片规范文档已交付，覆盖全站图片比例与清晰度标准，开发暂 Hold</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('t3-category')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-builtin-id="t3-category" onclick="openBuiltinProject('t3-category')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a2e1a,#1a6040)"></div>
     <div class="list-info">
       <div class="list-title">T3 首页品类 · 导航结构更新设计</div>
       <div class="list-desc">针对 T3 首页长期存在的品类划分混乱问题，重新梳理品类层级与展现结构，对标抖音商城、小红书完成信息架构更新。</div>
-      <div class="list-tags"><span class="list-tag">信息架构</span><span class="list-tag">导购效率</span><span class="list-tag">待开发</span></div>
+      <div class="list-tags"><span class="list-tag muted">品类结构重组方案完成，多端联动设计，等待工程排期</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" onclick="openBuiltinProject('ticket-feeds')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-builtin-id="ticket-feeds" onclick="openBuiltinProject('ticket-feeds')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#2d0a1a,#7c1f40)"></div>
     <div class="list-info">
       <div class="list-title">票务商品卡 · 进 Feeds 曝光设计</div>
       <div class="list-desc">将票务商品卡片注入 T3 Feeds 流，扩大票务曝光渠道；选定 IP+角色×商品+上新商品数+场景图方案。</div>
-      <div class="list-tags"><span class="list-tag">票务</span><span class="list-tag">商品曝光</span><span class="list-tag">待验收</span></div>
+      <div class="list-tags"><span class="list-tag">质量评级高｜核心，增长全量，最终方案被产品采纳，待验收</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-search-expand')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="t3-search-expand" onclick="openBuiltinProject('t3-search-expand')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a0a40,#3d1f99)"></div>
     <div class="list-info">
       <div class="list-title">T3 首页搜索 · 搜索场域拓宽设计</div>
       <div class="list-desc">扩大搜索栏的视觉与交互场域，降低搜索行为触发门槛，提升 T3 首页搜索渗透率，优化 GMV 转化效率。</div>
-      <div class="list-tags"><span class="list-tag">搜索体验</span><span class="list-tag">转化优化</span><span class="list-tag">待验收</span></div>
+      <div class="list-tags"><span class="list-tag">设计已交付，搜索栏视觉扩张方案落地，4月20日上线待验收</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('demo-marketplace')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="demo-marketplace" onclick="openBuiltinProject('demo-marketplace')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1e1408,#5c3d10)"></div>
     <div class="list-info">
       <div class="list-title">市集 · T3 内 C2C 触点方案 Demo</div>
       <div class="list-desc">探索 C2C 交易在 T3 会员购主场景内的自然触点植入路径，以 Demo 形式验证用户接受度。</div>
-      <div class="list-tags"><span class="list-tag">C2C 探索</span><span class="list-tag">触点方案</span><span class="list-tag">Demo上线</span></div>
+      <div class="list-tags"><span class="list-tag">C2C Demo 已上线，战略实验落地，卡片自然融入 B2C Feeds 流</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('pc-account-ad')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="pc-account-ad" onclick="openBuiltinProject('pc-account-ad')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1020,#1c2a50)"></div>
     <div class="list-info">
       <div class="list-title">PC 端账户中心 · 广告账户模块设计</div>
       <div class="list-desc">在 PC 端账户中心新增广告账户管理模块，面向商家 / B 端用户，整合广告账户信息与权限管理入口。</div>
-      <div class="list-tags"><span class="list-tag">PC 端</span><span class="list-tag">B 端功能</span><span class="list-tag">Hold</span></div>
+      <div class="list-tags"><span class="list-tag muted">PC端B端广告位功能方案完成，业务优先级调整暂 Hold</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('bill-reopen')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="bill-reopen" onclick="openBuiltinProject('bill-reopen')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#061e1a,#0d4038)"></div>
     <div class="list-info">
       <div class="list-title">账单 · 实名变更引导重开账户设计</div>
       <div class="list-desc">针对用户实名变更后账户被冻结的高频客诉场景，设计清晰的引导链路，帮助用户顺畅完成重新开户操作。</div>
-      <div class="list-tags"><span class="list-tag">账单体验</span><span class="list-tag">实名认证</span><span class="list-tag">Hold</span></div>
+      <div class="list-tags"><span class="list-tag muted">账单重开引导全链路设计完成，覆盖5个状态节点，开发暂 Hold</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openBuiltinProject('t3-livestream-coupon')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="t3-livestream-coupon" onclick="openBuiltinProject('t3-livestream-coupon')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#200614,#5c0f2e)"></div>
     <div class="list-info">
       <div class="list-title">T3 直播间 · 平台券弹窗交互设计</div>
       <div class="list-desc">在直播间场景中植入平台券弹窗，提升优惠券触达效率；受技术限制最终以挂件样式落地。</div>
-      <div class="list-tags"><span class="list-tag">直播间</span><span class="list-tag">营销优惠</span><span class="list-tag">待开发</span></div>
+      <div class="list-tags"><span class="list-tag muted">直播间券弹窗方案完成，技术约束下以挂件样式落地，待开发</span></div>
     </div>
   </div>
 
   <!-- 2025 -->
-  <div class="list-card" data-type="all bili" data-subtype="体验优化" data-year="2025" onclick="openBuiltinProject('ticket-seat')">
+  <div class="list-card" data-type="all bili" data-subtype="体验优化" data-year="2025" data-builtin-id="ticket-seat" onclick="openBuiltinProject('ticket-seat')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1a2e,#1a3a6e)"></div>
     <div class="list-info">
       <div class="list-title">票务 · C 端选座体验全面优化</div>
       <div class="list-desc">对标行业主流选座体验，引入手势缩放与票价色彩筛选，解决旧版交互方式老化、操作路径复杂的核心问题。</div>
-      <div class="list-tags"><span class="list-tag">票务体验</span><span class="list-tag">交互升级</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">选座体验全面升级，全量上线，票务交互流程重构</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-year="2025" onclick="openBuiltinProject('publisher-template')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-year="2025" data-builtin-id="publisher-template" onclick="openBuiltinProject('publisher-template')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a0e30,#3d2070)"></div>
     <div class="list-info">
       <div class="list-title">圈子发布器 · 写作模板与优质内容引导</div>
       <div class="list-desc">在发布器内增加模板复用与官方优质图文攻略入口，降低创作门槛，提升社区内容质量基线。</div>
-      <div class="list-tags"><span class="list-tag">社区建设</span><span class="list-tag">创作体验</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">发布器模板功能全量上线，降低创作门槛，提升社区内容质量</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-year="2025" onclick="openBuiltinProject('publisher-tag')">
+  <div class="list-card" data-type="all bili" data-subtype="体验探索" data-year="2025" data-builtin-id="publisher-tag" onclick="openBuiltinProject('publisher-tag')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0e1a0e,#1a3a1a)"></div>
     <div class="list-info">
       <div class="list-title">圈子发布器 · 标签搜索与自定义能力</div>
       <div class="list-desc">补齐发布器标签能力短板，支持搜索与自定义标签，提升图文内容的可发现性与社区内容组织效率。</div>
-      <div class="list-tags"><span class="list-tag">社区建设</span><span class="list-tag">基础建设</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">标签系统基础建设完成，全量上线，发布器内容分类能力补齐</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ip-domain-research')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="ip-domain-research" onclick="openBuiltinProject('ip-domain-research')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a0a20,#3a1060)"></div>
     <div class="list-info">
       <div class="list-title">调研 · IP 全交易场域透出链路与类目划分</div>
       <div class="list-desc">系统梳理 IP 在会员购各场景下的导购透传逻辑，输出类目重构方案，以 Demo 形式倒逼产品基建优先级。</div>
-      <div class="list-tags"><span class="list-tag">调研</span><span class="list-tag">IP 导购</span><span class="list-tag">Demo上线</span></div>
+      <div class="list-tags"><span class="list-tag">IP 领域全面调研，Demo 已上线验证，形成可复用的 IP 导购策略沉淀</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ip-switch')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="ip-switch" onclick="openBuiltinProject('ip-switch')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1a1a,#104040)"></div>
     <div class="list-info">
       <div class="list-title">T3 IP 页 · 支持切换查看更多 IP</div>
       <div class="list-desc">解决 IP 页只能被动接受推送、无法主动切换 IP 的体验缺口，建立可延伸的 IP 管理交互框架。</div>
-      <div class="list-tags"><span class="list-tag">功能优化</span><span class="list-tag">IP 体验</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">IP 切换功能全量上线，补齐 IP 体验路径断点，转化效率提升</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('newcomer-popup')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="newcomer-popup" onclick="openBuiltinProject('newcomer-popup')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#2a0a0a,#6a2020)"></div>
     <div class="list-info">
       <div class="list-title">新客弹窗 · 视觉迭代与多券类型兼容</div>
       <div class="list-desc">升级新客弹窗的二次元氛围感与券展示结构，兼容主流券数量（4张），从信息层级指导视觉创作。</div>
-      <div class="list-tags"><span class="list-tag">运营引流</span><span class="list-tag">新客转化</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">新客弹窗视觉升级，全量上线，二次元氛围感与券展示结构同步优化</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('t3-placeholder-word')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="t3-placeholder-word" onclick="openBuiltinProject('t3-placeholder-word')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a1a0a,#3a3a10)"></div>
     <div class="list-info">
       <div class="list-title">T3 搜索 · 底纹词个性化推荐策略设计</div>
       <div class="list-desc">将搜索底纹词从纯运营配置升级为三层策略（近期搜索→近期浏览→热门词条），引入个性化推荐逻辑。</div>
-      <div class="list-tags"><span class="list-tag">搜索优化</span><span class="list-tag">运营引流</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">搜索底纹词个性化推荐全量上线，点击引导效率提升</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" onclick="openBuiltinProject('ticket-activity-filter')">
+  <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="ticket-activity-filter" onclick="openBuiltinProject('ticket-activity-filter')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1a2a,#1a4a5a)"></div>
     <div class="list-info">
       <div class="list-title">票务详情页 · 运营活动筛选项配置</div>
       <div class="list-desc">在票务评论区增加运营可配置的活动筛选项，丰富社区图文内容的分类入口，提升票务页内容的可浏览性。</div>
-      <div class="list-tags"><span class="list-tag">票务</span><span class="list-tag">社区打造</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">票务活动筛选功能全量上线，社区与票务双向打通</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" data-year="2025" onclick="openBuiltinProject('model-circle')">
+  <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" data-year="2025" data-builtin-id="model-circle" onclick="openBuiltinProject('model-circle')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#1a0a2a,#402060)"></div>
     <div class="list-info">
       <div class="list-title">圈子 · 模型圈品类从零搭建</div>
       <div class="list-desc">识别模型品类具备的双边效应（爆品+UGC 共存），从零搭建模型圈社区产品形态，上线后成为圈子内容体系新增长点。</div>
-      <div class="list-tags"><span class="list-tag">社区产品</span><span class="list-tag">0-1 创新</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">模型圈 0-1 社区产品全量上线，成为圈子内容体系新增长点</span></div>
     </div>
   </div>
 
-  <div class="list-card" data-type="all bili" data-subtype="产品基础架构" data-year="2025" onclick="openBuiltinProject('feedback-board')">
+  <div class="list-card" data-type="all bili" data-subtype="产品基础架构" data-year="2025" data-builtin-id="feedback-board" onclick="openBuiltinProject('feedback-board')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1a0a,#204020)"></div>
     <div class="list-info">
       <div class="list-title">用研 · 用户反馈看板升级迭代</div>
       <div class="list-desc">升级【建议反馈】问卷结构，增加订单关联与分类联动，帮助用研团队收集更高质量的用户反馈信息。</div>
-      <div class="list-tags"><span class="list-tag">内部工具</span><span class="list-tag">基础建设</span><span class="list-tag">已上线</span></div>
+      <div class="list-tags"><span class="list-tag">反馈看板内部工具上线，订单关联与分类联动，提升用研团队问题定位效率</span></div>
+    </div>
+  </div>
+
+  <!-- 思考文章 -->
+  <div class="list-card" data-type="thinking" data-builtin-id="thinking-ai-designer" onclick="openBuiltinProject('thinking-ai-designer')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3e)"></div>
+    <div class="list-info">
+      <div class="list-title">当作为设计师的我们在谈论AI，究竟在谈论什么？</div>
+      <div class="list-desc">AI是万能放大器，不仅放大了技能，也放大了维护成本、沟通成本，也放大了恐慌。</div>
+      <div class="list-tags"><span class="list-tag">约 8 分钟 · 设计观点 · 职业思考</span></div>
     </div>
   </div>
 
@@ -3746,6 +3770,24 @@
         summary: '用户反馈系统是产品迭代的「感知神经」。神经传导不准确（数据质量差），大脑（产品团队）做出的决策判断就会偏差。基础建设投资的回报往往不直接体现在某个指标上，而是在整个决策链路的效率提升上。',
         metrics: [], resultText: ''
       }
+    },
+
+    'thinking-ai-designer': {
+      id: 'thinking-ai-designer', type: 'thinking',
+      title: '当作为设计师的我们在谈论AI，究竟在谈论什么？',
+      eyebrow: 'AI下的设计思考',
+      oneliner: 'AI是万能放大器，不仅放大了技能，也放大了维护成本、沟通成本，也放大了恐慌。',
+      tags: ['AI', '设计思考', '职业观'],
+      meta: { '文章类型': '设计观点', '写作时间': '2026-05', '阅读时长': '约 8 分钟' },
+      sections: {
+        bg: '最近两年，「AI」这个词在设计圈里的出现频率已经高到让人有点麻木。每隔几周就有新工具发布，每隔几天就有人说设计师要被替代，每隔几个月就有一轮新的焦虑浪潮席卷各种社区。\n\n但我发现一个很有意思的现象：不同的设计师在说「AI」这个词时，其实在说截然不同的东西。有人在说工具，有人在说职业威胁，有人在说工作流，有人在说商业机会，有人在说一种全新的设计语言。我们用同一个词指代了好几件完全不同的事情，然后对着彼此困惑地点头。\n\n这篇文章想做一件事：试着拆解「设计师谈论AI」时背后究竟在谈什么，以及这些对话真正值得关注的是哪一层。',
+        problems: '当设计师说「AI很厉害」时，他们往往在说的是：Midjourney 能生成我以前要花三小时才能出的意向图，Cursor 能在我描述完需求之后直接给我一个可运行的 demo，Claude 能帮我把模糊的用户访谈整理成结构清晰的洞察报告。这些都是真实的效率提升，值得认真对待。\n\n但同一组人里，另一些人说「AI很可怕」时，他们在说的是：我不知道以后还需不需要我，公司会不会用更少的设计师做更多的事，我花了五年练的手绘技能是不是已经不值钱了。这是一种完全不同性质的焦虑。\n\n这两种对话混在一起，就变成了混乱：「AI很厉害」的人和「AI很可怕」的人说的根本不是同一件事，但他们都在用同一个词。结果是大量无效的讨论——一方用工具效率说服另一方不必恐慌，另一方用职业焦虑反驳工具效率的意义。没有人真正被说服，因为对话的层次就不在一个频道。',
+        reason: '我认为这个混乱背后有一个更深的原因：我们作为设计师，长期以来对「自己的核心价值是什么」这个问题没有一个清晰的共识。\n\n如果你认为设计师的核心价值是「能画出好看的东西」，那AI对你的冲击就是毁灭性的——它画得比你快、比你多、比你某些角度更「好看」。但如果你认为设计师的核心价值是「理解人，然后在约束条件下做出好的决策」，那AI对你的冲击就是完全不同性质的：它变成了一个能力放大器，让你处理信息更快、验证想法成本更低、表达设计意图更准确。\n\n恐慌和兴奋，往往来自于对「自己是谁」这个问题的不同回答。',
+        decision: '如果让我给「设计师谈AI」这件事做一个分类，我会把它分成三层：\n\n第一层是工具层：Figma的AI功能能做什么，Midjourney适合什么场景，Cursor如何接入设计流程。这一层的讨论是具体的、可验证的，也是最容易形成共识的。值得认真学，但不应该停在这里。\n\n第二层是工作流层：AI介入之后，设计师的一天是怎么过的，哪些环节可以提速，哪些环节反而需要更多时间（比如提示词的质量控制、AI输出的审查和修正、与产品和工程的协作模式调整）。这一层是大多数「AI效率文章」停留的地方，内容最丰富，但也最容易流于表面的经验分享。\n\n第三层才是最值得谈的：AI在改变设计师在团队中扮演的角色吗？当一个人能用AI独立完成以前需要三个人协作才能完成的事情时，「设计师的职责边界」这个概念本身是否还成立？当「执行」这件事越来越廉价，「判断」这件事的价值是在上升还是在被更进一步地推向不可见的位置？\n\n大多数对话卡在第一层，部分到了第二层，第三层几乎没有人愿意认真面对。因为第三层是真正动摇人的——它要求你重新定义自己是谁。',
+        retrospective: '我用AI工具已经有一段时间了。我用Claude整理调研报告，用Cursor搭这个作品集，用各类图像生成工具快速出意向，用AI写代码、写文档、做分析。\n\n我的直接体感是：快了，确实快了。但「快了」之后发现，空出来的时间并不会自动变成更好的思考——它需要主动填入。如果你用AI把执行速度提升了3倍，但没有把省出来的时间用于更深的问题定义和决策质量，那你只是变成了一个更快地生产平庸结果的人。\n\n AI放大的不只是产出速度，更是你本身的质量。这是我觉得这个时代对设计师最重要的一件事：在AI让「做」变得更容易的同时，你的「想」要配得上这个速度。',
+        summary: '当设计师谈论AI时，我们在谈论的是：一场对「设计师是谁、能做什么、值什么」的重新谈判。工具和工作流是这场谈判的表层，真正在谈判桌上的是价值定义本身。\n\nAI确实是万能放大器。它放大了技能，让有能力的人能力更强；它放大了产出，让高质量的判断能覆盖更广的场景；它也放大了焦虑，让对自身价值不清晰的人更加困惑；它还放大了平庸，让不思考的执行者能更快地产出更多不值钱的东西。\n\n所以「AI下的设计师」这个命题，本质上是一个自我清晰度的命题：你对自己能做什么、值什么越清晰，AI对你的意义就越积极。你对这个问题越模糊，AI的存在就越让你不安。\n\n我不认为这是一个能靠「学更多AI工具」解决的问题。它更需要的是：在工具使用之外，认真地问自己——当所有人都能快速生产，我的不可替代性究竟建立在哪里？',
+        metrics: [], resultText: ''
+      }
     }
   };
 
@@ -3762,15 +3804,16 @@
     const resultSection = (metricsHtml || resultNoteHtml)
       ? `<div class="proj-section"><div class="proj-section-heading">上线验证结果</div>${metricsHtml}${resultNoteHtml}</div>` : '';
 
+    const isThinkingToc = p.type === 'thinking';
     const tocLinks = [
-      ['proj-sec-header','概览'],
-      s.bg            ? ['proj-sec-bg','问题发现']       : null,
-      s.problems      ? ['proj-sec-problems','卡点难点'] : null,
-      s.reason        ? ['proj-sec-reason','根本原因']   : null,
-      s.decision      ? ['proj-sec-decision','决策过程'] : null,
+      ['proj-sec-header', isThinkingToc ? '引言'     : '概览'],
+      s.bg            ? ['proj-sec-bg',       isThinkingToc ? '背景'     : '问题发现'] : null,
+      s.problems      ? ['proj-sec-problems', isThinkingToc ? '混乱来源' : '卡点难点'] : null,
+      s.reason        ? ['proj-sec-reason',   isThinkingToc ? '深层原因' : '根本原因'] : null,
+      s.decision      ? ['proj-sec-decision', isThinkingToc ? '我的观点' : '决策过程'] : null,
       (s.metrics && s.metrics.length) ? ['proj-sec-result','上线结果'] : null,
-      s.retrospective ? ['proj-sec-retro','如果重来']    : null,
-      s.summary       ? ['proj-sec-summary','复盘']      : null,
+      s.retrospective ? ['proj-sec-retro',    isThinkingToc ? '个人体感' : '如果重来'] : null,
+      s.summary       ? ['proj-sec-summary',  isThinkingToc ? '结语'     : '复盘']     : null,
     ].filter(Boolean);
 
     const tocHtml = tocLinks.map((l,i) =>
@@ -3780,6 +3823,17 @@
     const metaHtml = Object.entries(p.meta).filter(([,v]) => v)
       .map(([k,v]) => `<div class="proj-right-meta-item"><div class="proj-right-meta-label">${k}</div><div class="proj-right-meta-value">${v}</div></div>`).join('');
 
+    // Load stored cover for this builtin project
+    const storedCover = localStorage.getItem('builtin_cover_' + id);
+    const coverHeroHtml = storedCover
+      ? `<div class="proj-cover-hero" style="position:relative;">
+           <img id="builtinCoverImg" src="${storedCover}" style="width:100%;height:100%;object-fit:cover;display:block;">
+           ${isAdmin ? `<div class="cover-edit-overlay" onclick="triggerBuiltinCoverReplace('${id}')"><div class="cover-edit-btn">更换封面图</div></div>` : ''}
+         </div>`
+      : (isAdmin
+         ? `<div class="proj-cover-hero" id="builtinCoverEmpty" style="cursor:pointer;background:var(--surface-3);display:flex;justify-content:center;align-items:center;font-size:13px;color:var(--text-muted);" onclick="triggerBuiltinCoverReplace('${id}')">＋ 上传封面图</div>`
+         : '');
+
     const editBar = isAdmin ? `
       <div class="proj-edit-bar">
         <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
@@ -3787,6 +3841,12 @@
           <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveBuiltinProjectEdits('${id}')">保存更改</button>
         </div>
       </div>` : '';
+
+    // Section headings adapt to article type
+    const isThinking = p.type === 'thinking';
+    const headings = isThinking
+      ? { bg: '背景', problems: '混乱从哪里来', reason: '深层原因', decision: '我的观点', retrospective: '个人体感', summary: '结语' }
+      : { bg: '问题是如何发现的', problems: '卡点与难点', reason: '为什么会出现这个问题', decision: '决策过程与原因', retrospective: '如果重来一次，我会优化哪些方面', summary: '复盘' };
 
     document.getElementById('dynProjModal').innerHTML = `
       <div class="proj-topbar">
@@ -3800,24 +3860,26 @@
           <nav class="proj-toc-nav" id="dynTocNav">${tocHtml}</nav>
         </div>
         <div class="proj-article-content" id="dynArticleContent">
+          ${coverHeroHtml}
           <div class="proj-body" id="dynProjBody" ${isAdmin ? 'contenteditable="true"' : ''}>
             <div class="proj-section" id="proj-sec-header">
               <h1 class="proj-title">${p.title}</h1>
               ${p.eyebrow ? `<div class="proj-eyebrow">${p.eyebrow}</div>` : ''}
               ${p.oneliner ? `<div class="proj-oneliner">${p.oneliner}</div>` : ''}
             </div>
-            ${s.bg ? `<div class="proj-section" id="proj-sec-bg"><div class="proj-section-heading">问题是如何发现的</div>${s.bg.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
-            ${s.problems ? `<div class="proj-section" id="proj-sec-problems"><div class="proj-section-heading">卡点与难点</div>${s.problems.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
-            ${s.reason ? `<div class="proj-section" id="proj-sec-reason"><div class="proj-section-heading">为什么会出现这个问题</div>${s.reason.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
-            ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">决策过程与原因</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.bg ? `<div class="proj-section" id="proj-sec-bg"><div class="proj-section-heading">${headings.bg}</div>${s.bg.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.problems ? `<div class="proj-section" id="proj-sec-problems"><div class="proj-section-heading">${headings.problems}</div>${s.problems.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.reason ? `<div class="proj-section" id="proj-sec-reason"><div class="proj-section-heading">${headings.reason}</div>${s.reason.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.decision ? `<div class="proj-section" id="proj-sec-decision"><div class="proj-section-heading">${headings.decision}</div>${s.decision.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
             ${resultSection ? `<div id="proj-sec-result">${resultSection}</div>` : ''}
-            ${s.retrospective ? `<div class="proj-section" id="proj-sec-retro"><div class="proj-section-heading">如果重来一次，我会优化哪些方面</div>${s.retrospective.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
-            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-section-heading">复盘</div>${s.summary.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.retrospective ? `<div class="proj-section" id="proj-sec-retro"><div class="proj-section-heading">${headings.retrospective}</div>${s.retrospective.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
+            ${s.summary ? `<div class="proj-section" id="proj-sec-summary"><div class="proj-section-heading">${headings.summary}</div>${s.summary.split('\n\n').map(t=>`<p class="proj-prose">${t}</p>`).join('')}</div>` : ''}
           </div>
           ${editBar}
         </div>
         <div class="proj-right-col" id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
-      </div>`;
+      </div>
+      ${isAdmin ? `<input type="file" id="builtinCoverInput" accept="image/*" style="display:none" onchange="applyBuiltinCoverReplace('${id}',this)">` : ''}`;
 
     document.getElementById('dynProjOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3832,10 +3894,81 @@
     };
     try {
       localStorage.setItem('builtin_override_' + id, JSON.stringify(override));
-      showToast('内容已保存 ✓');
     } catch(e) {
       showToast('存储空间不足，保存失败', '✕');
+      return;
     }
+
+    // Save pending cover
+    if (window._builtinPendingCover && window._builtinPendingCover.id === id) {
+      const src = window._builtinPendingCover.src;
+      try {
+        localStorage.setItem('builtin_cover_' + id, src);
+        _applyBuiltinCoverToCards(id, src);
+        window._builtinPendingCover = null;
+      } catch(e) {
+        localStorage.removeItem('builtin_cover_' + id);
+        showToast('封面图过大已跳过，其余内容已保存', '⚠️');
+        return;
+      }
+    }
+    showToast('内容已保存 ✓');
+  }
+
+  function triggerBuiltinCoverReplace(id) {
+    if (!document.documentElement.hasAttribute('data-admin')) return;
+    const inp = document.getElementById('builtinCoverInput');
+    if (inp) inp.click();
+  }
+
+  function applyBuiltinCoverReplace(id, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const src = e.target.result;
+      // Update displayed cover in modal
+      let img = document.getElementById('builtinCoverImg');
+      if (img) {
+        img.src = src;
+      } else {
+        // Was showing empty state — replace with image
+        const empty = document.getElementById('builtinCoverEmpty');
+        if (empty) {
+          empty.outerHTML = `<div class="proj-cover-hero" style="position:relative;"><img id="builtinCoverImg" src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;"><div class="cover-edit-overlay" onclick="triggerBuiltinCoverReplace('${id}')"><div class="cover-edit-btn">更换封面图</div></div></div>`;
+        }
+      }
+      window._builtinPendingCover = { id, src };
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  function _applyBuiltinCoverToCards(id, src) {
+    // Gallery card thumb
+    document.querySelectorAll(`.card[data-builtin-id="${id}"] .card-thumb`).forEach(thumb => {
+      thumb.style.background = '';
+      let img = thumb.querySelector('img');
+      if (!img) {
+        img = document.createElement('img');
+        img.style = 'width:100%;height:100%;object-fit:cover;display:block;';
+        thumb.innerHTML = '';
+        thumb.appendChild(img);
+      }
+      img.src = src;
+    });
+    // List card thumb
+    document.querySelectorAll(`.list-card[data-builtin-id="${id}"] .list-thumb`).forEach(thumb => {
+      thumb.style.background = '';
+      let img = thumb.querySelector('img');
+      if (!img) {
+        img = document.createElement('img');
+        img.style = 'width:100%;height:100%;object-fit:cover;display:block;';
+        thumb.innerHTML = '';
+        thumb.appendChild(img);
+      }
+      img.src = src;
+    });
   }
 
   // Load stored projects on page init
@@ -3844,6 +3977,18 @@
     stored.forEach(renderDynCard);
     updateMatrix();
     applyStaticOverrides();
+  })();
+
+  // Restore any saved builtin covers to card thumbnails on page load
+  (function restoreBuiltinCovers() {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('builtin_cover_')) {
+        const id = key.replace('builtin_cover_', '');
+        const src = localStorage.getItem(key);
+        if (src) _applyBuiltinCoverToCards(id, src);
+      }
+    }
   })();
 
   // ===== ADMIN MODE =====
