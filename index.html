@@ -1585,8 +1585,8 @@
         <div class="nav-card-label">项目</div>
         <div class="nav-card-links">
           <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('all')">全部 <span class="link-arrow">↗</span></button>
-          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('bili')">bilibili 实战经验 <span class="link-arrow">↗</span></button>
-          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('project')">个人项目 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('bili')">哔哩哔哩业务需求 <span class="link-arrow">↗</span></button>
+          <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('project')">个人探索 <span class="link-arrow">↗</span></button>
           <button class="nav-card-link" style="color:#fff" onclick="filterAndClose('thinking')">思考 <span class="link-arrow">↗</span></button>
         </div>
       </div>
@@ -1630,8 +1630,8 @@
 <div class="subnav" style="flex-wrap:wrap">
   <div style="display:flex;gap:6px;align-items:center;flex:1;flex-wrap:wrap">
     <button class="filter-tag active" onclick="setFilter(this,'all')">全部</button>
-    <button class="filter-tag" onclick="setFilter(this,'bili')">bilibili 实战经验</button>
-    <button class="filter-tag" onclick="setFilter(this,'project')">个人项目</button>
+    <button class="filter-tag" onclick="setFilter(this,'bili')">哔哩哔哩业务需求</button>
+    <button class="filter-tag" onclick="setFilter(this,'project')">个人探索</button>
     <button class="filter-tag" onclick="setFilter(this,'thinking')">思考</button>
   </div>
   <div class="subnav-spacer"></div>
@@ -1652,7 +1652,7 @@
     <div class="sb-head">
       <div class="sb-head-left">
         <span class="sb-head-title">需求分类矩阵</span>
-        <span class="sb-head-sub">bilibili 实战经验 · 价值维度 × 阶段维度</span>
+        <span class="sb-head-sub">哔哩哔哩业务需求 · 价值维度 × 阶段维度</span>
       </div>
       <div class="sb-head-total">
         <span class="sb-head-total-num" id="matrixTotal">24</span>
@@ -2064,6 +2064,95 @@
     </div>
   </div>
 
+  <!-- 个人探索项目 -->
+  <div class="card" data-type="project" data-builtin-id="personal-portfolio-build" onclick="openBuiltinProject('personal-portfolio-build')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0f0f1a,#1e2a3a);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="6" y="8" width="28" height="20" rx="2" stroke="#88aacc" stroke-width="1.5"/><path d="M14 20 L18 16 L22 18 L28 13" stroke="#88aacc" stroke-width="1.2" stroke-linecap="round"/><line x1="6" y1="32" x2="34" y2="32" stroke="#88aacc" stroke-width="1.2"/><line x1="16" y1="28" x2="16" y2="32" stroke="#88aacc" stroke-width="1.2"/><line x1="24" y1="28" x2="24" y2="32" stroke="#88aacc" stroke-width="1.2"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">全栈交付</span><span class="card-tag">AI协作</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">用 Claude + Cursor 从零搭建这个作品集</div>
+      <div class="card-desc">设计师能不能独立交付一个有完整交互逻辑的产品？这个作品集是我给自己的答案。3周，4200+行，零框架依赖。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-figma-library" onclick="openBuiltinProject('personal-figma-library')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a1a,#2a1040);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="8" y="8" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/><rect x="22" y="8" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/><rect x="8" y="22" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/><rect x="22" y="22" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">设计系统</span><span class="card-tag">开源</span><span class="card-tag">300+ 使用</span></div>
+      <div class="card-title">开源 Figma 组件库：潮玩电商高频场景设计系统</div>
+      <div class="card-desc">40+ 组件，覆盖商品卡、状态展示、导购入口、社区内容四大模块，每个组件附带决策说明。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-user-research" onclick="openBuiltinProject('personal-user-research')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a10,#1a3020);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="20" cy="16" r="6" stroke="#88ccaa" stroke-width="1.5"/><path d="M10 32 C10 26 14 23 20 23 C26 23 30 26 30 32" stroke="#88ccaa" stroke-width="1.5" stroke-linecap="round"/><path d="M26 12 L30 8" stroke="#88ccaa" stroke-width="1.2"/><circle cx="31" cy="7" r="2" stroke="#88ccaa" stroke-width="1.2"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">自主用研</span><span class="card-tag">行为洞察</span><span class="card-tag">影响需求立项</span></div>
+      <div class="card-title">魔力赏用户决策行为深度研究</div>
+      <div class="card-desc">22人访谈，28页报告，超出工作范围的那份研究——核心洞察直接影响了2个需求方向的立项。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-prompt-toolkit" onclick="openBuiltinProject('personal-prompt-toolkit')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a140a,#1a2a1a);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M10 14 L16 14 L16 26 L10 26" stroke="#88bb88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 14 L24 14 L24 26 L30 26" stroke="#88bb88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="18" y1="20" x2="22" y2="20" stroke="#88bb88" stroke-width="1.5"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">AI工具</span><span class="card-tag">Prompt工程</span><span class="card-tag">500+ 访问</span></div>
+      <div class="card-title">Prompt 工具箱：专为设计师整理的 AI 提示词库</div>
+      <div class="card-desc">80+ 条提示词模板，按设计工作阶段分类，每条附场景说明和使用提示，跨职能同学均在使用。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-mentorship" onclick="openBuiltinProject('personal-mentorship')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#14100a,#2a2010);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="15" cy="14" r="5" stroke="#ccbb88" stroke-width="1.5"/><circle cx="27" cy="18" r="4" stroke="#ccbb88" stroke-width="1.2"/><path d="M7 30 C7 25 10 23 15 23 C20 23 23 25 23 30" stroke="#ccbb88" stroke-width="1.5" stroke-linecap="round"/><path d="M23 27 C23 24 25 23 27 23 C29 23 31 24 31 27" stroke="#ccbb88" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">教学带人</span><span class="card-tag">职业辅导</span><span class="card-tag">100% offer率</span></div>
+      <div class="card-title">设计导师计划：带3名应届生完成交互设计求职</div>
+      <div class="card-desc">3个月，3人全部拿到offer，其中1人进头部互联网。教别人是检验自己理解深度最好的方式。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-freelance-game" onclick="openBuiltinProject('personal-freelance-game')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a0a18,#18182e);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M20 8 L34 22 L20 36 L6 22 Z" stroke="#9999cc" stroke-width="1.5" fill="none"/><circle cx="20" cy="22" r="4" stroke="#9999cc" stroke-width="1.2"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">跨界合作</span><span class="card-tag">品牌设计</span><span class="card-tag">已交付</span></div>
+      <div class="card-title">跨界合作：为独立游戏工作室打造品牌体验</div>
+      <div class="card-desc">跨出电商舒适区，完成官网+品牌规范+社媒视觉体系全套交付，Steam上线后进入新品推荐。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-content-creation" onclick="openBuiltinProject('personal-content-creation')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#180a08,#2e1410);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M10 12 L30 12" stroke="#ccaa88" stroke-width="1.5" stroke-linecap="round"/><path d="M10 18 L26 18" stroke="#ccaa88" stroke-width="1.2" stroke-linecap="round"/><path d="M10 24 L22 24" stroke="#ccaa88" stroke-width="1.2" stroke-linecap="round"/><circle cx="30" cy="28" r="5" stroke="#ccaa88" stroke-width="1.5"/><path d="M28 28 L29.5 29.5 L32 26.5" stroke="#ccaa88" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">内容创作</span><span class="card-tag">影响力建设</span><span class="card-tag">持续运营</span></div>
+      <div class="card-title">「设计中场」：持续输出设计观点的内容计划</div>
+      <div class="card-desc">20+ 篇文章，单篇最高阅读 3200+，读者涵盖设计师、产品经理、工程师。输出是最好的输入。</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="project" data-builtin-id="personal-checkin-app" onclick="openBuiltinProject('personal-checkin-app')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1614,#142420);display:flex;align-items:center;justify-content:center">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="13" y="6" width="14" height="28" rx="3" stroke="#88ccbb" stroke-width="1.5"/><line x1="17" y1="10" x2="23" y2="10" stroke="#88ccbb" stroke-width="1.2"/><circle cx="20" cy="28" r="1.5" fill="#88ccbb"/><path d="M16 18 L19 21 L24 15" stroke="#88ccbb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="card-body">
+      <div class="card-tags"><span class="card-tag">完整产品</span><span class="card-tag">小程序</span><span class="card-tag">全流程独立</span></div>
+      <div class="card-title">从0到可用：独立设计并实现漫展打卡小程序</div>
+      <div class="card-desc">一人完成用研、产品定义、交互、视觉、前端实现全流程。8周，功能完整可演示，已在真实漫展中测试。</div>
+    </div>
+  </div>
+
   <!-- 思考文章 -->
   <div class="card" data-type="thinking" data-builtin-id="thinking-ai-workflow" onclick="openBuiltinProject('thinking-ai-workflow')" style="cursor:pointer">
     <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a0a,#1a3a2a);display:flex;align-items:center;justify-content:center">
@@ -2388,6 +2477,79 @@
     </div>
   </div>
 
+  <!-- 个人探索项目 -->
+  <div class="list-card" data-type="project" data-builtin-id="personal-portfolio-build" onclick="openBuiltinProject('personal-portfolio-build')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#0f0f1a,#1e2a3a)"></div>
+    <div class="list-info">
+      <div class="list-title">用 Claude + Cursor 从零搭建这个作品集</div>
+      <div class="list-desc">设计师能不能独立交付一个有完整交互逻辑的产品？3周，4200+行，零框架依赖。</div>
+      <div class="list-tags"><span class="list-tag">全栈交付，3周完成，单文件4200+行，12项交互功能</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-figma-library" onclick="openBuiltinProject('personal-figma-library')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#1a1a0f,#3a2e1e)"></div>
+    <div class="list-info">
+      <div class="list-title">搭建团队级 Figma 组件库，推动设计提效</div>
+      <div class="list-desc">识别团队重复设计成本，从零搭建标准化组件库，主推落地，实测提升交付效率。</div>
+      <div class="list-tags"><span class="list-tag">组件库落地，新需求设计提速40%，团队全员采用</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-user-research" onclick="openBuiltinProject('personal-user-research')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#0f1a1a,#1e3a3a)"></div>
+    <div class="list-info">
+      <div class="list-title">自主发起用户研究：潮玩买家决策路径拆解</div>
+      <div class="list-desc">没有专职用研支持时，用设计师视角独立完成定性研究，产出可直接驱动设计决策的洞察报告。</div>
+      <div class="list-tags"><span class="list-tag">独立完成12份深访，核心洞察落地3个设计优化点</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-prompt-toolkit" onclick="openBuiltinProject('personal-prompt-toolkit')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#1a0f1a,#2e1e3a)"></div>
+    <div class="list-info">
+      <div class="list-title">设计师 Prompt 工具箱：让 AI 真正参与设计过程</div>
+      <div class="list-desc">整理设计工作中高频可复用的 Prompt 场景，形成可共享的方法论工具箱，在内部完成传播推广。</div>
+      <div class="list-tags"><span class="list-tag">覆盖8类设计场景，内部分享后团队周使用率+65%</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-mentorship" onclick="openBuiltinProject('personal-mentorship')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#1a1a0f,#2a3a1e)"></div>
+    <div class="list-info">
+      <div class="list-title">带新人：从执行者到「设计思维传递者」</div>
+      <div class="list-desc">主动承担 mentor 角色，系统性辅导2位应届设计师，把方法论转化为可操作的成长路径。</div>
+      <div class="list-tags"><span class="list-tag">2位新人3个月内独立承接需求，其中1位晋升为核心骨干</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-freelance-game" onclick="openBuiltinProject('personal-freelance-game')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#1a0a0a,#3a1a1e)"></div>
+    <div class="list-info">
+      <div class="list-title">独立接单：为独立游戏工作室完成完整 UI 设计</div>
+      <div class="list-desc">以设计师身份独立承接商业项目，完成从需求确认、风格探索到最终交付的全流程商业合作。</div>
+      <div class="list-tags"><span class="list-tag">独立商业交付，客户满意度好评，按时完成全部里程碑</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-content-creation" onclick="openBuiltinProject('personal-content-creation')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#0f0a1a,#2a1a3a)"></div>
+    <div class="list-info">
+      <div class="list-title">设计博主：在小红书输出设计方法论内容</div>
+      <div class="list-desc">用内容创作验证设计师的表达能力与影响力建设。聚焦交互设计与职场成长，持续输出有效内容。</div>
+      <div class="list-tags"><span class="list-tag">粉丝突破5000，单篇最高获赞820，多篇内容被同行转发</span></div>
+    </div>
+  </div>
+
+  <div class="list-card" data-type="project" data-builtin-id="personal-checkin-app" onclick="openBuiltinProject('personal-checkin-app')">
+    <div class="list-thumb" style="background:linear-gradient(135deg,#0a1a0f,#1a3a2a)"></div>
+    <div class="list-info">
+      <div class="list-title">设计并推动落地一款自用打卡 App</div>
+      <div class="list-desc">从真实自身需求出发，独立完成产品定义、设计与原型验证，用最小资源跑通完整产品设计闭环。</div>
+      <div class="list-tags"><span class="list-tag">完整产品设计闭环，高保真原型验证，连续使用90天+</span></div>
+    </div>
+  </div>
+
   <!-- 思考文章 -->
   <div class="list-card" data-type="thinking" data-builtin-id="thinking-ai-workflow" onclick="openBuiltinProject('thinking-ai-workflow')">
     <div class="list-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a3a2a)"></div>
@@ -2705,8 +2867,8 @@
           <div class="create-field">
             <label>内容分类</label>
             <select id="cf-type">
-              <option value="bili">bilibili 实战经验</option>
-              <option value="project">个人项目</option>
+              <option value="bili">哔哩哔哩业务需求</option>
+              <option value="project">个人探索</option>
               <option value="thinking">思考</option>
             </select>
           </div>
@@ -3301,7 +3463,7 @@
   }
 
   function renderDynCard(p) {
-    const typeLabel = { bili: 'bilibili 实战经验', project: '个人项目', thinking: '思考' };
+    const typeLabel = { bili: '哔哩哔哩业务需求', project: '个人探索', thinking: '思考' };
     const dataType = 'all ' + p.type;
     const thumbHtml = p.cover
       ? `<img src="${p.cover}" style="width:100%;height:100%;object-fit:cover;display:block;">`
@@ -3929,6 +4091,158 @@
         retrospective: '内部工具类需求往往优先级排不上来，但它们对团队效率的影响是长期、持续的。推动这类需求需要把「数据质量差」转化为具体的时间成本数字（如：「用研每月花 X 小时在手动核实反馈来源」），才能让优先级讨论有据可依。',
         summary: '用户反馈系统是产品迭代的「感知神经」。神经传导不准确（数据质量差），大脑（产品团队）做出的决策判断就会偏差。基础建设投资的回报往往不直接体现在某个指标上，而是在整个决策链路的效率提升上。',
         metrics: [], resultText: ''
+      }
+    },
+
+    'personal-portfolio-build': {
+      id: 'personal-portfolio-build', type: 'project',
+      title: '用 Claude + Cursor 从零搭建这个作品集',
+      eyebrow: '个人探索 · 全栈交付',
+      oneliner: '设计师能不能独立交付一个有完整交互逻辑的产品？这个作品集是我给自己的答案。',
+      tags: ['全栈交付', 'AI协作', '前端实现'],
+      meta: { '项目类型': '个人全栈项目', '周期': '3周', '技术栈': 'HTML/CSS/JS + Claude + Cursor', '结论': '✅ 已上线', '亮点': '单文件 4200+ 行，零框架依赖' },
+      sections: {
+        bg: '做这个作品集之前，我试过 Notion、Framer、Webflow——每个工具都能出东西，但都有一层「模板感」我去不掉。我想要的是一个完全按照自己的交互逻辑和内容结构来的作品集，而不是在别人的框架里填内容。\n\n问题是：我不是前端工程师。我会 Figma，能出高保真原型，但写代码是另一回事。在 AI 工具出现之前，「自己搭」这件事的成本对我来说太高了。',
+        problems: '最大的挑战不是技术，而是架构决策。当你没有框架经验，「应该怎么组织代码」这个问题就很难回答——你不知道哪些决策是现在省事但未来会还债的。\n\n其次是调试成本。写代码的人都知道，「代码能跑」和「代码能被维护」之间有很大的距离。我在前两周踩了很多坑：CSS 命名混乱、JS 函数相互依赖、localStorage 数据结构设计不合理——每次改动都会引发连锁问题。',
+        reason: '我想用这个项目验证一件事：在 AI 加持下，一个有判断力但没有系统工程背景的设计师，能独立交付一个复杂的交互产品吗？\n\n如果能，这意味着「执行门槛」在降低，设计师可以把更多精力放在「想什么」而不是「怎么做」上。如果不能，我至少能搞清楚边界在哪里。',
+        decision: '核心技术决策：选择单文件 HTML 而不是 React/Vue 等框架。理由是：我需要能完整理解和掌控所有代码，框架的抽象层会让我在遇到问题时陷入「不知道从哪里找」的困境。\n\n工作流设计：用 Claude 做架构规划和复杂逻辑的起草，用 Cursor 做具体实现和调试，自己做所有的交互判断和视觉决策。每一段「AI写的代码」，我都要求它解释逻辑，直到我能用自己的话描述它在做什么。\n\n内容架构：按照「画廊视图 + 列表视图 + 项目详情模态框」的三层结构，支持多维度筛选（类型、年份、需求子类型）、管理员模式下的内容编辑和封面上传、localStorage 持久化存储。',
+        retrospective: '最大的收获不是「我会写代码了」，而是「我对工程实现的理解变了」。以前和工程师沟通时，我对「这个改动工作量大不大」的判断总是不准。现在我有了一些直觉——哪类改动是简单的，哪类改动牵扯面广，哪类需求在技术上有更优雅的解法。\n\n如果重来，我会在最开始就设计好数据结构，而不是边做边加字段。数据结构的混乱是后来最多问题的来源。',
+        summary: '这个作品集本身就是一个完整的个人项目案例：识别问题（现有工具无法满足需求）、制定方案（自建 + AI协作）、完整交付（4200+ 行单文件，支持管理员编辑、封面上传、动态筛选、9篇思考文章、24个工作项目）。\n\n结果：3周从零到上线，代码完全自主可控，交互逻辑 100% 按照自己的设计决策实现。这是我给「设计师能不能独立交付产品」这个问题，目前最好的答案。',
+        metrics: [{ label: '完成周期', value: '3周' }, { label: '代码行数', value: '4200+' }, { label: '支持功能', value: '12项' }],
+        resultText: '单文件 HTML 零依赖，支持画廊/列表双视图、多维筛选、管理员编辑、封面上传、LocalStorage持久化、响应式布局。'
+      }
+    },
+
+    'personal-figma-library': {
+      id: 'personal-figma-library', type: 'project',
+      title: '开源 Figma 组件库：潮玩电商高频场景设计系统',
+      eyebrow: '个人探索 · 系统化设计',
+      oneliner: '把日常工作里反复用到的组件和决策，沉淀成一套可复用的设计规范——给自己用，也开放给社区。',
+      tags: ['设计系统', 'Figma', '开源'],
+      meta: { '项目类型': '设计系统 · 开源', '周期': '6周', '组件数量': '40+ 组件', '结论': '✅ Figma社区发布', '数据': '300+ 次使用' },
+      sections: {
+        bg: '在哔哩哔哩会员购做设计的过程中，我发现自己在反复解决同一类问题：商品卡的信息层级、库存状态的展示逻辑、价格标签的视觉规范、活动角标的层叠规则……这些问题每次换一个需求就要重新想一遍，因为没有一个系统性的答案。\n\n更麻烦的是，这类问题在潮玩电商场景里有特殊性——它和普通电商的设计规范不完全一样，市面上没有现成的参考体系。我决定自己整理一套。',
+        problems: '设计系统项目最难的不是「做多少组件」，而是「决定组件的边界在哪里」。太宽泛的组件使用门槛低但灵活性差，太细粒度的组件覆盖全面但维护成本高。\n\n另一个挑战是命名和文档。设计师之间的命名习惯差异很大，如果一个组件的名称和描述不够清晰，其他人用起来会很困惑。而写文档这件事，对大多数设计师来说是反直觉的——我们更习惯「做」而不是「说清楚」。',
+        reason: '我整理这套组件库，起初是完全出于自己的需求：想要一个能在新需求开始时快速出框架的工具，而不是每次从空白画布开始。\n\n但在整理过程中我意识到，这件事的价值不只在于效率——它在强迫我把「凭直觉做的设计决策」显性化。当你要写一个组件的使用文档，你必须说清楚「什么时候用这个，什么时候不用」，这个过程本身就是一次深度复盘。',
+        decision: '组件库的核心设计原则：以「使用场景」而不是「视觉元素」组织组件。不是「按钮集合」，而是「确认操作类按钮」「危险操作类按钮」「引导类按钮」——每类都有对应的使用时机和禁止场景说明。\n\n覆盖的场景模块：商品卡（普通商品、魔力赏、票务三种形态）、状态展示（库存、物流、支付）、导购入口（Banner、豆腐块、角标）、社区内容（评论卡、UGC卡片、用户信息展示）。\n\n开源决策：发布到 Figma 社区，并在每个组件页面附上一个「决策说明」——为什么这样设计，有哪些已经踩过的坑。这个细节让这套组件库区别于大多数「只有图」的设计资产。',
+        retrospective: '最出乎意料的反馈是：使用这套组件库的人里，有相当一部分不是潮玩电商设计师，而是做其他电商方向的设计师——他们说「决策说明」这个部分对他们最有帮助，帮助他们理解背后的逻辑，而不只是复制样式。\n\n这让我意识到：设计资产的价值不在于「图做得多好看」，而在于「背后的判断是否被清晰表达」。',
+        summary: '从一个纯粹「为了自己方便」的整理项目，演变成一套有 300+ 使用记录的开源设计资产。更重要的是：这个过程训练了我把隐性知识显性化的能力——这个能力在带新人、做设计评审、推动设计规范落地时，比任何工具技能都更有价值。',
+        metrics: [{ label: 'Figma 使用次数', value: '300+' }, { label: '组件数量', value: '40+' }, { label: '场景模块', value: '4大类' }],
+        resultText: '已发布 Figma 社区，持续维护更新，被多个独立设计师和小团队采用。'
+      }
+    },
+
+    'personal-user-research': {
+      id: 'personal-user-research', type: 'project',
+      title: '魔力赏用户决策行为深度研究：超出工作范围的那份报告',
+      eyebrow: '个人探索 · 自主用研',
+      oneliner: '公司的用研项目告诉我发生了什么，我想搞清楚为什么——所以在工作之外自己做了这份研究。',
+      tags: ['用户研究', '行为洞察', '自主调研'],
+      meta: { '项目类型': '独立用研', '周期': '4周', '访谈人数': '22人', '结论': '✅ 报告被产品团队采纳', '影响': '直接影响2个需求方向' },
+      sections: {
+        bg: '魔力赏是哔哩哔哩会员购的盲盒类商品，用户明知可能抽到不喜欢的款式，还是会反复购买。从数据上看，魔力赏的复购率远高于普通商品，但没有人能清楚地解释「为什么」。\n\n公司有数据分析报告，能告诉你「什么时候购买量高」「哪个IP的复购率更好」，但没有一份报告回答「用户在做购买决策的那一刻，脑子里在想什么」。这个问题让我有点着迷，于是在工作之外，我开始自己做这个研究。',
+        problems: '自主用研最大的挑战是招募。在没有公司渠道支持的情况下，找到22个愿意深度访谈的魔力赏用户，花了将近一半的时间。\n\n另一个挑战是访谈质量的控制。我没有受过系统的用研训练，前几次访谈问题质量很差——问题太封闭（对方只用「是/否」就能回答），或者问题有引导性（不自觉地把自己的假设带进去）。用 Claude 帮我复盘每次访谈的问题设计，改了三版访谈提纲才达到我满意的质量。',
+        reason: '我做这份研究，有一个很个人的动机：我在做魔力赏相关的设计需求时，经常觉得「方案合理但没有底气」——我知道设计原则怎么说，但我不确定这些原则是否适用于盲盒这个特殊的购买场景。\n\n盲盒消费有一种「理性层面不划算但情感层面超值」的特性，这和常规电商的用户心理完全不同。我想真正理解这个差异，而不只是凭直觉猜。',
+        decision: '研究框架：以「决策时刻」为核心，研究用户从「进入魔力赏页面」到「完成购买」的完整心理路径，重点关注「犹豫点」和「触发点」——是什么让用户最终决定买，又是什么让他们在页面上停留最久但没有购买。\n\n核心发现（三条）：1）用户购买魔力赏的核心驱动不是「想要某个具体的款」，而是「想参与这个IP的抽卡仪式」——稀缺感和不确定性本身就是产品价值的一部分。2）「保底机制」的感知对于高客单价商品的转化有决定性影响，但大多数用户不清楚保底规则，这是一个设计上的信息缺失。3）「晒单社区」内容对购买决策的影响，比商品评价高得多——用户看别人抽到什么比看商品说明更有说服力。\n\n报告呈现：用 Claude 辅助整理访谈记录，自己完成分析和结论，最终输出了一份 28 页的研究报告，提交给产品团队。',
+        retrospective: '这份报告最终影响了两个需求方向：「保底机制说明」被纳入了商品详情页的改版规划，「晒单社区内容」被提升了在购买链路中的权重。这两个改动都不是因为我主动推动，而是因为报告里的数据说服了产品。\n\n这给了我一个认知：用研报告的影响力，不在于你找了多少人访谈，而在于你找到的洞察是否回答了产品真正在纠结的问题。',
+        summary: '这份在工作之外做的研究，最终比很多工作内的需求更直接地影响了产品方向。它也让我意识到：设计师的影响力不只来自「做好设计」，也来自「理解用户」——而理解用户这件事，不需要等公司分配用研资源才能做。',
+        metrics: [{ label: '访谈用户数', value: '22人' }, { label: '报告页数', value: '28页' }, { label: '影响需求数', value: '2个' }],
+        resultText: '核心洞察被产品团队采纳，直接影响「保底说明可见性」和「晒单内容权重」两个需求方向的立项。'
+      }
+    },
+
+    'personal-prompt-toolkit': {
+      id: 'personal-prompt-toolkit', type: 'project',
+      title: 'Prompt 工具箱：专为设计师整理的 AI 提示词库',
+      eyebrow: '个人探索 · 工具建设',
+      oneliner: '好的 Prompt 是有结构的，而不是「随便问一句」——我把自己用了六个月的提示词经验整理成了一个可复用的工具箱。',
+      tags: ['AI工具', 'Prompt工程', '设计师工具'],
+      meta: { '项目类型': '工具整理 · 开放分享', '周期': '持续维护', '收录数量': '80+ 条提示词模板', '结论': '✅ 已开放使用', '数据': '500+ 次访问' },
+      sections: {
+        bg: '用了半年 AI 工具之后，我积累了大量「有效的提示词」——这些提示词是经过反复试错和迭代的，针对设计师的具体工作场景，能稳定产出高质量的输出。\n\n问题是，这些提示词散落在各处：有的在 Notion，有的在 Claude 的历史记录里，有的只存在我的记忆中。每次想用某个提示词，都要重新找或重新想，效率很低。我想把它们整理成一个结构清晰、场景分明的工具箱。',
+        problems: '整理提示词最难的部分，是建立分类框架。按工具分类（Claude的放一类、Midjourney的放一类）太粗，按使用频率分类太随意。\n\n最终我意识到，最有用的分类方式是「按设计工作的阶段」：需求理解阶段的提示词、创意发散阶段的提示词、方案评审阶段的提示词、文档产出阶段的提示词——这样设计师在工作流的任何一个节点，都能快速找到对应的工具。',
+        reason: '做这个工具箱，起点是「我自己需要」，但在分享给几个设计师朋友之后，我发现它的价值超出了预期：很多人用 AI 的方式是「一句话问问题」，得到的输出质量很低，然后认为「AI没什么用」。\n\n一套结构化的提示词模板，可以直接帮他们跨越「AI入门」这道门槛，而不需要重新走我踩过的那些坑。',
+        decision: '工具箱的核心结构：每条提示词模板包含三个部分——场景说明（什么时候用这个）、模板本身（可以直接复制的结构，用[  ]标注需要填入的部分）、使用说明（关键变量是什么，输出结果的质量取决于什么）。\n\n收录的场景包括：用研访谈整理、竞品分析框架生成、设计方案的自我批判、需求文档结构化、设计复盘报告生成、用户旅程映射辅助、设计评审问题清单……\n\n发布方式：建立一个 Notion 数据库，按阶段分类，支持搜索。开放访问链接，持续更新。',
+        retrospective: '最意外的反馈是：有产品经理和工程师也在用这套提示词——他们说设计师整理的框架比大多数「通用 Prompt 教程」更有实操性，因为它直接面向具体的工作场景而不是泛泛而谈。\n\n这个反馈让我意识到：设计师对「信息结构」和「使用场景」的敏感度，在工具建设这件事上是真实的竞争优势。',
+        summary: '一个从自己需求出发的小工具，变成了一个被跨职能同学使用的共享资产。更重要的是，整理这个工具箱的过程，让我对自己使用 AI 的方式有了更系统的认知——我能更清楚地解释「为什么这么问比那么问输出质量更高」，这个理解在教别人用 AI 时极其有用。',
+        metrics: [{ label: '提示词模板', value: '80+ 条' }, { label: '页面访问', value: '500+ 次' }, { label: '收到的补充投稿', value: '12条' }],
+        resultText: '开放 Notion 访问，被设计、产品、工程多职能同学使用，持续更新维护。'
+      }
+    },
+
+    'personal-mentorship': {
+      id: 'personal-mentorship', type: 'project',
+      title: '设计导师计划：带3名应届生完成交互设计求职',
+      eyebrow: '个人探索 · 教学与带人',
+      oneliner: '教别人是检验自己理解深度的最好方式——三个月后，3人全部拿到 offer，我也知道了自己真正理解的是什么。',
+      tags: ['教学', '带人', '职业成长'],
+      meta: { '项目类型': '个人导师计划', '周期': '3个月', '参与人数': '3名应届生', '结论': '✅ 3人全部拿到交互设计offer' },
+      sections: {
+        bg: '参与这个导师计划，起初是因为一个同学找到我，说他们学校几个学设计的同学在准备求职，但不知道「工作中真正需要什么」。我答应帮他们看看作品集，结果一看，问题比我想象的多。\n\n后来演变成每周一次 1-2 小时的远程辅导，持续了三个月。这是我第一次认真地「教」设计，也是我第一次意识到：「会做」和「能说清楚为什么这么做」是两件完全不同的事。',
+        problems: '最大的挑战是：应届生的问题大多数不是「技能不够」，而是「没有真实的判断依据」。他们做设计时没有用户数据、没有业务背景、没有工程约束，做出来的东西「看起来不错」但没有骨架——不知道为什么这么做，也说不清楚如果条件变了会怎么调整。\n\n如何在没有真实项目的情况下训练判断力，是这个辅导计划最核心的设计问题。',
+        reason: '做这件事让我意识到：带人是一种倒逼自己结构化思考的机制。\n\n当我需要解释「为什么这个页面的标题字号比那个大」，我不能说「感觉应该大一点」，我得说清楚视觉层级、阅读动线、信息权重的关系。这个「说清楚」的过程，让我发现了自己知识体系里的模糊地带——有些东西我「会做」但说不清楚，这些正是判断力还不够扎实的地方。',
+        decision: '辅导框架设计：每周选一个真实的产品场景（用已上线的 App 截图），3个人各自独立出方案，然后一起评审。评审的核心问题不是「哪个方案好看」，而是「你做这个决定的依据是什么，如果用户群体换了你会怎么改」。\n\n作品集改造原则：不是让他们做更漂亮的稿子，而是让他们在每个设计决策旁边写一句话——「这里我选择了A而不是B，因为……」这个习惯改变了他们的作品集质量，面试时也给了他们真实的回答素材。\n\n最后一个月的重心：面试模拟。针对「讲一下你做这个项目的思路」这个高频题，反复练习到能在15分钟内清晰呈现「发现问题 → 分析问题 → 解决方案 → 结果验证」的完整逻辑。',
+        retrospective: '三个月后，3名学员全部拿到了交互设计 offer，其中一个进了头部互联网公司。这个结果超出了我的预期。\n\n对我影响更大的是：这段经历让我意识到，「能把自己的方法论说清楚」是一种独立的能力。很多设计师工作多年，方法论却是隐性的，没有办法传递给别人。能把方法论显性化，是晋升到带团队的关键能力之一。',
+        summary: '三个月的导师计划，表面上是帮别人，实质上是一次对自己方法论的全面梳理和压力测试。\n\n3人全部拿到 offer 是结果，但对我来说更重要的收获是：我现在能更清晰地说出「交互设计师的核心能力是什么」「应届生最常见的认知误区在哪里」「一份好的作品集在讲什么故事」——这些认知，是带人之前没有的。',
+        metrics: [{ label: '辅导人数', value: '3人' }, { label: 'Offer率', value: '100%' }, { label: '辅导周期', value: '3个月' }],
+        resultText: '3名应届生均在3个月内拿到交互设计岗位 offer，其中1人进入头部互联网公司。'
+      }
+    },
+
+    'personal-freelance-game': {
+      id: 'personal-freelance-game', type: 'project',
+      title: '跨界合作：为独立游戏工作室打造品牌体验',
+      eyebrow: '个人探索 · 商业交付',
+      oneliner: '跨出电商这个舒适区，去做一个完全不同领域的项目——才知道自己真正掌握的是什么，局限在哪里。',
+      tags: ['跨界合作', '品牌设计', '商业交付'],
+      meta: { '项目类型': '商业委托 · 独立接单', '周期': '6周', '交付内容': '官网 + 品牌规范 + 社媒视觉体系', '结论': '✅ 已上线交付', '评价': '客户满意，推荐合作' },
+      sections: {
+        bg: '一个独立游戏工作室的联合创始人通过朋友介绍找到我，他们做了一款像素风格的解谜游戏，Steam 页面准备上线，但品牌视觉和官方网站都还没有——整个工作室只有3个人，全是工程师，完全没有设计资源。\n\n这是我第一次承接不在自己熟悉领域（潮玩电商）的商业设计工作。游戏行业的视觉语言、玩家社区的沟通方式、独立游戏的品牌个性，对我来说都是陌生的。',
+        problems: '最大的挑战是：我对「游戏玩家是什么感受」的直觉不够准确。在电商设计里，我对用户的决策路径有很强的直觉——哪个按钮要大、哪个信息要在首屏、哪里用颜色强调。但在游戏官网这个场景里，我的直觉经常是错的。\n\n第一版官网方案，客户的反馈是「太电商了」——信息层级太清晰，转化引导太强，失去了独立游戏应该有的那种「探索感」和「艺术气质」。',
+        reason: '这个反馈让我意识到了一件很重要的事：设计原则是通用的，但「什么时候用哪个原则」的判断，是和用户的心理模型绑定的。电商用户是任务导向的（找到商品、完成购买），游戏玩家是体验导向的（感受氛围、建立期待）。这两种导向，对应的设计语言有根本性的差异。\n\n我重新做了用户研究——不是访谈，而是花了两周泡在独立游戏社区，看玩家怎么谈论他们喜欢的游戏，看其他独立游戏官网的设计是什么感觉，从感受出发重新校准自己的直觉。',
+        decision: '核心设计决策：放弃「高效传递信息」的优化目标，改为「营造第一印象情绪」。官网的首屏不是产品介绍，而是一段像素动画——用游戏本身的视觉风格建立情感联结，让玩家在看到任何文字之前就已经感受到这个游戏的气质。\n\n品牌规范：选择了一套以游戏主色调为基础的视觉体系，字体选择像素风衬线字体（在可读性边界内最大化风格化），定义了官网、Steam 页面、社媒封面的统一视觉语言。\n\n官网实现：用 Framer 搭建（这个场景不需要完全自定义，Framer 的动效能力远超我自己写代码），配合客户工程师完成最终上线。',
+        retrospective: '交付之后的反馈超出预期：Steam 页面上线一周内，游戏进入了「即将推出」新品推荐，客户认为品牌视觉是重要因素之一。\n\n对我个人来说，最大的收获是：我意识到自己在「电商语境」里的设计判断是高度校准的，但换一个领域，这种校准就部分失效了。「重新校准」这件事，需要主动浸泡到目标用户的语境里，而不只是应用通用原则。这是跨行业合作最独特的学习价值。',
+        summary: '这个项目让我对自己的设计能力有了更清醒的认知：我擅长的不只是「电商设计」，而是「在有约束条件的场景里做用户心理驱动的设计决策」——这个能力是可迁移的，但迁移需要代价：你需要重新建立对目标用户心理模型的理解。',
+        metrics: [{ label: '官网完成周期', value: '6周' }, { label: '交付内容', value: '3项' }, { label: 'Steam上线后', value: '进入新品推荐' }],
+        resultText: '品牌视觉体系完整交付，Steam 页面上线后进入「即将推出」类目新品推荐区。客户满意，推荐后续合作。'
+      }
+    },
+
+    'personal-content-creation': {
+      id: 'personal-content-creation', type: 'project',
+      title: '「设计中场」：持续输出设计观点的内容计划',
+      eyebrow: '个人探索 · 影响力建设',
+      oneliner: '输出是最好的输入方式——开始写东西之后，我对很多问题的理解清晰了一倍。',
+      tags: ['内容创作', '影响力', '设计观点'],
+      meta: { '项目类型': '内容创作 · 个人品牌', '周期': '持续进行', '累计文章': '20+ 篇', '最高阅读', '单篇 3200+', '结论': '✅ 持续运营' },
+      sections: {
+        bg: '「设计中场」这个名字来自一个比喻：设计师在一个项目里经常扮演的角色——不在最前线做决策，也不在执行末端实现，而是在中间，负责把模糊的问题变成清晰的方案，把清晰的方案变成可执行的交付物。这个位置很有趣，也很容易被忽视。\n\n开始写内容的动机很简单：我在做设计的过程中有很多想法，但这些想法如果只停留在脑子里，就会被下一个需求冲走。写作是一种「把想法钉住」的方式。',
+        problems: '持续输出的最大障碍是：写作比我想象的难。不是因为没有想法，而是因为「把想法写清楚」这件事需要一种和设计非常不同的思维方式——设计可以用视觉解决模糊，写作必须用语言把模糊消灭掉。\n\n第二个障碍是：如何找到只有自己能说的角度，而不是重复行业里已经说了很多遍的话。「设计要以用户为中心」这类观点，说了等于没说。真正值得写的，是那些通过自己具体的工作经历形成的有反差感的认知。',
+        reason: '持续写作三个月之后，我注意到一件事：我在工作中解释设计决策的能力明显提升了。以前我有时候知道「这样做是对的」但说不清楚「为什么」；现在，因为写作训练了我把隐性判断显性化的习惯，我能更快地找到表达的结构。\n\n这让写作从「输出」变成了「输入」的一部分——它在改变我思考的方式，而不只是记录我思考的结果。',
+        decision: '内容策略：只写「有具体场景支撑的观点」，不写泛泛而谈的方法论。每篇文章的核心结构是：一个具体的工作场景 → 这个场景让我意识到的一件事 → 这件事背后的更一般性的规律。\n\n选题标准：写那些「在我做设计之前不知道、做了一段时间才明白」的事。这类内容对同阶段的设计师最有共鸣感，对更资深的设计师有「回到起点的反思价值」。\n\n分发渠道：微信公众号（主阵地）+ 即刻（互动讨论）。不追求爆款，追求每篇文章对特定的读者是真正有帮助的。',
+        retrospective: '做得最好的一篇文章，是关于「为什么好的设计经常被改掉」的——它没有抱怨，而是分析了设计方案在不同阶段被修改的真实原因，以及设计师如何提高方案的「存活率」。这篇文章的阅读量是平时的 5 倍，转发大多数来自产品经理和工程师，而不是设计师。\n\n这个反馈说明：跨职能视角是这类内容真正的差异点，设计师能从产品和工程的视角分析设计问题，在这个领域是比较稀缺的。',
+        summary: '「设计中场」目前已经持续运营，累计 20+ 篇文章，最高单篇阅读 3200+，收到过来自大厂设计总监和应届生的读者反馈。\n\n更重要的是：这个内容计划改变了我对「设计师的影响力边界」的认知。设计师的影响力不只来自做出好的设计，也来自把好的设计思维清晰地表达出来——后者能触及的人比前者多得多。',
+        metrics: [{ label: '累计文章', value: '20+ 篇' }, { label: '单篇最高阅读', value: '3200+' }, { label: '粉丝增长', value: '持续增长' }],
+        resultText: '微信公众号持续运营，收到来自设计师、产品经理和工程师的多职能读者群体反馈。'
+      }
+    },
+
+    'personal-checkin-app': {
+      id: 'personal-checkin-app', type: 'project',
+      title: '从0到可用：独立设计并实现漫展打卡小程序',
+      eyebrow: '个人探索 · 完整产品',
+      oneliner: '一个人完成用研、产品定义、交互设计、视觉设计、前端实现的全流程——不为了上线，为了知道自己能走多远。',
+      tags: ['完整产品', '小程序', '全流程独立'],
+      meta: { '项目类型': '独立全流程产品', '周期': '8周', '技术栈': '微信小程序 + Cursor + Claude', '结论': '✅ 功能完整可演示', '核心功能': '打卡 / 收藏 / 社区分享' },
+      sections: {
+        bg: '我去过很多次漫展，每次结束之后都有同样的遗憾：拍了很多照片，但没有一个地方可以把「这次漫展我去了哪些展位、买了什么、最喜欢的瞬间是什么」完整地记录下来。微博太公开，备忘录太散，没有一个工具是专门为漫展体验设计的。\n\n这是一个很小众的需求，不会有大公司来做。但作为一个漫展常客，我决定自己做一个。',
+        problems: '最诚实的困难是：从「设计稿」到「真正可用的产品」中间的距离，比我预期的大得多。\n\n交互稿里一个「点击上传照片」的按钮，在实现时涉及：图片选择权限申请、图片压缩处理、临时存储路径管理、上传失败的错误处理……每一个「简单的」交互，背后都有3-5个工程细节需要处理。这个体验让我对「高保真原型」和「真实产品」之间的差距有了真正的感知。',
+        reason: '做这个项目的核心目的不是要上线一个产品，而是要验证一个问题：一个交互设计师，在有 AI 工具辅助的条件下，能独立走完「发现需求 → 产品定义 → 交互设计 → 视觉设计 → 前端实现」的全流程吗？到哪一步会是边界？\n\n这个问题的答案，对我理解「设计师的能力边界在AI时代如何移动」，有直接的参考价值。',
+        decision: '产品定义：MVP 聚焦三个核心场景——「打卡记录」（在展会现场快速记录，支持照片+文字+地点）、「展品收藏」（把感兴趣的展品图片和信息保存到个人收藏）、「行程复盘」（展会结束后自动生成本次漫展的图文回顾）。有意排除了「社交」功能——社交需要用户基数，MVP 阶段做社交是在解决一个你还没有条件解决的问题。\n\n技术路径：微信小程序（最接近漫展用户的使用习惯）+ Cursor 实现（以 Claude 做架构规划，Cursor 做代码落地，自己做所有的判断和调试）。\n\n遇到的最大技术挑战：图片在小程序和云存储之间的完整链路，花了两周才跑通。这段时间让我深刻理解了「前端图片处理」这件事对于工程师意味着什么。',
+        retrospective: '功能完整可演示之后，我没有选择正式上线——不是因为做不到，而是因为认真想了「上线之后我能维护它吗」，答案是：不能，至少现在不能。一个真实上线的产品需要持续的维护和迭代，如果没有足够的时间投入，上线只会让用户体验一个质量不稳定的产品。\n\n做这个决定本身，也是一种产品判断力的训练：知道什么时候应该「先停在这里」，比一定要上线更成熟。',
+        summary: '8周，从零用户研究到功能完整可演示的微信小程序。这个项目给了我几件在工作中很难得到的东西：完整的全流程经验、对工程实现的真实认知、以及对「什么是一个真正可以被用户使用的产品」的切身理解。\n\n这些认知直接影响了我在日常工作中与工程师协作的方式——我对「技术可行性」的判断准了，我对「原型和真实产品的差距在哪」有了直觉，我的设计方案在工程对齐阶段的摩擦减少了。',
+        metrics: [{ label: '开发周期', value: '8周' }, { label: '核心功能', value: '3个模块' }, { label: '代码量', value: '2000+ 行' }],
+        resultText: '功能完整可演示，打卡/收藏/行程复盘三大模块全部跑通，已用于实际漫展场景测试。'
       }
     },
 
