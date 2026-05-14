@@ -4557,7 +4557,17 @@
           empty.outerHTML = `<div class="proj-cover-hero" style="position:relative;"><img id="builtinCoverImg" src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;"><div class="cover-edit-overlay" onclick="triggerBuiltinCoverReplace('${id}')"><div class="cover-edit-btn">更换封面图</div></div></div>`;
         }
       }
-      window._builtinPendingCover = { id, src };
+      // Immediately save cover to localStorage and apply to cards
+      try {
+        localStorage.setItem('builtin_cover_' + id, src);
+        _applyBuiltinCoverToCards(id, src);
+        window._builtinPendingCover = null;
+        showToast('封面已保存 ✓');
+      } catch(e) {
+        // Image too large for localStorage — keep as pending
+        window._builtinPendingCover = { id, src };
+        showToast('封面图较大，请点击「保存更改」完成保存', '⚠️');
+      }
     };
     reader.readAsDataURL(file);
     input.value = '';
