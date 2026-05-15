@@ -4543,31 +4543,33 @@
   function applyBuiltinCoverReplace(id, input) {
     const file = input.files[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('图片超过 5MB，请压缩后重试', '⚠️'); input.value = ''; return;
+    }
     const reader = new FileReader();
     reader.onload = (e) => {
-      const src = e.target.result;
-      // Update displayed cover in modal
-      let img = document.getElementById('builtinCoverImg');
-      if (img) {
-        img.src = src;
-      } else {
-        // Was showing empty state — replace with image
-        const empty = document.getElementById('builtinCoverEmpty');
-        if (empty) {
-          empty.outerHTML = `<div class="proj-cover-hero" style="position:relative;"><img id="builtinCoverImg" src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;"><div class="cover-edit-overlay" onclick="triggerBuiltinCoverReplace('${id}')"><div class="cover-edit-btn">更换封面图</div></div></div>`;
+      _compressImage(e.target.result, (src) => {
+        // Update displayed cover in modal
+        let img = document.getElementById('builtinCoverImg');
+        if (img) {
+          img.src = src;
+        } else {
+          const empty = document.getElementById('builtinCoverEmpty');
+          if (empty) {
+            empty.outerHTML = `<div class="proj-cover-hero" style="position:relative;"><img id="builtinCoverImg" src="${src}" style="width:100%;height:100%;object-fit:cover;display:block;"><div class="cover-edit-overlay" onclick="triggerBuiltinCoverReplace('${id}')"><div class="cover-edit-btn">更换封面图</div></div></div>`;
+          }
         }
-      }
-      // Immediately save cover to localStorage and apply to cards
-      try {
-        localStorage.setItem('builtin_cover_' + id, src);
-        _applyBuiltinCoverToCards(id, src);
-        window._builtinPendingCover = null;
-        showToast('封面已保存 ✓');
-      } catch(e) {
-        // Image too large for localStorage — keep as pending
-        window._builtinPendingCover = { id, src };
-        showToast('封面图较大，请点击「保存更改」完成保存', '⚠️');
-      }
+        // Immediately save cover to localStorage and apply to cards
+        try {
+          localStorage.setItem('builtin_cover_' + id, src);
+          _applyBuiltinCoverToCards(id, src);
+          window._builtinPendingCover = null;
+          showToast('封面已保存 ✓');
+        } catch(e) {
+          window._builtinPendingCover = { id, src };
+          showToast('封面图较大，请点击「保存更改」完成保存', '⚠️');
+        }
+      });
     };
     reader.readAsDataURL(file);
     input.value = '';
@@ -4659,6 +4661,27 @@
     if (rightCol) rightCol.contentEditable = on ? 'true' : 'false';
   }
 
+  // Compress image to fit localStorage (max ~2MB base64) while preserving quality
+  function _compressImage(dataUrl, callback) {
+    const img = new Image();
+    img.onload = function() {
+      const MAX_W = 1600;
+      const MAX_H = 1200;
+      let w = img.width, h = img.height;
+      if (w > MAX_W) { h = Math.round(h * MAX_W / w); w = MAX_W; }
+      if (h > MAX_H) { w = Math.round(w * MAX_H / h); h = MAX_H; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      // Try quality 0.88 first, fallback to 0.72 if still too large
+      let result = canvas.toDataURL('image/jpeg', 0.88);
+      if (result.length > 2_000_000) result = canvas.toDataURL('image/jpeg', 0.72);
+      callback(result);
+    };
+    img.src = dataUrl;
+  }
+
   function triggerStaticCoverReplace() {
     if (!document.documentElement.hasAttribute('data-admin')) return;
     document.getElementById('staticCoverInput').click();
@@ -4667,9 +4690,35 @@
   function applyStaticCoverReplace(input) {
     const file = input.files[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('图片超过 5MB，请压缩后重试', '⚠️'); input.value = ''; return;
+    }
     const reader = new FileReader();
     reader.onload = (e) => {
-      document.getElementById('staticCoverImg').src = e.target.result;
+      _compressImage(e.target.result, (src) => {
+        // Update modal display
+        const imgEl = document.getElementById('staticCoverImg');
+        if (imgEl) imgEl.src = src;
+        // Update gallery & list card thumbnails immediately
+        const cardThumb = document.querySelector('.card[onclick*="ip-hotzone"] .card-thumb img');
+        if (cardThumb) cardThumb.src = src;
+        const listThumb = document.querySelector('.list-card[onclick*="ip-hotzone"] .list-thumb img');
+        if (listThumb) listThumb.src = src;
+        // Auto-save to localStorage
+        const body = document.getElementById('staticProjBody');
+        const rightCol = document.querySelector('#projOverlay .proj-right-col');
+        const override = {
+          cover: src,
+          bodyHTML: body ? body.innerHTML : null,
+          rightColHTML: rightCol ? rightCol.innerHTML : null,
+        };
+        try {
+          localStorage.setItem('proj_override_ip-hotzone', JSON.stringify(override));
+          showToast('封面已保存 ✓');
+        } catch(err) {
+          showToast('封面图过大，保存失败，请使用更小的图片', '⚠️');
+        }
+      });
     };
     reader.readAsDataURL(file);
     input.value = '';
@@ -4716,8 +4765,17 @@
   function applyStaticOverrides() {
     const override = JSON.parse(localStorage.getItem('proj_override_ip-hotzone') || 'null');
     if (!override) return;
-    if (override.cover)
-      document.getElementById('staticCoverImg').src = override.cover;
+    if (override.cover) {
+      // Update modal cover
+      const modalImg = document.getElementById('staticCoverImg');
+      if (modalImg) modalImg.src = override.cover;
+      // Update gallery card thumbnail
+      const cardImg = document.querySelector('.card[onclick*="ip-hotzone"] .card-thumb img');
+      if (cardImg) cardImg.src = override.cover;
+      // Update list card thumbnail
+      const listImg = document.querySelector('.list-card[onclick*="ip-hotzone"] .list-thumb img');
+      if (listImg) listImg.src = override.cover;
+    }
     if (override.bodyHTML)
       document.getElementById('staticProjBody').innerHTML = override.bodyHTML;
     if (override.rightColHTML) {
