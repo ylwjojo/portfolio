@@ -51,10 +51,10 @@
     /* ===== HERO ===== */
     .resume-header {
       background: linear-gradient(135deg, #0d0820 0%, #1e1060 40%, #2d1b8e 70%, #1a0d4a 100%);
-      padding: 40px 32px 32px;
+      padding: 36px 32px 28px;
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: space-between;
-      min-height: 150px;
+      min-height: 140px;
     }
     .resume-header::before {
       content: ''; position: absolute;
@@ -70,16 +70,13 @@
       color: rgba(255,255,255,0.55); font-weight: 300;
       font-size: 15px; display: block; margin-top: 6px; letter-spacing: 0.02em;
     }
-    .header-tagline {
-      margin-top: 14px;
-      display: flex; gap: 8px; flex-wrap: wrap;
+    .header-positioning {
+      margin-top: 16px;
+      font-size: 13px; color: rgba(255,255,255,0.82);
+      line-height: 1.7; max-width: 560px;
+      font-weight: 400;
     }
-    .header-badge {
-      font-size: 11px; font-weight: 600; padding: 4px 12px;
-      border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.8); letter-spacing: 0.04em;
-    }
-    .header-badge.ai { background: rgba(107,92,231,0.4); border-color: rgba(107,92,231,0.6); color: #c4bfff; }
+    .header-positioning strong { color: #c4bfff; font-weight: 600; }
     .header-avatar {
       width: 96px; height: 96px; border-radius: 50%;
       background: linear-gradient(135deg, #a78bfa, #7c3aed);
@@ -119,7 +116,7 @@
       max-width: 920px; margin: 0 auto;
       padding: 20px 16px 60px;
       display: grid;
-      grid-template-columns: 1fr 320px;
+      grid-template-columns: 1fr 300px;
       gap: 16px; align-items: start;
     }
 
@@ -139,54 +136,40 @@
     }
     .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* ===== POSITIONING CARD ===== */
-    .positioning-statement {
-      font-size: 12.5px; line-height: 1.75; color: var(--muted);
-      margin-bottom: 18px;
-    }
-    .positioning-statement strong { color: var(--text); font-weight: 600; }
-
-    /* ===== AI SPLIT TABLE ===== */
-    .ai-table {
-      width: 100%; border-collapse: collapse;
-      font-size: 12px;
-    }
-    .ai-table thead tr {
-      border-bottom: 2px solid var(--border);
-    }
-    .ai-table thead th {
-      padding: 0 10px 8px;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      text-align: left;
-    }
-    .ai-table thead th.col-phase { padding-left: 0; width: 88px; }
-    .ai-table thead th.col-human { color: #5a4fcf; }
-    .ai-table thead th.col-ai    { color: #047857; }
-
-    .ai-table tbody tr {
+    /* ===== CORE PROJECTS ===== */
+    .core-proj-item {
+      padding: 14px 0;
       border-bottom: 1px solid var(--border);
     }
-    .ai-table tbody tr:last-child { border-bottom: none; }
-    .ai-table tbody td {
-      padding: 9px 10px; vertical-align: top; line-height: 1.55;
+    .core-proj-item:first-child { padding-top: 0; }
+    .core-proj-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .cp-header {
+      display: flex; align-items: baseline;
+      justify-content: space-between; gap: 12px;
+      margin-bottom: 5px;
     }
-    .ai-table tbody td.col-phase {
-      padding-left: 0;
-      font-size: 11.5px; font-weight: 600; color: var(--text);
-      white-space: nowrap;
+    .cp-title {
+      font-size: 13.5px; font-weight: 600; color: var(--text);
     }
-    .ai-table tbody td.col-human {
-      color: #5a4fcf; background: #f8f6ff;
-      border-left: 1px solid var(--border);
-      border-right: 1px solid var(--border);
+    .cp-type {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--purple);
+      white-space: nowrap; flex-shrink: 0;
     }
-    .ai-table tbody td.col-ai {
-      color: #065f46; background: #f0fdf9;
+    .cp-result {
+      font-size: 12.5px; color: var(--muted); line-height: 1.65;
+      margin-bottom: 8px;
     }
-    .ai-table td small {
-      display: block; font-size: 10.5px;
-      margin-top: 2px; opacity: 0.65; font-style: italic;
+    .cp-result strong { color: var(--text); font-weight: 600; }
+    .cp-badges { display: flex; flex-wrap: wrap; gap: 5px; }
+    .cp-badge {
+      font-size: 11px; font-weight: 600; padding: 2px 9px;
+      border-radius: 20px;
+      background: #f0fdf9; border: 1px solid #a7f3d0; color: #065f46;
+    }
+    .cp-badge.purple {
+      background: var(--tag-bg); border-color: #c4b5fd; color: var(--tag-text);
     }
 
     /* ===== EXPERIENCE ===== */
@@ -205,30 +188,34 @@
     .exp-date { font-size: 12px; color: var(--muted); white-space: nowrap; }
     .exp-role {
       font-size: 11px; color: var(--purple); font-weight: 600;
-      letter-spacing: 0.04em; margin-bottom: 10px;
+      letter-spacing: 0.04em; margin-bottom: 12px;
     }
-    .exp-tasks { list-style: none; counter-reset: li; margin-bottom: 12px; }
+    .exp-tasks { list-style: none; }
     .exp-tasks li {
-      font-size: 12.5px; color: var(--muted); line-height: 1.65;
-      padding-left: 18px; position: relative; margin-bottom: 5px;
+      font-size: 12.5px; color: var(--muted); line-height: 1.7;
+      padding: 8px 0 8px 14px; position: relative;
+      border-bottom: 1px solid var(--border);
     }
+    .exp-tasks li:last-child { border-bottom: none; padding-bottom: 0; }
     .exp-tasks li::before {
-      content: counter(li); counter-increment: li;
-      position: absolute; left: 0;
-      color: var(--purple); font-size: 11px; font-weight: 700; top: 2px;
+      content: '';
+      position: absolute; left: 0; top: 15px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--purple);
     }
-    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-    .exp-tag {
-      font-size: 11px; font-weight: 500; padding: 3px 10px;
-      border-radius: 20px; background: var(--tag-bg); color: var(--tag-text);
-      white-space: nowrap;
+    .exp-tasks li strong { color: var(--text); font-weight: 600; }
+    .exp-tasks li .data {
+      display: inline-block; margin-left: 4px;
+      font-size: 11px; font-weight: 700; color: #065f46;
+      background: #f0fdf9; border: 1px solid #a7f3d0;
+      padding: 1px 7px; border-radius: 20px; vertical-align: middle;
     }
-    .exp-tag.ai { background: #ede9fb; color: #5a4fcf; }
+
     .exp-divider { height: 1px; background: var(--border); margin: 16px 0; }
 
     /* ===== OTHER EXP (compact) ===== */
     .other-exp-item {
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--border);
     }
     .other-exp-item:last-child { border-bottom: none; padding-bottom: 0; }
@@ -239,10 +226,11 @@
     }
     .oei-company { font-size: 13px; font-weight: 600; color: var(--text); }
     .oei-date { font-size: 11px; color: var(--muted); }
-    .oei-role { font-size: 11px; color: var(--purple); font-weight: 600; margin-bottom: 3px; }
-    .oei-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .oei-role { font-size: 11px; color: var(--purple); font-weight: 600; margin-bottom: 4px; }
+    .oei-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .oei-desc strong { color: var(--text); font-weight: 600; }
 
-    /* ===== RIGHT ===== */
+    /* ===== RIGHT COL ===== */
     .right-col { position: sticky; top: 68px; }
 
     .edu-level {
@@ -255,25 +243,44 @@
     .edu-major  { font-size: 12px; color: var(--muted); margin-top: 1px; }
     .edu-divider { height: 1px; background: var(--border); margin: 14px 0; }
 
-    /* AI Tools */
-    .tool-group { margin-bottom: 14px; }
+    /* Side projects */
+    .side-proj-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .side-proj-item:first-child { padding-top: 0; }
+    .side-proj-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .sp-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .sp-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .sp-desc strong { color: var(--text); font-weight: 600; }
+    .sp-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .sp-tag {
+      font-size: 10.5px; font-weight: 600; padding: 2px 8px;
+      border-radius: 20px; background: var(--tag-bg);
+      color: var(--tag-text); border: 1px solid #c4b5fd;
+    }
+    .sp-tag.green {
+      background: #f0fdf9; border-color: #a7f3d0; color: #065f46;
+    }
+
+    /* Tools */
+    .tool-group { margin-bottom: 12px; }
+    .tool-group:last-child { margin-bottom: 0; }
     .tool-group-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
     }
-    .tool-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tool-chips { display: flex; flex-wrap: wrap; gap: 5px; }
     .tool-chip {
-      font-size: 11.5px; font-weight: 500; padding: 4px 12px;
+      font-size: 11px; font-weight: 500; padding: 3px 10px;
       border-radius: 8px; border: 1px solid var(--border);
       color: var(--text);
     }
     .tool-chip.ai-tool {
-      background: #ede9fb; border-color: #c4b5fd; color: #5a4fcf;
-      font-weight: 600;
+      background: #ede9fb; border-color: #c4b5fd; color: #5a4fcf; font-weight: 600;
     }
     .tool-chip.code-tool {
-      background: #d1fae5; border-color: #6ee7b7; color: #065f46;
-      font-weight: 600;
+      background: #d1fae5; border-color: #6ee7b7; color: #065f46; font-weight: 600;
     }
 
     /* Awards */
@@ -286,16 +293,6 @@
     .award-row:last-child { border-bottom: none; }
     .award-name { color: var(--text); font-weight: 500; flex: 1; }
     .award-level { font-size: 10.5px; color: var(--purple); font-weight: 600; white-space: nowrap; }
-
-    .project-item {
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .project-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .project-item:first-child { padding-top: 0; }
-    .project-org { font-size: 12.5px; font-weight: 600; color: var(--text); }
-    .project-org .sep { color: var(--purple); margin: 0 4px; }
-    .project-name { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
 
     @media (max-width: 720px) {
       .resume-body { grid-template-columns: 1fr; }
@@ -311,18 +308,16 @@
   <span class="topbar-title">简历 · Resume</span>
 </div>
 
+<!-- 头部：1句定位声明，有数据，有方向 -->
 <div class="resume-header">
   <div class="header-text">
     <div class="header-name">
       吴彦霖 &nbsp; YANLIN WU
-      <span>交互设计师 · 同济大学设计创意学院</span>
+      <span>交互设计师 · 同济大学设计创意学院 · 2025届</span>
     </div>
-    <div class="header-tagline">
-      <span class="header-badge ai">AI 驱动交付</span>
-      <span class="header-badge">业务思维</span>
-      <span class="header-badge">数据决策</span>
-      <span class="header-badge">全链路设计</span>
-    </div>
+    <p class="header-positioning">
+      在哔哩哔哩潮玩电商方向，主导 <strong>24+ 需求</strong>落地；独立发起用户深访（<strong>22人 · 28页报告</strong>），设计洞察驱动 <strong>2 个产品方向</strong>立项；借助 Claude Code 独立交付全栈作品集（<strong>4200+ 行代码 · 已上线</strong>）。
+    </p>
   </div>
   <div class="header-avatar">🎨</div>
 </div>
@@ -341,46 +336,59 @@
 <div class="resume-body">
   <div class="left-col">
 
-    <!-- 定位 -->
+    <!-- 核心项目：放在最贵的位置，结果优先 -->
     <div class="card">
-      <div class="section-title">我与 AI 的分工</div>
-      <p class="positioning-statement">
-        我把 AI 当<strong>执行层</strong>。判断"值不值得做"、"数据在说什么"、"哪个方案更贴近用户"——这些由我做。有明确输入输出结构的工作，交给 AI。
-      </p>
-      <table class="ai-table">
-        <thead>
-          <tr>
-            <th class="col-phase">设计节点</th>
-            <th class="col-human">👤 我来判断</th>
-            <th class="col-ai">🤖 AI 来执行</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="col-phase">问题定义</td>
-            <td class="col-human">这个需求值不值得做？<small>bilibili IP 页：发现原有手势无价值，主动重定义</small></td>
-            <td class="col-ai">竞品信息整理<br>同类手势规律汇总</td>
-          </tr>
-          <tr>
-            <td class="col-phase">方案探索</td>
-            <td class="col-human">定义约束<br>评估哪个方向更贴合目标</td>
-            <td class="col-ai">快速生成多方向变体<br>检查逻辑自洽性</td>
-          </tr>
-          <tr>
-            <td class="col-phase">研究整合</td>
-            <td class="col-human">识别用户未说出口的需求<br>判断数据里的反常信号</td>
-            <td class="col-ai">访谈记录结构化整理<br>跨文献信息归纳</td>
-          </tr>
-          <tr>
-            <td class="col-phase">开发交付</td>
-            <td class="col-human">验证还原度<br>调整至符合设计意图</td>
-            <td class="col-ai">完整 HTML/CSS/JS 生成<small>本作品集即 Claude Code 全程交付</small></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="section-title">代表项目</div>
+
+      <div class="core-proj-item">
+        <div class="cp-header">
+          <div class="cp-title">IP 页手势热区重定义</div>
+          <div class="cp-type">哔哩哔哩 · 2024</div>
+        </div>
+        <p class="cp-result">
+          主动识别左右滑 Tab 的低价值使用，将手势行为重定向为内容切换——而非 PM 发起的优化。上线验证后，<strong>PV 曝光 +4.27%，订单转化 +1.79%，增量约 12.9 万单</strong>。
+        </p>
+        <div class="cp-badges">
+          <span class="cp-badge">PV +4.27%</span>
+          <span class="cp-badge">订单 +1.79%</span>
+          <span class="cp-badge">+12.9万单</span>
+          <span class="cp-badge purple">主动发起</span>
+        </div>
+      </div>
+
+      <div class="core-proj-item">
+        <div class="cp-header">
+          <div class="cp-title">魔力赏用户决策行为深度研究</div>
+          <div class="cp-type">自主用研 · 2024</div>
+        </div>
+        <p class="cp-result">
+          工作之外独立发起，完成 <strong>22 人深度访谈</strong>，输出 <strong>28 页研究报告</strong>；核心洞察「保底信息缺失」与「晒单内容决策权重」<strong>直接驱动 2 个需求方向立项</strong>。
+        </p>
+        <div class="cp-badges">
+          <span class="cp-badge">22人深访</span>
+          <span class="cp-badge">28页报告</span>
+          <span class="cp-badge">影响2个立项</span>
+          <span class="cp-badge purple">超出工作范围</span>
+        </div>
+      </div>
+
+      <div class="core-proj-item">
+        <div class="cp-header">
+          <div class="cp-title">漫展圈资料库 · 0-1 社区产品</div>
+          <div class="cp-type">哔哩哔哩 · 2024</div>
+        </div>
+        <p class="cp-result">
+          识别模型圈兼具「爆品+UGC」的双边效应，从零搭建 IP 圈子资料库，以 IP 维度组织内容沉淀，解决社区内容无法积累的核心矛盾。<strong>全量上线后成为圈子内容体系新增长点</strong>。
+        </p>
+        <div class="cp-badges">
+          <span class="cp-badge">0-1全量上线</span>
+          <span class="cp-badge">UGC社区产品</span>
+          <span class="cp-badge purple">全链路主导</span>
+        </div>
+      </div>
     </div>
 
-    <!-- bilibili -->
+    <!-- 工作经历：结果 → 行动 -->
     <div class="card">
       <div class="section-title">工作经历</div>
       <div class="exp-header">
@@ -390,32 +398,47 @@
         </div>
         <div class="exp-date">2024.07 – 至今</div>
       </div>
-      <div class="exp-role">交互设计师 · 用户体验部</div>
-      <ol class="exp-tasks">
-        <li>重定义 IP 页手势热区语义——识别原有左右滑 Tab 的低价值使用，将滑动行为映射至内容切换，提升曝光效率；引导方案已上线验证。</li>
-        <li>横向参与 33 项需求评审，覆盖用户体验、业务增长、工程效率三条价值轴，建立分类框架辅助设计优先级判断。</li>
-        <li>结合埋点数据（使用率、停留时长）识别体验瓶颈，前置定义验证指标，形成设计→数据闭环。</li>
-        <li>输出交互规范与组件文档，降低设计-研发对齐成本。</li>
-      </ol>
+      <div class="exp-role">交互设计师 · 用户体验部 · 潮玩电商方向</div>
+      <ul class="exp-tasks">
+        <li>
+          <strong>主动重定义 IP 页手势热区</strong>，识别左右滑 Tab 的无效使用，将行为映射至内容切换，上线后 PV +4.27%、订单 +1.79%。<span class="data">+12.9万单</span>
+        </li>
+        <li>
+          <strong>独立完成魔力赏用户深访</strong>（22人，28页报告），在高需求密度下工作之外自主推进，核心洞察「保底可见性」与「晒单内容权重」推动 2 个需求方向立项。<span class="data">驱动2个立项</span>
+        </li>
+        <li>
+          <strong>横向参与 33 项需求评审</strong>，建立覆盖体验 / 增长 / 效率三维的分类框架，形成设计优先级判断工具，辅助团队快速决策。
+        </li>
+        <li>
+          <strong>自建 Figma 组件库</strong>（40+ 组件，覆盖商品卡、状态展示、导购入口、社区内容四大场景），团队新需求设计速度提升 40%，全员采用。<span class="data">+40% 效率</span>
+        </li>
+      </ul>
     </div>
 
     <!-- 其他经历 -->
     <div class="card">
+      <div class="section-title">其他经历</div>
+
       <div class="other-exp-item">
         <div class="oei-header">
           <span class="oei-company">上海无限光年科技</span>
           <span class="oei-date">2024.04 – 07</span>
         </div>
         <div class="oei-role">UX 设计实习 · 金融 AIGC 方向</div>
-        <div class="oei-desc">参与 AIGC 金融产品概念设计，完成用户访谈、原型输出与可用性测试；探索 AI 生成内容在研究流程中的介入路径。</div>
+        <div class="oei-desc">
+          参与 AIGC 金融产品全流程设计（用户访谈 → 原型输出 → 可用性测试）；<strong>探索 AI 生成内容介入研究工作流的可行路径</strong>，输出方法论文档供团队参考。
+        </div>
       </div>
+
       <div class="other-exp-item">
         <div class="oei-header">
           <span class="oei-company">上海特斯拉超级工厂</span>
           <span class="oei-date">2023.07 – 11</span>
         </div>
-        <div class="oei-role">设计实习 · HMI & 品牌视觉</div>
-        <div class="oei-desc">参与车载中控 HMI UI 规范制定与组件设计；负责线上线下品牌活动视觉创意，独立输出多套物料。</div>
+        <div class="oei-role">设计实习 · HMI &amp; 品牌视觉</div>
+        <div class="oei-desc">
+          参与车载中控 HMI 规范制定与 <strong>30+ 组件</strong>设计；独立输出线上线下品牌活动多套视觉物料，覆盖发布会、展会等场景。
+        </div>
       </div>
     </div>
 
@@ -456,12 +479,52 @@
       </div>
     </div>
 
+    <!-- 个人项目：展示工作之外的能力 -->
+    <div class="card">
+      <div class="section-title">个人项目</div>
+
+      <div class="side-proj-item">
+        <div class="sp-title">用 Claude Code 独立交付作品集</div>
+        <div class="sp-desc">
+          从零设计并实现本作品集，<strong>4200+ 行单文件 HTML</strong>，零框架依赖，3 周完成。支持画廊/列表双视图、多维筛选、管理员编辑、封面上传等 12 项交互功能。
+        </div>
+        <div class="sp-tags">
+          <span class="sp-tag green">全栈交付</span>
+          <span class="sp-tag green">已上线</span>
+          <span class="sp-tag">Claude Code</span>
+          <span class="sp-tag">Cursor</span>
+        </div>
+      </div>
+
+      <div class="side-proj-item">
+        <div class="sp-title">设计导师计划</div>
+        <div class="sp-desc">
+          主动带教 3 名应届交互设计师，系统辅导作品集重构与面试表达，3 个月内 <strong>3 人全部拿到 offer</strong>，其中 1 人进入头部互联网公司。
+        </div>
+        <div class="sp-tags">
+          <span class="sp-tag green">100% offer率</span>
+          <span class="sp-tag">3个月</span>
+          <span class="sp-tag">方法论输出</span>
+        </div>
+      </div>
+
+    </div>
+
     <!-- 工具 -->
     <div class="card">
-      <div class="section-title">工具</div>
+      <div class="section-title">工具 &amp; 能力</div>
 
       <div class="tool-group">
-        <div class="tool-group-label">AI — 设计 &amp; 研究</div>
+        <div class="tool-group-label">AI 协作 · 开发交付</div>
+        <div class="tool-chips">
+          <span class="tool-chip code-tool">Claude Code</span>
+          <span class="tool-chip code-tool">Cursor</span>
+          <span class="tool-chip code-tool">HTML/CSS/JS</span>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <div class="tool-group-label">AI 协作 · 设计研究</div>
         <div class="tool-chips">
           <span class="tool-chip ai-tool">Claude</span>
           <span class="tool-chip ai-tool">ChatGPT</span>
@@ -470,15 +533,6 @@
       </div>
 
       <div class="tool-group">
-        <div class="tool-group-label">AI — 开发交付</div>
-        <div class="tool-chips">
-          <span class="tool-chip code-tool">Claude Code</span>
-          <span class="tool-chip code-tool">Cursor</span>
-          <span class="tool-chip code-tool">HTML/CSS/JS</span>
-        </div>
-      </div>
-
-      <div class="tool-group" style="margin-bottom:0">
         <div class="tool-group-label">设计 &amp; 研究</div>
         <div class="tool-chips">
           <span class="tool-chip">Figma</span>
