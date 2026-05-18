@@ -4825,6 +4825,89 @@
     reader.readAsDataURL(file);
   }
 
+  // ===== DRAG & DROP IMAGE INTO BODY =====
+  function _insertImageToBody(file, bodyEl, dropX, dropY) {
+    if (!file || !file.type.startsWith('image/')) return;
+    if (file.size > 5 * 1024 * 1024) { showToast('图片超过 5MB，请压缩后重试', '⚠️'); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width; canvas.height = img.height;
+        canvas.getContext('2d').drawImage(img, 0, 0);
+        let src = canvas.toDataURL('image/jpeg', 0.88);
+        if (src.length > 3_000_000) src = canvas.toDataURL('image/jpeg', 0.72);
+        const imgHtml = `<figure style="margin:24px 0;"><img src="${src}" style="max-width:100%;height:auto;border-radius:6px;display:block;"></figure>`;
+        // Insert at drop position
+        bodyEl.focus();
+        let inserted = false;
+        if (document.caretRangeFromPoint) {
+          const range = document.caretRangeFromPoint(dropX, dropY);
+          if (range) {
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            document.execCommand('insertHTML', false, imgHtml);
+            inserted = true;
+          }
+        } else if (document.caretPositionFromPoint) {
+          const pos = document.caretPositionFromPoint(dropX, dropY);
+          if (pos) {
+            const range = document.createRange();
+            range.setStart(pos.offsetNode, pos.offset);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            document.execCommand('insertHTML', false, imgHtml);
+            inserted = true;
+          }
+        }
+        if (!inserted) bodyEl.insertAdjacentHTML('beforeend', imgHtml);
+        showToast('图片已插入，记得点「保存更改」');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Attach drag-and-drop to any contenteditable proj body
+  function _bindBodyDragDrop(bodyEl) {
+    if (!bodyEl || bodyEl._dragBound) return;
+    bodyEl._dragBound = true;
+    bodyEl.addEventListener('dragover', (ev) => {
+      if (!document.documentElement.hasAttribute('data-admin')) return;
+      if ([...ev.dataTransfer.items].some(i => i.type.startsWith('image/'))) {
+        ev.preventDefault();
+        ev.dataTransfer.dropEffect = 'copy';
+        bodyEl.style.outline = '2px dashed #6B5CE7';
+      }
+    });
+    bodyEl.addEventListener('dragleave', () => { bodyEl.style.outline = ''; });
+    bodyEl.addEventListener('drop', (ev) => {
+      bodyEl.style.outline = '';
+      if (!document.documentElement.hasAttribute('data-admin')) return;
+      const file = [...ev.dataTransfer.files].find(f => f.type.startsWith('image/'));
+      if (!file) return;
+      ev.preventDefault();
+      _insertImageToBody(file, bodyEl, ev.clientX, ev.clientY);
+    });
+  }
+
+  // Observe DOM for body elements and bind drag-drop when they appear
+  (function() {
+    const ids = ['staticProjBody', 'dynProjBody'];
+    const observer = new MutationObserver(() => {
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) _bindBodyDragDrop(el);
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    // Also bind immediately for static project body which is always in DOM
+    ids.forEach(id => { const el = document.getElementById(id); if (el) _bindBodyDragDrop(el); });
+  })();
+
   function applyStaticOverrides() {
     const override = JSON.parse(localStorage.getItem('proj_override_ip-hotzone') || 'null');
     if (!override) return;
