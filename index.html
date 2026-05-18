@@ -476,8 +476,34 @@
       cursor: pointer;
       transition: opacity 0.22s;
     }
-    .card:hover { opacity: 0.75; }
-    .card:hover .card-thumb { transform: scale(1.015); }
+
+    /* ── Tilted card effect ── */
+    .card:not(.matrix-card):not(.stats-banner) .card-thumb {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .tilt-shine {
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      pointer-events: none; z-index: 2;
+      transition: background 0.08s;
+    }
+    .tilt-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 14px 12px;
+      background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 100%);
+      color: #fff;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.22s, transform 0.22s;
+      z-index: 3; pointer-events: none;
+      border-radius: inherit;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card:hover .tilt-caption { opacity: 1; transform: translateY(0); }
 
     /* Special cards keep their box */
     .stats-banner,
@@ -4999,6 +5025,84 @@
     });
     document.addEventListener('mouseleave', () => { dot.style.opacity='0'; glow.style.opacity='0'; });
     document.addEventListener('mouseenter', () => { dot.style.opacity=''; glow.style.opacity=''; });
+  })();
+
+  /* ── TiltedCard effect ──────────────────────────────────────────── */
+  (function initTiltCards() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    const AMPLITUDE = 12;   // max rotation degrees
+    const SCALE     = 1.05; // hover scale
+
+    function attachTilt(card) {
+      if (card.classList.contains('matrix-card') || card.classList.contains('stats-banner')) return;
+      const thumb = card.querySelector('.card-thumb');
+      if (!thumb || thumb._tiltReady) return;
+      thumb._tiltReady = true;
+
+      /* shine overlay */
+      const shine = document.createElement('div');
+      shine.className = 'tilt-shine';
+      thumb.appendChild(shine);
+
+      /* caption overlay – pull text from card-title */
+      const titleEl = card.querySelector('.card-title');
+      if (titleEl) {
+        const caption = document.createElement('div');
+        caption.className = 'tilt-caption';
+        caption.textContent = titleEl.textContent.trim();
+        thumb.appendChild(caption);
+      }
+
+      /* smooth lerp state */
+      let rX = 0, rY = 0, tRX = 0, tRY = 0;
+      let hovered = false, rafId;
+
+      function tick() {
+        rX += (tRX - rX) * 0.14;
+        rY += (tRY - rY) * 0.14;
+        thumb.style.transform =
+          `perspective(800px) rotateX(${rX}deg) rotateY(${rY}deg) scale(${hovered ? SCALE : 1})`;
+        if (hovered || Math.abs(tRX - rX) > 0.01 || Math.abs(tRY - rY) > 0.01) {
+          rafId = requestAnimationFrame(tick);
+        }
+      }
+
+      card.addEventListener('mouseenter', () => {
+        hovered = true;
+        thumb.style.transition = 'none';
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(tick);
+      });
+
+      card.addEventListener('mousemove', e => {
+        const r = thumb.getBoundingClientRect();
+        const x = (e.clientX - r.left)  / r.width;   // 0→1
+        const y = (e.clientY - r.top)   / r.height;  // 0→1
+        tRX = (0.5 - y) * AMPLITUDE * 2;              // tilt up/down
+        tRY = (x - 0.5) * AMPLITUDE * 2;              // tilt left/right
+        shine.style.background =
+          `radial-gradient(circle at ${x*100}% ${y*100}%,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0) 55%)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        hovered = false;
+        tRX = 0; tRY = 0;
+        shine.style.background = 'none';
+        thumb.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+        rafId = requestAnimationFrame(tick);
+      });
+    }
+
+    /* attach to all current cards */
+    document.querySelectorAll('.card').forEach(attachTilt);
+
+    /* re-attach when filter shows/hides cards (MutationObserver on gallery) */
+    const gallery = document.querySelector('.gallery-grid, .gallery');
+    if (gallery) {
+      new MutationObserver(() => {
+        document.querySelectorAll('.card').forEach(attachTilt);
+      }).observe(gallery, { childList: true, subtree: true });
+    }
   })();
 
 
