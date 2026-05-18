@@ -2772,6 +2772,7 @@
         <div class="proj-edit-bar" id="staticEditBar">
           <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
           <div style="margin-left:auto;display:flex;gap:8px;">
+            <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="triggerBodyImageInsert('staticProjBody')">＋ 插入图片</button>
             <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="discardStaticEdits()">放弃</button>
             <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveStaticProjectEdits()">保存更改</button>
           </div>
@@ -3555,6 +3556,7 @@
       <div class="proj-edit-bar">
         <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
         <div style="margin-left:auto;display:flex;gap:8px;">
+          <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="triggerBodyImageInsert('dynProjBody')">＋ 插入图片</button>
           <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveDynProjectEdits('${p.id}')">保存更改</button>
         </div>
       </div>` : '';
@@ -4457,6 +4459,7 @@
       <div class="proj-edit-bar">
         <span class="proj-edit-bar-label">🔓 管理模式 · 点击文字可直接编辑</span>
         <div style="margin-left:auto;display:flex;gap:8px;">
+          <button class="btn-cancel" style="height:32px;padding:0 14px;font-size:12px;" onclick="triggerBodyImageInsert('dynProjBody')">＋ 插入图片</button>
           <button class="btn-save-proj" style="height:32px;padding:0 14px;font-size:12px;" onclick="saveBuiltinProjectEdits('${id}')">保存更改</button>
         </div>
       </div>` : '';
@@ -4760,6 +4763,66 @@
       }
     }
     showToast('已放弃更改', '↩');
+  }
+
+  // ===== BODY IMAGE INSERT =====
+  let _bodyImgTargetId = null;
+  let _bodyImgSavedRange = null;
+
+  function triggerBodyImageInsert(bodyId) {
+    if (!document.documentElement.hasAttribute('data-admin')) return;
+    _bodyImgTargetId = bodyId;
+    // Save current selection so we can insert at cursor after file dialog
+    const sel = window.getSelection();
+    _bodyImgSavedRange = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0).cloneRange() : null;
+    let inp = document.getElementById('_bodyImgInput');
+    if (!inp) {
+      inp = document.createElement('input');
+      inp.type = 'file'; inp.id = '_bodyImgInput'; inp.accept = 'image/*';
+      inp.style.display = 'none';
+      inp.addEventListener('change', _onBodyImageSelected);
+      document.body.appendChild(inp);
+    }
+    inp.value = '';
+    inp.click();
+  }
+
+  function _onBodyImageSelected() {
+    const file = this.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('图片超过 5MB，请压缩后重试', '⚠️'); return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // Compress: keep original dimensions, JPEG quality 0.88
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width; canvas.height = img.height;
+        canvas.getContext('2d').drawImage(img, 0, 0);
+        let src = canvas.toDataURL('image/jpeg', 0.88);
+        if (src.length > 3_000_000) src = canvas.toDataURL('image/jpeg', 0.72);
+
+        // Insert at saved cursor position or end of body
+        const body = document.getElementById(_bodyImgTargetId);
+        if (!body) return;
+        body.focus();
+        const imgHtml = `<figure style="margin:24px 0;"><img src="${src}" style="max-width:100%;height:auto;border-radius:6px;display:block;"></figure>`;
+        if (_bodyImgSavedRange) {
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(_bodyImgSavedRange);
+          document.execCommand('insertHTML', false, imgHtml);
+        } else {
+          body.insertAdjacentHTML('beforeend', imgHtml);
+        }
+        _bodyImgSavedRange = null;
+        showToast('图片已插入，记得点「保存更改」');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   function applyStaticOverrides() {
