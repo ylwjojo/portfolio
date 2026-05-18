@@ -1519,9 +1519,57 @@
     .view-btn { transition: all 0.15s; }
     .hamburger-line { transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s; }
     .proj-toc-link { transition: background 0.15s, color 0.15s; }
+
+    /* ===== CUSTOM CURSOR (desktop only) ===== */
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      #cursor-dot {
+        position: fixed; pointer-events: none; z-index: 99999;
+        width: 6px; height: 6px; border-radius: 50%;
+        background: var(--text);
+        transform: translate(-50%, -50%);
+        transition: width 0.15s, height 0.15s, background 0.15s, opacity 0.15s;
+        will-change: transform;
+      }
+      #cursor-ring {
+        position: fixed; pointer-events: none; z-index: 99998;
+        width: 32px; height: 32px; border-radius: 50%;
+        border: 1.5px solid var(--text);
+        opacity: 0.45;
+        transform: translate(-50%, -50%);
+        transition: width 0.22s cubic-bezier(0.25,0.46,0.45,0.94),
+                    height 0.22s cubic-bezier(0.25,0.46,0.45,0.94),
+                    opacity 0.22s, border-color 0.22s, background 0.22s;
+        will-change: transform;
+      }
+      body.cursor-hover #cursor-dot { width: 8px; height: 8px; background: #6B5CE7; }
+      body.cursor-hover #cursor-ring {
+        width: 48px; height: 48px; opacity: 0.2;
+        border-color: #6B5CE7; background: rgba(107,92,231,0.08);
+      }
+      body.cursor-text #cursor-dot { width: 2px; height: 20px; border-radius: 1px; }
+      body.cursor-text #cursor-ring { opacity: 0; }
+      #cursor-ripple {
+        position: fixed; pointer-events: none; z-index: 99997;
+        border-radius: 50%; border: 1.5px solid var(--text);
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0; width: 32px; height: 32px;
+      }
+      #cursor-ripple.pop {
+        animation: cursor-pop 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+      }
+      @keyframes cursor-pop {
+        from { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+        to   { opacity: 0;   transform: translate(-50%, -50%) scale(2.8); }
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Custom cursor elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <div id="cursor-ripple"></div>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
@@ -4929,6 +4977,65 @@
       if (rc) rc.innerHTML = override.rightColHTML;
     }
   }
+
+  // ===== CUSTOM CURSOR =====
+  (function initCursor() {
+    // Only run on pointer-fine devices (mouse, not touch)
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const dot    = document.getElementById('cursor-dot');
+    const ring   = document.getElementById('cursor-ring');
+    const ripple = document.getElementById('cursor-ripple');
+    if (!dot || !ring) return;
+
+    let mx = -100, my = -100;   // mouse position
+    let rx = -100, ry = -100;   // ring position (lagged)
+    const LERP = 0.13;          // ring follow speed (0–1)
+
+    // Track mouse
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+
+    // Smooth ring follow via rAF
+    function animRing() {
+      rx += (mx - rx) * LERP;
+      ry += (my - ry) * LERP;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    requestAnimationFrame(animRing);
+
+    // Hover state — enlarge ring on interactive elements
+    const HOVER_SEL = 'a, button, .card, .list-card, .filter-tag, .view-btn, .proj-toc-link, .nav-card-link, [role="button"], label';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(HOVER_SEL)) {
+        document.body.classList.add('cursor-hover');
+        document.body.classList.remove('cursor-text');
+      } else if (e.target.matches('input, textarea, [contenteditable]') || e.target.closest('[contenteditable]')) {
+        document.body.classList.add('cursor-text');
+        document.body.classList.remove('cursor-hover');
+      } else {
+        document.body.classList.remove('cursor-hover', 'cursor-text');
+      }
+    });
+
+    // Click ripple
+    document.addEventListener('click', (e) => {
+      ripple.style.left = e.clientX + 'px';
+      ripple.style.top  = e.clientY + 'px';
+      ripple.classList.remove('pop');
+      void ripple.offsetWidth; // reflow to restart animation
+      ripple.classList.add('pop');
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = ''; ring.style.opacity = ''; });
+  })();
 
 </script>
 
