@@ -5030,8 +5030,8 @@
   /* ── TiltedCard effect ──────────────────────────────────────────── */
   (function initTiltCards() {
     if (!window.matchMedia('(pointer: fine)').matches) return;
-    const AMPLITUDE = 12;   // max rotation degrees
-    const SCALE     = 1.05; // hover scale
+    const AMPLITUDE = 6;    // max rotation degrees
+    const SCALE     = 1.03; // hover scale
 
     function attachTilt(card) {
       if (card.classList.contains('matrix-card') || card.classList.contains('stats-banner')) return;
