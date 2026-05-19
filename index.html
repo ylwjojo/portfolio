@@ -461,14 +461,15 @@
     /* ===== GRID ===== */
     .gallery-grid {
       padding: 20px 24px;
-      columns: 3;
-      column-gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
     }
 
     /* ===== PROJECT CARD — editorial style ===== */
     .card {
-      break-inside: avoid;
-      margin-bottom: 20px;
+      margin-bottom: 0;
       background: transparent;
       border: none;
       border-radius: 0;
@@ -923,11 +924,11 @@
     .hidden { display: none !important; }
 
     @media (max-width: 900px) {
-      .gallery-grid { columns: 2; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-cell.tagline { display: none; }
     }
     @media (max-width: 600px) {
-      .gallery-grid { columns: 1; }
+      .gallery-grid { grid-template-columns: 1fr; }
       .nav-cell.identity { display: none; }
     }
 
