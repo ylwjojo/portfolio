@@ -1569,10 +1569,13 @@
                     border-color .25s, background .25s, opacity .2s;
       }
       /* hover interactive elements */
-      body.c-hover #cur-dot  { width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #6B5CE7; }
+      body.c-hover #cur-dot  { width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #000; }
       body.c-hover #cur-glow { width: 52px; height: 52px; margin: -26px 0 0 -26px;
-                                border-color: rgba(107,92,231,0.4);
-                                background: rgba(107,92,231,0.07); }
+                                border-color: rgba(0,0,0,0.25);
+                                background: rgba(0,0,0,0.04); }
+      [data-theme="dark"] body.c-hover #cur-dot  { background: #fff; }
+      [data-theme="dark"] body.c-hover #cur-glow { border-color: rgba(255,255,255,0.25);
+                                                    background: rgba(255,255,255,0.04); }
       /* text / editable */
       body.c-text #cur-dot  { width: 2px; height: 22px; margin: -11px 0 0 -1px; border-radius: 2px; }
       body.c-text #cur-glow { opacity: 0; }
