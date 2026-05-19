@@ -51,11 +51,17 @@
     /* ===== HERO ===== */
     .resume-header {
       background: linear-gradient(135deg, #0d0820 0%, #1e1060 40%, #2d1b8e 70%, #1a0d4a 100%);
-      padding: 36px 32px 28px;
-      position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: space-between;
-      min-height: 140px;
+      padding: 36px 32px 0;
+      position: relative; overflow: visible;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      min-height: 180px;
     }
+    #lanyard-canvas {
+      width: 200px; height: 320px;
+      flex-shrink: 0; position: relative; z-index: 2;
+      margin-top: -8px;
+    }
+    #lanyard-canvas canvas { display: block; }
     .resume-header::before {
       content: ''; position: absolute;
       top: -40px; right: -40px; width: 300px; height: 300px;
@@ -319,7 +325,7 @@
       在哔哩哔哩潮玩电商方向，主导 <strong>24+ 需求</strong>落地；独立发起用户深访（<strong>22人 · 28页报告</strong>），设计洞察驱动 <strong>2 个产品方向</strong>立项；借助 Claude Code 独立交付全栈作品集（<strong>4200+ 行代码 · 已上线</strong>）。
     </p>
   </div>
-  <div class="header-avatar">🎨</div>
+  <div id="lanyard-canvas"></div>
 </div>
 
 <div class="contact-bar">
@@ -557,5 +563,204 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  const mount = document.getElementById('lanyard-canvas');
+  if (!mount || typeof THREE === 'undefined') return;
+
+  const W = 200, H = 320;
+
+  /* ── Scene ──────────────────────────────────────── */
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(28, W / H, 0.01, 100);
+  camera.position.z = 10;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W, H);
+  renderer.setClearColor(0, 0);
+  mount.appendChild(renderer.domElement);
+
+  /* ── Lighting ───────────────────────────────────── */
+  scene.add(new THREE.AmbientLight(0xffffff, 2.5));
+  const sun = new THREE.DirectionalLight(0xfff5e0, 3);
+  sun.position.set(3, 6, 6); scene.add(sun);
+  const fill = new THREE.DirectionalLight(0xb0b8ff, 1);
+  fill.position.set(-4, -2, 3); scene.add(fill);
+
+  /* ── Card texture (Canvas API) ──────────────────── */
+  const CW = 480, CH = 300;
+  const cc = document.createElement('canvas');
+  cc.width = CW; cc.height = CH;
+  const ctx = cc.getContext('2d');
+
+  // white base
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(0, 0, CW, CH, 16); else ctx.rect(0, 0, CW, CH);
+  ctx.fill();
+
+  // header gradient band
+  const hg = ctx.createLinearGradient(0, 0, CW, 74);
+  hg.addColorStop(0, '#0d0820'); hg.addColorStop(1, '#3d2a9a');
+  ctx.fillStyle = hg;
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(0, 0, CW, 74, [16, 16, 0, 0]); else ctx.rect(0, 0, CW, 74);
+  ctx.fill();
+
+  // lanyard hole
+  ctx.fillStyle = '#ddd8f0';
+  ctx.beginPath(); ctx.arc(CW / 2, 13, 10, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#9080c8';
+  ctx.beginPath(); ctx.arc(CW / 2, 13, 5, 0, Math.PI * 2); ctx.fill();
+
+  // name
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 30px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText('吴彦霖', 22, 44);
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '14px sans-serif';
+  ctx.fillText('YANLIN WU', 22, 64);
+
+  // title
+  ctx.fillStyle = '#1a1a2e';
+  ctx.font = 'bold 16px sans-serif';
+  ctx.fillText('交互设计师 · UX Designer', 22, 106);
+  ctx.fillStyle = '#6B5CE7';
+  ctx.font = '13px sans-serif';
+  ctx.fillText('哔哩哔哩 bilibili · 潮玩电商', 22, 128);
+  ctx.fillStyle = '#9090a8';
+  ctx.font = '11px sans-serif';
+  ctx.fillText('同济大学设计创意学院 · 2025届', 22, 148);
+
+  // divider
+  ctx.strokeStyle = '#eeeaf8'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(22, 162); ctx.lineTo(CW - 22, 162); ctx.stroke();
+
+  // stats
+  [['24+','需求落地',22],['22','深度访谈',148],['4200+','行代码',274]].forEach(([n,l,x]) => {
+    ctx.fillStyle = '#6B5CE7'; ctx.font = 'bold 20px sans-serif'; ctx.fillText(n, x, 196);
+    ctx.fillStyle = '#aaa';    ctx.font = '10px sans-serif';      ctx.fillText(l, x, 214);
+  });
+
+  // bottom tag strip
+  ctx.fillStyle = '#f5f3ff';
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(0, CH - 38, CW, 38, [0, 0, 16, 16]); else ctx.rect(0, CH - 38, CW, 38);
+  ctx.fill();
+  ctx.fillStyle = '#6B5CE7'; ctx.font = '11px sans-serif';
+  ctx.fillText('产品思维 · 交互设计 · AI协作 · 全栈实现', 22, CH - 14);
+
+  const tex = new THREE.CanvasTexture(cc);
+  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+  /* ── Card mesh ───────────────────────────────────── */
+  const CRD_W = 1.6, CRD_H = CRD_W * (CH / CW);
+  const cardGeo = new THREE.BoxGeometry(CRD_W, CRD_H, 0.018);
+  // BoxGeometry face order: +X,-X,+Y,-Y,+Z(front),-Z(back)
+  const frontMat = new THREE.MeshPhysicalMaterial({ map: tex, roughness: 0.07, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.08 });
+  const backMat  = new THREE.MeshPhysicalMaterial({ color: 0x1a0d40, roughness: 0.4, metalness: 0.1 });
+  const edgeMat  = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 });
+  const card = new THREE.Mesh(cardGeo, [edgeMat, edgeMat, edgeMat, edgeMat, frontMat, backMat]);
+  scene.add(card);
+
+  // metal clip at top
+  const clipGeo = new THREE.CylinderGeometry(0.034, 0.034, 0.09, 8);
+  const metalMat = new THREE.MeshStandardMaterial({ color: 0xd0d0d0, roughness: 0.12, metalness: 0.95 });
+  const clip = new THREE.Mesh(clipGeo, metalMat);
+  clip.position.y = CRD_H / 2 + 0.04;
+  card.add(clip);
+
+  /* ── Rope physics (Verlet integration) ──────────── */
+  const N = 16, AY = 3.0, SEG = 0.22;
+  const rope = Array.from({ length: N }, (_, i) => ({
+    x: (i * 0.04), y: AY - i * SEG, z: 0,  // slight initial offset for natural hang
+    px: (i * 0.04), py: AY - i * SEG, pz: 0,
+    pinned: i === 0
+  }));
+  const GRAV = -24, DAMP = 0.988, ITERS = 20;
+
+  // rope line
+  const rGeo = new THREE.BufferGeometry();
+  const rPos = new Float32Array(N * 3);
+  rGeo.setAttribute('position', new THREE.BufferAttribute(rPos, 3));
+  scene.add(new THREE.Line(rGeo, new THREE.LineBasicMaterial({ color: 0xf0c830 })));
+
+  /* ── Physics step ────────────────────────────────── */
+  let dragging = false, dragX = 0, dragY = 0;
+
+  function step(dt) {
+    dt = Math.min(dt, 1 / 30);
+    for (const p of rope) {
+      if (p.pinned) continue;
+      if (dragging && p === rope[N - 1]) { p.x = dragX; p.y = dragY; p.px = dragX; p.py = dragY; continue; }
+      const vx = p.x - p.px, vy = p.y - p.py, vz = p.z - p.pz;
+      p.px = p.x; p.py = p.y; p.pz = p.z;
+      p.x += vx * DAMP; p.y += vy * DAMP + GRAV * dt * dt; p.z += vz * DAMP;
+    }
+    rope[0].x = 0; rope[0].y = AY; rope[0].z = 0;
+    for (let k = 0; k < ITERS; k++) {
+      rope[0].x = 0; rope[0].y = AY; rope[0].z = 0;
+      for (let i = 0; i < N - 1; i++) {
+        const a = rope[i], b = rope[i + 1];
+        const dx = b.x-a.x, dy = b.y-a.y, dz = b.z-a.z;
+        const d = Math.sqrt(dx*dx+dy*dy+dz*dz) || 1e-6;
+        const diff = (d - SEG) / d * 0.5;
+        if (!a.pinned) { a.x += dx*diff; a.y += dy*diff; a.z += dz*diff; }
+        b.x -= dx*diff; b.y -= dy*diff; b.z -= dz*diff;
+      }
+    }
+    for (let i = 0; i < N; i++) { rPos[i*3] = rope[i].x; rPos[i*3+1] = rope[i].y; rPos[i*3+2] = rope[i].z; }
+    rGeo.attributes.position.needsUpdate = true;
+
+    const last = rope[N-1], prev2 = rope[N-2];
+    card.position.set(last.x, last.y - CRD_H/2 - 0.05, last.z);
+    const angle = Math.atan2(last.x - prev2.x, -(last.y - prev2.y));
+    card.rotation.z = angle * 0.5;
+    card.rotation.y = -angle * 0.3;
+  }
+
+  /* ── Interaction ─────────────────────────────────── */
+  function toWorld(cx, cy) {
+    const r = renderer.domElement.getBoundingClientRect();
+    const nx = ((cx - r.left) / r.width)  * 2 - 1;
+    const ny =-((cy - r.top)  / r.height) * 2 + 1;
+    const v = new THREE.Vector3(nx, ny, 0.5).unproject(camera);
+    const dir = v.sub(camera.position).normalize();
+    const t = -camera.position.z / dir.z;
+    return { x: camera.position.x + dir.x * t, y: camera.position.y + dir.y * t };
+  }
+
+  const cvs = renderer.domElement;
+  cvs.style.cursor = 'grab';
+  cvs.addEventListener('pointerdown', e => {
+    const w = toWorld(e.clientX, e.clientY);
+    if (Math.hypot(w.x - card.position.x, w.y - card.position.y) < 1.2) {
+      dragging = true; dragX = w.x; dragY = w.y;
+      e.target.setPointerCapture(e.pointerId);
+      cvs.style.cursor = 'grabbing';
+    }
+  });
+  cvs.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const w = toWorld(e.clientX, e.clientY);
+    dragX = w.x; dragY = w.y;
+  });
+  ['pointerup','pointercancel'].forEach(t =>
+    cvs.addEventListener(t, () => { dragging = false; cvs.style.cursor = 'grab'; })
+  );
+
+  /* ── Render loop ─────────────────────────────────── */
+  let prevT = performance.now();
+  (function loop(now) {
+    requestAnimationFrame(loop);
+    step((now - prevT) / 1000);
+    prevT = now;
+    renderer.render(scene, camera);
+  })(performance.now());
+})();
+</script>
 </body>
 </html>
