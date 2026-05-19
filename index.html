@@ -2128,43 +2128,71 @@
     </div>
   </div>
 
-  <!-- 个人探索项目 -->
+  <!-- 个人探索项目 × 4 -->
+
+  <!-- P1. 作品集自建 -->
   <div class="card" data-type="project" data-builtin-id="personal-portfolio-build" onclick="openBuiltinProject('personal-portfolio-build')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0f0f1a,#1e2a3a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="6" y="8" width="28" height="20" rx="2" stroke="#88aacc" stroke-width="1.5"/><path d="M14 20 L18 16 L22 18 L28 13" stroke="#88aacc" stroke-width="1.2" stroke-linecap="round"/><line x1="6" y1="32" x2="34" y2="32" stroke="#88aacc" stroke-width="1.2"/><line x1="16" y1="28" x2="16" y2="32" stroke="#88aacc" stroke-width="1.2"/><line x1="24" y1="28" x2="24" y2="32" stroke="#88aacc" stroke-width="1.2"/></svg>
+    <div class="card-thumb ph" style="background:#0c0c14;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.08" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="g1" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0 L0 0 0 28" fill="none" stroke="#fff" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#g1)"/></svg>
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <rect x="0" y="0" width="160" height="100" rx="6" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <rect x="0" y="0" width="160" height="18" rx="6" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="12" cy="9" r="3" fill="rgba(255,100,100,0.6)"/>
+        <circle cx="22" cy="9" r="3" fill="rgba(255,180,50,0.6)"/>
+        <circle cx="32" cy="9" r="3" fill="rgba(80,200,100,0.6)"/>
+        <text x="10" y="35" font-size="9" fill="rgba(100,255,140,0.8)" font-family="monospace">$ claude "设计这个页面"</text>
+        <text x="10" y="50" font-size="9" fill="rgba(255,255,255,0.4)" font-family="monospace">→ 分析需求结构...</text>
+        <text x="10" y="65" font-size="9" fill="rgba(255,255,255,0.4)" font-family="monospace">→ 生成组件方案...</text>
+        <text x="10" y="80" font-size="9" fill="rgba(100,200,255,0.7)" font-family="monospace">✓ 已交付 4,200+ 行</text>
+      </svg>
     </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">全栈交付</span><span class="card-tag">AI协作</span><span class="card-tag">已上线</span></div>
-      <div class="card-title">用 Claude + Cursor 从零搭建这个作品集</div>
+      <div class="card-tags"><span class="card-tag">AI协作</span><span class="card-tag">全栈交付</span><span class="card-tag">已上线</span></div>
+      <div class="card-title">用 Claude + Cursor 从零独立搭建这个作品集</div>
       <div class="card-desc">设计师能不能独立交付一个有完整交互逻辑的产品？这个作品集是我给自己的答案。3周，4200+行，零框架依赖。</div>
     </div>
   </div>
 
-  <div class="card" data-type="project" data-builtin-id="personal-figma-library" onclick="openBuiltinProject('personal-figma-library')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a1a,#2a1040);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="8" y="8" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/><rect x="22" y="8" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/><rect x="8" y="22" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/><rect x="22" y="22" width="10" height="10" rx="2" stroke="#bb88cc" stroke-width="1.5"/></svg>
+  <!-- P2. AI加速用研 -->
+  <div class="card" data-type="project" data-builtin-id="personal-ai-research" onclick="openBuiltinProject('personal-ai-research')" style="cursor:pointer">
+    <div class="card-thumb ph" style="background:#0a0f18;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.8" fill="#fff"/></pattern></defs><rect width="100%" height="100%" fill="url(#g2)"/></svg>
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <rect x="8" y="10" width="90" height="16" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+        <text x="16" y="22" font-size="7.5" fill="rgba(255,255,255,0.5)" font-family="sans-serif">用户A："我不确定自己真的想要..."</text>
+        <rect x="62" y="32" width="90" height="16" rx="8" fill="rgba(80,160,255,0.12)" stroke="rgba(80,160,255,0.2)" stroke-width="0.8"/>
+        <text x="70" y="44" font-size="7.5" fill="rgba(80,160,255,0.7)" font-family="sans-serif">用户B："每次刷新都有惊喜感"</text>
+        <rect x="8" y="54" width="80" height="16" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+        <text x="16" y="66" font-size="7.5" fill="rgba(255,255,255,0.5)" font-family="sans-serif">用户C："我在等一个理由开箱"</text>
+        <rect x="8" y="76" width="144" height="16" rx="3" fill="rgba(80,255,160,0.08)" stroke="rgba(80,255,160,0.2)" stroke-width="0.8"/>
+        <text x="14" y="87.5" font-size="7" fill="rgba(80,255,160,0.75)" font-family="monospace">AI聚类 → 核心动机：期待感 × 归属感</text>
+      </svg>
     </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">设计系统</span><span class="card-tag">开源</span><span class="card-tag">300+ 使用</span></div>
-      <div class="card-title">开源 Figma 组件库：潮玩电商高频场景设计系统</div>
-      <div class="card-desc">40+ 组件，覆盖商品卡、状态展示、导购入口、社区内容四大模块，每个组件附带决策说明。</div>
+      <div class="card-tags"><span class="card-tag">AI加速用研</span><span class="card-tag">行为洞察</span><span class="card-tag">影响立项</span></div>
+      <div class="card-title">AI辅助用研：22人访谈，48小时出洞察报告</div>
+      <div class="card-desc">用 Claude 做访谈聚类与主题提取，把过去需要两周的定性分析压缩到两天。洞察直接推动了两个需求方向立项。</div>
     </div>
   </div>
 
-  <div class="card" data-type="project" data-builtin-id="personal-user-research" onclick="openBuiltinProject('personal-user-research')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a10,#1a3020);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="20" cy="16" r="6" stroke="#88ccaa" stroke-width="1.5"/><path d="M10 32 C10 26 14 23 20 23 C26 23 30 26 30 32" stroke="#88ccaa" stroke-width="1.5" stroke-linecap="round"/><path d="M26 12 L30 8" stroke="#88ccaa" stroke-width="1.2"/><circle cx="31" cy="7" r="2" stroke="#88ccaa" stroke-width="1.2"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">自主用研</span><span class="card-tag">行为洞察</span><span class="card-tag">影响需求立项</span></div>
-      <div class="card-title">魔力赏用户决策行为深度研究</div>
-      <div class="card-desc">22人访谈，28页报告，超出工作范围的那份研究——核心洞察直接影响了2个需求方向的立项。</div>
-    </div>
-  </div>
-
+  <!-- P3. Prompt工具箱 -->
   <div class="card" data-type="project" data-builtin-id="personal-prompt-toolkit" onclick="openBuiltinProject('personal-prompt-toolkit')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a140a,#1a2a1a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M10 14 L16 14 L16 26 L10 26" stroke="#88bb88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 14 L24 14 L24 26 L30 26" stroke="#88bb88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="18" y1="20" x2="22" y2="20" stroke="#88bb88" stroke-width="1.5"/></svg>
+    <div class="card-thumb ph" style="background:#080d10;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="g3" width="32" height="32" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="32" y2="32" stroke="#fff" stroke-width="0.4"/><line x1="32" y1="0" x2="0" y2="32" stroke="#fff" stroke-width="0.4"/></pattern></defs><rect width="100%" height="100%" fill="url(#g3)"/></svg>
+      <svg width="170" height="100" viewBox="0 0 170 100" fill="none">
+        <rect x="15" y="18" width="140" height="22" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+        <rect x="10" y="12" width="140" height="22" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+        <rect x="5" y="6" width="140" height="22" rx="3" fill="rgba(20,40,60,0.8)" stroke="rgba(100,180,255,0.25)" stroke-width="0.8"/>
+        <text x="13" y="15" font-size="7" fill="rgba(100,180,255,0.5)" font-family="monospace">PHASE: 竞品分析</text>
+        <text x="13" y="24" font-size="8" fill="rgba(255,255,255,0.75)" font-family="monospace">请扮演一个挑剔的用户，指出...</text>
+        <rect x="5" y="50" width="38" height="12" rx="2" fill="rgba(100,180,255,0.1)" stroke="rgba(100,180,255,0.2)" stroke-width="0.7"/>
+        <text x="10" y="59.5" font-size="7" fill="rgba(100,180,255,0.7)" font-family="sans-serif">用研阶段</text>
+        <rect x="48" y="50" width="38" height="12" rx="2" fill="rgba(100,220,160,0.1)" stroke="rgba(100,220,160,0.2)" stroke-width="0.7"/>
+        <text x="53" y="59.5" font-size="7" fill="rgba(100,220,160,0.7)" font-family="sans-serif">方案产出</text>
+        <rect x="91" y="50" width="38" height="12" rx="2" fill="rgba(255,180,80,0.1)" stroke="rgba(255,180,80,0.2)" stroke-width="0.7"/>
+        <text x="96" y="59.5" font-size="7" fill="rgba(255,180,80,0.7)" font-family="sans-serif">汇报表达</text>
+        <text x="5" y="82" font-size="8" fill="rgba(255,255,255,0.25)" font-family="sans-serif">80+ 条提示词  ·  按设计阶段分类</text>
+      </svg>
     </div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">AI工具</span><span class="card-tag">Prompt工程</span><span class="card-tag">500+ 访问</span></div>
@@ -2173,150 +2201,127 @@
     </div>
   </div>
 
-  <div class="card" data-type="project" data-builtin-id="personal-mentorship" onclick="openBuiltinProject('personal-mentorship')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#14100a,#2a2010);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="15" cy="14" r="5" stroke="#ccbb88" stroke-width="1.5"/><circle cx="27" cy="18" r="4" stroke="#ccbb88" stroke-width="1.2"/><path d="M7 30 C7 25 10 23 15 23 C20 23 23 25 23 30" stroke="#ccbb88" stroke-width="1.5" stroke-linecap="round"/><path d="M23 27 C23 24 25 23 27 23 C29 23 31 24 31 27" stroke="#ccbb88" stroke-width="1.2" stroke-linecap="round"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">教学带人</span><span class="card-tag">职业辅导</span><span class="card-tag">100% offer率</span></div>
-      <div class="card-title">设计导师计划：带3名应届生完成交互设计求职</div>
-      <div class="card-desc">3个月，3人全部拿到offer，其中1人进头部互联网。教别人是检验自己理解深度最好的方式。</div>
-    </div>
-  </div>
-
-  <div class="card" data-type="project" data-builtin-id="personal-freelance-game" onclick="openBuiltinProject('personal-freelance-game')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a0a18,#18182e);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M20 8 L34 22 L20 36 L6 22 Z" stroke="#9999cc" stroke-width="1.5" fill="none"/><circle cx="20" cy="22" r="4" stroke="#9999cc" stroke-width="1.2"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">跨界合作</span><span class="card-tag">品牌设计</span><span class="card-tag">已交付</span></div>
-      <div class="card-title">跨界合作：为独立游戏工作室打造品牌体验</div>
-      <div class="card-desc">跨出电商舒适区，完成官网+品牌规范+社媒视觉体系全套交付，Steam上线后进入新品推荐。</div>
-    </div>
-  </div>
-
-  <div class="card" data-type="project" data-builtin-id="personal-content-creation" onclick="openBuiltinProject('personal-content-creation')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#180a08,#2e1410);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M10 12 L30 12" stroke="#ccaa88" stroke-width="1.5" stroke-linecap="round"/><path d="M10 18 L26 18" stroke="#ccaa88" stroke-width="1.2" stroke-linecap="round"/><path d="M10 24 L22 24" stroke="#ccaa88" stroke-width="1.2" stroke-linecap="round"/><circle cx="30" cy="28" r="5" stroke="#ccaa88" stroke-width="1.5"/><path d="M28 28 L29.5 29.5 L32 26.5" stroke="#ccaa88" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">内容创作</span><span class="card-tag">影响力建设</span><span class="card-tag">持续运营</span></div>
-      <div class="card-title">「设计中场」：持续输出设计观点的内容计划</div>
-      <div class="card-desc">20+ 篇文章，单篇最高阅读 3200+，读者涵盖设计师、产品经理、工程师。输出是最好的输入。</div>
-    </div>
-  </div>
-
+  <!-- P4. 全栈小程序 -->
   <div class="card" data-type="project" data-builtin-id="personal-checkin-app" onclick="openBuiltinProject('personal-checkin-app')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1614,#142420);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="13" y="6" width="14" height="28" rx="3" stroke="#88ccbb" stroke-width="1.5"/><line x1="17" y1="10" x2="23" y2="10" stroke="#88ccbb" stroke-width="1.2"/><circle cx="20" cy="28" r="1.5" fill="#88ccbb"/><path d="M16 18 L19 21 L24 15" stroke="#88ccbb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="card-thumb ph" style="background:#0c0e12;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <rect x="52" y="4" width="56" height="92" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <rect x="68" y="6" width="24" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
+        <rect x="56" y="14" width="48" height="8" rx="2" fill="rgba(255,255,255,0.08)"/>
+        <rect x="56" y="26" width="22" height="22" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+        <rect x="82" y="26" width="22" height="22" rx="3" fill="rgba(100,200,255,0.12)" stroke="rgba(100,200,255,0.2)" stroke-width="0.8"/>
+        <text x="88" y="40" font-size="9" fill="rgba(100,200,255,0.7)" font-family="sans-serif">✓</text>
+        <rect x="56" y="52" width="48" height="6" rx="2" fill="rgba(255,255,255,0.05)"/>
+        <rect x="56" y="62" width="36" height="6" rx="2" fill="rgba(255,255,255,0.05)"/>
+        <rect x="56" y="80" width="48" height="10" rx="3" fill="rgba(255,255,255,0.08)"/>
+        <text x="4" y="30" font-size="7" fill="rgba(255,255,255,0.3)" font-family="sans-serif">用研</text>
+        <line x1="18" y1="28" x2="52" y2="22" stroke="rgba(255,255,255,0.1)" stroke-width="0.7"/>
+        <text x="4" y="52" font-size="7" fill="rgba(255,255,255,0.3)" font-family="sans-serif">交互</text>
+        <line x1="18" y1="50" x2="52" y2="42" stroke="rgba(255,255,255,0.1)" stroke-width="0.7"/>
+        <text x="112" y="30" font-size="7" fill="rgba(255,255,255,0.3)" font-family="sans-serif">视觉</text>
+        <line x1="112" y1="28" x2="108" y2="22" stroke="rgba(255,255,255,0.1)" stroke-width="0.7"/>
+        <text x="112" y="52" font-size="7" fill="rgba(255,255,255,0.3)" font-family="sans-serif">前端</text>
+        <line x1="112" y1="50" x2="108" y2="42" stroke="rgba(255,255,255,0.1)" stroke-width="0.7"/>
+      </svg>
     </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">完整产品</span><span class="card-tag">小程序</span><span class="card-tag">全流程独立</span></div>
-      <div class="card-title">从0到可用：独立设计并实现漫展打卡小程序</div>
-      <div class="card-desc">一人完成用研、产品定义、交互、视觉、前端实现全流程。8周，功能完整可演示，已在真实漫展中测试。</div>
+      <div class="card-tags"><span class="card-tag">完整产品</span><span class="card-tag">独立全栈</span><span class="card-tag">真实测试</span></div>
+      <div class="card-title">一个人做完所有事：漫展打卡小程序全流程独立交付</div>
+      <div class="card-desc">用研、产品定义、交互、视觉、前端实现，一人全程。8周，功能完整可演示，已在真实漫展中运行测试。</div>
     </div>
   </div>
 
-  <!-- 思考文章 -->
-  <div class="card" data-type="thinking" data-builtin-id="thinking-ai-workflow" onclick="openBuiltinProject('thinking-ai-workflow')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a0a,#1a3a2a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="6" y="10" width="12" height="8" rx="2" stroke="#88cc99" stroke-width="1.5"/><rect x="22" y="10" width="12" height="8" rx="2" stroke="#88cc99" stroke-width="1.5"/><rect x="14" y="24" width="12" height="8" rx="2" stroke="#88cc99" stroke-width="1.5"/><path d="M12 18L12 22L20 22" stroke="#88cc99" stroke-width="1.2"/><path d="M28 18L28 22L20 22" stroke="#88cc99" stroke-width="1.2"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">AI工作流</span><span class="card-tag">实战指南</span><span class="card-tag">工具链</span></div>
-      <div class="card-title">AI工作流实战指南：我是如何从0搭建设计辅助体系的</div>
-      <div class="card-desc">工具选对了只是开始，真正的工作流是让这些工具互相配合，服务于你的思考过程而不是打断它。</div>
-    </div>
-  </div>
+  <!-- 思考 × 4 -->
 
+  <!-- T1. 核心竞争力 -->
   <div class="card" data-type="thinking" data-builtin-id="thinking-core-competency" onclick="openBuiltinProject('thinking-core-competency')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a0a,#3a1a1a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><polygon points="20,6 34,30 6,30" stroke="#cc8888" stroke-width="1.5" fill="none"/><line x1="20" y1="14" x2="20" y2="24" stroke="#cc8888" stroke-width="1.2"/><circle cx="20" cy="27" r="1.5" fill="#cc8888"/></svg>
+    <div class="card-thumb ph" style="background:#0f0a08;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="t1" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="15" fill="none" stroke="#fff" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#t1)"/></svg>
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <circle cx="65" cy="50" r="30" fill="rgba(255,120,80,0.08)" stroke="rgba(255,120,80,0.25)" stroke-width="1"/>
+        <circle cx="95" cy="50" r="30" fill="rgba(80,140,255,0.08)" stroke="rgba(80,140,255,0.25)" stroke-width="1"/>
+        <text x="44" y="48" font-size="8" fill="rgba(255,120,80,0.7)" font-family="sans-serif" text-anchor="middle">判断</text>
+        <text x="44" y="60" font-size="8" fill="rgba(255,120,80,0.7)" font-family="sans-serif" text-anchor="middle">同理</text>
+        <text x="116" y="48" font-size="8" fill="rgba(80,140,255,0.7)" font-family="sans-serif" text-anchor="middle">生成</text>
+        <text x="116" y="60" font-size="8" fill="rgba(80,140,255,0.7)" font-family="sans-serif" text-anchor="middle">执行</text>
+        <text x="80" y="54" font-size="7" fill="rgba(255,255,255,0.5)" font-family="sans-serif" text-anchor="middle">协作</text>
+        <text x="28" y="90" font-size="7.5" fill="rgba(255,120,80,0.5)" font-family="sans-serif">设计师</text>
+        <text x="108" y="90" font-size="7.5" fill="rgba(80,140,255,0.5)" font-family="sans-serif">AI</text>
+      </svg>
     </div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag">职业思考</span><span class="card-tag">核心竞争力</span><span class="card-tag">AI时代</span></div>
-      <div class="card-title">交互设计师的核心竞争力，在AI时代到底是什么？</div>
-      <div class="card-desc">如果你把「会用Figma」当作核心竞争力，那你的处境确实很危险。但如果你把「理解人、理解系统、做出好判断」当作核心，AI只会让你更强。</div>
+      <div class="card-title">交互设计师的核心竞争力，在 AI 时代到底是什么？</div>
+      <div class="card-desc">把「会用Figma」当核心竞争力，处境确实危险。但「理解人、理解系统、做出好判断」——AI只会让你更强。</div>
     </div>
   </div>
 
+  <!-- T2. 设计判断力 -->
   <div class="card" data-type="thinking" data-builtin-id="thinking-design-judgment" onclick="openBuiltinProject('thinking-design-judgment')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a0a1a,#2a1a3a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="20" cy="20" r="12" stroke="#aa88cc" stroke-width="1.5"/><path d="M16 20 L19 23 L24 17" stroke="#aa88cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="card-thumb ph" style="background:#0a0c0f;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.06" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="t2" width="16" height="16" patternUnits="userSpaceOnUse"><line x1="0" y1="8" x2="16" y2="8" stroke="#fff" stroke-width="0.4"/></pattern></defs><rect width="100%" height="100%" fill="url(#t2)"/></svg>
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <polygon points="80,12 105,45 55,45" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <line x1="20" y1="48" x2="140" y2="48" stroke="rgba(100,160,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+        <polygon points="80,48 130,90 30,90" fill="rgba(100,160,255,0.06)" stroke="rgba(100,160,255,0.15)" stroke-width="1"/>
+        <text x="80" y="35" font-size="7.5" fill="rgba(255,255,255,0.5)" font-family="sans-serif" text-anchor="middle">可见的执行</text>
+        <text x="80" y="72" font-size="7.5" fill="rgba(100,160,255,0.6)" font-family="sans-serif" text-anchor="middle">判断力 · 品味 · 经验模型</text>
+        <text x="80" y="84" font-size="6.5" fill="rgba(100,160,255,0.4)" font-family="sans-serif" text-anchor="middle">AI 复制不了这部分</text>
+      </svg>
     </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">设计判断</span><span class="card-tag">能力论</span><span class="card-tag">职业深度</span></div>
-      <div class="card-title">设计判断力：AI复制不了的那部分</div>
-      <div class="card-desc">不是所有的判断都能被语言描述，不能被描述的部分，就是设计师真正的护城河。</div>
+      <div class="card-tags"><span class="card-tag">设计判断</span><span class="card-tag">不可复制性</span><span class="card-tag">护城河</span></div>
+      <div class="card-title">设计判断力：AI 复制不了的那部分</div>
+      <div class="card-desc">不是所有的判断都能被语言描述。不能被描述的部分，就是设计师真正的护城河。</div>
     </div>
   </div>
 
+  <!-- T3. 设计师写代码 -->
   <div class="card" data-type="thinking" data-builtin-id="thinking-designer-codes" onclick="openBuiltinProject('thinking-designer-codes')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1a1a,#1a3a3a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M14 16 L8 20 L14 24" stroke="#88cccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 16 L32 20 L26 24" stroke="#88cccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 13 L18 27" stroke="#88cccc" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <div class="card-thumb ph" style="background:#080c0e;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="t3" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 10 L10 0 L20 10 L10 20 Z" fill="none" stroke="#fff" stroke-width="0.4"/></pattern></defs><rect width="100%" height="100%" fill="url(#t3)"/></svg>
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <text x="14" y="46" font-size="11" fill="rgba(255,255,255,0.55)" font-family="sans-serif" font-weight="600">想到</text>
+        <rect x="50" y="40" width="60" height="10" rx="2" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+        <line x1="56" y1="45" x2="104" y2="45" stroke="rgba(100,220,160,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <polygon points="104,41 110,45 104,49" fill="rgba(100,220,160,0.5)"/>
+        <text x="116" y="46" font-size="11" fill="rgba(100,220,160,0.7)" font-family="sans-serif" font-weight="600">做出</text>
+        <text x="80" y="62" font-size="7" fill="rgba(255,255,255,0.25)" font-family="sans-serif" text-anchor="middle">设计 × 代码 × AI</text>
+        <text x="80" y="78" font-size="7.5" fill="rgba(255,255,255,0.35)" font-family="sans-serif" text-anchor="middle">让这段距离越来越近</text>
+      </svg>
     </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">全栈思维</span><span class="card-tag">设计 × 代码</span><span class="card-tag">能力扩展</span></div>
+      <div class="card-tags"><span class="card-tag">全栈思维</span><span class="card-tag">设计 × 代码</span><span class="card-tag">能力边界</span></div>
       <div class="card-title">当设计师开始写代码</div>
       <div class="card-desc">我不是要成为工程师，而是要让「我能想到」和「我能做出来」之间的距离越来越近。</div>
     </div>
   </div>
 
-  <div class="card" data-type="thinking" data-builtin-id="thinking-trendy-toy-ux" onclick="openBuiltinProject('thinking-trendy-toy-ux')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a0a1a,#3a1a3a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M20 8 C14 8 10 13 10 18 C10 26 20 34 20 34 C20 34 30 26 30 18 C30 13 26 8 20 8Z" stroke="#cc88cc" stroke-width="1.5" fill="none"/><circle cx="20" cy="18" r="4" stroke="#cc88cc" stroke-width="1.2"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">潮玩电商</span><span class="card-tag">情感设计</span><span class="card-tag">领域洞察</span></div>
-      <div class="card-title">潮玩电商的体验密码：当用户买的不是商品</div>
-      <div class="card-desc">会员购用户购买的不是手办，是对某个IP世界的归属感。设计要服务的，是这种情感而不是交易本身。</div>
-    </div>
-  </div>
-
-  <div class="card" data-type="thinking" data-builtin-id="thinking-capability-growth" onclick="openBuiltinProject('thinking-capability-growth')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a1208,#1a3018);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><path d="M8 28 L16 20 L22 24 L32 12" stroke="#88bb88" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="12" r="2.5" fill="#88bb88"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">成长路径</span><span class="card-tag">系统思维</span><span class="card-tag">自我复盘</span></div>
-      <div class="card-title">从单点执行到系统视角：我的设计能力进化路径</div>
-      <div class="card-desc">刚入行时觉得做好每一个页面就是好设计。后来才明白，真正的设计能力是在系统层面看见约束、平衡和机会。</div>
-    </div>
-  </div>
-
+  <!-- T4. 角色边界 -->
   <div class="card" data-type="thinking" data-builtin-id="thinking-role-boundary" onclick="openBuiltinProject('thinking-role-boundary')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#1a1000,#3a2800);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="14" cy="16" r="5" stroke="#ccaa44" stroke-width="1.5"/><circle cx="26" cy="16" r="5" stroke="#ccaa44" stroke-width="1.5"/><path d="M8 32 C8 26 11 24 14 24 C17 24 19 25 20 27 C21 25 23 24 26 24 C29 24 32 26 32 32" stroke="#ccaa44" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <div class="card-thumb ph" style="background:#0e0a06;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="t4" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="0" cy="0" r="1" fill="#fff"/><circle cx="30" cy="0" r="1" fill="#fff"/><circle cx="0" cy="30" r="1" fill="#fff"/><circle cx="30" cy="30" r="1" fill="#fff"/><circle cx="15" cy="15" r="1" fill="#fff"/></pattern></defs><rect width="100%" height="100%" fill="url(#t4)"/></svg>
+      <svg width="160" height="100" viewBox="0 0 160 100" fill="none">
+        <circle cx="35" cy="40" r="10" fill="rgba(255,180,80,0.1)" stroke="rgba(255,180,80,0.3)" stroke-width="1"/>
+        <circle cx="58" cy="40" r="10" fill="rgba(255,180,80,0.1)" stroke="rgba(255,180,80,0.3)" stroke-width="1"/>
+        <circle cx="81" cy="40" r="10" fill="rgba(255,180,80,0.1)" stroke="rgba(255,180,80,0.3)" stroke-width="1"/>
+        <text x="35" y="43" font-size="8" fill="rgba(255,180,80,0.6)" font-family="sans-serif" text-anchor="middle">设</text>
+        <text x="58" y="43" font-size="8" fill="rgba(255,180,80,0.6)" font-family="sans-serif" text-anchor="middle">研</text>
+        <text x="81" y="43" font-size="8" fill="rgba(255,180,80,0.6)" font-family="sans-serif" text-anchor="middle">产</text>
+        <line x1="96" y1="40" x2="112" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+        <polygon points="112,36 120,40 112,44" fill="rgba(255,255,255,0.2)"/>
+        <circle cx="136" cy="40" r="14" fill="rgba(255,220,100,0.1)" stroke="rgba(255,220,100,0.35)" stroke-width="1.2"/>
+        <text x="136" y="44" font-size="10" fill="rgba(255,220,100,0.8)" font-family="sans-serif" text-anchor="middle">你</text>
+        <text x="80" y="70" font-size="8" fill="rgba(255,255,255,0.3)" font-family="sans-serif" text-anchor="middle">角色边界正在消失</text>
+        <text x="80" y="84" font-size="7.5" fill="rgba(255,180,80,0.45)" font-family="sans-serif" text-anchor="middle">你准备好了吗？</text>
+      </svg>
     </div>
     <div class="card-body">
-      <div class="card-tags"><span class="card-tag">职业未来</span><span class="card-tag">角色变化</span><span class="card-tag">AI时代</span></div>
+      <div class="card-tags"><span class="card-tag">职业未来</span><span class="card-tag">角色重构</span><span class="card-tag">AI时代</span></div>
       <div class="card-title">角色边界消失之后，设计师还剩什么？</div>
       <div class="card-desc">以前三个人干的活，现在一个人能做。问题不是「这是好事还是坏事」，而是「你准备好了吗」。</div>
     </div>
   </div>
-
-  <div class="card" data-type="thinking" data-builtin-id="thinking-worthy-decisions" onclick="openBuiltinProject('thinking-worthy-decisions')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a0a14,#14142a);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><rect x="10" y="8" width="20" height="26" rx="2" stroke="#9999cc" stroke-width="1.5"/><line x1="15" y1="15" x2="25" y2="15" stroke="#9999cc" stroke-width="1.2"/><line x1="15" y1="20" x2="25" y2="20" stroke="#9999cc" stroke-width="1.2"/><line x1="15" y1="25" x2="21" y2="25" stroke="#9999cc" stroke-width="1.2"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">设计方法</span><span class="card-tag">复盘思维</span><span class="card-tag">记录习惯</span></div>
-      <div class="card-title">什么样的设计决策，是值得被记录的？</div>
-      <div class="card-desc">只记录「做了什么」是流水账，真正值得记录的是「为什么这么做」以及「如果重来会不会不同」。</div>
-    </div>
-  </div>
-
-  <div class="card" data-type="thinking" data-builtin-id="thinking-ai-designer" onclick="openBuiltinProject('thinking-ai-designer')" style="cursor:pointer">
-    <div class="card-thumb ph" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3e);display:flex;align-items:center;justify-content:center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" opacity="0.5"><circle cx="20" cy="20" r="18" stroke="#8888cc" stroke-width="1.5"/><path d="M13 20 Q20 12 27 20 Q20 28 13 20Z" stroke="#8888cc" stroke-width="1.5" fill="none"/><circle cx="20" cy="20" r="3" fill="#8888cc"/></svg>
-    </div>
-    <div class="card-body">
-      <div class="card-tags"><span class="card-tag">AI</span><span class="card-tag">设计思考</span><span class="card-tag">职业观</span></div>
-      <div class="card-title">当作为设计师的我们在谈论AI，究竟在谈论什么？</div>
-      <div class="card-desc">AI是万能放大器，不仅放大了技能，也放大了维护成本、沟通成本，也放大了恐慌。</div>
-    </div>
-  </div>
-
 
 </div>
 
