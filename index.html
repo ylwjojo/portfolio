@@ -1629,7 +1629,7 @@
         </svg>
       </a>
 
-      <div class="admin-toggle-wrap" id="adminToggleBtn">
+      <div class="admin-toggle-wrap" id="adminToggleBtn" style="display:none">
         <span class="admin-toggle-label">管理员模式</span>
         <button class="toggle-track" onclick="toggleAdmin()" title="切换管理员模式" aria-label="切换管理员模式">
           <span class="toggle-thumb"></span>
@@ -5438,6 +5438,12 @@
   // Restore admin state across page refreshes
   (function initAdmin() {
     applyHiddenBuiltinCards();
+    // Show admin toggle only when URL contains correct key
+    const urlKey = new URLSearchParams(location.search).get('admin');
+    if (urlKey === 'yanlinwu80' || sessionStorage.getItem('adminUnlocked') === '1') {
+      sessionStorage.setItem('adminUnlocked', '1');
+      document.getElementById('adminToggleBtn').style.display = '';
+    }
     if (sessionStorage.getItem('adminMode') === '1') {
       document.documentElement.setAttribute('data-admin', '');
       _setAdminBtnIcon(true);
