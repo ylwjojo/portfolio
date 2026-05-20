@@ -1704,6 +1704,7 @@
   </div>
   <div class="subnav-spacer"></div>
   <button class="create-proj-btn admin-only" onclick="openCreateModal()">＋ 新建项目</button>
+  <button class="create-proj-btn admin-only" onclick="restoreAllBuiltinCards()" style="background:var(--surface-2);color:var(--text);border:1px solid var(--border);">↩ 恢复隐藏项目</button>
   <div class="view-toggle">
     <button class="view-btn" onclick="setView('list',this)">列表</button>
     <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
@@ -4002,6 +4003,45 @@
     showToast('项目已删除', '✕');
   }
 
+  /* ── Builtin card hide/restore ── */
+  function deleteBuiltinCard(id, btn) {
+    if (!confirm('确定隐藏这个项目？（可在管理员模式下恢复）')) return;
+    let hidden = JSON.parse(localStorage.getItem('hidden_builtin_cards') || '[]');
+    if (!hidden.includes(id)) hidden.push(id);
+    localStorage.setItem('hidden_builtin_cards', JSON.stringify(hidden));
+    btn.closest('.card').style.display = 'none';
+    showToast('项目已隐藏', '✕');
+  }
+
+  function restoreAllBuiltinCards() {
+    localStorage.removeItem('hidden_builtin_cards');
+    document.querySelectorAll('.card[data-builtin-id]').forEach(c => c.style.display = '');
+    showToast('已恢复所有隐藏项目', '✓');
+  }
+
+  function applyHiddenBuiltinCards() {
+    const hidden = JSON.parse(localStorage.getItem('hidden_builtin_cards') || '[]');
+    hidden.forEach(id => {
+      const card = document.querySelector(`.card[data-builtin-id="${id}"]`);
+      if (card) card.style.display = 'none';
+    });
+  }
+
+  function injectBuiltinDeleteBtns() {
+    document.querySelectorAll('.card[data-builtin-id]').forEach(card => {
+      const thumb = card.querySelector('.card-thumb');
+      if (!thumb || thumb.querySelector('.card-delete-btn')) return;
+      const id = card.dataset.builtinId;
+      const btn = document.createElement('button');
+      btn.className = 'card-delete-btn';
+      btn.title = '隐藏项目';
+      btn.innerHTML = '✕';
+      btn.addEventListener('click', e => { e.stopPropagation(); deleteBuiltinCard(id, btn); });
+      thumb.style.position = 'relative';
+      thumb.appendChild(btn);
+    });
+  }
+
   function openDynProject(id) {
     const stored = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
     const p = stored.find(x => x.id === id);
@@ -5397,9 +5437,11 @@
   // ===== ADMIN MODE =====
   // Restore admin state across page refreshes
   (function initAdmin() {
+    applyHiddenBuiltinCards();
     if (sessionStorage.getItem('adminMode') === '1') {
       document.documentElement.setAttribute('data-admin', '');
       _setAdminBtnIcon(true);
+      injectBuiltinDeleteBtns();
     }
   })();
 
@@ -5416,6 +5458,7 @@
       root.setAttribute('data-admin', '');
       sessionStorage.setItem('adminMode', '1');
       _setAdminBtnIcon(true);
+      injectBuiltinDeleteBtns();
       // Enable editing if static modal is already open
       if (document.getElementById('projOverlay').classList.contains('open')) {
         _setStaticProjEditable(true);
