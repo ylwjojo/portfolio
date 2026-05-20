@@ -1384,13 +1384,16 @@
     /* dynamic card delete btn */
     .card-delete-btn {
       position: absolute; top: 8px; right: 8px;
-      width: 24px; height: 24px; border-radius: 50%;
-      background: rgba(0,0,0,0.5); color: #fff;
-      border: none; cursor: pointer; font-size: 12px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(220,50,50,0.85); color: #fff;
+      border: none; cursor: pointer; font-size: 13px;
       display: none; align-items: center; justify-content: center;
-      z-index: 2;
+      z-index: 10; backdrop-filter: blur(4px);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+      transition: background 0.15s, transform 0.15s;
     }
-    [data-admin] .card:hover .card-delete-btn { display: flex; }
+    .card-delete-btn:hover { background: rgba(200,30,30,1); transform: scale(1.1); }
+    [data-admin] .card-delete-btn { display: flex; }
 
     @media (max-width: 768px) {
       .proj-article-wrap { grid-template-columns: 1fr; }
