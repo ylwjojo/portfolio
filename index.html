@@ -437,6 +437,7 @@
 
     .subnav-spacer { flex: 1; }
 
+    #listView { display: none !important; }
     .view-toggle {
       display: flex;
       gap: 2px;
@@ -1708,10 +1709,6 @@
   <div class="subnav-spacer"></div>
   <button class="create-proj-btn admin-only" onclick="openCreateModal()">＋ 新建项目</button>
   <button class="create-proj-btn admin-only" onclick="restoreAllBuiltinCards()" style="background:var(--surface-2);color:var(--text);border:1px solid var(--border);">↩ 恢复隐藏项目</button>
-  <div class="view-toggle">
-    <button class="view-btn" onclick="setView('list',this)">列表</button>
-    <button class="view-btn active" onclick="setView('gallery',this)">画廊</button>
-  </div>
 </div>
 
 <!-- ===== GALLERY VIEW ===== -->
