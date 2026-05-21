@@ -1688,24 +1688,15 @@
   /* ── Scroll entrance animations ─────────────────────────── */
   .anim-item {
     transition:
-      opacity  0.62s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+      opacity  0.7s ease,
+      transform 0.7s ease;
   }
   .anim-hidden {
     opacity: 0;
-    transform: translateY(30px) scale(0.975);
-  }
-  /* list cards: no scale, shorter Y shift */
-  .list-card.anim-hidden {
-    transform: translateY(18px);
-  }
-  /* news items: lightest motion */
-  .news-item.anim-hidden {
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   @media (prefers-reduced-motion: reduce) {
-    .anim-item { transition: opacity 0.2s ease; }
+    .anim-item { transition: opacity 0.3s ease; }
     .anim-hidden { transform: none !important; }
   }
   /* News panel — outer card (red box) */
@@ -6560,7 +6551,7 @@
         setTimeout(() => {
           el.classList.remove('anim-hidden');
           _animDone.add(el);
-        }, i * 58); // 58ms stagger between batch members
+        }, i * 35); // subtle stagger
         _animObs.unobserve(el);
       });
     }, {
