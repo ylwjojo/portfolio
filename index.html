@@ -1685,6 +1685,42 @@
     text-decoration: none; transition: background 0.15s;
   }
   .news-pdf-btn:hover { background: var(--surface-3, var(--surface-1)); }
+  /* News two-column layout */
+  .news-layout { display: flex; gap: 48px; align-items: flex-start; }
+  .news-sidebar {
+    flex-shrink: 0; width: 130px;
+    position: sticky; top: 80px;
+    padding-top: 6px;
+  }
+  .news-main { flex: 1; min-width: 0; }
+  /* Sidebar stats */
+  .nh-stats { margin-bottom: 24px; }
+  .nh-stat-row { margin-bottom: 14px; }
+  .nh-num { font-size: 26px; font-weight: 700; color: var(--text); font-family: 'Roboto Flex', sans-serif; line-height: 1; display: block; }
+  .nh-lbl { font-size: 11px; color: var(--text-muted); display: block; margin-top: 3px; }
+  .nh-section-title { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px; }
+  /* Heatmap */
+  .nh-day-row { display: flex; gap: 2px; margin-bottom: 4px; }
+  .nh-day-header { font-size: 8px; color: var(--text-muted); width: 11px; text-align: center; flex-shrink: 0; }
+  .nh-month-spacer { width: 22px; flex-shrink: 0; }
+  .nh-week-row { display: flex; gap: 2px; margin-bottom: 2px; align-items: center; }
+  .nh-month-lbl { font-size: 8px; color: var(--text-muted); width: 22px; flex-shrink: 0; line-height: 11px; }
+  .nh-cell {
+    width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0;
+    background: var(--surface-2); transition: opacity 0.1s;
+  }
+  .nh-cell:hover { opacity: 0.7; }
+  .nh-cell.c1 { background: rgba(88,140,255,0.35); }
+  .nh-cell.c2 { background: rgba(88,140,255,0.65); }
+  .nh-cell.c3 { background: rgba(88,140,255,0.95); }
+  .nh-cell.future { opacity: 0; pointer-events: none; }
+  .nh-legend { display: flex; align-items: center; gap: 3px; margin-top: 8px; font-size: 9px; color: var(--text-muted); }
+  @media (max-width: 680px) {
+    .news-layout { flex-direction: column; }
+    .news-sidebar { width: 100%; position: static; }
+    .nh-stats { display: flex; gap: 24px; margin-bottom: 16px; }
+    .nh-stat-row { margin-bottom: 0; }
+  }
   @media (max-width: 600px) {
     .news-item { gap: 12px; }
     .news-date-col { width: 36px; }
@@ -3266,8 +3302,13 @@
       <button onclick="saveNewsItem()" style="padding:7px 18px;font-size:12px;cursor:pointer;background:var(--text);color:var(--surface-1);border:none;border-radius:4px;font-weight:500;">确认添加</button>
     </div>
   </div>
-  <div class="news-view" id="newsItemsContainer">
-    <!-- news items injected by JS -->
+  <div class="news-layout">
+    <div class="news-sidebar" id="newsSidebar"></div>
+    <div class="news-main">
+      <div class="news-view" id="newsItemsContainer">
+        <!-- news items injected by JS -->
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3817,6 +3858,7 @@
     if (rCBtn) rCBtn.style.display = (!isNews && isAdm) ? '' : 'none';
     if (aNBtn) aNBtn.style.display = (isNews && isAdm) ? '' : 'none';
     if (!isNews) applyFilters();
+    else _renderNewsHeatmap();
   }
 
   function setSubFilter(el, subtype) {
@@ -6195,6 +6237,107 @@
     return el;
   }
 
+  // ---- News heatmap ----
+  function _renderNewsHeatmap() {
+    const sidebar = document.getElementById('newsSidebar');
+    if (!sidebar) return;
+
+    const items = _localHD.newsItems || [];
+
+    // Count posts per date
+    const dateCounts = {};
+    items.forEach(item => {
+      if (item.date) dateCounts[item.date] = (dateCounts[item.date] || 0) + 1;
+    });
+
+    const total = items.length;
+    const now = new Date(); now.setHours(0,0,0,0);
+    const thisMonth = now.toISOString().slice(0,7);
+    const thisMonthCount = items.filter(i => (i.date||'').startsWith(thisMonth)).length;
+
+    // Build 26-week grid: rows=weeks (old→new), cols=days (Mon→Sun)
+    const WEEKS = 26;
+    // Find the Monday of (WEEKS-1) weeks ago
+    const startDate = new Date(now);
+    startDate.setDate(now.getDate() - (WEEKS - 1) * 7);
+    const daysFromMon = (startDate.getDay() + 6) % 7; // 0=Mon, 6=Sun
+    startDate.setDate(startDate.getDate() - daysFromMon);
+
+    const weeks = [];
+    for (let w = 0; w < WEEKS; w++) {
+      const days = [];
+      for (let d = 0; d < 7; d++) {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + w * 7 + d);
+        const dateStr = date.toISOString().slice(0,10);
+        const isFuture = date > now;
+        days.push({
+          dateStr,
+          count: isFuture ? -1 : (dateCounts[dateStr] || 0),
+          month: date.getMonth() + 1,
+          isFuture
+        });
+      }
+      weeks.push(days);
+    }
+
+    // Month label: show "X月" on the first row of each new month
+    const monthLabels = [];
+    let lastMonth = -1;
+    weeks.forEach(wk => {
+      const m = wk[0].month;
+      monthLabels.push(m !== lastMonth ? m + '月' : '');
+      lastMonth = m;
+    });
+
+    const dayNames = ['一','二','三','四','五','六','日'];
+
+    let html = `
+      <div class="nh-stats">
+        <div class="nh-stat-row">
+          <span class="nh-num">${total}</span>
+          <span class="nh-lbl">篇资讯</span>
+        </div>
+        <div class="nh-stat-row">
+          <span class="nh-num">${thisMonthCount}</span>
+          <span class="nh-lbl">本月发布</span>
+        </div>
+      </div>
+      <div class="nh-section-title">发布记录</div>
+      <div class="nh-day-row">
+        <span class="nh-month-spacer"></span>
+        ${dayNames.map(n => `<span class="nh-day-header">${n}</span>`).join('')}
+      </div>
+    `;
+
+    weeks.forEach((wk, wi) => {
+      html += `<div class="nh-week-row"><span class="nh-month-lbl">${monthLabels[wi]}</span>`;
+      wk.forEach(day => {
+        let cls = 'nh-cell';
+        if (day.isFuture)     cls += ' future';
+        else if (day.count >= 3) cls += ' c3';
+        else if (day.count === 2) cls += ' c2';
+        else if (day.count === 1) cls += ' c1';
+        const tip = day.isFuture ? '' : (day.count > 0 ? `${day.dateStr} · ${day.count}条` : day.dateStr);
+        html += `<div class="${cls}" title="${tip}"></div>`;
+      });
+      html += '</div>';
+    });
+
+    html += `
+      <div class="nh-legend">
+        少&thinsp;
+        <div class="nh-cell"></div>
+        <div class="nh-cell c1"></div>
+        <div class="nh-cell c2"></div>
+        <div class="nh-cell c3"></div>
+        &thinsp;多
+      </div>
+    `;
+
+    sidebar.innerHTML = html;
+  }
+
   // ---- Attachment helpers ----
   let _newsAttachment = null;
 
@@ -6331,6 +6474,7 @@
       const el = document.getElementById(id); if(el) el.value = '';
     });
     closeAddNewsForm();
+    _renderNewsHeatmap();
 
     // Push to GitHub
     _publishToGitHub(d => {
@@ -6348,6 +6492,7 @@
     if (container && container.children.length === 0) {
       container.innerHTML = '<div class="news-view-empty">还没有资讯，点击「添加资讯」开始收集 →</div>';
     }
+    _renderNewsHeatmap();
     _publishToGitHub(d => {
       d.newsItems = (d.newsItems || []).filter(n => n.id !== id);
     }, '删除资讯: ' + id);
@@ -6355,6 +6500,7 @@
 
   // Init news items on page load
   _loadNewsItems();
+  _renderNewsHeatmap();
 
 </script>
 
