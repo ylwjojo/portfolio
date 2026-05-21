@@ -3861,8 +3861,8 @@
       const passYear = !_yearFilter || cardYear === null || cardYear === _yearFilter;
       c.style.display = (passMain && passSub && passYear) ? '' : 'none';
     };
-    document.querySelectorAll('#galleryView .card').forEach(filterItem);
-    document.querySelectorAll('#listView .list-card').forEach(filterItem);
+    document.querySelectorAll('#galleryView .card:not(.admin-only-block)').forEach(filterItem);
+    document.querySelectorAll('#listView .list-card:not(.admin-only-block)').forEach(filterItem);
     requestAnimationFrame(_refreshAnimations);
   }
 
