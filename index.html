@@ -1657,6 +1657,34 @@
   }
   .add-news-row input:focus, .add-news-row textarea:focus { border-color: var(--text-muted); }
   .add-news-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+  .nf-attach-area {
+    flex: 1; display: flex; align-items: center; gap: 8px;
+    padding: 9px 12px; border: 1.5px dashed var(--border); border-radius: 4px;
+    background: var(--surface-2); cursor: pointer; font-size: 12px; color: var(--text-muted);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .nf-attach-area:hover { border-color: var(--text-muted); color: var(--text); }
+  .nf-attach-preview {
+    flex: 1; display: flex; align-items: center; gap: 10px;
+    padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;
+    background: var(--surface-2); font-size: 12px; color: var(--text);
+  }
+  .nf-attach-preview img { max-height: 52px; max-width: 80px; border-radius: 3px; object-fit: cover; flex-shrink: 0; }
+  .nf-attach-preview .nf-attach-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nf-attach-preview .nf-attach-size { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+  .nf-attach-clear { padding: 3px 8px; font-size: 11px; cursor: pointer; border: 1px solid var(--border); border-radius: 3px; background: transparent; color: var(--text-muted); flex-shrink: 0; }
+  .nf-attach-clear:hover { color: #e53; border-color: #e53; }
+  /* attachment display in cards */
+  .news-attach-img { max-width: 100%; max-height: 240px; border-radius: 6px; margin-top: 10px; display: block; object-fit: cover; cursor: pointer; }
+  .news-attach-img:hover { opacity: 0.88; }
+  .news-pdf-btn {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;
+    padding: 5px 12px; font-size: 12px; font-family: inherit;
+    border: 1px solid var(--border); border-radius: 4px;
+    background: var(--surface-2); color: var(--text); cursor: pointer;
+    text-decoration: none; transition: background 0.15s;
+  }
+  .news-pdf-btn:hover { background: var(--surface-3, var(--surface-1)); }
   @media (max-width: 600px) {
     .news-item { gap: 12px; }
     .news-date-col { width: 36px; }
@@ -3221,6 +3249,18 @@
     <div class="add-news-row"><input id="nf-url" placeholder="链接 URL（可选）"></div>
     <div class="add-news-row"><input id="nf-tags" placeholder="标签，用逗号分隔（如 AI设计, 产品工具）"></div>
     <div class="add-news-row"><textarea id="nf-summary" rows="3" placeholder="简介 / 摘要（可选）" style="resize:vertical"></textarea></div>
+    <div class="add-news-row" id="nf-attach-row">
+      <div class="nf-attach-area" id="nf-attach-area" onclick="document.getElementById('nf-file').click()">
+        📎 上传配图或 PDF（可选，最大 5MB）
+        <input type="file" id="nf-file" accept="image/*,.pdf" style="display:none" onchange="handleNewsFileSelect(this)">
+      </div>
+      <div class="nf-attach-preview" id="nf-attach-preview" style="display:none">
+        <span id="nf-attach-thumb"></span>
+        <span class="nf-attach-name" id="nf-attach-name"></span>
+        <span class="nf-attach-size" id="nf-attach-size"></span>
+        <button class="nf-attach-clear" onclick="clearNewsFile()">✕ 移除</button>
+      </div>
+    </div>
     <div class="add-news-actions">
       <button onclick="closeAddNewsForm()" style="padding:7px 16px;font-size:12px;cursor:pointer;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--text);">取消</button>
       <button onclick="saveNewsItem()" style="padding:7px 18px;font-size:12px;cursor:pointer;background:var(--text);color:var(--surface-1);border:none;border-radius:4px;font-weight:500;">确认添加</button>
@@ -6118,6 +6158,15 @@
     const tagsHtml = (item.tags || []).filter(Boolean).map(t =>
       `<span class="news-tag">${t}</span>`).join('');
 
+    let attachHtml = '';
+    if (item.attachment) {
+      if (item.attachment.type === 'image') {
+        attachHtml = `<img class="news-attach-img" src="${item.attachment.data}" alt="${item.attachment.name || '附图'}">`;
+      } else if (item.attachment.type === 'pdf') {
+        attachHtml = `<button class="news-pdf-btn" onclick="openNewsPDF('${item.id}',event)">📄 ${item.attachment.name || 'PDF 文件'}</button>`;
+      }
+    }
+
     el.innerHTML = `
       <div class="news-date-col">
         <span class="news-day">${day}</span>
@@ -6128,6 +6177,7 @@
         <div class="news-title">${item.title || '（无标题）'}</div>
         ${item.source ? `<div class="news-source">${item.source}</div>` : ''}
         ${item.summary ? `<div class="news-summary">${item.summary}</div>` : ''}
+        ${attachHtml}
         ${item.url ? `<div class="news-link-row">↗ 查看原文</div>` : ''}
       </div>
       ${isAdm ? `<button class="news-delete-btn" onclick="deleteNewsItem('${item.id}',event)" title="删除">✕</button>` : ''}
@@ -6137,10 +6187,93 @@
       el.style.cursor = 'pointer';
       el.addEventListener('click', (e) => {
         if (e.target.classList.contains('news-delete-btn')) return;
+        if (e.target.classList.contains('news-pdf-btn')) return;
+        if (e.target.classList.contains('news-attach-img')) return;
         window.open(item.url, '_blank', 'noopener');
       });
     }
     return el;
+  }
+
+  // ---- Attachment helpers ----
+  let _newsAttachment = null;
+
+  function handleNewsFileSelect(input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const maxBytes = 5 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      showToast('文件过大，最大支持 5MB', '⚠️');
+      input.value = '';
+      return;
+    }
+    const isImg = file.type.startsWith('image/');
+    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    if (!isImg && !isPdf) {
+      showToast('仅支持图片（JPG/PNG/GIF/WebP）或 PDF', '⚠️');
+      input.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      _newsAttachment = {
+        type: isImg ? 'image' : 'pdf',
+        name: file.name,
+        data: e.target.result
+      };
+      const area    = document.getElementById('nf-attach-area');
+      const preview = document.getElementById('nf-attach-preview');
+      const thumb   = document.getElementById('nf-attach-thumb');
+      const nameEl  = document.getElementById('nf-attach-name');
+      const sizeEl  = document.getElementById('nf-attach-size');
+      if (area)    area.style.display = 'none';
+      if (preview) preview.style.display = 'flex';
+      if (nameEl)  nameEl.textContent = file.name;
+      const kb = (file.size / 1024).toFixed(0);
+      const mb = (file.size / 1024 / 1024).toFixed(1);
+      if (sizeEl)  sizeEl.textContent = file.size > 1024*1024 ? mb + ' MB' : kb + ' KB';
+      if (thumb) {
+        if (isImg) {
+          thumb.innerHTML = `<img src="${e.target.result}" style="max-height:44px;max-width:64px;border-radius:3px;object-fit:cover;display:block;">`;
+        } else {
+          thumb.innerHTML = '📄';
+          thumb.style.fontSize = '22px';
+        }
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearNewsFile() {
+    _newsAttachment = null;
+    const area    = document.getElementById('nf-attach-area');
+    const preview = document.getElementById('nf-attach-preview');
+    const input   = document.getElementById('nf-file');
+    const thumb   = document.getElementById('nf-attach-thumb');
+    if (area)    area.style.display = '';
+    if (preview) { preview.style.display = 'none'; }
+    if (input)   input.value = '';
+    if (thumb)   { thumb.innerHTML = ''; thumb.style.fontSize = ''; }
+  }
+
+  function openNewsPDF(newsId, event) {
+    if (event) event.stopPropagation();
+    const item = (_localHD.newsItems || []).find(n => n.id === newsId);
+    if (!item || !item.attachment || !item.attachment.data) return;
+    try {
+      const dataUri = item.attachment.data;
+      const arr  = dataUri.split(',');
+      const mime = (arr[0].match(/:(.*?);/) || [])[1] || 'application/pdf';
+      const raw  = atob(arr[1]);
+      const u8   = new Uint8Array(raw.length);
+      for (let i = 0; i < raw.length; i++) u8[i] = raw.charCodeAt(i);
+      const blob = new Blob([u8], { type: mime });
+      const url  = URL.createObjectURL(blob);
+      window.open(url, '_blank', 'noopener');
+    } catch(err) {
+      // fallback: try opening data URI directly
+      window.open(item.attachment.data, '_blank', 'noopener');
+    }
   }
 
   function _loadNewsItems() {
@@ -6170,6 +6303,7 @@
   function closeAddNewsForm() {
     const modal = document.getElementById('addNewsModal');
     if (modal) modal.classList.remove('open');
+    clearNewsFile();
   }
 
   function saveNewsItem() {
@@ -6184,6 +6318,7 @@
       tags:   (document.getElementById('nf-tags')?.value || '').split(',').map(t=>t.trim()).filter(Boolean),
       summary:(document.getElementById('nf-summary')?.value || '').trim(),
     };
+    if (_newsAttachment) item.attachment = _newsAttachment;
 
     // Render immediately
     const container = document.getElementById('newsItemsContainer');
