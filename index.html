@@ -1684,6 +1684,30 @@
     text-decoration: none; transition: background 0.15s;
   }
   .news-pdf-btn:hover { background: var(--surface-3, var(--surface-1)); }
+
+  /* ── Scroll entrance animations ─────────────────────────── */
+  .anim-item {
+    transition:
+      opacity  0.62s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .anim-hidden {
+    opacity: 0;
+    transform: translateY(30px) scale(0.975);
+  }
+  /* list cards: no scale, shorter Y shift */
+  .list-card.anim-hidden {
+    transform: translateY(18px);
+  }
+  /* news items: lightest motion */
+  .news-item.anim-hidden {
+    transform: translateY(12px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim-item { transition: opacity 0.2s ease; }
+    .anim-hidden { transform: none !important; }
+  }
   /* News panel — outer card (red box) */
   .news-layout {
     display: flex;
@@ -3847,6 +3871,7 @@
     };
     document.querySelectorAll('#galleryView .card').forEach(filterItem);
     document.querySelectorAll('#listView .list-card').forEach(filterItem);
+    requestAnimationFrame(_refreshAnimations);
   }
 
   function setYear(el, year) {
@@ -4190,6 +4215,8 @@
       const f = activeFilter.dataset.filter || 'all';
       if (f !== 'all' && !dataType.includes(f)) card.style.display = 'none';
     }
+
+    requestAnimationFrame(_refreshAnimations);
   }
 
   function deleteProject(id, btn) {
@@ -6495,6 +6522,7 @@
     });
     closeAddNewsForm();
     _renderNewsHeatmap();
+    requestAnimationFrame(_refreshAnimations);
 
     // Push to GitHub
     _publishToGitHub(d => {
@@ -6518,9 +6546,52 @@
     }, '删除资讯: ' + id);
   }
 
+  // ── Scroll entrance animation engine ──────────────────────
+  const _animDone = new WeakSet(); // cards that have already played
+  let   _animObs  = null;
+
+  function _getAnimObs() {
+    if (_animObs) return _animObs;
+    _animObs = new IntersectionObserver((entries) => {
+      // Group entries that fire together so we can stagger them
+      const visible = entries.filter(e => e.isIntersecting);
+      visible.forEach((entry, i) => {
+        const el = entry.target;
+        setTimeout(() => {
+          el.classList.remove('anim-hidden');
+          _animDone.add(el);
+        }, i * 58); // 58ms stagger between batch members
+        _animObs.unobserve(el);
+      });
+    }, {
+      threshold: 0.06,
+      rootMargin: '40px 0px -24px 0px' // trigger slightly before fully in view
+    });
+    return _animObs;
+  }
+
+  function _refreshAnimations() {
+    const obs = _getAnimObs();
+    const selectors = [
+      '#galleryView .card',
+      '#listView .list-card',
+      '#newsItemsContainer .news-item',
+    ];
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        if (_animDone.has(el)) return;                 // already played
+        if (el.style.display === 'none') return;       // filtered out
+        if (!el.classList.contains('anim-item')) el.classList.add('anim-item');
+        if (!el.classList.contains('anim-hidden')) el.classList.add('anim-hidden');
+        try { obs.observe(el); } catch(_) {}
+      });
+    });
+  }
+
   // Init news items on page load
   _loadNewsItems();
   _renderNewsHeatmap();
+  requestAnimationFrame(_refreshAnimations);
 
 </script>
 
