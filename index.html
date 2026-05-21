@@ -1863,7 +1863,7 @@
     <button class="filter-tag" onclick="setFilter(this,'bili')">哔哩哔哩业务需求</button>
     <button class="filter-tag" onclick="setFilter(this,'project')">个人探索</button>
     <button class="filter-tag" onclick="setFilter(this,'thinking')">思考</button>
-    <button class="filter-tag" onclick="setFilter(this,'news')">前沿资讯</button>
+    <button class="filter-tag admin-only" id="newsFilterBtn" onclick="setFilter(this,'news')">前沿资讯</button>
   </div>
   <div class="subnav-spacer"></div>
   <button class="create-proj-btn admin-only" id="createProjBtn" onclick="openCreateModal()">＋ 新建项目</button>
@@ -1875,7 +1875,7 @@
 <div class="gallery-grid" id="galleryView">
 
   <!-- ===== STATS DASHBOARD — 需求分类矩阵表格 ===== -->
-  <div class="stats-banner card" data-type="bili" style="cursor:default;">
+  <div class="stats-banner card admin-only-block" data-type="bili" style="cursor:default;display:none;">
 
     <!-- header -->
     <div class="sb-head">
