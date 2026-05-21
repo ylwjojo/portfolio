@@ -1612,8 +1612,8 @@
     transition: background 0.12s;
     border-radius: 4px;
   }
-  .news-item:hover { background: var(--surface-2); padding-left: 14px; padding-right: 14px; margin: 0 -14px; }
-  .news-item:first-child { border-top: 1px solid var(--border); }
+  .news-item:hover { background: var(--surface-2); border-radius: 6px; }
+  .news-item:first-child { border-top: 1px solid var(--border); margin-top: 0; }
   .news-date-col {
     flex-shrink: 0;
     width: 52px;
@@ -1637,13 +1637,12 @@
   }
   .news-item:hover .news-delete-btn { opacity: 1; }
   .news-delete-btn:hover { color: #e53; background: rgba(255,0,0,0.07); }
-  /* Add news modal */
+  /* Add news form — sits inside the right panel */
   .add-news-modal {
-    background: var(--surface-1);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 24px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0 20px;
+    margin: 0 0 4px;
     display: none;
   }
   .add-news-modal.open { display: block; }
@@ -1685,20 +1684,39 @@
     text-decoration: none; transition: background 0.15s;
   }
   .news-pdf-btn:hover { background: var(--surface-3, var(--surface-1)); }
-  /* News two-column layout */
-  .news-layout { display: flex; gap: 48px; align-items: flex-start; }
-  .news-sidebar {
-    flex-shrink: 0; width: 130px;
-    position: sticky; top: 80px;
-    padding-top: 6px;
+  /* News panel — outer card (red box) */
+  .news-layout {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface-1);
+    min-height: 480px;
   }
-  .news-main { flex: 1; min-width: 0; }
+  /* Left panel — calendar (yellow box) */
+  .news-sidebar {
+    flex-shrink: 0;
+    width: 200px;
+    padding: 28px 20px 28px 24px;
+    border-right: 1px solid var(--border);
+    background: var(--surface-2);
+    overflow-y: auto;
+  }
+  /* Right panel — news list (green box) */
+  .news-main {
+    flex: 1;
+    min-width: 0;
+    padding: 0 32px;
+    overflow-y: auto;
+    max-height: 72vh;
+  }
   /* Sidebar stats */
-  .nh-stats { margin-bottom: 24px; }
-  .nh-stat-row { margin-bottom: 14px; }
-  .nh-num { font-size: 26px; font-weight: 700; color: var(--text); font-family: 'Roboto Flex', sans-serif; line-height: 1; display: block; }
-  .nh-lbl { font-size: 11px; color: var(--text-muted); display: block; margin-top: 3px; }
-  .nh-section-title { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px; }
+  .nh-stats { margin-bottom: 28px; }
+  .nh-stat-row { margin-bottom: 16px; }
+  .nh-num { font-size: 28px; font-weight: 700; color: var(--text); font-family: 'Roboto Flex', sans-serif; line-height: 1; display: block; }
+  .nh-lbl { font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; }
+  .nh-section-title { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   /* Heatmap */
   .nh-day-row { display: flex; gap: 2px; margin-bottom: 4px; }
   .nh-day-header { font-size: 8px; color: var(--text-muted); width: 11px; text-align: center; flex-shrink: 0; }
@@ -1707,19 +1725,20 @@
   .nh-month-lbl { font-size: 8px; color: var(--text-muted); width: 22px; flex-shrink: 0; line-height: 11px; }
   .nh-cell {
     width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0;
-    background: var(--surface-2); transition: opacity 0.1s;
+    background: var(--border); transition: opacity 0.1s;
   }
   .nh-cell:hover { opacity: 0.7; }
   .nh-cell.c1 { background: rgba(88,140,255,0.35); }
   .nh-cell.c2 { background: rgba(88,140,255,0.65); }
   .nh-cell.c3 { background: rgba(88,140,255,0.95); }
   .nh-cell.future { opacity: 0; pointer-events: none; }
-  .nh-legend { display: flex; align-items: center; gap: 3px; margin-top: 8px; font-size: 9px; color: var(--text-muted); }
+  .nh-legend { display: flex; align-items: center; gap: 3px; margin-top: 10px; font-size: 9px; color: var(--text-muted); }
   @media (max-width: 680px) {
-    .news-layout { flex-direction: column; }
-    .news-sidebar { width: 100%; position: static; }
+    .news-layout { flex-direction: column; min-height: unset; }
+    .news-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
     .nh-stats { display: flex; gap: 24px; margin-bottom: 16px; }
     .nh-stat-row { margin-bottom: 0; }
+    .news-main { max-height: unset; padding: 0 20px; }
   }
   @media (max-width: 600px) {
     .news-item { gap: 12px; }
@@ -3274,37 +3293,38 @@
 
 <!-- ===== NEWS VIEW ===== -->
 <div id="newsView" style="display:none">
-  <!-- add-news inline form -->
-  <div class="add-news-modal" id="addNewsModal">
-    <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text);">添加资讯</div>
-    <div class="add-news-row"><input id="nf-title" placeholder="标题 *" style="flex:2"></div>
-    <div class="add-news-row">
-      <input id="nf-source" placeholder="来源（如 NN/g · 文章）" style="flex:1">
-      <input id="nf-date" type="date" style="flex:0 0 140px">
-    </div>
-    <div class="add-news-row"><input id="nf-url" placeholder="链接 URL（可选）"></div>
-    <div class="add-news-row"><input id="nf-tags" placeholder="标签，用逗号分隔（如 AI设计, 产品工具）"></div>
-    <div class="add-news-row"><textarea id="nf-summary" rows="3" placeholder="简介 / 摘要（可选）" style="resize:vertical"></textarea></div>
-    <div class="add-news-row" id="nf-attach-row">
-      <div class="nf-attach-area" id="nf-attach-area" onclick="document.getElementById('nf-file').click()">
-        📎 上传配图或 PDF（可选，最大 5MB）
-        <input type="file" id="nf-file" accept="image/*,.pdf" style="display:none" onchange="handleNewsFileSelect(this)">
-      </div>
-      <div class="nf-attach-preview" id="nf-attach-preview" style="display:none">
-        <span id="nf-attach-thumb"></span>
-        <span class="nf-attach-name" id="nf-attach-name"></span>
-        <span class="nf-attach-size" id="nf-attach-size"></span>
-        <button class="nf-attach-clear" onclick="clearNewsFile()">✕ 移除</button>
-      </div>
-    </div>
-    <div class="add-news-actions">
-      <button onclick="closeAddNewsForm()" style="padding:7px 16px;font-size:12px;cursor:pointer;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--text);">取消</button>
-      <button onclick="saveNewsItem()" style="padding:7px 18px;font-size:12px;cursor:pointer;background:var(--text);color:var(--surface-1);border:none;border-radius:4px;font-weight:500;">确认添加</button>
-    </div>
-  </div>
   <div class="news-layout">
+    <!-- Left panel: stats + heatmap -->
     <div class="news-sidebar" id="newsSidebar"></div>
+    <!-- Right panel: add form + news list -->
     <div class="news-main">
+      <div class="add-news-modal" id="addNewsModal">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text);">添加资讯</div>
+        <div class="add-news-row"><input id="nf-title" placeholder="标题 *" style="flex:2"></div>
+        <div class="add-news-row">
+          <input id="nf-source" placeholder="来源（如 NN/g · 文章）" style="flex:1">
+          <input id="nf-date" type="date" style="flex:0 0 140px">
+        </div>
+        <div class="add-news-row"><input id="nf-url" placeholder="链接 URL（可选）"></div>
+        <div class="add-news-row"><input id="nf-tags" placeholder="标签，用逗号分隔（如 AI设计, 产品工具）"></div>
+        <div class="add-news-row"><textarea id="nf-summary" rows="3" placeholder="简介 / 摘要（可选）" style="resize:vertical"></textarea></div>
+        <div class="add-news-row" id="nf-attach-row">
+          <div class="nf-attach-area" id="nf-attach-area" onclick="document.getElementById('nf-file').click()">
+            📎 上传配图或 PDF（可选，最大 5MB）
+            <input type="file" id="nf-file" accept="image/*,.pdf" style="display:none" onchange="handleNewsFileSelect(this)">
+          </div>
+          <div class="nf-attach-preview" id="nf-attach-preview" style="display:none">
+            <span id="nf-attach-thumb"></span>
+            <span class="nf-attach-name" id="nf-attach-name"></span>
+            <span class="nf-attach-size" id="nf-attach-size"></span>
+            <button class="nf-attach-clear" onclick="clearNewsFile()">✕ 移除</button>
+          </div>
+        </div>
+        <div class="add-news-actions">
+          <button onclick="closeAddNewsForm()" style="padding:7px 16px;font-size:12px;cursor:pointer;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--text);">取消</button>
+          <button onclick="saveNewsItem()" style="padding:7px 18px;font-size:12px;cursor:pointer;background:var(--text);color:var(--surface-1);border:none;border-radius:4px;font-weight:500;">确认添加</button>
+        </div>
+      </div>
       <div class="news-view" id="newsItemsContainer">
         <!-- news items injected by JS -->
       </div>
