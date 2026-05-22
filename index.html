@@ -1712,13 +1712,29 @@
   .news-sidebar {
     flex-shrink: 0;
     width: 340px;
-    padding: 28px 28px 28px 32px;
+    padding: 0;
     border-right: 1px solid var(--border);
     background: var(--surface-2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .nh-fixed-top {
+    flex-shrink: 0;
+    padding: 28px 28px 16px 32px;
+  }
+  .nh-cal-months {
+    flex: 1;
     overflow-y: auto;
+    padding: 0 28px 16px 32px;
     scrollbar-width: none;
   }
-  .news-sidebar::-webkit-scrollbar { display: none; }
+  .nh-cal-months::-webkit-scrollbar { display: none; }
+  .nh-fixed-bottom {
+    flex-shrink: 0;
+    padding: 10px 28px 20px 32px;
+    border-top: 1px solid var(--border);
+  }
   /* Right panel — scrollable content */
   .news-main {
     flex: 1;
@@ -6335,37 +6351,42 @@
     }
 
     sidebar.innerHTML = `
-      <div class="nh-stats">
-        <div class="nh-stat-row">
-          <span class="nh-num">${total}</span>
-          <span class="nh-lbl">篇资讯</span>
+      <div class="nh-fixed-top">
+        <div class="nh-stats">
+          <div class="nh-stat-row">
+            <span class="nh-num">${total}</span>
+            <span class="nh-lbl">篇资讯</span>
+          </div>
+          <div class="nh-stat-row">
+            <span class="nh-num">${thisMonthCount}</span>
+            <span class="nh-lbl">本月发布</span>
+          </div>
         </div>
-        <div class="nh-stat-row">
-          <span class="nh-num">${thisMonthCount}</span>
-          <span class="nh-lbl">本月发布</span>
-        </div>
+        <div class="nh-section-title">发布记录</div>
       </div>
-      <div class="nh-section-title">发布记录</div>
       <div class="nh-cal-months">${monthsHtml}</div>
-      <div class="nh-legend">
-        少&thinsp;
-        <div class="nh-cell"></div>
-        <div class="nh-cell c1"></div>
-        <div class="nh-cell c2"></div>
-        <div class="nh-cell c3"></div>
-        &thinsp;多
+      <div class="nh-fixed-bottom">
+        <div class="nh-legend">
+          少&thinsp;
+          <div class="nh-cell"></div>
+          <div class="nh-cell c1"></div>
+          <div class="nh-cell c2"></div>
+          <div class="nh-cell c3"></div>
+          &thinsp;多
+        </div>
       </div>
     `;
 
-    // Scroll sidebar so current month is visible near top
+    // Scroll only the calendar area to show current month at top
     requestAnimationFrame(() => {
+      const calEl = sidebar.querySelector('.nh-cal-months');
       const todayEl = sidebar.querySelector('.nh-cal-day.today');
-      if (todayEl) {
+      if (calEl && todayEl) {
         const monthEl = todayEl.closest('.nh-cal-month');
         if (monthEl) {
-          const sidebarRect = sidebar.getBoundingClientRect();
+          const calRect = calEl.getBoundingClientRect();
           const monthRect = monthEl.getBoundingClientRect();
-          sidebar.scrollTop += monthRect.top - sidebarRect.top - 16;
+          calEl.scrollTop += monthRect.top - calRect.top - 8;
         }
       }
     });
