@@ -6356,6 +6356,19 @@
         &thinsp;多
       </div>
     `;
+
+    // Scroll sidebar so current month is visible near top
+    requestAnimationFrame(() => {
+      const todayEl = sidebar.querySelector('.nh-cal-day.today');
+      if (todayEl) {
+        const monthEl = todayEl.closest('.nh-cal-month');
+        if (monthEl) {
+          const sidebarRect = sidebar.getBoundingClientRect();
+          const monthRect = monthEl.getBoundingClientRect();
+          sidebar.scrollTop += monthRect.top - sidebarRect.top - 16;
+        }
+      }
+    });
   }
 
   // ---- Attachment helpers ----
