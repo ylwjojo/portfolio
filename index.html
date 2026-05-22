@@ -1724,21 +1724,39 @@
     padding: 0;
     overflow-y: auto;
   }
-  /* Sidebar stats */
-  .nh-stats { margin-bottom: 28px; }
-  .nh-stat-row { margin-bottom: 16px; }
+  /* Sidebar stats — side by side */
+  .nh-stats { display: flex; gap: 28px; margin-bottom: 24px; }
+  .nh-stat-row { }
   .nh-num { font-size: 28px; font-weight: 700; color: var(--text); font-family: 'Roboto Flex', sans-serif; line-height: 1; display: block; }
   .nh-lbl { font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; }
   .nh-section-title { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-  /* Heatmap */
-  .nh-day-row { display: flex; gap: 4px; margin-bottom: 6px; }
-  .nh-day-header { font-size: 10px; color: var(--text-muted); width: 18px; text-align: center; flex-shrink: 0; }
-  .nh-month-spacer { width: 34px; flex-shrink: 0; }
-  .nh-week-row { display: flex; gap: 4px; margin-bottom: 4px; align-items: center; }
-  .nh-month-lbl { font-size: 10px; color: var(--text-muted); width: 34px; flex-shrink: 0; line-height: 18px; }
+  /* Heatmap — horizontal GitHub style */
+  .nh-heatmap-wrap { display: flex; gap: 5px; align-items: flex-start; }
+  .nh-day-col {
+    display: flex; flex-direction: column; gap: 3px;
+    padding-top: 16px; /* offset for month labels row */
+  }
+  .nh-day-lbl {
+    height: 9px; line-height: 9px; font-size: 8px;
+    color: var(--text-muted); text-align: right; width: 10px;
+  }
+  .nh-grid-area { flex: 1; min-width: 0; }
+  .nh-months-bar {
+    display: grid; grid-template-columns: repeat(26, 1fr);
+    gap: 3px; margin-bottom: 3px;
+  }
+  .nh-month-tick { font-size: 8px; color: var(--text-muted); line-height: 1; white-space: nowrap; overflow: visible; }
+  .nh-grid {
+    display: grid;
+    grid-template-columns: repeat(26, 1fr);
+    grid-template-rows: repeat(7, 9px);
+    grid-auto-flow: column;
+    gap: 3px;
+  }
   .nh-cell {
-    width: 18px; height: 18px; border-radius: 0; flex-shrink: 0;
-    background: var(--border); transition: opacity 0.1s;
+    border-radius: 0;
+    background: var(--border);
+    transition: opacity 0.1s;
   }
   .nh-cell:hover { opacity: 0.7; }
   .nh-cell.c1 { background: rgba(88,140,255,0.35); }
@@ -1746,6 +1764,7 @@
   .nh-cell.c3 { background: rgba(88,140,255,0.95); }
   .nh-cell.future { opacity: 0; pointer-events: none; }
   .nh-legend { display: flex; align-items: center; gap: 3px; margin-top: 10px; font-size: 9px; color: var(--text-muted); }
+  .nh-legend .nh-cell { width: 9px; height: 9px; }
   @media (max-width: 680px) {
     .news-layout { flex-direction: column; height: auto; min-height: unset; }
     .news-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); overflow-y: visible; }
@@ -6280,8 +6299,6 @@
     if (!sidebar) return;
 
     const items = _localHD.newsItems || [];
-
-    // Count posts per date
     const dateCounts = {};
     items.forEach(item => {
       if (item.date) dateCounts[item.date] = (dateCounts[item.date] || 0) + 1;
@@ -6292,14 +6309,14 @@
     const thisMonth = now.toISOString().slice(0,7);
     const thisMonthCount = items.filter(i => (i.date||'').startsWith(thisMonth)).length;
 
-    // Build 26-week grid: rows=weeks (old→new), cols=days (Mon→Sun)
+    // 26 weeks, starting from Monday (WEEKS-1) weeks ago
     const WEEKS = 26;
-    // Find the Monday of (WEEKS-1) weeks ago
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - (WEEKS - 1) * 7);
-    const daysFromMon = (startDate.getDay() + 6) % 7; // 0=Mon, 6=Sun
+    const daysFromMon = (startDate.getDay() + 6) % 7;
     startDate.setDate(startDate.getDate() - daysFromMon);
 
+    // Build weeks array (left=old, right=new — horizontal GitHub style)
     const weeks = [];
     for (let w = 0; w < WEEKS; w++) {
       const days = [];
@@ -6308,28 +6325,36 @@
         date.setDate(startDate.getDate() + w * 7 + d);
         const dateStr = date.toISOString().slice(0,10);
         const isFuture = date > now;
-        days.push({
-          dateStr,
-          count: isFuture ? -1 : (dateCounts[dateStr] || 0),
-          month: date.getMonth() + 1,
-          isFuture
-        });
+        days.push({ dateStr, count: isFuture ? -1 : (dateCounts[dateStr] || 0), isFuture });
       }
       weeks.push(days);
     }
 
-    // Month label: show "X月" on the first row of each new month
-    const monthLabels = [];
-    let lastMonth = -1;
-    weeks.forEach(wk => {
-      const m = wk[0].month;
-      monthLabels.push(m !== lastMonth ? m + '月' : '');
-      lastMonth = m;
+    // Month labels on top: show "X月" at the first column of each new month
+    const monthTicks = weeks.map((wk, wi) => {
+      const m = new Date(startDate);
+      m.setDate(startDate.getDate() + wi * 7);
+      const label = m.getMonth() + 1 + '月';
+      const prev = wi > 0 ? (() => { const p = new Date(startDate); p.setDate(startDate.getDate() + (wi-1)*7); return p.getMonth(); })() : -1;
+      return m.getMonth() !== prev ? label : '';
     });
 
-    const dayNames = ['一','二','三','四','五','六','日'];
+    // Cell HTML builder
+    const cellHtml = (day) => {
+      let cls = 'nh-cell';
+      if (day.isFuture)      cls += ' future';
+      else if (day.count >= 3) cls += ' c3';
+      else if (day.count === 2) cls += ' c2';
+      else if (day.count === 1) cls += ' c1';
+      const tip = day.isFuture ? '' : (day.count > 0 ? `${day.dateStr} · ${day.count}条` : day.dateStr);
+      return `<div class="${cls}" title="${tip}"></div>`;
+    };
 
-    let html = `
+    // All cells in column-first order (Mon col1, Tue col1, ..., Sun col1, Mon col2...)
+    const allCells = [];
+    weeks.forEach(wk => wk.forEach(day => allCells.push(cellHtml(day))));
+
+    sidebar.innerHTML = `
       <div class="nh-stats">
         <div class="nh-stat-row">
           <span class="nh-num">${total}</span>
@@ -6341,27 +6366,23 @@
         </div>
       </div>
       <div class="nh-section-title">发布记录</div>
-      <div class="nh-day-row">
-        <span class="nh-month-spacer"></span>
-        ${dayNames.map(n => `<span class="nh-day-header">${n}</span>`).join('')}
+      <div class="nh-heatmap-wrap">
+        <div class="nh-day-col">
+          <span class="nh-day-lbl">一</span>
+          <span class="nh-day-lbl"></span>
+          <span class="nh-day-lbl">三</span>
+          <span class="nh-day-lbl"></span>
+          <span class="nh-day-lbl">五</span>
+          <span class="nh-day-lbl"></span>
+          <span class="nh-day-lbl"></span>
+        </div>
+        <div class="nh-grid-area">
+          <div class="nh-months-bar">
+            ${monthTicks.map(t => `<span class="nh-month-tick">${t}</span>`).join('')}
+          </div>
+          <div class="nh-grid">${allCells.join('')}</div>
+        </div>
       </div>
-    `;
-
-    weeks.forEach((wk, wi) => {
-      html += `<div class="nh-week-row"><span class="nh-month-lbl">${monthLabels[wi]}</span>`;
-      wk.forEach(day => {
-        let cls = 'nh-cell';
-        if (day.isFuture)     cls += ' future';
-        else if (day.count >= 3) cls += ' c3';
-        else if (day.count === 2) cls += ' c2';
-        else if (day.count === 1) cls += ' c1';
-        const tip = day.isFuture ? '' : (day.count > 0 ? `${day.dateStr} · ${day.count}条` : day.dateStr);
-        html += `<div class="${cls}" title="${tip}"></div>`;
-      });
-      html += '</div>';
-    });
-
-    html += `
       <div class="nh-legend">
         少&thinsp;
         <div class="nh-cell"></div>
@@ -6371,8 +6392,6 @@
         &thinsp;多
       </div>
     `;
-
-    sidebar.innerHTML = html;
   }
 
   // ---- Attachment helpers ----
