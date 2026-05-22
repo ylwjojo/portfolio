@@ -1731,39 +1731,26 @@
   .nh-lbl { font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; }
   .nh-section-title { font-size: 9px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   /* Heatmap — horizontal GitHub style */
-  .nh-heatmap-wrap { display: flex; gap: 5px; align-items: flex-start; }
-  .nh-day-col {
-    display: flex; flex-direction: column; gap: 3px;
-    padding-top: 16px; /* offset for month labels row */
+  .nh-cal-months { display: flex; flex-direction: column; gap: 18px; }
+  .nh-cal-month-title { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: 0.04em; }
+  .nh-cal-dow-row { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 3px; }
+  .nh-cal-dow { font-size: 9px; color: var(--text-muted); text-align: center; padding: 1px 0; }
+  .nh-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .nh-cal-day {
+    font-size: 10px; text-align: center; padding: 3px 1px;
+    color: var(--text); line-height: 1.4; border-radius: 0;
   }
-  .nh-day-lbl {
-    height: 9px; line-height: 9px; font-size: 8px;
-    color: var(--text-muted); text-align: right; width: 10px;
-  }
-  .nh-grid-area { flex: 1; min-width: 0; }
-  .nh-months-bar {
-    display: grid; grid-template-columns: repeat(26, 1fr);
-    gap: 3px; margin-bottom: 3px;
-  }
-  .nh-month-tick { font-size: 8px; color: var(--text-muted); line-height: 1; white-space: nowrap; overflow: visible; }
-  .nh-grid {
-    display: grid;
-    grid-template-columns: repeat(26, 1fr);
-    grid-template-rows: repeat(7, 9px);
-    grid-auto-flow: column;
-    gap: 3px;
-  }
-  .nh-cell {
-    border-radius: 0;
-    background: var(--border);
-    transition: opacity 0.1s;
-  }
-  .nh-cell:hover { opacity: 0.7; }
+  .nh-cal-day.empty { }
+  .nh-cal-day.future { color: var(--text-muted); opacity: 0.3; }
+  .nh-cal-day.c1 { background: rgba(88,140,255,0.30); }
+  .nh-cal-day.c2 { background: rgba(88,140,255,0.60); color: #fff; }
+  .nh-cal-day.c3 { background: rgba(88,140,255,0.90); color: #fff; }
+  .nh-cal-day.today { outline: 1px solid rgba(88,140,255,0.8); }
+  .nh-cell { border-radius: 0; background: var(--border); transition: opacity 0.1s; }
   .nh-cell.c1 { background: rgba(88,140,255,0.35); }
   .nh-cell.c2 { background: rgba(88,140,255,0.65); }
   .nh-cell.c3 { background: rgba(88,140,255,0.95); }
-  .nh-cell.future { opacity: 0; pointer-events: none; }
-  .nh-legend { display: flex; align-items: center; gap: 3px; margin-top: 10px; font-size: 9px; color: var(--text-muted); }
+  .nh-legend { display: flex; align-items: center; gap: 3px; margin-top: 14px; font-size: 9px; color: var(--text-muted); }
   .nh-legend .nh-cell { width: 9px; height: 9px; }
   @media (max-width: 680px) {
     .news-layout { flex-direction: column; height: auto; min-height: unset; }
@@ -6308,61 +6295,42 @@
     const now = new Date(); now.setHours(0,0,0,0);
     const thisMonth = now.toISOString().slice(0,7);
     const thisMonthCount = items.filter(i => (i.date||'').startsWith(thisMonth)).length;
-
-    // Full current year: Jan 1 → Dec 31, weeks as columns (Mon-first)
     const year = now.getFullYear();
-    const yearStart = new Date(year, 0, 1);
-    const yearEnd   = new Date(year, 11, 31);
-    // Roll back to the Monday on or before Jan 1
-    const daysToMon = (yearStart.getDay() + 6) % 7;
-    const gridStart = new Date(yearStart);
-    gridStart.setDate(yearStart.getDate() - daysToMon);
-    // Total weeks needed to cover Jan 1 – Dec 31
-    const totalWeeks = Math.ceil(((yearEnd - gridStart) / 86400000 + 1) / 7);
 
-    const weeks = [];
-    for (let w = 0; w < totalWeeks; w++) {
-      const days = [];
-      for (let d = 0; d < 7; d++) {
-        const date = new Date(gridStart);
-        date.setDate(gridStart.getDate() + w * 7 + d);
-        const dateStr = date.toISOString().slice(0,10);
-        const isOutOfYear = date.getFullYear() !== year;
+    const monthNames = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+    const dowNames = ['日','一','二','三','四','五','六'];
+
+    let monthsHtml = '';
+    for (let m = 0; m < 12; m++) {
+      const firstDay = new Date(year, m, 1);
+      const daysInMonth = new Date(year, m + 1, 0).getDate();
+      const startDow = firstDay.getDay();
+
+      let cells = '';
+      for (let i = 0; i < startDow; i++) cells += `<div class="nh-cal-day empty"></div>`;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, m, d);
+        const dateStr = `${year}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
         const isFuture = date > now;
-        days.push({
-          dateStr,
-          count: (isOutOfYear || isFuture) ? -1 : (dateCounts[dateStr] || 0),
-          isFuture: isFuture || isOutOfYear
-        });
+        const count = isFuture ? 0 : (dateCounts[dateStr] || 0);
+        const isToday = date.getTime() === now.getTime();
+        let cls = 'nh-cal-day';
+        if (isFuture) cls += ' future';
+        else if (count >= 3) cls += ' c3';
+        else if (count === 2) cls += ' c2';
+        else if (count === 1) cls += ' c1';
+        if (isToday) cls += ' today';
+        const tip = isFuture ? '' : (count > 0 ? `${dateStr} · ${count}条` : dateStr);
+        cells += `<div class="${cls}" title="${tip}">${d}</div>`;
       }
-      weeks.push(days);
+
+      monthsHtml += `
+        <div class="nh-cal-month">
+          <div class="nh-cal-month-title">${monthNames[m]}</div>
+          <div class="nh-cal-dow-row">${dowNames.map(d => `<span class="nh-cal-dow">${d}</span>`).join('')}</div>
+          <div class="nh-cal-grid">${cells}</div>
+        </div>`;
     }
-
-    // Month labels: show "X月" at the first column where that month starts
-    const monthTicks = weeks.map((wk, wi) => {
-      const colDate = new Date(gridStart);
-      colDate.setDate(gridStart.getDate() + wi * 7);
-      const m = colDate.getMonth();
-      if (wi === 0) return m === 0 ? '1月' : '';
-      const prev = new Date(gridStart);
-      prev.setDate(gridStart.getDate() + (wi - 1) * 7);
-      return colDate.getMonth() !== prev.getMonth() ? (m + 1) + '月' : '';
-    });
-
-    // Cell HTML builder
-    const cellHtml = (day) => {
-      let cls = 'nh-cell';
-      if (day.isFuture)      cls += ' future';
-      else if (day.count >= 3) cls += ' c3';
-      else if (day.count === 2) cls += ' c2';
-      else if (day.count === 1) cls += ' c1';
-      const tip = day.isFuture ? '' : (day.count > 0 ? `${day.dateStr} · ${day.count}条` : day.dateStr);
-      return `<div class="${cls}" title="${tip}"></div>`;
-    };
-
-    // All cells in column-first order (Mon col1, Tue col1, ..., Sun col1, Mon col2...)
-    const allCells = [];
-    weeks.forEach(wk => wk.forEach(day => allCells.push(cellHtml(day))));
 
     sidebar.innerHTML = `
       <div class="nh-stats">
@@ -6376,23 +6344,7 @@
         </div>
       </div>
       <div class="nh-section-title">发布记录</div>
-      <div class="nh-heatmap-wrap">
-        <div class="nh-day-col">
-          <span class="nh-day-lbl">一</span>
-          <span class="nh-day-lbl"></span>
-          <span class="nh-day-lbl">三</span>
-          <span class="nh-day-lbl"></span>
-          <span class="nh-day-lbl">五</span>
-          <span class="nh-day-lbl"></span>
-          <span class="nh-day-lbl"></span>
-        </div>
-        <div class="nh-grid-area">
-          <div class="nh-months-bar" style="grid-template-columns:repeat(${totalWeeks},1fr)">
-            ${monthTicks.map(t => `<span class="nh-month-tick">${t}</span>`).join('')}
-          </div>
-          <div class="nh-grid" style="grid-template-columns:repeat(${totalWeeks},1fr)">${allCells.join('')}</div>
-        </div>
-      </div>
+      <div class="nh-cal-months">${monthsHtml}</div>
       <div class="nh-legend">
         少&thinsp;
         <div class="nh-cell"></div>
