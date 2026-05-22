@@ -1703,10 +1703,10 @@
   .news-layout {
     display: flex;
     align-items: stretch;
-    border: 1px solid var(--border);
+    border: none;
+    border-top: 1px solid var(--border);
     background: var(--surface-1);
-    height: calc(100vh - 180px);
-    min-height: 520px;
+    height: calc(100vh - var(--nav-h) - var(--sub-h));
   }
   /* Left panel — sidebar fixed, scrolls internally */
   .news-sidebar {
@@ -3917,7 +3917,12 @@
     if (rCBtn) rCBtn.style.display = (!isNews && isAdm) ? '' : 'none';
     if (aNBtn) aNBtn.style.display = (isNews && isAdm) ? '' : 'none';
     if (!isNews) applyFilters();
-    else _renderNewsHeatmap();
+    else {
+      _renderNewsHeatmap();
+      // Scroll page so the sticky nav sits flush at top (no hero visible)
+      const mc = document.getElementById('mainContent');
+      if (mc) mc.scrollIntoView({ behavior: 'instant' });
+    }
   }
 
   function setSubFilter(el, subtype) {
