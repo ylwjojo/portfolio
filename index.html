@@ -1690,7 +1690,7 @@
   .news-pdf-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9200;
+    z-index: 10000;
     background: var(--surface-1);
     opacity: 0;
     pointer-events: none;
@@ -1704,12 +1704,13 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 0 24px;
     border-bottom: 1px solid var(--border);
     background: var(--surface-1);
   }
   .news-pdf-title {
+    display: none;
     font-size: 13px;
     font-weight: 600;
     color: var(--text);
@@ -3433,7 +3434,6 @@
   <div class="news-pdf-topbar">
     <button class="news-pdf-close" onclick="closeNewsPDF()">返回</button>
     <div class="news-pdf-title" id="newsPdfTitle">PDF 预览</div>
-    <div style="width:48px"></div>
   </div>
   <iframe class="news-pdf-frame" id="newsPdfFrame" title="PDF 预览"></iframe>
 </div>
