@@ -1687,6 +1687,59 @@
     text-decoration: none; transition: background 0.15s;
   }
   .news-pdf-btn:hover { background: var(--surface-3, var(--surface-1)); }
+  .news-pdf-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9200;
+    background: var(--surface-1);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .news-pdf-overlay.open { opacity: 1; pointer-events: all; }
+  .news-pdf-topbar {
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-1);
+  }
+  .news-pdf-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .news-pdf-close {
+    height: 32px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .news-pdf-close:hover { background: var(--tag-bg); color: var(--text); }
+  .news-pdf-frame {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    background: var(--surface-2);
+  }
 
   /* ── Scroll entrance animations ─────────────────────────── */
   .anim-item {
@@ -3375,6 +3428,16 @@
   </div>
 </div>
 
+<!-- ===== NEWS PDF PREVIEW ===== -->
+<div class="news-pdf-overlay" id="newsPdfOverlay">
+  <div class="news-pdf-topbar">
+    <button class="news-pdf-close" onclick="closeNewsPDF()">返回</button>
+    <div class="news-pdf-title" id="newsPdfTitle">PDF 预览</div>
+    <div style="width:48px"></div>
+  </div>
+  <iframe class="news-pdf-frame" id="newsPdfFrame" title="PDF 预览"></iframe>
+</div>
+
 <!-- ===== PROJECT MODAL: Moonvy-style article layout ===== -->
 <div class="proj-overlay" id="projOverlay">
   <div class="proj-modal" id="projModal">
@@ -4007,6 +4070,7 @@
       closeProjectModal();
       closeCreateModal();
       closeDynProject();
+      closeNewsPDF();
     }
   });
 
@@ -6468,11 +6532,26 @@
     if (thumb)   { thumb.innerHTML = ''; thumb.style.fontSize = ''; }
   }
 
+  let _newsPdfObjectUrl = null;
+
+  function closeNewsPDF() {
+    const overlay = document.getElementById('newsPdfOverlay');
+    const frame = document.getElementById('newsPdfFrame');
+    if (overlay) overlay.classList.remove('open');
+    if (frame) frame.removeAttribute('src');
+    if (_newsPdfObjectUrl) {
+      URL.revokeObjectURL(_newsPdfObjectUrl);
+      _newsPdfObjectUrl = null;
+    }
+    document.body.style.overflow = '';
+  }
+
   function openNewsPDF(newsId, event) {
     if (event) event.stopPropagation();
     const item = (_localHD.newsItems || []).find(n => n.id === newsId);
     if (!item || !item.attachment || !item.attachment.data) return;
     try {
+      closeNewsPDF();
       const dataUri = item.attachment.data;
       const arr  = dataUri.split(',');
       const mime = (arr[0].match(/:(.*?);/) || [])[1] || 'application/pdf';
@@ -6481,10 +6560,16 @@
       for (let i = 0; i < raw.length; i++) u8[i] = raw.charCodeAt(i);
       const blob = new Blob([u8], { type: mime });
       const url  = URL.createObjectURL(blob);
-      window.open(url, '_blank', 'noopener');
+      _newsPdfObjectUrl = url;
+      document.getElementById('newsPdfTitle').textContent = item.attachment.name || item.title || 'PDF 预览';
+      document.getElementById('newsPdfFrame').src = url;
+      document.getElementById('newsPdfOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
     } catch(err) {
-      // fallback: try opening data URI directly
-      window.open(item.attachment.data, '_blank', 'noopener');
+      document.getElementById('newsPdfTitle').textContent = item.attachment.name || item.title || 'PDF 预览';
+      document.getElementById('newsPdfFrame').src = item.attachment.data;
+      document.getElementById('newsPdfOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
   }
 
