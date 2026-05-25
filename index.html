@@ -1691,14 +1691,32 @@
     position: fixed;
     inset: 0;
     z-index: 10000;
-    background: var(--surface-1);
+    background: rgba(0,0,0,0.22);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.24s ease;
     display: flex;
-    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
   }
   .news-pdf-overlay.open { opacity: 1; pointer-events: all; }
+  .news-pdf-overlay.open .news-pdf-sheet { transform: translateY(0); }
+  .news-pdf-sheet {
+    width: min(960px, 100%);
+    height: min(62vh, calc(100vh - 96px));
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface-1);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.22);
+    transform: translateY(24px);
+    transition: transform 0.24s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
   .news-pdf-topbar {
     height: 48px;
     flex-shrink: 0;
@@ -1740,6 +1758,14 @@
     width: 100%;
     border: 0;
     background: var(--surface-2);
+  }
+  @media (max-width: 680px) {
+    .news-pdf-overlay { padding: 10px; }
+    .news-pdf-sheet {
+      height: 70vh;
+      min-height: 320px;
+      border-radius: 10px;
+    }
   }
 
   /* ── Scroll entrance animations ─────────────────────────── */
@@ -3430,12 +3456,14 @@
 </div>
 
 <!-- ===== NEWS PDF PREVIEW ===== -->
-<div class="news-pdf-overlay" id="newsPdfOverlay">
-  <div class="news-pdf-topbar">
-    <button class="news-pdf-close" onclick="closeNewsPDF()">返回</button>
-    <div class="news-pdf-title" id="newsPdfTitle">PDF 预览</div>
+<div class="news-pdf-overlay" id="newsPdfOverlay" onclick="closeNewsPDF()">
+  <div class="news-pdf-sheet" onclick="event.stopPropagation()">
+    <div class="news-pdf-topbar">
+      <button class="news-pdf-close" onclick="closeNewsPDF()">返回</button>
+      <div class="news-pdf-title" id="newsPdfTitle">PDF 预览</div>
+    </div>
+    <iframe class="news-pdf-frame" id="newsPdfFrame" title="PDF 预览"></iframe>
   </div>
-  <iframe class="news-pdf-frame" id="newsPdfFrame" title="PDF 预览"></iframe>
 </div>
 
 <!-- ===== PROJECT MODAL: Moonvy-style article layout ===== -->
