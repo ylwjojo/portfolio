@@ -1591,10 +1591,11 @@
   
   /* ===== NEWS VIEW ===== */
   .news-view {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 8px 0 80px;
+    max-width: none;
+    margin: 0;
+    padding: 20px 20px 80px;
     width: 100%;
+    box-sizing: border-box;
   }
   .news-view-empty {
     padding: 80px 0;
@@ -1606,6 +1607,8 @@
     display: flex;
     gap: 24px;
     padding: 20px 32px 20px 20px;
+    width: 100%;
+    box-sizing: border-box;
     border-bottom: 1px solid var(--border);
     align-items: flex-start;
     cursor: pointer;
