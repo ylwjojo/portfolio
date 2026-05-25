@@ -6296,12 +6296,17 @@
       ${isAdm ? `<button class="news-delete-btn" onclick="deleteNewsItem('${item.id}',event)" title="删除">✕</button>` : ''}
     `;
 
-    if (item.url) {
+    const hasPdf = item.attachment && item.attachment.type === 'pdf' && item.attachment.data;
+    if (hasPdf || item.url) {
       el.style.cursor = 'pointer';
       el.addEventListener('click', (e) => {
         if (e.target.classList.contains('news-delete-btn')) return;
         if (e.target.classList.contains('news-pdf-btn')) return;
         if (e.target.classList.contains('news-attach-img')) return;
+        if (hasPdf) {
+          openNewsPDF(item.id, e);
+          return;
+        }
         window.open(item.url, '_blank', 'noopener');
       });
     }
