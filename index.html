@@ -1694,7 +1694,7 @@
     bottom: 0;
     left: 0;
     z-index: 10000;
-    background: rgba(0,0,0,0.32);
+    background: rgba(0,0,0,0.42);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     opacity: 0;
@@ -1733,8 +1733,9 @@
     justify-content: flex-start;
     padding: 0 24px;
     border-bottom: 1px solid var(--border);
-    background: var(--surface-1);
+    background: #ffffff;
   }
+  [data-theme="dark"] .news-pdf-topbar { background: #1c1c1c; }
   .news-pdf-title {
     display: none;
     font-size: 13px;
@@ -1761,11 +1762,28 @@
     white-space: nowrap;
   }
   .news-pdf-close:hover { background: var(--tag-bg); color: var(--text); }
-  .news-pdf-frame {
+  .news-pdf-pages {
     flex: 1;
     width: 100%;
-    border: 0;
     background: var(--surface-2);
+    overflow: auto;
+    padding: 24px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .news-pdf-pages canvas {
+    display: block;
+    max-width: min(1120px, calc(100% - 48px));
+    height: auto;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  }
+  .news-pdf-loading {
+    margin-top: 48px;
+    font-size: 13px;
+    color: var(--text-muted);
   }
   @media (max-width: 680px) {
     .news-pdf-sheet {
@@ -3468,7 +3486,7 @@
       <button class="news-pdf-close" onclick="closeNewsPDF()">返回</button>
       <div class="news-pdf-title" id="newsPdfTitle">PDF 预览</div>
     </div>
-    <iframe class="news-pdf-frame" id="newsPdfFrame" title="PDF 预览"></iframe>
+    <div class="news-pdf-pages" id="newsPdfPages" aria-label="PDF 预览"></div>
   </div>
 </div>
 
@@ -6566,44 +6584,68 @@
     if (thumb)   { thumb.innerHTML = ''; thumb.style.fontSize = ''; }
   }
 
-  let _newsPdfObjectUrl = null;
+  const PDFJS_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs';
+  const PDFJS_WORKER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+  let _pdfjsReady = null;
+
+  function _loadPdfjs() {
+    if (!_pdfjsReady) {
+      _pdfjsReady = import(PDFJS_SRC).then(mod => {
+        mod.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_SRC;
+        return mod;
+      });
+    }
+    return _pdfjsReady;
+  }
 
   function closeNewsPDF() {
     const overlay = document.getElementById('newsPdfOverlay');
-    const frame = document.getElementById('newsPdfFrame');
+    const pages = document.getElementById('newsPdfPages');
     if (overlay) overlay.classList.remove('open');
-    if (frame) frame.removeAttribute('src');
-    if (_newsPdfObjectUrl) {
-      URL.revokeObjectURL(_newsPdfObjectUrl);
-      _newsPdfObjectUrl = null;
-    }
+    if (pages) pages.innerHTML = '';
     document.body.style.overflow = '';
   }
 
-  function openNewsPDF(newsId, event) {
+  async function openNewsPDF(newsId, event) {
     if (event) event.stopPropagation();
     const item = (_localHD.newsItems || []).find(n => n.id === newsId);
     if (!item || !item.attachment || !item.attachment.data) return;
+    closeNewsPDF();
+    const overlay = document.getElementById('newsPdfOverlay');
+    const pagesEl = document.getElementById('newsPdfPages');
+    const titleEl = document.getElementById('newsPdfTitle');
+    if (titleEl) titleEl.textContent = item.attachment.name || item.title || 'PDF 预览';
+    if (pagesEl) pagesEl.innerHTML = '<div class="news-pdf-loading">正在加载 PDF...</div>';
+    if (overlay) overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
     try {
-      closeNewsPDF();
       const dataUri = item.attachment.data;
       const arr  = dataUri.split(',');
-      const mime = (arr[0].match(/:(.*?);/) || [])[1] || 'application/pdf';
       const raw  = atob(arr[1]);
       const u8   = new Uint8Array(raw.length);
       for (let i = 0; i < raw.length; i++) u8[i] = raw.charCodeAt(i);
-      const blob = new Blob([u8], { type: mime });
-      const url  = URL.createObjectURL(blob);
-      _newsPdfObjectUrl = url;
-      document.getElementById('newsPdfTitle').textContent = item.attachment.name || item.title || 'PDF 预览';
-      document.getElementById('newsPdfFrame').src = url;
-      document.getElementById('newsPdfOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      const pdfjs = await _loadPdfjs();
+      const pdf = await pdfjs.getDocument({ data: u8 }).promise;
+      if (!pagesEl) return;
+      pagesEl.innerHTML = '';
+      const viewportWidth = Math.min(1120, Math.max(320, pagesEl.clientWidth - 48));
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const baseViewport = page.getViewport({ scale: 1 });
+        const scale = viewportWidth / baseViewport.width;
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
+        canvas.setAttribute('aria-label', `第 ${pageNum} 页`);
+        pagesEl.appendChild(canvas);
+        await page.render({ canvasContext: ctx, viewport }).promise;
+      }
     } catch(err) {
-      document.getElementById('newsPdfTitle').textContent = item.attachment.name || item.title || 'PDF 预览';
-      document.getElementById('newsPdfFrame').src = item.attachment.data;
-      document.getElementById('newsPdfOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      if (pagesEl) pagesEl.innerHTML = '<div class="news-pdf-loading">PDF 加载失败，请稍后重试</div>';
+      console.error(err);
     }
   }
 
