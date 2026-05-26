@@ -1555,7 +1555,7 @@
 
     /* ===== CUSTOM CURSOR (desktop only) ===== */
     @media (pointer: fine) {
-      * { cursor: none !important; }
+      body.c-cursor-ready * { cursor: none !important; }
       #cur-dot, #cur-glow {
         position: fixed; top: 0; left: 0;
         border-radius: 50%; pointer-events: none;
@@ -6306,10 +6306,13 @@
     const dot  = document.getElementById('cur-dot');
     const glow = document.getElementById('cur-glow');
     if (!dot || !glow) return;
+    document.body.classList.add('c-cursor-ready');
 
     let mx = -200, my = -200, gx = -200, gy = -200;
 
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    const updateCursorPosition = e => { mx = e.clientX; my = e.clientY; };
+    window.addEventListener('pointermove', updateCursorPosition, { passive: true, capture: true });
+    document.addEventListener('mousemove', updateCursorPosition);
 
     (function loop() {
       // dot: instant
@@ -6321,7 +6324,7 @@
       requestAnimationFrame(loop);
     })();
 
-    const HOVER = 'a,button,.card,.list-card,.filter-tag,.view-btn,.proj-toc-link,.nav-card-link,[role="button"],label,.toggle-track';
+    const HOVER = 'a,button,.card,.list-card,.filter-tag,.view-btn,.proj-toc-link,.nav-card-link,.news-pdf-pages canvas,[role="button"],label,.toggle-track';
     document.addEventListener('mouseover', e => {
       const b = document.body;
       if (e.target.closest(HOVER)) {
