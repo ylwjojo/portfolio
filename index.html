@@ -3956,7 +3956,9 @@
 
     // --- mouse tracking ---
     let mx = -9999, my = -9999;
-    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    const updateHeroPointer = e => { mx = e.clientX; my = e.clientY; };
+    window.addEventListener('mousemove', updateHeroPointer);
+    window.addEventListener('pointermove', updateHeroPointer, { passive: true });
     document.getElementById('hero').addEventListener('mouseleave',
       () => { mx = -9999; my = -9999; });
 
@@ -6310,9 +6312,7 @@
 
     let mx = -200, my = -200, gx = -200, gy = -200;
 
-    const updateCursorPosition = e => { mx = e.clientX; my = e.clientY; };
-    window.addEventListener('pointermove', updateCursorPosition, { passive: true, capture: true });
-    document.addEventListener('mousemove', updateCursorPosition);
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
     (function loop() {
       // dot: instant
@@ -6324,7 +6324,7 @@
       requestAnimationFrame(loop);
     })();
 
-    const HOVER = 'a,button,.card,.list-card,.filter-tag,.view-btn,.proj-toc-link,.nav-card-link,.news-pdf-pages canvas,[role="button"],label,.toggle-track';
+    const HOVER = 'a,button,.card,.list-card,.filter-tag,.view-btn,.proj-toc-link,.nav-card-link,[role="button"],label,.toggle-track';
     document.addEventListener('mouseover', e => {
       const b = document.body;
       if (e.target.closest(HOVER)) {
