@@ -109,6 +109,14 @@
       pointer-events: none;
       mix-blend-mode: overlay;
     }
+
+    body.content-mode .hero {
+      display: none;
+    }
+
+    body.content-mode #mainContent {
+      min-height: 100svh;
+    }
   </style>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -4009,7 +4017,6 @@
     const idx = typeMap[type] ?? 0;
     setFilter(tags[idx], type);
     closeNav();
-    document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
   }
 
   // Close on outside click
@@ -4053,6 +4060,7 @@
   }
 
   function setFilter(el, type) {
+    enterContentMode();
     _mainFilter = type;
     _subFilter  = null;
     document.querySelectorAll('.sb-cell.active').forEach(c => c.classList.remove('active'));
@@ -4074,10 +4082,14 @@
     if (!isNews) applyFilters();
     else {
       _renderNewsHeatmap();
-      // Scroll page so the sticky nav sits flush at top (no hero visible)
-      const mc = document.getElementById('mainContent');
-      if (mc) mc.scrollIntoView({ behavior: 'instant' });
     }
+  }
+
+  function enterContentMode() {
+    document.body.classList.add('content-mode');
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
   }
 
   function setSubFilter(el, subtype) {
