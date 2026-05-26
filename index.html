@@ -2047,7 +2047,7 @@
   <div class="subnav-spacer"></div>
   <button class="create-proj-btn admin-only" id="createProjBtn" onclick="openCreateModal()">＋ 新建项目</button>
   <button class="create-proj-btn admin-only" id="restoreCardsBtn" onclick="restoreAllBuiltinCards()" style="background:var(--surface-2);color:var(--text);border:1px solid var(--border);">↩ 恢复隐藏项目</button>
-  <button class="create-proj-btn admin-only" id="addNewsBtn" onclick="openAddNewsForm()" style="display:none;color:#fff">＋ 添加资讯</button>
+  <button type="button" class="create-proj-btn admin-only" id="addNewsBtn" onclick="openAddNewsForm()" style="display:none;color:#fff">＋ 添加资讯</button>
 </div>
 
 <!-- ===== GALLERY VIEW ===== -->
@@ -6730,7 +6730,10 @@
     const df = document.getElementById('nf-date');
     if (df && !df.value) df.value = today;
     modal.classList.add('open');
-    document.getElementById('nf-title').focus();
+    const main = modal.closest('.news-main');
+    if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+    modal.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    document.getElementById('nf-title')?.focus();
   }
 
   function closeAddNewsForm() {
