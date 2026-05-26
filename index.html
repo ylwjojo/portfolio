@@ -4002,9 +4002,9 @@
   }
 
   function closeNav() {
-    document.getElementById('cardNav').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.querySelector('.subnav').classList.remove('nav-open');
+    document.getElementById('cardNav')?.classList.remove('open');
+    document.getElementById('hamburger')?.classList.remove('open');
+    document.querySelector('.subnav')?.classList.remove('nav-open');
   }
 
   function filterAndClose(type) {
