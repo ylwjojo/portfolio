@@ -6630,6 +6630,7 @@
       if (!pagesEl) return;
       pagesEl.innerHTML = '';
       const viewportWidth = Math.min(1120, Math.max(320, pagesEl.clientWidth - 48));
+      const outputScale = Math.min(window.devicePixelRatio || 1, 2.5);
       for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
         const page = await pdf.getPage(pageNum);
         const baseViewport = page.getViewport({ scale: 1 });
@@ -6637,11 +6638,17 @@
         const viewport = page.getViewport({ scale });
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = Math.floor(viewport.width);
-        canvas.height = Math.floor(viewport.height);
+        canvas.width = Math.floor(viewport.width * outputScale);
+        canvas.height = Math.floor(viewport.height * outputScale);
+        canvas.style.width = `${Math.floor(viewport.width)}px`;
+        canvas.style.height = `${Math.floor(viewport.height)}px`;
         canvas.setAttribute('aria-label', `第 ${pageNum} 页`);
         pagesEl.appendChild(canvas);
-        await page.render({ canvasContext: ctx, viewport }).promise;
+        await page.render({
+          canvasContext: ctx,
+          viewport,
+          transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
+        }).promise;
       }
     } catch(err) {
       if (pagesEl) pagesEl.innerHTML = '<div class="news-pdf-loading">PDF 加载失败，请稍后重试</div>';
