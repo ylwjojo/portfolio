@@ -1555,7 +1555,7 @@
 
     /* ===== CUSTOM CURSOR (desktop only) ===== */
     @media (pointer: fine) {
-      body.c-cursor-ready * { cursor: none !important; }
+      * { cursor: none !important; }
       #cur-dot, #cur-glow {
         position: fixed; top: 0; left: 0;
         border-radius: 50%; pointer-events: none;
@@ -3956,9 +3956,7 @@
 
     // --- mouse tracking ---
     let mx = -9999, my = -9999;
-    const updateHeroPointer = e => { mx = e.clientX; my = e.clientY; };
-    window.addEventListener('mousemove', updateHeroPointer);
-    window.addEventListener('pointermove', updateHeroPointer, { passive: true });
+    window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
     document.getElementById('hero').addEventListener('mouseleave',
       () => { mx = -9999; my = -9999; });
 
@@ -6308,7 +6306,6 @@
     const dot  = document.getElementById('cur-dot');
     const glow = document.getElementById('cur-glow');
     if (!dot || !glow) return;
-    document.body.classList.add('c-cursor-ready');
 
     let mx = -200, my = -200, gx = -200, gy = -200;
 
