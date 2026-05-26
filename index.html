@@ -1559,31 +1559,30 @@
       #cur-dot, #cur-glow {
         position: fixed; top: 0; left: 0;
         border-radius: 50%; pointer-events: none;
-        z-index: 99999;
+        will-change: transform; z-index: 99999;
       }
-      /* mix-blend-mode: difference — white dot inverts against any bg:
-         on dark bg → appears white; on light bg → appears black. Always visible. */
       #cur-dot {
         width: 6px; height: 6px; margin: -3px 0 0 -3px;
-        background: #fff;
-        mix-blend-mode: difference;
-        will-change: transform;
-        transition: width .2s, height .2s, margin .2s, opacity .2s;
+        background: #000;
+        transition: width .2s, height .2s, margin .2s, background .2s, opacity .2s;
       }
+      [data-theme="dark"] #cur-dot { background: #fff; }
       #cur-glow {
         width: 36px; height: 36px; margin: -18px 0 0 -18px;
-        border: 1.5px solid rgba(128,128,128,0.3);
-        will-change: transform;
+        border: 1.5px solid rgba(128,128,128,0.35);
         transition: width .25s cubic-bezier(.25,.46,.45,.94),
                     height .25s cubic-bezier(.25,.46,.45,.94),
                     margin .25s cubic-bezier(.25,.46,.45,.94),
                     border-color .25s, background .25s, opacity .2s;
       }
       /* hover interactive elements */
-      body.c-hover #cur-dot  { width: 10px; height: 10px; margin: -5px 0 0 -5px; }
+      body.c-hover #cur-dot  { width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #000; }
       body.c-hover #cur-glow { width: 52px; height: 52px; margin: -26px 0 0 -26px;
-                                border-color: rgba(128,128,128,0.2);
-                                background: rgba(128,128,128,0.05); }
+                                border-color: rgba(0,0,0,0.25);
+                                background: rgba(0,0,0,0.04); }
+      [data-theme="dark"] body.c-hover #cur-dot  { background: #fff; }
+      [data-theme="dark"] body.c-hover #cur-glow { border-color: rgba(255,255,255,0.25);
+                                                    background: rgba(255,255,255,0.04); }
       /* text / editable */
       body.c-text #cur-dot  { width: 2px; height: 22px; margin: -11px 0 0 -1px; border-radius: 2px; }
       body.c-text #cur-glow { opacity: 0; }
