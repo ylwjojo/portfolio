@@ -1232,6 +1232,31 @@
       border-color: #6B5CE7; font-weight: 700;
     }
 
+    /* ===== CLASSIFY PANEL (detail-page re-edit, admin only) ===== */
+    .proj-classify-panel {
+      margin-top: 8px; padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .proj-classify-panel .pc-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .proj-classify-panel select {
+      width: 100%; font-size: 12.5px; color: var(--text);
+      background: var(--surface-3); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 11px;
+      font-family: inherit; outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 18px;
+    }
+    .proj-classify-panel select:focus { border-color: #6B5CE7; }
+    .proj-classify-panel .ms-grid { grid-template-columns: 34px 1fr 1fr 1fr; }
+    .proj-classify-panel .ms-cell { font-size: 9.5px; padding: 7px 3px; }
+    .proj-classify-panel .pc-hint {
+      font-size: 10px; color: var(--text-muted); margin-top: 10px; line-height: 1.6;
+    }
+
     /* ===== CREATE PROJECT BUTTON ===== */
     .create-proj-btn {
       display: flex; align-items: center; gap: 5px;
@@ -4204,6 +4229,73 @@
     }
   }
 
+  // ===== CLASSIFY PANEL (detail-page re-edit, admin only) =====
+  const TYPE_OPTIONS = [
+    ['bili', '哔哩哔哩业务需求'],
+    ['project', '个人探索'],
+    ['thinking', '思考'],
+    ['vibe-coding', 'vibe coding'],
+  ];
+  const MATRIX_CELLS = [
+    ['user_optimize','体验优化'],   ['user_explore','体验探索'],   ['user_create','新用户搭建'],
+    ['biz_optimize','业务增长优化'],['biz_explore','业务创新探索'],['biz_create','全新业务搭建'],
+    ['eng_optimize','产品基础架构'],['eng_explore','设计系统搭建'],['eng_create','全新工程体系'],
+  ];
+
+  function _classifyPanelHTML(type, matrixKey) {
+    const opts = TYPE_OPTIONS.map(([v, l]) =>
+      `<option value="${v}"${v === type ? ' selected' : ''}>${l}</option>`).join('');
+    const rowHeads = ['用户<br>价值', '业务<br>价值', '工程<br>效率'];
+    let gridInner = `
+      <div class="ms-corner"></div>
+      <div class="ms-col-head">优化型</div>
+      <div class="ms-col-head">探索型</div>
+      <div class="ms-col-head">0–1创建</div>`;
+    MATRIX_CELLS.forEach(([key, label], i) => {
+      if (i % 3 === 0) gridInner += `<div class="ms-row-head">${rowHeads[i / 3]}</div>`;
+      gridInner += `<div class="ms-cell${key === matrixKey ? ' selected' : ''}" data-key="${key}" onclick="selectPanelMatrixCell(this)">${label}</div>`;
+    });
+    return `
+      <div class="proj-classify-panel" contenteditable="false" id="projClassifyPanel">
+        <div class="pc-label">内容分类（所属 Tab）</div>
+        <select id="pc-type">${opts}</select>
+        <div class="pc-label">需求类型（点击格子选择）</div>
+        <input type="hidden" id="pc-matrix-key" value="${matrixKey || ''}">
+        <div class="ms-grid">${gridInner}</div>
+        <div class="pc-hint">改动会随「保存更改」一起发布；选中格子会自动同步侧边栏「需求类型」。</div>
+      </div>`;
+  }
+
+  function selectPanelMatrixCell(el) {
+    const grid = el.closest('.ms-grid');
+    const hidden = document.getElementById('pc-matrix-key');
+    const current = hidden.value;
+    grid.querySelectorAll('.ms-cell').forEach(c => c.classList.remove('selected'));
+    if (current === el.dataset.key) {
+      hidden.value = '';
+    } else {
+      el.classList.add('selected');
+      hidden.value = el.dataset.key;
+      const stage = MATRIX_STAGE_LABEL[el.dataset.key.split('_')[1]] || '';
+      _syncPanelMetaType(stage ? stage + ' · ' + el.textContent.trim() : el.textContent.trim());
+    }
+  }
+
+  function _syncPanelMetaType(text) {
+    const rc = document.getElementById('dynProjRightCol');
+    if (!rc || !text) return;
+    for (const it of rc.querySelectorAll('.proj-right-meta-item')) {
+      const lb = it.querySelector('.proj-right-meta-label');
+      if (lb && lb.textContent.trim() === '需求类型') {
+        const v = it.querySelector('.proj-right-meta-value');
+        if (v) v.textContent = text;
+        return;
+      }
+    }
+    rc.insertAdjacentHTML('afterbegin',
+      `<div class="proj-right-meta-item"><div class="proj-right-meta-label">需求类型</div><div class="proj-right-meta-value">${text}</div></div>`);
+  }
+
   // ===== MATRIX UPDATE =====
   const MATRIX_BASE = {
     user_optimize: 14, user_explore: 5,  user_create: 0,
@@ -4545,7 +4637,10 @@
           </div>
           ${editBar}
         </div>
-        <div class="proj-right-col" id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
+        <div class="proj-right-col">
+          <div id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
+          ${isAdmin ? _classifyPanelHTML(p.type, p.matrixKey) : ''}
+        </div>
       </div>`;
 
     document.getElementById('dynProjOverlay').classList.add('open');
@@ -4601,6 +4696,17 @@
       if (card) card.src = pendingCover;
     }
 
+    // Classification from the admin panel (tab + matrix cell)
+    const typeSel = document.getElementById('pc-type');
+    const newType = typeSel ? typeSel.value : null;
+    const mkInput = document.getElementById('pc-matrix-key');
+    const newMatrixKey = mkInput ? (mkInput.value || null) : undefined;
+
+    if (newType) {
+      const card = document.querySelector(`[data-dyn-id="${id}"]`);
+      if (card) card.dataset.type = 'all ' + newType;
+    }
+
     _publishToGitHub(d => {
       if (!d.dynamicProjects) d.dynamicProjects = [];
       const i = d.dynamicProjects.findIndex(p => p.id === id);
@@ -4608,8 +4714,10 @@
         d.dynamicProjects[i]._bodyHTML = bodyHTML;
         d.dynamicProjects[i]._rightColHTML = rightColHTML;
         if (pendingCover) d.dynamicProjects[i].cover = pendingCover;
+        if (newType) d.dynamicProjects[i].type = newType;
+        if (newMatrixKey !== undefined) d.dynamicProjects[i].matrixKey = newMatrixKey;
       }
-    }, '更新项目: ' + id);
+    }, '更新项目: ' + id).then(ok => { if (ok) updateMatrix(); });
   }
 
   function closeDynProject() {
@@ -5817,6 +5925,10 @@
 
     const isAdmin = document.documentElement.hasAttribute('data-admin');
     const s = p.sections;
+    const _override = JSON.parse(localStorage.getItem('builtin_override_' + id) || 'null')
+                   || (_localHD.overrides && _localHD.overrides[id]) || null;
+    const curType = (_override && _override.type) || p.type;
+    const curMatrixKey = (_override && _override.matrixKey) || null;
 
     const metricsHtml = s.metrics && s.metrics.length
       ? `<div class="proj-metrics">${s.metrics.map(m => `<div class="proj-metric"><div class="proj-metric-num">${m.value}</div><div class="proj-metric-label">${m.label}</div></div>`).join('')}</div>` : '';
@@ -5898,16 +6010,17 @@
           </div>
           ${editBar}
         </div>
-        <div class="proj-right-col" id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
+        <div class="proj-right-col">
+          <div id="dynProjRightCol" ${isAdmin ? 'contenteditable="true"' : ''}>${metaHtml}</div>
+          ${isAdmin ? _classifyPanelHTML(curType, curMatrixKey) : ''}
+        </div>
       </div>
       ${isAdmin ? `<input type="file" id="builtinCoverInput" accept="image/*" style="display:none" onchange="applyBuiltinCoverReplace('${id}',this)">` : ''}`;
 
     // Apply hardcoded or localStorage body/rightcol override
-    const _builtinOverride = JSON.parse(localStorage.getItem('builtin_override_' + id) || 'null')
-                          || (HARDCODED_DATA.overrides && HARDCODED_DATA.overrides[id]);
-    if (_builtinOverride) {
-      if (_builtinOverride.bodyHTML) { const _b = document.getElementById('dynProjBody'); if(_b) _b.innerHTML = _builtinOverride.bodyHTML; }
-      if (_builtinOverride.rightColHTML) { const _r = document.getElementById('dynProjRightCol'); if(_r) _r.innerHTML = _builtinOverride.rightColHTML; }
+    if (_override) {
+      if (_override.bodyHTML) { const _b = document.getElementById('dynProjBody'); if(_b) _b.innerHTML = _override.bodyHTML; }
+      if (_override.rightColHTML) { const _r = document.getElementById('dynProjRightCol'); if(_r) _r.innerHTML = _override.rightColHTML; }
     }
     document.getElementById('dynProjOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -5919,6 +6032,16 @@
     const bodyHTML = body ? body.innerHTML : null;
     const rightColHTML = rightCol ? rightCol.innerHTML : null;
 
+    // Classification from the admin panel (tab + matrix cell)
+    const typeSel = document.getElementById('pc-type');
+    const newType = typeSel ? typeSel.value : null;
+    const mkInput = document.getElementById('pc-matrix-key');
+    const newMatrixKey = mkInput ? (mkInput.value || null) : null;
+
+    if (newType) {
+      document.querySelectorAll(`[data-builtin-id="${id}"]`).forEach(c => { c.dataset.type = newType; });
+    }
+
     // Handle pending cover
     let pendingCover = null;
     if (window._builtinPendingCover && window._builtinPendingCover.id === id) {
@@ -5929,7 +6052,7 @@
 
     _publishToGitHub(d => {
       if (!d.overrides) d.overrides = {};
-      d.overrides[id] = { bodyHTML, rightColHTML };
+      d.overrides[id] = { bodyHTML, rightColHTML, type: newType, matrixKey: newMatrixKey };
       if (pendingCover) { if (!d.covers) d.covers = {}; d.covers[id] = pendingCover; }
     }, '更新项目内容: ' + id);
   }
@@ -6009,8 +6132,16 @@
 
   // ===== ADMIN MODE =====
   // Restore admin state across page refreshes
+  function applyBuiltinTypeOverrides() {
+    const ov = (typeof _localHD !== 'undefined' ? _localHD : HARDCODED_DATA).overrides || {};
+    for (const [id, o] of Object.entries(ov)) {
+      if (o && o.type) document.querySelectorAll(`[data-builtin-id="${id}"]`).forEach(c => { c.dataset.type = o.type; });
+    }
+  }
+
   (function initAdmin() {
     applyHiddenBuiltinCards();
+    applyBuiltinTypeOverrides();
     // Show admin toggle only when URL contains correct key
     const urlKey = new URLSearchParams(location.search).get('admin');
     if (urlKey === 'yanlinwu80' || sessionStorage.getItem('adminUnlocked') === '1') {
