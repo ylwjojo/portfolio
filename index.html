@@ -3769,6 +3769,7 @@
               <option value="bili">哔哩哔哩业务需求</option>
               <option value="project">个人探索</option>
               <option value="thinking">思考</option>
+              <option value="vibe-coding">vibe coding</option>
             </select>
           </div>
           <div class="create-field">
@@ -3780,7 +3781,7 @@
 
       <!-- 需求分类矩阵 -->
       <div class="create-section">
-        <div class="create-section-label">需求分类矩阵 <span style="font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted)">（选填，点击格子归类）</span></div>
+        <div class="create-section-label">需求类型 <span style="font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted)">（九类 · 点击格子选择，自动填入侧边栏「需求类型」）</span></div>
         <input type="hidden" id="cf-matrix-key" value="">
         <div class="ms-grid">
           <div class="ms-corner"></div>
@@ -4185,16 +4186,21 @@
   }
 
   // ===== MATRIX SELECTOR =====
+  const MATRIX_STAGE_LABEL = { optimize: '优化型', explore: '探索型', create: '0-1创建型' };
   function selectMatrixCell(el) {
     document.querySelectorAll('.ms-cell').forEach(c => c.classList.remove('selected'));
     const key = el.dataset.key;
     const current = document.getElementById('cf-matrix-key').value;
+    const metaTypeInput = document.getElementById('cf-meta-type');
     if (current === key) {
       // deselect on second click
       document.getElementById('cf-matrix-key').value = '';
+      if (metaTypeInput) metaTypeInput.value = '';
     } else {
       el.classList.add('selected');
       document.getElementById('cf-matrix-key').value = key;
+      const stage = MATRIX_STAGE_LABEL[key.split('_')[1]] || '';
+      if (metaTypeInput) metaTypeInput.value = stage ? stage + ' · ' + el.textContent.trim() : el.textContent.trim();
     }
   }
 
@@ -4214,7 +4220,7 @@
     const stored = _localHD.dynamicProjects || [];
     const delta = {};
     stored.forEach(p => {
-      if (p.matrixKey) delta[p.matrixKey] = (delta[p.matrixKey] || 0) + 1;
+      if (p.matrixKey && p.type === 'bili') delta[p.matrixKey] = (delta[p.matrixKey] || 0) + 1;
     });
 
     let total = 33; // hardcoded base total
@@ -4309,6 +4315,7 @@
   function saveProject() {
     const title = document.getElementById('cf-title').value.trim();
     if (!title) { showToast('请先填写项目标题', '⚠️'); return; }
+    if (!document.getElementById('cf-matrix-key').value) { showToast('请在九宫格中选择需求类型', '⚠️'); return; }
 
     // collect metrics
     const metricLabels = [...document.querySelectorAll('.cf-metric-label')].map(i => i.value.trim());
@@ -4370,7 +4377,7 @@
   }
 
   function renderDynCard(p) {
-    const typeLabel = { bili: '哔哩哔哩业务需求', project: '个人探索', thinking: '思考' };
+    const typeLabel = { bili: '哔哩哔哩业务需求', project: '个人探索', thinking: '思考', 'vibe-coding': 'vibe coding' };
     const dataType = 'all ' + p.type;
     const thumbHtml = p.cover
       ? `<img src="${p.cover}" style="width:100%;height:100%;object-fit:cover;display:block;">`
