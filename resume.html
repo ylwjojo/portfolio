@@ -56,6 +56,49 @@
         -webkit-user-drag: none;
       }
 
+      .resume-footer {
+        display: flex;
+        justify-content: center;
+        padding: 28px 0 40px;
+      }
+
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        background: #1a1a1a;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+        opacity: 0;
+        transform: translateY(16px);
+        pointer-events: none;
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+
+      .download-btn.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .download-btn:hover {
+        background: #ff6b35;
+      }
+
+      .download-btn svg {
+        width: 16px;
+        height: 16px;
+        flex: none;
+      }
+
       .sr-text {
         position: absolute;
         width: 1px;
@@ -106,6 +149,10 @@
           height: var(--resume-height);
           box-shadow: none;
         }
+
+        .resume-footer {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -127,6 +174,38 @@
           吴彦霖 Yanlin Wu。求职意向：AI-交易产品设计师。方向：交易信任体验设计、商业增长产品设计、AI 工作流实践。
         </div>
       </section>
+      <footer class="resume-footer">
+        <a
+          class="download-btn"
+          href="./assets/figma-resume-2026@4x.png"
+          download="吴彦霖-简历-2026.png"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12" />
+            <path d="M6 11l6 6 6-6" />
+            <path d="M4 21h16" />
+          </svg>
+          下载简历
+        </a>
+      </footer>
     </main>
+    <script>
+      (function () {
+        var btn = document.querySelector(".download-btn");
+        var footer = document.querySelector(".resume-footer");
+        if (!btn || !footer) return;
+
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(
+            function (entries) {
+              btn.classList.toggle("is-visible", entries[0].isIntersecting);
+            },
+            { threshold: 0.4 }
+          ).observe(footer);
+        } else {
+          btn.classList.add("is-visible");
+        }
+      })();
+    </script>
   </body>
 </html>
