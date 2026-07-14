@@ -101,14 +101,21 @@
         font-weight: 600;
         letter-spacing: 0.02em;
         text-decoration: none;
-        transition:
-          background 0.15s ease-out,
-          color 0.15s ease-out;
+        user-select: none;
+        transition: all 0.1s ease-out;
       }
 
       .bubble-container:hover .download-btn {
         background: transparent;
         color: #ffffff;
+      }
+
+      .download-btn:active {
+        transform: scale(0.95);
+      }
+
+      .download-btn:active + .bubble-effects {
+        transform: scale(0.95);
       }
 
       .download-btn svg {
@@ -126,6 +133,7 @@
         z-index: 1;
         pointer-events: none;
         filter: url(#goo);
+        transition: all 0.1s ease-out;
       }
 
       .effect-button {
@@ -146,116 +154,134 @@
 
       .circle {
         position: absolute;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        border-radius: 15px;
         background: #1a1a1a;
-        transform: scale(0);
+        transition: background 0.1s ease-out;
       }
 
       .circle.tl {
-        top: 33%;
-        left: 25%;
+        top: 40%;
+        left: 27%;
       }
 
       .circle.br {
-        bottom: 33%;
-        right: 25%;
+        bottom: 40%;
+        right: 27%;
       }
 
       .bubble-container:hover .tl.c1 {
-        animation: bub-tl1 0.8s ease-out forwards;
+        animation: bub-tl1 1.1s ease-out forwards;
       }
 
       .bubble-container:hover .tl.c2 {
-        animation: bub-tl2 0.8s 0.06s ease-out forwards;
+        animation: bub-tl2 1.1s 0.08s ease-out forwards;
       }
 
       .bubble-container:hover .tl.c3 {
-        animation: bub-tl3 0.8s 0.12s ease-out forwards;
+        animation: bub-tl3 1.1s 0.16s ease-out forwards;
       }
 
       .bubble-container:hover .br.c1 {
-        animation: bub-br1 0.8s ease-out forwards;
+        animation: bub-br1 1.1s ease-out forwards;
       }
 
       .bubble-container:hover .br.c2 {
-        animation: bub-br2 0.8s 0.06s ease-out forwards;
+        animation: bub-br2 1.1s 0.08s ease-out forwards;
       }
 
       .bubble-container:hover .br.c3 {
-        animation: bub-br3 0.8s 0.12s ease-out forwards;
+        animation: bub-br3 1.1s 0.16s ease-out forwards;
       }
 
       @keyframes bub-tl1 {
         0% {
-          transform: translate(0, 0) scale(0);
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
         }
-        45% {
-          transform: translate(-26px, -34px) scale(1);
+        50% {
+          transform: translate(-25px, -25px) scale(1, 2);
+          opacity: 1;
         }
         100% {
-          transform: translate(-42px, -54px) scale(0);
+          transform: translate(-30px, -42px) scale(0.2);
+          opacity: 0;
         }
       }
 
       @keyframes bub-tl2 {
         0% {
-          transform: translate(0, 0) scale(0);
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
         }
-        45% {
-          transform: translate(-46px, -10px) scale(0.8);
+        50% {
+          transform: translate(-35px, -32px) scale(1, 0.8);
+          opacity: 1;
         }
         100% {
-          transform: translate(-72px, -18px) scale(0);
+          transform: translate(-45px, -42px) scale(0.4);
+          opacity: 0;
         }
       }
 
       @keyframes bub-tl3 {
         0% {
-          transform: translate(0, 0) scale(0);
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
         }
-        45% {
-          transform: translate(-12px, -48px) scale(0.7);
+        50% {
+          transform: translate(-40px, -19px) scale(1, 2);
+          opacity: 1;
         }
         100% {
-          transform: translate(-20px, -72px) scale(0);
+          transform: translate(-55px, -13px) scale(0.2);
+          opacity: 0;
         }
       }
 
       @keyframes bub-br1 {
         0% {
-          transform: translate(0, 0) scale(0);
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
         }
-        45% {
-          transform: translate(26px, 34px) scale(1);
+        50% {
+          transform: translate(25px, 25px) scale(1, 2);
+          opacity: 1;
         }
         100% {
-          transform: translate(42px, 54px) scale(0);
+          transform: translate(30px, 42px) scale(0.2);
+          opacity: 0;
         }
       }
 
       @keyframes bub-br2 {
         0% {
-          transform: translate(0, 0) scale(0);
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
         }
-        45% {
-          transform: translate(46px, 10px) scale(0.8);
+        50% {
+          transform: translate(35px, 32px) scale(1, 0.8);
+          opacity: 1;
         }
         100% {
-          transform: translate(72px, 18px) scale(0);
+          transform: translate(45px, 42px) scale(0.4);
+          opacity: 0;
         }
       }
 
       @keyframes bub-br3 {
         0% {
-          transform: translate(0, 0) scale(0);
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
         }
-        45% {
-          transform: translate(12px, 48px) scale(0.7);
+        50% {
+          transform: translate(40px, 19px) scale(1, 2);
+          opacity: 1;
         }
         100% {
-          transform: translate(20px, 72px) scale(0);
+          transform: translate(55px, 13px) scale(0.2);
+          opacity: 0;
         }
       }
 
