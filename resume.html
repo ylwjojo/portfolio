@@ -62,19 +62,16 @@
         padding: 28px 0 40px;
       }
 
-      .download-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 28px;
-        border-radius: 999px;
-        background: #1a1a1a;
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 600;
-        letter-spacing: 0.02em;
-        text-decoration: none;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+      .goo-defs {
+        position: absolute;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+      }
+
+      .bubble-container {
+        position: relative;
+        display: inline-block;
         opacity: 0;
         transform: translateY(16px);
         pointer-events: none;
@@ -83,20 +80,183 @@
           transform 0.4s ease;
       }
 
-      .download-btn.is-visible {
+      .bubble-container.is-visible {
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
       }
 
-      .download-btn:hover {
-        background: #ff6b35;
+      .download-btn {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 2px solid #1a1a1a;
+        color: #1a1a1a;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        transition:
+          background 0.15s ease-out,
+          color 0.15s ease-out;
+      }
+
+      .bubble-container:hover .download-btn {
+        background: transparent;
+        color: #ffffff;
       }
 
       .download-btn svg {
         width: 16px;
         height: 16px;
         flex: none;
+      }
+
+      .bubble-effects {
+        position: absolute;
+        top: -150%;
+        left: -50%;
+        width: 200%;
+        height: 400%;
+        z-index: 1;
+        pointer-events: none;
+        filter: url(#goo);
+      }
+
+      .effect-button {
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        width: 50%;
+        height: 25%;
+        border-radius: 999px;
+        background: #1a1a1a;
+        transform: translateY(-50%) scale(0.96);
+        transition: transform 0.2s ease-out;
+      }
+
+      .bubble-container:hover .effect-button {
+        transform: translateY(-50%) scale(1.06, 1.16);
+      }
+
+      .circle {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #1a1a1a;
+        transform: scale(0);
+      }
+
+      .circle.tl {
+        top: 33%;
+        left: 25%;
+      }
+
+      .circle.br {
+        bottom: 33%;
+        right: 25%;
+      }
+
+      .bubble-container:hover .tl.c1 {
+        animation: bub-tl1 0.8s ease-out forwards;
+      }
+
+      .bubble-container:hover .tl.c2 {
+        animation: bub-tl2 0.8s 0.06s ease-out forwards;
+      }
+
+      .bubble-container:hover .tl.c3 {
+        animation: bub-tl3 0.8s 0.12s ease-out forwards;
+      }
+
+      .bubble-container:hover .br.c1 {
+        animation: bub-br1 0.8s ease-out forwards;
+      }
+
+      .bubble-container:hover .br.c2 {
+        animation: bub-br2 0.8s 0.06s ease-out forwards;
+      }
+
+      .bubble-container:hover .br.c3 {
+        animation: bub-br3 0.8s 0.12s ease-out forwards;
+      }
+
+      @keyframes bub-tl1 {
+        0% {
+          transform: translate(0, 0) scale(0);
+        }
+        45% {
+          transform: translate(-26px, -34px) scale(1);
+        }
+        100% {
+          transform: translate(-42px, -54px) scale(0);
+        }
+      }
+
+      @keyframes bub-tl2 {
+        0% {
+          transform: translate(0, 0) scale(0);
+        }
+        45% {
+          transform: translate(-46px, -10px) scale(0.8);
+        }
+        100% {
+          transform: translate(-72px, -18px) scale(0);
+        }
+      }
+
+      @keyframes bub-tl3 {
+        0% {
+          transform: translate(0, 0) scale(0);
+        }
+        45% {
+          transform: translate(-12px, -48px) scale(0.7);
+        }
+        100% {
+          transform: translate(-20px, -72px) scale(0);
+        }
+      }
+
+      @keyframes bub-br1 {
+        0% {
+          transform: translate(0, 0) scale(0);
+        }
+        45% {
+          transform: translate(26px, 34px) scale(1);
+        }
+        100% {
+          transform: translate(42px, 54px) scale(0);
+        }
+      }
+
+      @keyframes bub-br2 {
+        0% {
+          transform: translate(0, 0) scale(0);
+        }
+        45% {
+          transform: translate(46px, 10px) scale(0.8);
+        }
+        100% {
+          transform: translate(72px, 18px) scale(0);
+        }
+      }
+
+      @keyframes bub-br3 {
+        0% {
+          transform: translate(0, 0) scale(0);
+        }
+        45% {
+          transform: translate(12px, 48px) scale(0.7);
+        }
+        100% {
+          transform: translate(20px, 72px) scale(0);
+        }
       }
 
       .sr-text {
@@ -175,35 +335,55 @@
         </div>
       </section>
       <footer class="resume-footer">
-        <a
-          class="download-btn"
-          href="./assets/figma-resume-2026@4x.png"
-          download="吴彦霖-简历-2026.png"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3v12" />
-            <path d="M6 11l6 6 6-6" />
-            <path d="M4 21h16" />
-          </svg>
-          下载简历
-        </a>
+        <svg class="goo-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+              <feComposite in="SourceGraphic" in2="goo" />
+            </filter>
+          </defs>
+        </svg>
+        <span class="bubble-container">
+          <a
+            class="download-btn"
+            href="./assets/figma-resume-2026@4x.png"
+            download="吴彦霖-简历-2026.png"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12" />
+              <path d="M6 11l6 6 6-6" />
+              <path d="M4 21h16" />
+            </svg>
+            下载简历
+          </a>
+          <span class="bubble-effects" aria-hidden="true">
+            <span class="circle tl c1"></span>
+            <span class="circle tl c2"></span>
+            <span class="circle tl c3"></span>
+            <span class="effect-button"></span>
+            <span class="circle br c1"></span>
+            <span class="circle br c2"></span>
+            <span class="circle br c3"></span>
+          </span>
+        </span>
       </footer>
     </main>
     <script>
       (function () {
-        var btn = document.querySelector(".download-btn");
+        var wrap = document.querySelector(".bubble-container");
         var footer = document.querySelector(".resume-footer");
-        if (!btn || !footer) return;
+        if (!wrap || !footer) return;
 
         if ("IntersectionObserver" in window) {
           new IntersectionObserver(
             function (entries) {
-              btn.classList.toggle("is-visible", entries[0].isIntersecting);
+              wrap.classList.toggle("is-visible", entries[0].isIntersecting);
             },
             { threshold: 0.4 }
           ).observe(footer);
         } else {
-          btn.classList.add("is-visible");
+          wrap.classList.add("is-visible");
         }
       })();
     </script>
