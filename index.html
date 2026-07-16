@@ -4667,22 +4667,25 @@
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
-      // Update displayed cover
-      const img = document.getElementById('dynCoverImg');
-      if (img) { img.src = e.target.result; }
-      else {
-        // No existing cover img — create one inside the cover wrap
-        const wrap = document.querySelector('#dynProjModal .proj-cover-hero');
-        if (wrap) {
-          const i = document.createElement('img');
-          i.id = 'dynCoverImg';
-          i.src = e.target.result;
-          i.style = 'width:100%;height:100%;object-fit:cover;display:block;';
-          wrap.prepend(i);
+      // 与静态卡封面一致：先压缩（最长边 1600px、JPEG），避免原图直传拖慢发布
+      _compressImage(e.target.result, (src) => {
+        // Update displayed cover
+        const img = document.getElementById('dynCoverImg');
+        if (img) { img.src = src; }
+        else {
+          // No existing cover img — create one inside the cover wrap
+          const wrap = document.querySelector('#dynProjModal .proj-cover-hero');
+          if (wrap) {
+            const i = document.createElement('img');
+            i.id = 'dynCoverImg';
+            i.src = src;
+            i.style = 'width:100%;height:100%;object-fit:cover;display:block;';
+            wrap.prepend(i);
+          }
         }
-      }
-      // Store as pending cover so saveDynProjectEdits() can persist it
-      window._dynPendingCover = { id, src: e.target.result };
+        // Store as pending cover so saveDynProjectEdits() can persist it
+        window._dynPendingCover = { id, src };
+      });
     };
     reader.readAsDataURL(file);
     input.value = '';
@@ -6810,11 +6813,14 @@
     }
     const reader = new FileReader();
     reader.onload = function(e) {
-      _newsAttachment = {
-        type: isImg ? 'image' : 'pdf',
-        name: file.name,
-        url: _queueAsset('assets/news/' + Date.now() + '_' + _assetFileName(file.name), e.target.result)
+      const attach = (dataUrl) => {
+        _newsAttachment = {
+          type: isImg ? 'image' : 'pdf',
+          name: file.name,
+          url: _queueAsset('assets/news/' + Date.now() + '_' + _assetFileName(file.name), dataUrl)
+        };
       };
+      if (isImg) { _compressImage(e.target.result, attach); } else { attach(e.target.result); }
       const area    = document.getElementById('nf-attach-area');
       const preview = document.getElementById('nf-attach-preview');
       const thumb   = document.getElementById('nf-attach-thumb');
