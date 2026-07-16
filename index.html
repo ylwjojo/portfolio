@@ -2202,7 +2202,7 @@
   <div class="card" data-type="all bili" data-subtype="体验探索" onclick="openProjectModal('ip-hotzone')" style="cursor:pointer">
     <!-- 封面：模拟 IP 页滑动手势场景 -->
     <div class="card-thumb" style="position:relative;overflow:hidden;">
-      <img src="assets/covers/ip-hotzone.jpg" alt="IP页滑动热区重定义" style="width:100%;height:100%;object-fit:cover;object-position:center;" loading="lazy">
+      <img data-cover-id="ip-hotzone" src="assets/covers/ip-hotzone.jpg" alt="IP页滑动热区重定义" style="width:100%;height:100%;object-fit:cover;object-position:center;" loading="lazy">
     </div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag tag-classify">策略类｜结构改版</span>
@@ -2362,7 +2362,7 @@
   <!-- Card: 账单实名变更引导重开账户 -->
   <div class="card" data-type="all bili" data-subtype="体验探索" data-builtin-id="bill-reopen" onclick="openBuiltinProject('bill-reopen')" style="cursor:pointer">
     <div class="card-thumb">
-      <img data-cover-id="pc-account-ad" src="assets/covers/bill-reopen.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+      <img data-cover-id="bill-reopen" src="assets/covers/bill-reopen.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
     </div>
     <div class="card-body">
       <div class="card-tags"><span class="card-tag tag-classify">工具类｜优化迭代</span><span class="card-tag">账单体验</span><span class="card-tag">实名认证</span><span class="card-tag">⏸ Hold</span></div>
@@ -3130,7 +3130,7 @@
 
   <!-- 2026 -->
   <div class="list-card" data-type="all bili" data-subtype="体验探索" onclick="openProjectModal('ip-hotzone')">
-    <div class="list-thumb" style="overflow:hidden"><img src="assets/covers/ip-hotzone.jpg" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
+    <div class="list-thumb" style="overflow:hidden"><img data-cover-id="list_ip-hotzone" src="assets/covers/ip-hotzone.jpg" style="width:100%;height:100%;object-fit:cover" loading="lazy"></div>
     <div class="list-info">
       <div class="list-title">IP页滑动热区重定义 · 手势引导设计</div>
       <div class="list-desc">识别左右滑动 Tab 的低价值使用，将热区重定义为切换 IP 内容页，以业务曝光目标驱动交互决策。</div>
@@ -3238,7 +3238,7 @@
   </div>
 
   <div class="list-card" data-type="all bili" data-subtype="体验探索" data-builtin-id="bill-reopen" onclick="openBuiltinProject('bill-reopen')">
-    <div class="list-thumb"><img data-cover-id="list_demo-marketplace" src="assets/covers/demo-marketplace_1784207163958.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+    <div class="list-thumb"><img data-cover-id="list_bill-reopen" src="assets/covers/bill-reopen.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
     <div class="list-info">
       <div class="list-title">账单 · 实名变更引导重开账户设计</div>
       <div class="list-desc">针对用户实名变更后账户被冻结的高频客诉场景，设计清晰的引导链路，帮助用户顺畅完成重新开户操作。</div>
@@ -3311,7 +3311,7 @@
   </div>
 
   <div class="list-card" data-type="all bili" data-subtype="业务增长优化" data-year="2025" data-builtin-id="t3-placeholder-word" onclick="openBuiltinProject('t3-placeholder-word')">
-    <div class="list-thumb"><img data-cover-id="list_newcomer-popup" src="assets/covers/t3-placeholder-word.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+    <div class="list-thumb"><img data-cover-id="list_t3-placeholder-word" src="assets/covers/t3-placeholder-word.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
     <div class="list-info">
       <div class="list-title">T3 搜索 · 底纹词个性化推荐策略设计</div>
       <div class="list-desc">将搜索底纹词从纯运营配置升级为三层策略（近期搜索→近期浏览→热门词条），引入个性化推荐逻辑。</div>
@@ -3329,7 +3329,7 @@
   </div>
 
   <div class="list-card" data-type="all bili" data-subtype="全新业务搭建" data-year="2025" data-builtin-id="model-circle" onclick="openBuiltinProject('model-circle')">
-    <div class="list-thumb"><img data-cover-id="list_ticket-activity-filter" src="assets/covers/model-circle.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+    <div class="list-thumb"><img data-cover-id="list_model-circle" src="assets/covers/model-circle.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
     <div class="list-info">
       <div class="list-title">圈子 · 模型圈品类从零搭建</div>
       <div class="list-desc">识别模型品类具备的双边效应（爆品+UGC 共存），从零搭建模型圈社区产品形态，上线后成为圈子内容体系新增长点。</div>
@@ -5754,6 +5754,24 @@
 
   // ===== GITHUB PUBLISH INTEGRATION =====
   let _localHD = JSON.parse(JSON.stringify(HARDCODED_DATA));
+
+  // 页面加载时以 covers 数据为准同步全部卡片封面：
+  // 有 data-cover-id 标记的 img 直接刷 src；渐变占位卡（无 img）由 _applyBuiltinCoverToCards 注入
+  (function _syncCoversOnLoad() {
+    const apply = () => {
+      const entries = Object.assign({}, _localHD.covers || {});
+      if (_localHD.ipHotzone && _localHD.ipHotzone.cover) entries['ip-hotzone'] = _localHD.ipHotzone.cover;
+      for (const [cid, csrc] of Object.entries(entries)) {
+        if (!csrc) continue;
+        const resolved = _assetSrc(csrc);
+        document.querySelectorAll(`img[data-cover-id="${cid}"], img[data-cover-id="list_${cid}"]`).forEach(im => {
+          if (im.getAttribute('src') !== resolved) im.src = resolved;
+        });
+        _applyBuiltinCoverToCards(cid, resolved);
+      }
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply); else apply();
+  })();
   let _htmlTemplate = null; // cached {before, after} parts of the HTML file
   let _ghPushInProgress = false;
   let _ghPendingPush = false;
@@ -5869,8 +5887,10 @@
     const blobSha = (await blobRes.json()).sha;
 
     // 3.5 队列中的附件文件（PDF/封面/正文图）作为独立文件一并入树
+    // 快照当前队列：推送期间新入队的资产留待下次，避免被误清空
+    const _pushedAssets = _ghPendingAssets.slice();
     const treeEntries = [{ path: _GH_FILE, mode: '100644', type: 'blob', sha: blobSha }];
-    for (const a of _ghPendingAssets) {
+    for (const a of _pushedAssets) {
       const aRes = await fetch(_GH_API + '/git/blobs', {
         method: 'POST', headers,
         body: JSON.stringify({ content: a.base64, encoding: 'base64' })
@@ -5902,7 +5922,7 @@
     });
     if (!updateRes.ok) throw new Error('更新分支失败: ' + updateRes.status);
 
-    _ghPendingAssets = []; // 推送成功，清空附件队列（失败时保留，随下次发布重试）
+    _ghPendingAssets = _ghPendingAssets.filter(a => !_pushedAssets.includes(a)); // 只清空已推送的（失败时保留，随下次发布重试）
   }
 
   // Core: apply modifyFn to _localHD, rebuild HTML, push to GitHub
@@ -5935,8 +5955,10 @@
         html = _htmlTemplate.before + JSON.stringify(_localHD) + _htmlTemplate.after;
       }
 
-      // Sync embedded cover imgs in card HTML from _localHD.covers
-      for (const [_cid, _csrc] of Object.entries(_localHD.covers || {})) {
+      // Sync embedded cover imgs in card HTML from _localHD.covers（含 ipHotzone 封面）
+      const _coverEntries = Object.assign({}, _localHD.covers || {});
+      if (_localHD.ipHotzone && _localHD.ipHotzone.cover) _coverEntries['ip-hotzone'] = _localHD.ipHotzone.cover;
+      for (const [_cid, _csrc] of Object.entries(_coverEntries)) {
         for (const _attr of [`data-cover-id="${_cid}"`, `data-cover-id="list_${_cid}"`]) {
           const _mk = _attr + ' src="';
           let _si = html.indexOf(_mk);
