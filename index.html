@@ -1070,17 +1070,17 @@
       letter-spacing: -0.8px; color: var(--text); margin-bottom: 20px;
     }
     .proj-link-bar {
-      display: flex; align-items: center; justify-content: space-between; gap: 14px;
-      margin: 20px 0 4px; padding: 15px 20px;
-      border: 1.5px solid var(--accent); border-radius: 10px;
-      color: var(--accent); font-size: 15px; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      transition: background 0.15s ease-out, color 0.15s ease-out;
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 16px 0 2px; padding: 7px 14px;
+      border: 1px solid var(--border); border-radius: 6px;
+      color: var(--accent); font-size: 13px; font-weight: 500;
+      text-decoration: none; cursor: pointer; max-width: 100%;
+      transition: border-color 0.15s ease-out, background 0.15s ease-out;
     }
-    .proj-link-bar:hover { background: var(--accent); color: #111; }
-    .proj-link-bar .plb-label { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .proj-link-bar:hover { border-color: var(--accent); background: rgba(128,128,128,0.08); }
+    .proj-link-bar .plb-label { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
     .proj-link-bar .plb-url {
-      font-weight: 400; font-size: 13px; opacity: 0.75;
+      font-weight: 400; font-size: 12px; opacity: 0.6;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .proj-oneliner {
